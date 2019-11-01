@@ -29,7 +29,7 @@ public class Pathfinder : MonoBehaviour
 
         while(gameMap.Count > 0)
         {
-            var pathTile = Map.OrderBy(t => distDictionary[t]).First();
+            var pathTile = gameMap.OrderBy(t => distDictionary[t]).First();
 
             bool searchComplete = pathTile.AdjacentTiles().Any(t => searchCriteria(t));
 
@@ -53,7 +53,56 @@ public class Pathfinder : MonoBehaviour
         {
             return PathFromDictionary(pathDictionary, ref targetTile);
         }
+    }
 
+    public iMapTile[] GetTilesInRange(iMapTile start, float range)
+    {
+        var distDictionary = new Dictionary<iMapTile, float>();
+
+        var gameMap = Map.ToList();
+        var traversableTerrain = new HashSet<iMapTile>();
+
+        foreach (var node in gameMap)
+        {
+            distDictionary.Add(node, float.PositiveInfinity);
+        }
+
+        distDictionary[start] = 0;
+
+        while(gameMap.Count > 0)
+        {
+            var pathTile = gameMap.OrderBy(t => distDictionary[t]).First();
+
+            if(distDictionary[pathTile] > range)
+            {
+                break;
+            }
+
+            gameMap.Remove(pathTile);
+
+            foreach (var tile in pathTile.AdjacentTiles().Where(t => t.Occupied == false))
+            {
+                float pathLength = Vector2.Distance(new Vector2(tile.XCord, tile.YCord), new Vector2(pathTile.XCord, pathTile.YCord)) * tile.MoveModifier;
+                pathLength += distDictionary[pathTile];
+
+                //If distanceDictionary[pathTile] is infinite, then tile has not been explored, or a shorter path has been found
+                if(pathLength < distDictionary[pathTile])
+                {
+                    //If path is out of range, exclude it from future searches
+                    if (pathLength > range)
+                    {
+                        gameMap.Remove(tile);
+                    }
+                    else
+                    {
+                        distDictionary[tile] = pathLength;
+                        traversableTerrain.Add(tile);
+                    }
+                }                
+            }
+        }
+
+        return traversableTerrain.ToArray();
     }
 
     private static void SearchAdjacentTiles(Dictionary<iMapTile, iMapTile> pathDictionary, Dictionary<iMapTile, float> distDictionary, iMapTile pathTile)
@@ -69,6 +118,7 @@ public class Pathfinder : MonoBehaviour
             }
         }
     }
+       
 
     private static iMapTile[] PathFromDictionary(Dictionary<iMapTile, iMapTile> pathDictionary, ref iMapTile targetTile)
     {
@@ -79,7 +129,6 @@ public class Pathfinder : MonoBehaviour
             var step = pathDictionary[targetTile];
             foundPath.Add(step);
             targetTile = step;
-
         }
 
         foundPath.Reverse();
