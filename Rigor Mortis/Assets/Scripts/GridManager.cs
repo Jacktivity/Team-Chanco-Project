@@ -10,6 +10,7 @@ using System.Linq;
 public class GridManager : MonoBehaviour
 {
     public GameObject[] tiles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,12 +32,12 @@ public class GridManager : MonoBehaviour
         var maplines = map.mapline.Select(m => m.value.Split(',').Select(v => int.Parse(v)).ToArray()).ToArray();
 
         var anonMap = map.mapline.SelectMany((m,x) => m.value.Split(',').Select((v,z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
-
         foreach(var pos in anonMap)
         {
-            if(pos.Value > 0)
+            if(pos.Value >= 0)
             {
-                Instantiate(tiles[pos.Value - 1], new Vector3(pos.XPos, 0, pos.ZPos), new Quaternion());
+                GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, 0, pos.ZPos), new Quaternion());
+                tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, 0, pos.ZPos);
             }
         }
     }
