@@ -448,8 +448,9 @@ GameObject:
   - component: {fileID: 1194123699}
   - component: {fileID: 1194123698}
   - component: {fileID: 1194123702}
+  - component: {fileID: 1194123703}
   m_Layer: 0
-  m_Name: Player1
+  m_Name: Necromancer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -540,6 +541,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1194123703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194123697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8614efeae02c49a4a8de289da2581492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  hitPoints: 0
+  accuracy: 0
+  power: 0
+  evade: 0
+  armour: 0
+  resistance: 0
+  movementSpeed: 0
+  manaPoints: 0
+  isFlying: 0
 --- !u!1 &1316520954
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,8 +576,9 @@ GameObject:
   - component: {fileID: 1316520956}
   - component: {fileID: 1316520955}
   - component: {fileID: 1316520959}
+  - component: {fileID: 1316520960}
   m_Layer: 0
-  m_Name: Player3
+  m_Name: SpectralSkeleton
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,6 +669,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1316520960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316520954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec24bf306321f744ba7cfc451aa382d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 30
+  hitPoints: 15
+  accuracy: 75
+  power: 5
+  evade: 25
+  armour: 3
+  resistance: 1
+  movementSpeed: 5
+  manaPoints: 20
+  isFlying: 0
 --- !u!1 &1698810722
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,8 +704,9 @@ GameObject:
   - component: {fileID: 1698810724}
   - component: {fileID: 1698810723}
   - component: {fileID: 1698810727}
+  - component: {fileID: 1698810728}
   m_Layer: 0
-  m_Name: Player2
+  m_Name: Skeleton
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -750,6 +797,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1698810728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698810722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec24bf306321f744ba7cfc451aa382d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 10
+  hitPoints: 20
+  accuracy: 75
+  power: 7
+  evade: 25
+  armour: 3
+  resistance: 1
+  movementSpeed: 5
+  manaPoints: 0
+  isFlying: 0
 --- !u!1 &1839869774
 GameObject:
   m_ObjectHideFlags: 0
