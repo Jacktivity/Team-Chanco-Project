@@ -73,7 +73,8 @@ public class Pathfinder : MonoBehaviour
         {
             var pathTile = gameMap.OrderBy(t => distDictionary[t]).First();
 
-            if(distDictionary[pathTile] > range)
+            //If all traversible tiles do not contain unchecked nodes
+            if(traversableTerrain.All(t => t.AdjacentTiles().All(a => distDictionary[a] != float.PositiveInfinity)))
             {
                 break;
             }
@@ -88,14 +89,9 @@ public class Pathfinder : MonoBehaviour
                 //If distanceDictionary[pathTile] is infinite, then tile has not been explored, or a shorter path has been found
                 if(pathLength < distDictionary[pathTile])
                 {
-                    //If path is out of range, exclude it from future searches
-                    if (pathLength > range)
+                    distDictionary[tile] = pathLength;
+                    if (pathLength < range)
                     {
-                        gameMap.Remove(tile);
-                    }
-                    else
-                    {
-                        distDictionary[tile] = pathLength;
                         traversableTerrain.Add(tile);
                     }
                 }                
