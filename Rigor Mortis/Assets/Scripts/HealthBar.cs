@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public GameObject unit;
-    Character character;
+    [SerializeField]Character character;
     public Slider slider;
     public float offset = 0.75f;
 
