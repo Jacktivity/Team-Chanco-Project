@@ -9,12 +9,25 @@ using System.Linq;
 
 public class GridManager : MonoBehaviour
 {
-    public GameObject[] tiles;
+    [SerializeField] private GameObject[] tiles;
+    [SerializeField] private GameObject enemyContainter;
+    [SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private GameObject playerContainter;
+    [SerializeField] private GameObject[] playerPrefabs;
+    [SerializeField] private TextAsset levelMap;
+    [SerializeField] private GameObject SelectedUnit;
+
+    private int placementPoints;
+
+    GridXML.levels xmlData;
 
     // Start is called before the first frame update
     void Start()
     {
+        xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
         GenerateLevel();
+        PlaceEnemy();
+        UnitPlacement();
     }
 
     /**
@@ -26,23 +39,82 @@ public class GridManager : MonoBehaviour
      * */
     void GenerateLevel()
     {
-        var xml = XmlReader<xml.levels>.ReadXML("./Assets/Levels/test_map.xml");
+        var level = xmlData.level;
+       
+        var maplines = level.map.mapline.Select(m => m.value.Split(',').Select(v => int.Parse(v)).ToArray()).ToArray();
 
-        var map = xml.level.First(m => m.name == "test-level");
-        var maplines = map.mapline.Select(m => m.value.Split(',').Select(v => int.Parse(v)).ToArray()).ToArray();
-
-        var anonMap = map.mapline.SelectMany((m,x) => m.value.Split(',').Select((v,z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
+        var anonMap = level.map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
         foreach(var pos in anonMap)
         {
-            if(pos.Value >= 0)
+            if (pos.Value >= 0)
             {
+<<<<<<< HEAD
                 GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, 0, pos.ZPos), new Quaternion(),transform);
                 tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, 0, pos.ZPos);
 
                 tile.name += "x" + tile.GetComponent<BlockScript>().coordinates.x + "y" + tile.GetComponent<BlockScript>().coordinates.z;
+=======
+                GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, 0, pos.ZPos), new Quaternion(), gameObject.transform);
+                tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, 0, pos.ZPos);
+                tile.name = tile.name.Replace("(Clone)", "");
+                tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
+>>>>>>> origin/Grid_Generator
             }
         }
+
+        placementPoints = level.map.placementPoints;
     }
+
+    void PlaceEnemy()
+    {
+        var enemies = xmlData.level.enemies;
+
+        foreach(var enemy in enemies)
+        {
+            GameObject placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, 1, enemy.posZ), new Quaternion(), enemyContainter.transform);
+            placedEnemy.name = enemy.name;
+        }
+    }
+
+    void UnitPlacement()
+    {
+        var placeables = xmlData.level.placeables;
+
+        var map = gameObject.GetComponentsInChildren<BlockScript>();
+
+        var placeableTiles = placeables.Select(s => map.First(tile => tile.coordinates.x == s.posX && tile.coordinates.z == s.posZ));
+
+        foreach(var placeable in placeableTiles)
+        {
+            placeable.placeable = true;
+        }
+    }
+
+    public void spawnUnit(Vector3 location)
+    {
+        Instantiate(SelectedUnit, location, new Quaternion(), playerContainter.transform);
+    }
+    public GameObject getSelectedUnit()
+    {
+        return SelectedUnit;
+    }
+    public void setSelectedUnit(GameObject unit)
+    {
+        SelectedUnit = unit;
+    }
+    public void resetSelectedUnit()
+    {
+        SelectedUnit = null;
+    }
+    public int getPlacementPoints()
+    {
+        return placementPoints;
+    }
+    public void reducePlacementPoints(int reduction)
+    {
+        placementPoints -= reduction;
+    }
+
     /**
      * This is the xml reader that will get the file by path
      * Serialise the data of the xml
@@ -51,13 +123,11 @@ public class GridManager : MonoBehaviour
      */
     public class XmlReader<T> where T : class
     {
-        public static T ReadXML(string path)
+        public static T ReadXMLAsBytes(byte[] xmlData)
         {
             var _serializer = new XmlSerializer(typeof(T));
 
-            var xml = File.ReadAllBytes(path);
-
-            using (var memoryStream = new MemoryStream(xml))
+            using (var memoryStream = new MemoryStream(xmlData))
             {
                 using (var reader = new XmlTextReader(memoryStream))
                 {
@@ -67,7 +137,7 @@ public class GridManager : MonoBehaviour
         }
     }
 }
-namespace xml
+namespace GridXML
 {
 
     // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
@@ -79,11 +149,10 @@ namespace xml
     public partial class levels
     {
 
-        private levelsLevel[] levelField;
+        private levelsLevel levelField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("level")]
-        public levelsLevel[] level
+        public levelsLevel level
         {
             get
             {
@@ -103,13 +172,68 @@ namespace xml
     public partial class levelsLevel
     {
 
-        private levelsLevelMapline[] maplineField;
+        private levelsLevelMap mapField;
 
-        private string nameField;
+        private levelsLevelEnemy[] enemiesField;
+
+        private levelsLevelPlaceable[] placeablesField;
+
+        /// <remarks/>
+        public levelsLevelMap map
+        {
+            get
+            {
+                return this.mapField;
+            }
+            set
+            {
+                this.mapField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("enemy", IsNullable = false)]
+        public levelsLevelEnemy[] enemies
+        {
+            get
+            {
+                return this.enemiesField;
+            }
+            set
+            {
+                this.enemiesField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("placeable", IsNullable = false)]
+        public levelsLevelPlaceable[] placeables
+        {
+            get
+            {
+                return this.placeablesField;
+            }
+            set
+            {
+                this.placeablesField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsLevelMap
+    {
+
+        private levelsLevelMapMapline[] maplineField;
+
+        private byte placementPointsField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("map-line")]
-        public levelsLevelMapline[] mapline
+        public levelsLevelMapMapline[] mapline
         {
             get
             {
@@ -123,15 +247,15 @@ namespace xml
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
+        public byte placementPoints
         {
             get
             {
-                return this.nameField;
+                return this.placementPointsField;
             }
             set
             {
-                this.nameField = value;
+                this.placementPointsField = value;
             }
         }
     }
@@ -140,7 +264,7 @@ namespace xml
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelMapline
+    public partial class levelsLevelMapMapline
     {
 
         private string valueField;
@@ -159,6 +283,119 @@ namespace xml
             }
         }
     }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsLevelEnemy
+    {
+
+        private string nameField;
+
+        private byte typeField;
+
+        private byte posXField;
+
+        private byte posZField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte type
+        {
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posX
+        {
+            get
+            {
+                return this.posXField;
+            }
+            set
+            {
+                this.posXField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posZ
+        {
+            get
+            {
+                return this.posZField;
+            }
+            set
+            {
+                this.posZField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsLevelPlaceable
+    {
+
+        private byte posXField;
+
+        private byte posZField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posX
+        {
+            get
+            {
+                return this.posXField;
+            }
+            set
+            {
+                this.posXField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posZ
+        {
+            get
+            {
+                return this.posZField;
+            }
+            set
+            {
+                this.posZField = value;
+            }
+        }
+    }
+
 
 
 }
