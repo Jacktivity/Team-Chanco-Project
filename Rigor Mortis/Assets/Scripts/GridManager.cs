@@ -15,15 +15,19 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject playerContainter;
     [SerializeField] private GameObject[] playerPrefabs;
     [SerializeField] private TextAsset levelMap;
+    [SerializeField] private GameObject SelectedUnit;
 
-    xml.levels xmlData;
+    private int placementPoints;
+
+    GridXML.levels xmlData;
 
     // Start is called before the first frame update
     void Start()
     {
-        xmlData = XmlReader<xml.levels>.ReadXMLAsBytes(levelMap.bytes);
+        xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
         GenerateLevel();
         PlaceEnemy();
+        UnitPlacement();
     }
 
     /**
@@ -37,9 +41,9 @@ public class GridManager : MonoBehaviour
     {
         var level = xmlData.level;
        
-        var maplines = level.map.Select(m => m.value.Split(',').Select(v => int.Parse(v)).ToArray()).ToArray();
+        var maplines = level.map.mapline.Select(m => m.value.Split(',').Select(v => int.Parse(v)).ToArray()).ToArray();
 
-        var anonMap = level.map.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
+        var anonMap = level.map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
         foreach(var pos in anonMap)
         {
             if (pos.Value >= 0)
@@ -50,20 +54,58 @@ public class GridManager : MonoBehaviour
                 tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
             }
         }
+
+        placementPoints = level.map.placementPoints;
     }
 
     void PlaceEnemy()
     {
-        var level = xmlData.level;
-        var enemies = level.enemies;
+        var enemies = xmlData.level.enemies;
 
         foreach(var enemy in enemies)
         {
             GameObject placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, 1, enemy.posZ), new Quaternion(), enemyContainter.transform);
             placedEnemy.name = enemy.name;
         }
-        GameObject placedPlayer = Instantiate(playerPrefabs[0], new Vector3( 7,1, 10), new Quaternion(), playerContainter.transform);
-        placedPlayer.name = "target";
+    }
+
+    void UnitPlacement()
+    {
+        var placeables = xmlData.level.placeables;
+
+        var map = gameObject.GetComponentsInChildren<BlockScript>();
+
+        var placeableTiles = placeables.Select(s => map.First(tile => tile.coordinates.x == s.posX && tile.coordinates.z == s.posZ));
+
+        foreach(var placeable in placeableTiles)
+        {
+            placeable.placeable = true;
+        }
+    }
+
+    public void spawnUnit(Vector3 location)
+    {
+        Instantiate(SelectedUnit, location, new Quaternion(), playerContainter.transform);
+    }
+    public GameObject getSelectedUnit()
+    {
+        return SelectedUnit;
+    }
+    public void setSelectedUnit(GameObject unit)
+    {
+        SelectedUnit = unit;
+    }
+    public void resetSelectedUnit()
+    {
+        SelectedUnit = null;
+    }
+    public int getPlacementPoints()
+    {
+        return placementPoints;
+    }
+    public void reducePlacementPoints(int reduction)
+    {
+        placementPoints -= reduction;
     }
 
     /**
@@ -74,21 +116,6 @@ public class GridManager : MonoBehaviour
      */
     public class XmlReader<T> where T : class
     {
-        public static T ReadXML(string path)
-        {
-            var _serializer = new XmlSerializer(typeof(T));
-
-            var xml = File.ReadAllBytes(path);
-
-            using (var memoryStream = new MemoryStream(xml))
-            {
-                using (var reader = new XmlTextReader(memoryStream))
-                {
-                    return (T)_serializer.Deserialize(reader);
-                }
-            }
-        }
-
         public static T ReadXMLAsBytes(byte[] xmlData)
         {
             var _serializer = new XmlSerializer(typeof(T));
@@ -103,9 +130,8 @@ public class GridManager : MonoBehaviour
         }
     }
 }
-namespace xml
+namespace GridXML
 {
-
 
     // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
     /// <remarks/>
@@ -139,13 +165,14 @@ namespace xml
     public partial class levelsLevel
     {
 
-        private levelsLevelMapline[] mapField;
+        private levelsLevelMap mapField;
 
         private levelsLevelEnemy[] enemiesField;
 
+        private levelsLevelPlaceable[] placeablesField;
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("map-line", IsNullable = false)]
-        public levelsLevelMapline[] map
+        public levelsLevelMap map
         {
             get
             {
@@ -170,13 +197,67 @@ namespace xml
                 this.enemiesField = value;
             }
         }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("placeable", IsNullable = false)]
+        public levelsLevelPlaceable[] placeables
+        {
+            get
+            {
+                return this.placeablesField;
+            }
+            set
+            {
+                this.placeablesField = value;
+            }
+        }
     }
 
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelMapline
+    public partial class levelsLevelMap
+    {
+
+        private levelsLevelMapMapline[] maplineField;
+
+        private byte placementPointsField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("map-line")]
+        public levelsLevelMapMapline[] mapline
+        {
+            get
+            {
+                return this.maplineField;
+            }
+            set
+            {
+                this.maplineField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte placementPoints
+        {
+            get
+            {
+                return this.placementPointsField;
+            }
+            set
+            {
+                this.placementPointsField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsLevelMapMapline
     {
 
         private string valueField;
@@ -267,6 +348,47 @@ namespace xml
             }
         }
     }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsLevelPlaceable
+    {
+
+        private byte posXField;
+
+        private byte posZField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posX
+        {
+            get
+            {
+                return this.posXField;
+            }
+            set
+            {
+                this.posXField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posZ
+        {
+            get
+            {
+                return this.posZField;
+            }
+            set
+            {
+                this.posZField = value;
+            }
+        }
+    }
+
 
 
 }

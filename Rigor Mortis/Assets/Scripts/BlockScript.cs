@@ -6,15 +6,40 @@ public class BlockScript : MonoBehaviour
 {
     public Vector3 coordinates;
     public GameObject N, NE, E, SE, S, SW, W, NW, occupier;
-    
+    public GridManager manager;
+    public bool placeable;
+    public Color origin;
     // Start is called before the first frame update
     void Start()
     {
+        manager = gameObject.transform.parent.GetComponent<GridManager>();
+        origin = gameObject.GetComponent<Renderer>().material.color;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(placeable)
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+            if(manager.getPlacementPoints() <= 0)
+            {
+                placeable = false;
+                gameObject.GetComponent<Renderer>().material.color = origin;
+            }
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        int costOfUnit = 1;
+        if (manager.getSelectedUnit() != null && (manager.getPlacementPoints() - costOfUnit) >= 0)
+        {
+            manager.spawnUnit(new Vector3(transform.position.x, 1, transform.position.z));
+            manager.resetSelectedUnit();
+            manager.reducePlacementPoints(costOfUnit);
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -25,10 +50,10 @@ public class BlockScript : MonoBehaviour
         {
             Vector3 newCoord = coordinates - contact.GetComponent<BlockScript>().coordinates;
 
-            switch(newCoord.z)
+            switch ((int)newCoord.z)
             {
                 case 0:
-                    switch (newCoord.x)
+                    switch ((int)newCoord.x)
                     {
                         case -1:
                             E = contact;
@@ -41,7 +66,7 @@ public class BlockScript : MonoBehaviour
                     }
                     break;
                 case -1:
-                    switch (newCoord.x)
+                    switch ((int)newCoord.x)
                     {
                         case -1:
                             NE = contact;
@@ -57,7 +82,7 @@ public class BlockScript : MonoBehaviour
                     }
                     break;
                 case 1:
-                    switch (newCoord.x)
+                    switch ((int)newCoord.x)
                     {
                         case -1:
                             SE = contact;
