@@ -13,6 +13,10 @@ public class Character : MonoBehaviour
 
     public HashSet<Attacks> attacks;
 
+    public bool hasTurn;
+    [SerializeField] GameObject floor;
+    //TurnManager turnManager;
+
     private void Start()
     {
         attacks = new HashSet<Attacks>();
@@ -56,5 +60,13 @@ public class Character : MonoBehaviour
     public float GetHealth()
     {
         return hitPoints;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Floor")
+        {
+            floor = collision.transform.gameObject;
+        }
     }
 }
