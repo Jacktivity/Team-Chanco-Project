@@ -6,11 +6,16 @@ using System.Linq;
 public class BlockScript : MonoBehaviour
 {
     public Vector3 coordinates;
-    public GameObject N, NE, E, SE, S, SW, W, NW, occupier;
-
     public GridManager manager;
     public bool placeable;
     public Color origin;
+    public float MoveModifier = 1;
+    public bool Traversable { get; private set; }
+    public bool Occupied => occupier != null;
+
+    public GameObject N, NE, E, SE, S, SW, W, NW, occupier;
+    public BlockScript[] AdjacentTiles() => new GameObject[] { N, NE, E, SE, S, SW, W, W, NE }.Where(s => s != null).Select(go => go.GetComponent<BlockScript>()).Where(t => t.Occupied == false).ToArray();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,12 +33,18 @@ public class BlockScript : MonoBehaviour
         }
     }
 
-    public float MoveModifier = 1;
-    public bool Traversable { get; private set; }
+    private void Update()
+    {
 
-    public bool Occupied => occupier != null;
-
-    public BlockScript[] AdjacentTiles() => new GameObject[] { N, NE, E, SE, S, SW, W, W, NE }.Where(s => s != null).Select(go => go.GetComponent<BlockScript>()).Where(t => t.Occupied == false).ToArray();
+        if (placeable)
+        {
+            if (manager.getPlacementPoints() <= 0)
+            {
+                placeable = false;
+                gameObject.GetComponent<Renderer>().material.color = origin;
+            }
+        }
+    }
 
     private void OnMouseDown()
     {
