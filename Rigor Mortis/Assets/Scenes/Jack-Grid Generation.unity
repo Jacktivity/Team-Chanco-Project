@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 411395488}
   - component: {fileID: 411395487}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GridGenrator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,6 +144,13 @@ MonoBehaviour:
   tiles:
   - {fileID: 3351411145026690899, guid: d97985ffba5394441ac5eed483f38df1, type: 3}
   - {fileID: 7147944759944686706, guid: 6e3fe52d3d8ec6d4a80f8e7e07b7e4f2, type: 3}
+  enemyContainter: {fileID: 813066464}
+  enemyPrefabs:
+  - {fileID: 5686163272956172177, guid: edb40a9c32fa1d0468c4eb3e02b25b0b, type: 3}
+  playerContainter: {fileID: 2124585193}
+  playerPrefabs:
+  - {fileID: 2924914681836274734, guid: 3f819d25698f8af408f0d42edfebced9, type: 3}
+  levelMap: {fileID: 4900000, guid: 5d53cd61e9db6c1418665f6455be2158, type: 3}
 --- !u!4 &411395488
 Transform:
   m_ObjectHideFlags: 0
@@ -227,6 +234,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &813066464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 813066465}
+  m_Layer: 0
+  m_Name: EnemyContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &813066465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813066464}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.60280704, y: 0.77362347, z: 4.1075616}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1741087674
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,3 +346,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &2124585193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2124585194}
+  m_Layer: 0
+  m_Name: PlayerContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2124585194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124585193}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2984751, y: -16.926374, z: 12.452469}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
