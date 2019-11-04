@@ -1,37 +1,4 @@
 <levels>
-<<<<<<< HEAD
-  <level name ="test-level">
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-  </level>
-  <level name ="test-level2">
-    <map-line value ="-1,0,0,-1,0,-1"/>
-    <map-line value ="-1,0,0,-1,0,-1"/>
-    <map-line value ="-1,0,0,-1,0,-1"/>
-    <map-line value ="-1,0,0,-1,0,-1"/>
-  </level>
-  <level name ="test-level3">
-    <map-line value ="-1,0,0,-1,0,-1"/>
-    <map-line value ="-1,0,0,-1,0,-1"/>
-    <map-line value ="-1,0,0,-1,0,-1"/>
-    <map-line value ="-1,0,0,-1,0,-1"/>
-  </level>
-  <level name ="test-level4">
-    <map-line value ="-1,0,0,-1,0,-1"/>
-    <map-line value ="-1,0,0,-1,0,-1"/>
-    <map-line value ="-1,0,0,-1,0,-1"/>
-    <map-line value ="-1,0,0,-1,0,-1"/>
-=======
   <level>
     <map placementPoints ="2">
       <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
@@ -52,6 +19,5 @@
       <placeable posX="7" posZ="9"/>
       <placeable posX="7" posZ="8"/>
     </placeables>
->>>>>>> origin/Grid_Generator
   </level>
 </levels>

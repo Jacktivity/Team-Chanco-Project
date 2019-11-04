@@ -7,8 +7,7 @@ public class BlockScript : MonoBehaviour
 {
     public Vector3 coordinates;
     public GameObject N, NE, E, SE, S, SW, W, NW, occupier;
-<<<<<<< HEAD
-=======
+
     public GridManager manager;
     public bool placeable;
     public Color origin;
@@ -17,8 +16,17 @@ public class BlockScript : MonoBehaviour
     {
         manager = gameObject.transform.parent.GetComponent<GridManager>();
         origin = gameObject.GetComponent<Renderer>().material.color;
+
+        if (placeable)
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+            if (manager.getPlacementPoints() <= 0)
+            {
+                placeable = false;
+                gameObject.GetComponent<Renderer>().material.color = origin;
+            }
+        }
     }
->>>>>>> origin/Grid_Generator
 
     public float MoveModifier = 1;
     public bool Traversable { get; private set; }
@@ -26,19 +34,6 @@ public class BlockScript : MonoBehaviour
     public bool Occupied => occupier != null;
 
     public BlockScript[] AdjacentTiles() => new GameObject[] { N, NE, E, SE, S, SW, W, W, NE }.Where(s => s != null).Select(go => go.GetComponent<BlockScript>()).Where(t => t.Occupied == false).ToArray();
-
-    private void Start()
-    {
-        if(placeable)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-            if(manager.getPlacementPoints() <= 0)
-            {
-                placeable = false;
-                gameObject.GetComponent<Renderer>().material.color = origin;
-            }
-        }
-    }
 
     private void OnMouseDown()
     {
