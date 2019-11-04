@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BlockScript : MonoBehaviour
 {
     public Vector3 coordinates;
     public GameObject N, NE, E, SE, S, SW, W, NW, occupier;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
-    void Update()
+    public float MoveModifier = 1;
+    public bool Traversable { get; private set; }
+
+    public bool Occupied => occupier != null;
+
+    public BlockScript[] AdjacentTiles() => new GameObject[] { N, NE, E, SE, S, SW, W, W, NE }.Where(s => s != null).Select(go => go.GetComponent<BlockScript>()).Where(t => t.Occupied == false).ToArray();
+
+    private void Start()
     {
     }
 
@@ -80,5 +82,6 @@ public class BlockScript : MonoBehaviour
             occupier = contact;
         }
     }
+
 
 }

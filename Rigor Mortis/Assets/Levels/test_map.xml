@@ -1,12 +1,16 @@
 <levels>
   <level name ="test-level">
     <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
-    <map-line value ="0,-1,0,-1,0,0,0,0,-1,0,-1,0"/>
-    <map-line value ="0,-1,0,-1,0,0,0,0,-1,0,-1,0"/>
-    <map-line value ="0,0,0,0,1,1,1,1,0,0,0,0"/>
-    <map-line value ="0,0,0,0,1,1,1,1,0,0,0,0"/>
-    <map-line value ="0,-1,0,-1,0,0,0,0,-1,0,-1,0"/>
-    <map-line value ="0,-1,0,-1,0,0,0,0,-1,0,-1,0"/>
+    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
     <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
   </level>
   <level name ="test-level2">

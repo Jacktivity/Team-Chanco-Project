@@ -6,16 +6,16 @@ using System;
 
 public class Pathfinder : MonoBehaviour
 {
-    public iMapTile[] Map => GetComponentsInChildren<iMapTile>().Where(t => t.Occupied == false).ToArray();
+    public BlockScript[] Map => GetComponentsInChildren<BlockScript>().Where(t => t.Occupied == false).ToArray();
     
-    public iMapTile[] CompleteMap => GetComponentsInChildren<iMapTile>();
+    public BlockScript[] CompleteMap => GetComponentsInChildren<BlockScript>();
 
-    public iMapTile[] GetPath(iMapTile start, Func<iMapTile,bool> searchCriteria)
+    public BlockScript[] GetPath(BlockScript start, Func<BlockScript,bool> searchCriteria)
     {
-        var pathDictionary = new Dictionary<iMapTile, iMapTile>();
-        var distDictionary = new Dictionary<iMapTile, float>();
+        var pathDictionary = new Dictionary<BlockScript, BlockScript>();
+        var distDictionary = new Dictionary<BlockScript, float>();
 
-        iMapTile targetTile = null;
+        BlockScript targetTile = null;
 
         var gameMap = Map.ToList();
 
@@ -47,7 +47,7 @@ public class Pathfinder : MonoBehaviour
         if (targetTile == null)
         {
             //No path found to target, return empty path
-            return new iMapTile[] { };
+            return new BlockScript[] { };
         }
         else
         {
@@ -55,12 +55,12 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    public iMapTile[] GetTilesInRange(iMapTile start, float range)
+    public BlockScript[] GetTilesInRange(BlockScript start, float range)
     {
-        var distDictionary = new Dictionary<iMapTile, float>();
+        var distDictionary = new Dictionary<BlockScript, float>();
 
         var gameMap = Map.ToList();
-        var traversableTerrain = new HashSet<iMapTile>();
+        var traversableTerrain = new HashSet<BlockScript>() { start };
 
         foreach (var node in gameMap)
         {
@@ -73,39 +73,51 @@ public class Pathfinder : MonoBehaviour
         {
             var pathTile = gameMap.OrderBy(t => distDictionary[t]).First();
 
-            //If all traversible tiles do not contain unchecked nodes
-            if(traversableTerrain.All(t => t.AdjacentTiles().All(a => distDictionary[a] != float.PositiveInfinity)))
-            {
-                break;
-            }
+            ////If all traversible tiles do not contain unchecked nodes
+            //if(traversableTerrain.All(t => t.AdjacentTiles().All(a => distDictionary[a] != float.PositiveInfinity)))
+            //{
+            //    break;
+            //}
 
             gameMap.Remove(pathTile);
 
             foreach (var tile in pathTile.AdjacentTiles().Where(t => t.Occupied == false))
             {
-                float pathLength = Vector2.Distance(new Vector2(tile.XCord, tile.YCord), new Vector2(pathTile.XCord, pathTile.YCord)) * tile.MoveModifier;
+                float pathLength = Vector2.Distance(new Vector2(tile.coordinates.x, tile.coordinates.z),
+                    new Vector2(pathTile.coordinates.x, pathTile.coordinates.z))
+                    * tile.MoveModifier;
                 pathLength += distDictionary[pathTile];
 
                 //If distanceDictionary[pathTile] is infinite, then tile has not been explored, or a shorter path has been found
-                if(pathLength < distDictionary[pathTile])
+                if(pathLength < distDictionary[tile])
                 {
                     distDictionary[tile] = pathLength;
-                    if (pathLength < range)
-                    {
-                        traversableTerrain.Add(tile);
-                    }
+                    traversableTerrain.Add(tile);
+                    //if (pathLength < range)
+                    //{
+                        
+                    //}
                 }                
             }
         }
 
-        return traversableTerrain.ToArray();
+        var check = distDictionary;
+
+        return traversableTerrain.Where(t => distDictionary[t] <= range).ToArray();
     }
 
-    private static void SearchAdjacentTiles(Dictionary<iMapTile, iMapTile> pathDictionary, Dictionary<iMapTile, float> distDictionary, iMapTile pathTile)
+    public void DELETEPathTileTest(BlockScript block)
+    {
+        var x = block;
+    }
+
+    private static void SearchAdjacentTiles(Dictionary<BlockScript, BlockScript> pathDictionary, Dictionary<BlockScript, float> distDictionary, BlockScript pathTile)
     {
         foreach (var tile in pathTile.AdjacentTiles().Where(t => t.Occupied == false))
         {
-            float pathLength = Vector2.Distance(new Vector2(tile.XCord, tile.YCord), new Vector2(pathTile.XCord, pathTile.YCord)) * tile.MoveModifier;
+            float pathLength = Vector2.Distance(new Vector2(tile.coordinates.x, tile.coordinates.z),
+                new Vector2(pathTile.coordinates.x, pathTile.coordinates.z))
+                * tile.MoveModifier;
             pathLength += distDictionary[pathTile];
             if (pathLength < distDictionary[tile])
             {
@@ -116,9 +128,9 @@ public class Pathfinder : MonoBehaviour
     }
        
 
-    private static iMapTile[] PathFromDictionary(Dictionary<iMapTile, iMapTile> pathDictionary, ref iMapTile targetTile)
+    private static BlockScript[] PathFromDictionary(Dictionary<BlockScript, BlockScript> pathDictionary, ref BlockScript targetTile)
     {
-        var foundPath = new List<iMapTile>();
+        var foundPath = new List<BlockScript>();
 
         while (targetTile != null)
         {

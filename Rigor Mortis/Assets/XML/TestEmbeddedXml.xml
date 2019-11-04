@@ -1,3 +1,20 @@
 ﻿<TestXml>
   <Data name ="TestXmlDataRead"/>
+    <!--<Enemies>
+      <Enemy type="1" xPos="0" yPos="1"/>
+      <Enemy type="1" xPos="0" yPos="2"/>
+      <Enemy type="1" xPos="0" yPos="3"/>
+      <Enemy type="1" xPos="0" yPos="4"/>
+      <Enemy type="1" xPos="0" yPos="5"/>
+      <Enemy type="1" xPos="0" yPos="6"/>
+    </Enemies>
+  <SpawnPositions>
+    <Position x="2" y="0"/>
+    <Position x="1" y="0"/>
+    <Position x="0" y="0"/>
+    <Position x="2" y="1"/>
+    <Position x="2" y="2"/>
+    <Position x="2" y="3"/>
+    <Position x="2" y="4"/>
+  </SpawnPositions>-->
 </TestXml>

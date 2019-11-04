@@ -36,8 +36,10 @@ public class GridManager : MonoBehaviour
         {
             if(pos.Value >= 0)
             {
-                GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, 0, pos.ZPos), new Quaternion());
+                GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, 0, pos.ZPos), new Quaternion(),transform);
                 tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, 0, pos.ZPos);
+
+                tile.name += "x" + tile.GetComponent<BlockScript>().coordinates.x + "y" + tile.GetComponent<BlockScript>().coordinates.z;
             }
         }
     }
