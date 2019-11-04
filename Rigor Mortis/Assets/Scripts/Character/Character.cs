@@ -1,53 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Character : MonoBehaviour
 {
     //0 = necromancer, 1 = skeleton, 2 = SteamingSkull, 3 = SpectralSkeleton, 4 = TombGuard
-    public int cost, hitPoints, accuracy, power, evade, armour, resistance, movementSpeed, manaPoints;
-
-    protected enum MeleeAttack { StaffWhack, RustySword, SpectralSword, Whack };
-    protected enum SpellAttack { TeslaStab, TeslaZap, Zap };
-    protected enum RangedAttack { ClockworkRifle };
-
-    private MeleeAttack[] meleeAttacks;
-    private SpellAttack[] spellAttacks;
-    private RangedAttack[] rangedAttacks;
-
+    public int cost, hitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
+    
     public bool isFlying;
     public bool isCaptain;
 
+    public HashSet<Attacks> attacks;
+
     private void Start()
     {
+        attacks = new HashSet<Attacks>();
         AssignUnit();
     }
 
     public void AssignUnit()
     {
-        switch(transform.name)
+        switch (transform.name)
         {
             case ("Necromancer"):
-                meleeAttacks = new MeleeAttack[] { MeleeAttack.StaffWhack };
-                spellAttacks = new SpellAttack[] { SpellAttack.TeslaStab, SpellAttack.TeslaZap };
-                spellAttacks = SpellAttack.Zap;
+                attacks.Add(AttackLibrary.attacks.First(a => a.name == "StaffWhack"));
+                attacks.Add(AttackLibrary.attacks.First(a => a.name == "TeslaStab"));
+                attacks.Add(AttackLibrary.attacks.First(a => a.name == "TeslaZap"));
                 break;
 
             case ("Skeleton"):
-                meleeAttacks = new MeleeAttack[] { MeleeAttack.RustySword };
+                attacks.Add(AttackLibrary.attacks.First(a => a.name == "RustySword"));
                 break;
 
-            case ("SteamingSkull"):
-                meleeAttacks = new MeleeAttack[] { MeleeAttack.Whack };
-                spellAttacks = new SpellAttack[] { SpellAttack.Zap };
+           case ("SteamingSkull"):
+                attacks.Add(AttackLibrary.attacks.First(a => a.name == "Whack"));
+                attacks.Add(AttackLibrary.attacks.First(a => a.name == "Zap"));
                 break;
 
             case ("SpectralSkeleton"):
-                meleeAttacks = new MeleeAttack[] { MeleeAttack.SpectralSword };
+                attacks.Add(AttackLibrary.attacks.First(a => a.name == "SpectralSword"));
                 break;
 
             case ("TombGuard"):
-                meleeAttacks = new MeleeAttack[] { MeleeAttack.RustySword };
+                attacks.Add(AttackLibrary.attacks.First(a => a.name == "RustySword"));
                 break;
         }
     }
