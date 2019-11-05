@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
 
     public TurnManager turnManager;
     public UIManager uiManager;
+    public Pathfinder pathfinder;
     public bool hasTurn;
     public BlockScript floor;
     bool moving = false;
@@ -108,6 +109,15 @@ public class Character : MonoBehaviour
                 if (uiManager.attackerAssigned && uiManager.targetAssigned == false && tag == "Enemy")
                 {
                     uiManager.AssignTarget(this);
+                }
+            }
+            if(!uiManager.waiting && !uiManager.attacking )
+            {
+                var moveArea = pathfinder.GetTilesInRange(floor, movementSpeed, false);
+
+                foreach(var tile in moveArea)
+                {
+                    tile.GetComponent<Renderer>().material.color = Color.blue;
                 }
             }
         }

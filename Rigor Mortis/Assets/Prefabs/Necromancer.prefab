@@ -104,7 +104,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
@@ -134,5 +134,6 @@ MonoBehaviour:
   isFlying: 0
   isCaptain: 1
   turnManager: {fileID: 0}
+  uiManager: {fileID: 0}
   hasTurn: 1
   floor: {fileID: 0}

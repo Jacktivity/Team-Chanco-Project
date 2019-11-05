@@ -26,7 +26,7 @@ public class BlockScript : MonoBehaviour
         if (placeable)
         {
             gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-            if (manager.getPlacementPoints() <= 0)
+            if (manager.GetPlacementPoints() <= 0)
             {
                 placeable = false;
                 gameObject.GetComponent<Renderer>().material.color = origin;
@@ -39,7 +39,7 @@ public class BlockScript : MonoBehaviour
 
         if (placeable)
         {
-            if (manager.getPlacementPoints() <= 0)
+            if (manager.GetPlacementPoints() <= 0)
             {
                 placeable = false;
                 gameObject.GetComponent<Renderer>().material.color = origin;
@@ -49,15 +49,38 @@ public class BlockScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(manager.getSelectedUnit() != null)
+        if(manager.GetSelectedUnit() != null)
         {
-            var costOfUnit = manager.getSelectedUnit().GetComponent<Character>().cost;
-            if ((manager.getPlacementPoints() - costOfUnit) >= 0 && placeable)
+            var costOfUnit = manager.GetSelectedUnit().cost;
+            if ((manager.GetPlacementPoints() - costOfUnit) >= 0 && placeable)
             {
-                manager.spawnUnit(new Vector3(transform.position.x, 1, transform.position.z));
-                manager.resetSelectedUnit();
-                manager.reducePlacementPoints(costOfUnit);
+                manager.SpawnUnit(new Vector3(transform.position.x, 1, transform.position.z));
+                manager.ResetSelectedUnit();
+                manager.ReducePlacementPoints(costOfUnit);
             }
+        }
+        if(Traversable)
+        {
+
+        }
+    }
+
+    void OnMouseOver()
+    {
+        if(manager.moveMode)
+        {
+            manager.selectedBlock = this;
+            this.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+            
+        }
+
+    }
+
+    private void OnMouseExit()
+    {
+        if(manager.moveMode)
+        {
+            this.gameObject.GetComponent<Renderer>().material.color = Color.white;
         }
     }
 

@@ -11,12 +11,15 @@ public class GridManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] tiles;
     [SerializeField] private GameObject enemyContainter;
-    [SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private Character[] enemyPrefabs;
     [SerializeField] private GameObject playerContainter;
-    [SerializeField] private GameObject[] playerPrefabs;
+    [SerializeField] private Character[] playerPrefabs;
     [SerializeField] private TextAsset levelMap;
-    [SerializeField] private GameObject SelectedUnit;
+    [SerializeField] private Character SelectedUnit;
     [SerializeField] private TurnManager turnManager;
+    [SerializeField] private HealthBarManager eventSystem;
+    public bool moveMode;
+    public BlockScript selectedBlock;
 
     private int placementPoints;
 
@@ -65,9 +68,10 @@ public class GridManager : MonoBehaviour
 
         foreach(var enemy in enemies)
         {
-            GameObject placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, 1, enemy.posZ), new Quaternion(), enemyContainter.transform);
+            Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, 1, enemy.posZ), new Quaternion(), enemyContainter.transform);
             placedEnemy.name = enemy.name;
             placedEnemy.tag = "Enemy";
+          // eventSystem.AddUnit(placedEnemy);
         }
     }
 
@@ -85,29 +89,37 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void spawnUnit(Vector3 location)
+    public void moveUnitMode()
+    {
+        moveMode = true;
+
+    }
+
+    public void SpawnUnit(Vector3 location)
     {
         var unit = Instantiate(SelectedUnit, location, new Quaternion(), playerContainter.transform);
         unit.GetComponent<Character>().turnManager = turnManager;
         unit.tag = "Player";
+        unit.pathfinder = gameObject.GetComponent<Pathfinder>();
+       // eventSystem.AddUnit(SelectedUnit);
     }
-    public GameObject getSelectedUnit()
+    public Character GetSelectedUnit()
     {
         return SelectedUnit;
     }
-    public void setSelectedUnit(GameObject unit)
+    public void SetSelectedUnit(Character unit)
     {
         SelectedUnit = unit;
     }
-    public void resetSelectedUnit()
+    public void ResetSelectedUnit()
     {
         SelectedUnit = null;
     }
-    public int getPlacementPoints()
+    public int GetPlacementPoints()
     {
         return placementPoints;
     }
-    public void reducePlacementPoints(int reduction)
+    public void ReducePlacementPoints(int reduction)
     {
         placementPoints -= reduction;
 
