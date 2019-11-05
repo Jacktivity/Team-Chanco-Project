@@ -5,20 +5,6 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-<<<<<<< HEAD
-    private GameObject[] Units => transform.GetComponentsInChildren<GameObject>();
-    private AIStates currentPlayState = AIStates.Attack;
-
-    public void MoveUnit()
-    {
-        //var unitToMove = Units.First(u => u.AddComponent<Character>())
-    }
-}
-
-public enum AIStates
-{
-    Regroup,Retreat,Attack
-=======
     private Character[] Units => transform.GetComponentsInChildren<Character>();
     private AIStates currentPlayState = AIStates.Attack;
     [SerializeField] private Pathfinder pathfinder;
@@ -37,7 +23,7 @@ public enum AIStates
             case AIStates.Retreat:
                 break;
             case AIStates.Attack:
-                var path = pathfinder.GetPath(unitToMove.floor, (s) => s.AdjacentTiles().Any(t => t.Occupied? t.occupier.CompareTag("Player"):false));
+                var path = pathfinder.GetPath(unitToMove.floor, (s) => s.AdjacentTiles().Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), false);
 
                 var walkPath = path.Take(unitToMove.movementSpeed);
 
@@ -78,5 +64,4 @@ public enum AIStates
 public enum AIStates
 {
     Regroup, Retreat, Attack
->>>>>>> master
 }
