@@ -41,7 +41,7 @@ public class Pathfinder : MonoBehaviour
 
             gameMap.Remove(pathTile);
 
-            SearchAdjacentTiles(pathDictionary, distDictionary, pathTile);
+            EuclidianAdjacencySearch(pathDictionary, distDictionary, pathTile);
         }
 
         if (targetTile == null)
@@ -52,6 +52,51 @@ public class Pathfinder : MonoBehaviour
         else
         {
             return PathFromDictionary(pathDictionary, ref targetTile);
+        }
+    }
+
+    public int GetDistance(BlockScript startBlock, BlockScript endBlock)
+    {
+        var pathDictionary = new Dictionary<BlockScript, BlockScript>();
+        var distDictionary = new Dictionary<BlockScript, int>();
+
+        BlockScript targetTile = null;
+
+        var gameMap = Map.ToList();
+
+        foreach (var node in gameMap)
+        {
+            pathDictionary.Add(node, null);
+            distDictionary.Add(node, int.MaxValue);
+        }
+
+        distDictionary[startBlock] = 0;
+
+        while (gameMap.Count > 0)
+        {
+            var pathTile = gameMap.OrderBy(t => distDictionary[t]).First();
+
+            bool searchComplete = pathTile == endBlock;
+
+            if (searchComplete)
+            {
+                targetTile = pathTile;
+                break;
+            }
+
+            gameMap.Remove(pathTile);
+
+            IntegerAdjacencySearch(pathDictionary, distDictionary, pathTile);
+        }
+
+        if (targetTile == null)
+        {
+            //No path found to target, return empty path
+            return int.MaxValue;
+        }
+        else
+        {
+            return distDictionary[endBlock];
         }
     }
 
@@ -111,7 +156,7 @@ public class Pathfinder : MonoBehaviour
         var x = block;
     }
 
-    private static void SearchAdjacentTiles(Dictionary<BlockScript, BlockScript> pathDictionary, Dictionary<BlockScript, float> distDictionary, BlockScript pathTile)
+    private static void EuclidianAdjacencySearch(Dictionary<BlockScript, BlockScript> pathDictionary, Dictionary<BlockScript, float> distDictionary, BlockScript pathTile)
     {
         foreach (var tile in pathTile.AdjacentTiles().Where(t => t.Occupied == false))
         {
@@ -126,7 +171,20 @@ public class Pathfinder : MonoBehaviour
             }
         }
     }
-       
+
+    private static void IntegerAdjacencySearch(Dictionary<BlockScript, BlockScript> pathDictionary, Dictionary<BlockScript, int> distDictionary, BlockScript pathTile)
+    {
+        foreach (var tile in pathTile.AdjacentTiles().Where(t => t.Occupied == false))
+        {
+            int pathLength = distDictionary[pathTile] + 1;
+            if (pathLength < distDictionary[tile])
+            {
+                distDictionary[tile] = pathLength;
+                pathDictionary[tile] = pathTile;
+            }
+        }
+    }
+
 
     private static BlockScript[] PathFromDictionary(Dictionary<BlockScript, BlockScript> pathDictionary, ref BlockScript targetTile)
     {
