@@ -1,21 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
     private GameObject[] Units => transform.GetComponentsInChildren<GameObject>();
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private AIStates currentPlayState = AIStates.Attack;
 
-    // Update is called once per frame
-    void Update()
+    public void MoveUnit()
     {
-        var p = new Pathfinder();
-        p.GetPath(new BlockScript(), (b) => b.name == "Jeff");
+        //var unitToMove = Units.First(u => u.AddComponent<Character>())
     }
 }
 

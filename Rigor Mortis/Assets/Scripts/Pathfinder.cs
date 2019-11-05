@@ -10,7 +10,7 @@ public class Pathfinder : MonoBehaviour
     
     public BlockScript[] CompleteMap => GetComponentsInChildren<BlockScript>();
 
-    public BlockScript[] GetPath(BlockScript start, Func<BlockScript,bool> searchCriteria)
+    public BlockScript[] GetPath(BlockScript start, Func<BlockScript,bool> searchCriteria, bool ignoreMoveModifier)
     {
         var pathDictionary = new Dictionary<BlockScript, BlockScript>();
         var distDictionary = new Dictionary<BlockScript, float>();
@@ -41,7 +41,7 @@ public class Pathfinder : MonoBehaviour
 
             gameMap.Remove(pathTile);
 
-            EuclidianAdjacencySearch(pathDictionary, distDictionary, pathTile);
+            EuclidianAdjacencySearch(pathDictionary, distDictionary, pathTile, ignoreMoveModifier);
         }
 
         if (targetTile == null)
@@ -100,7 +100,7 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    public BlockScript[] GetTilesInRange(BlockScript start, float range)
+    public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier)
     {
         var distDictionary = new Dictionary<BlockScript, float>();
 
@@ -129,8 +129,10 @@ public class Pathfinder : MonoBehaviour
             foreach (var tile in pathTile.AdjacentTiles().Where(t => t.Occupied == false))
             {
                 float pathLength = Vector2.Distance(new Vector2(tile.coordinates.x, tile.coordinates.z),
-                    new Vector2(pathTile.coordinates.x, pathTile.coordinates.z))
-                    * tile.MoveModifier;
+                    new Vector2(pathTile.coordinates.x, pathTile.coordinates.z));
+
+                if(ignoreMoveModifier == false)
+                    pathLength *= tile.MoveModifier;
                 pathLength += distDictionary[pathTile];
 
                 //If distanceDictionary[pathTile] is infinite, then tile has not been explored, or a shorter path has been found
@@ -138,10 +140,6 @@ public class Pathfinder : MonoBehaviour
                 {
                     distDictionary[tile] = pathLength;
                     traversableTerrain.Add(tile);
-                    //if (pathLength < range)
-                    //{
-                        
-                    //}
                 }                
             }
         }
@@ -151,18 +149,16 @@ public class Pathfinder : MonoBehaviour
         return traversableTerrain.Where(t => distDictionary[t] <= range).ToArray();
     }
 
-    public void DELETEPathTileTest(BlockScript block)
-    {
-        var x = block;
-    }
-
-    private static void EuclidianAdjacencySearch(Dictionary<BlockScript, BlockScript> pathDictionary, Dictionary<BlockScript, float> distDictionary, BlockScript pathTile)
+    private static void EuclidianAdjacencySearch(Dictionary<BlockScript, BlockScript> pathDictionary, Dictionary<BlockScript, float> distDictionary, BlockScript pathTile, bool ignoreMoveModifier)
     {
         foreach (var tile in pathTile.AdjacentTiles().Where(t => t.Occupied == false))
         {
             float pathLength = Vector2.Distance(new Vector2(tile.coordinates.x, tile.coordinates.z),
-                new Vector2(pathTile.coordinates.x, pathTile.coordinates.z))
-                * tile.MoveModifier;
+                new Vector2(pathTile.coordinates.x, pathTile.coordinates.z));
+
+            if (ignoreMoveModifier == false)
+                pathLength *= tile.MoveModifier;
+
             pathLength += distDictionary[pathTile];
             if (pathLength < distDictionary[tile])
             {
