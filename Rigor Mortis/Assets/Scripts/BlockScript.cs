@@ -14,7 +14,8 @@ public class BlockScript : MonoBehaviour
     public bool Occupied => occupier != null;
 
     public GameObject N, NE, E, SE, S, SW, W, NW, occupier;
-    public BlockScript[] AdjacentTiles() => new GameObject[] { N, NE, E, SE, S, SW, W, W, NE }.Where(s => s != null).Select(go => go.GetComponent<BlockScript>()).Where(t => t.Occupied == false).ToArray();
+    public BlockScript[] UnoccupiedAdjacentTiles() => AdjacentTiles().Where(t => t.Occupied == false).ToArray();
+    public BlockScript[] AdjacentTiles() => new GameObject[] { N, NE, E, SE, S, SW, W, W, NE }.Where(s => s != null).Select(go => go.GetComponent<BlockScript>()).ToArray();
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +57,11 @@ public class BlockScript : MonoBehaviour
             manager.reducePlacementPoints(costOfUnit);
         }
 
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        occupier = null;
     }
 
     private void OnCollisionEnter(Collision collision)
