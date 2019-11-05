@@ -15,7 +15,7 @@ public class BlockScript : MonoBehaviour
 
     public GameObject N, NE, E, SE, S, SW, W, NW, occupier;
     public BlockScript[] UnoccupiedAdjacentTiles() => AdjacentTiles().Where(t => t.Occupied == false).ToArray();
-    public BlockScript[] AdjacentTiles() => new GameObject[] { N, NE, E, SE, S, SW, W, W, NE }.Where(s => s != null).Select(go => go.GetComponent<BlockScript>()).ToArray();
+    public BlockScript[] AdjacentTiles() => new GameObject[] { N, E, S, W }.Where(s => s != null).Select(go => go.GetComponent<BlockScript>()).ToArray();
 
     // Start is called before the first frame update
     void Start()
@@ -49,14 +49,16 @@ public class BlockScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        var costOfUnit = manager.getSelectedUnit().GetComponent<Character>().cost;
-        if (manager.getSelectedUnit() != null && (manager.getPlacementPoints() - costOfUnit) >= 0 && placeable)
+        if(manager.getSelectedUnit() != null)
         {
-            manager.spawnUnit(new Vector3(transform.position.x, 1, transform.position.z));
-            manager.resetSelectedUnit();
-            manager.reducePlacementPoints(costOfUnit);
+            var costOfUnit = manager.getSelectedUnit().GetComponent<Character>().cost;
+            if ((manager.getPlacementPoints() - costOfUnit) >= 0 && placeable)
+            {
+                manager.spawnUnit(new Vector3(transform.position.x, 1, transform.position.z));
+                manager.resetSelectedUnit();
+                manager.reducePlacementPoints(costOfUnit);
+            }
         }
-
     }
 
     public void OnCollisionExit(Collision collision)

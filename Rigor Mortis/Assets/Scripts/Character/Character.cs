@@ -17,12 +17,46 @@ public class Character : MonoBehaviour
     public UIManager uiManager;
     public bool hasTurn;
     public BlockScript floor;
-    //TurnManager turnManager;
+    bool moving = false;
+    float startTime;
+
+
+    IEnumerable<BlockScript> path;
+    int pathIndex;
+    BlockScript block;
 
     private void Awake()
     {
         attacks = new HashSet<Attacks>();
         uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
+
+        startTime = Time.time;
+    }
+
+    private void Update()
+    {
+        if (moving)
+        {
+            block = path.ElementAt(pathIndex);
+            float distCovered = (Time.time - startTime) * 0.06f;
+            float journey = Vector3.Distance(transform.position, (block.gameObject.transform.position + gameObject.transform.up));
+            float fractionOfJourney = distCovered / journey;
+            transform.position = Vector3.Lerp(transform.position, (block.gameObject.transform.position + gameObject.transform.up), fractionOfJourney);
+            floor.occupier = gameObject;
+            if(fractionOfJourney >= 1)
+            {
+                if(pathIndex >= path.Count() - 1)
+                {
+                    moving = false;
+                    pathIndex = 0;
+                    startTime = Time.time;
+                } else
+                {
+                    pathIndex++;
+                }
+                
+            }
+        }
     }
 
     public void TakeDamage(int damage)
@@ -40,12 +74,12 @@ public class Character : MonoBehaviour
         return hitPoints;
     }
 
-    public void MoveUnit(BlockScript moveTo)
+    public void MoveUnit(IEnumerable<BlockScript> moveTo)
     {
-        floor.occupier = null;
-        floor = moveTo;
-        gameObject.transform.position = moveTo.gameObject.transform.position + gameObject.transform.up;
-        floor.occupier = gameObject;
+        path = moveTo;
+        pathIndex = 0;
+        moving = true;
+       
     }
 
     void OnCollisionEnter(Collision collision)

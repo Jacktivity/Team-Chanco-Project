@@ -23,7 +23,7 @@ public class EnemyAI : MonoBehaviour
             case AIStates.Retreat:
                 break;
             case AIStates.Attack:
-                var path = pathfinder.GetPath(unitToMove.floor, (s) => s.occupier.tag =="Player");
+                var path = pathfinder.GetPath(unitToMove.floor, (s) => s.AdjacentTiles().Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), false);
 
                 var walkPath = path.Take(unitToMove.movementSpeed);
 
@@ -35,7 +35,7 @@ public class EnemyAI : MonoBehaviour
                     walkPath = path.Take(unitToMove.movemenSprint + unitToMove.movementSpeed);
                 }
 
-                unitToMove.MoveUnit(walkPath.Last());
+                unitToMove.MoveUnit(walkPath);
 
                 if(walked)
                 {
@@ -53,12 +53,16 @@ public class EnemyAI : MonoBehaviour
 
     public void TESTMoveUnit()
     {
-        var moveTo = pathfinder.Map.ElementAt(UnityEngine.Random.Range(0, pathfinder.Map.Length - 1));
+        var enemy = Units.First();
+        Debug.Log(enemy.name);
+        var path = pathfinder.GetPath(enemy.floor, Check, false);
+        Debug.Log(path.Count());
+    }
 
-        Debug.Log(moveTo.name);
-
-        Units.First().MoveUnit(moveTo);
-
+    public bool Check(BlockScript block)
+    {
+        var returnVal = block.AdjacentTiles().Where(s => s.Occupied).Any(t => t.occupier.tag == "Player");
+        return returnVal;
     }
 }
 
