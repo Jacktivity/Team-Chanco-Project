@@ -6,6 +6,8 @@ public class TurnManager : MonoBehaviour
 {
     public bool playerTurn;
     private Coroutine enemyTurnCoroutine;
+    [SerializeField] private EnemyAI enemyAIContainer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +64,7 @@ public class TurnManager : MonoBehaviour
     }
     IEnumerator MovingEnemies(GameObject enemy)
     {
+        enemyAIContainer.MoveUnit();
         yield return new WaitForSeconds(1);
     }
 }
