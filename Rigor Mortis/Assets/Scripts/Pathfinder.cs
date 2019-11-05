@@ -31,7 +31,7 @@ public class Pathfinder : MonoBehaviour
         {
             var pathTile = gameMap.OrderBy(t => distDictionary[t]).First();
 
-            bool searchComplete = pathTile.AdjacentTiles().Any(t => searchCriteria(t));
+            bool searchComplete = pathTile.UnoccupiedAdjacentTiles().Any(t => searchCriteria(t));
 
             if (searchComplete)
             {
@@ -126,7 +126,7 @@ public class Pathfinder : MonoBehaviour
 
             gameMap.Remove(pathTile);
 
-            foreach (var tile in pathTile.AdjacentTiles().Where(t => t.Occupied == false))
+            foreach (var tile in pathTile.UnoccupiedAdjacentTiles().Where(t => t.Occupied == false))
             {
                 float pathLength = Vector2.Distance(new Vector2(tile.coordinates.x, tile.coordinates.z),
                     new Vector2(pathTile.coordinates.x, pathTile.coordinates.z));
@@ -170,7 +170,7 @@ public class Pathfinder : MonoBehaviour
 
     private static void IntegerAdjacencySearch(Dictionary<BlockScript, BlockScript> pathDictionary, Dictionary<BlockScript, int> distDictionary, BlockScript pathTile)
     {
-        foreach (var tile in pathTile.AdjacentTiles().Where(t => t.Occupied == false))
+        foreach (var tile in pathTile.UnoccupiedAdjacentTiles().Where(t => t.Occupied == false))
         {
             int pathLength = distDictionary[pathTile] + 1;
             if (pathLength < distDictionary[tile])
