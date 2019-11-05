@@ -47,6 +47,7 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
 
+        unitToMove.hasTurn = false;
         return true;
     }
 
@@ -57,6 +58,7 @@ public class EnemyAI : MonoBehaviour
         Debug.Log(moveTo.name);
 
         Units.First().MoveUnit(moveTo);
+
     }
 }
 

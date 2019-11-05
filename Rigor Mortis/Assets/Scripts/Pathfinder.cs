@@ -31,7 +31,7 @@ public class Pathfinder : MonoBehaviour
         {
             var pathTile = gameMap.OrderBy(t => distDictionary[t]).First();
 
-            bool searchComplete = pathTile.UnoccupiedAdjacentTiles().Any(t => searchCriteria(t));
+            bool searchComplete = searchCriteria(pathTile);
 
             if (searchComplete)
             {
@@ -54,6 +54,7 @@ public class Pathfinder : MonoBehaviour
             return PathFromDictionary(pathDictionary, ref targetTile);
         }
     }
+
 
     public int GetDistance(BlockScript startBlock, BlockScript endBlock)
     {
@@ -98,6 +99,12 @@ public class Pathfinder : MonoBehaviour
         {
             return distDictionary[endBlock];
         }
+    }
+
+    public bool SearchComplete(BlockScript pathTile, Func<BlockScript, bool> searchCriteria)
+    {
+        var returnValue = pathTile.AdjacentTiles().Any(t => searchCriteria(t));
+        return returnValue;
     }
 
     public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier)

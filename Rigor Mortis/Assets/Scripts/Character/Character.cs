@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
 
     public HashSet<Attacks> attacks;
 
+    public TurnManager turnManager;
     public bool hasTurn;
     public BlockScript floor;
     //TurnManager turnManager;
@@ -45,5 +46,13 @@ public class Character : MonoBehaviour
         var blockScript = collision.gameObject.GetComponent<BlockScript>();
         if (blockScript != null)
             floor = blockScript;
+    }
+    private void OnMouseDown()
+    {
+        if (hasTurn)
+        {
+            hasTurn = false;
+            turnManager.CycleTurns();
+        }
     }
 }
