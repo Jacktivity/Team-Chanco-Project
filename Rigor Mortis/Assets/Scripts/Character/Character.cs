@@ -90,22 +90,25 @@ public class Character : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (hasTurn && this.tag == "Player")
+        if(hasTurn || gameObject.tag == "Enemy")
         {
-            hasTurn = false;
-            turnManager.CycleTurns();
-        }
-
-        if(uiManager.attacking)
-        {
-            if(/*uiManager.attackerAssigned == false && */uiManager.targetAssigned == false && tag == "Player")
+            if (uiManager.waiting)
             {
-                uiManager.AssignAttacker(this);
-            } 
-
-            if(uiManager.attackerAssigned && uiManager.targetAssigned == false && tag == "Enemy")
+                uiManager.waiting = false;
+                hasTurn = false;
+                turnManager.CycleTurns();
+            }
+            if (uiManager.attacking)
             {
-                uiManager.AssignTarget(this);
+                if (/*uiManager.attackerAssigned == false && */uiManager.targetAssigned == false && tag == "Player")
+                {
+                    uiManager.AssignAttacker(this);
+                }
+
+                if (uiManager.attackerAssigned && uiManager.targetAssigned == false && tag == "Enemy")
+                {
+                    uiManager.AssignTarget(this);
+                }
             }
         }
     }

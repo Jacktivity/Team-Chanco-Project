@@ -8,7 +8,7 @@ public class TurnManager : MonoBehaviour
     private Coroutine enemyTurnCoroutine;
     static int turnNumber = 0;
     UIManager uiManager;
-    //[SerializeField] private EnemyAI enemyAIContainer;
+    [SerializeField] private EnemyAI enemyAIContainer;
 
     // Start is called before the first frame update
     void Start()

@@ -13,21 +13,21 @@ public class AttackLibrary
         // Magic Attacks
         new Attacks(0, 0, 4, 4, 1, 1, "TeslaStab"),
         new Attacks(0, 0, 4, 4, 10, 1.2f, "TeslaZap"),
-        new Attacks(0, 0, 4, 4, 10, 1.2f, "Whack"),
+        new Attacks(0, 0, 4, 4, 10, 1.2f, "Zap"),
     };
 
-    public static Dictionary<string, Attacks> atkLibrary = new Dictionary<string, Attacks>()
-    {
-        { "Bob", new Attacks(0, 0, 0, 0, 0, 0, "Bob") },
-        { "StaffWhack", new Attacks(2, 1, 0, 0, 1, 1,"StaffWhack") },
-        { "RustySword", new Attacks(4, 2, 0, 0, 1, 1, "RustySword")},
-        { "SpectralSword", new Attacks(0, 0, 2, 4, 1, 1, "SpectralSword")},
-        { "Whack", new Attacks(2, 1, 0, 0, 1, 0.8f, "Whack")},
-        // Magic Attacks
-        { "TeslaStab", new Attacks(0, 0, 4, 4, 1, 1, "TeslaStab")},
-        { "TeslaZap", new Attacks(0, 0, 4, 4, 10, 1.2f, "TeslaZap")},
-        { "Whack", new Attacks(0, 0, 4, 4, 10, 1.2f, "Whack")},
-    };
+    //public static Dictionary<string, Attacks> atkLibrary = new Dictionary<string, Attacks>()
+    //{
+    //    { "Bob", new Attacks(0, 0, 0, 0, 0, 0, "Bob") },
+    //    { "StaffWhack", new Attacks(2, 1, 0, 0, 1, 1,"StaffWhack") },
+    //    { "RustySword", new Attacks(4, 2, 0, 0, 1, 1, "RustySword")},
+    //    { "SpectralSword", new Attacks(0, 0, 2, 4, 1, 1, "SpectralSword")},
+    //    { "Whack", new Attacks(2, 1, 0, 0, 1, 0.8f, "Whack")},
+    //    // Magic Attacks
+    //    { "TeslaStab", new Attacks(0, 0, 4, 4, 1, 1, "TeslaStab")},
+    //    { "TeslaZap", new Attacks(0, 0, 4, 4, 10, 1.2f, "TeslaZap")},
+    //    { "Whack", new Attacks(0, 0, 4, 4, 10, 1.2f, "Whack")},
+    //};
 }
 
 public class Attacks

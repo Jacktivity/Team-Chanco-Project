@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     Text turnDisplay;
 
     public bool attacking = false;
+    public bool waiting = false;
     public bool attackerAssigned = false;
     public bool targetAssigned = false;
 
@@ -75,6 +76,11 @@ public class UIManager : MonoBehaviour
 
         attacker = null;
         target = null;
+    }
+
+    public void wait()
+    {
+        waiting = true;
     }
 
     public void DisplayAttacks(HashSet<Attacks> _attacks)
