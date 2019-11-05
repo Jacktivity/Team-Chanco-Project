@@ -16,6 +16,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject[] playerPrefabs;
     [SerializeField] private TextAsset levelMap;
     [SerializeField] private GameObject SelectedUnit;
+    [SerializeField] private TurnManager turnManager;
 
     private int placementPoints;
 
@@ -66,6 +67,7 @@ public class GridManager : MonoBehaviour
         {
             GameObject placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, 1, enemy.posZ), new Quaternion(), enemyContainter.transform);
             placedEnemy.name = enemy.name;
+            placedEnemy.tag = "Enemy";
         }
     }
 
@@ -85,7 +87,13 @@ public class GridManager : MonoBehaviour
 
     public void spawnUnit(Vector3 location)
     {
-        Instantiate(SelectedUnit, location, new Quaternion(), playerContainter.transform);
+        var unit = Instantiate(SelectedUnit, location, new Quaternion(), playerContainter.transform);
+        unit.GetComponent<TestPlayerScript>().turnManager = turnManager;
+        unit.tag = "Player";
+        if(placementPoints <= 0)
+        {
+            turnManager.cycleTurns();
+        }
     }
     public GameObject getSelectedUnit()
     {
