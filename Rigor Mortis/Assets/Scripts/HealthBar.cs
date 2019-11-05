@@ -21,6 +21,7 @@ public class HealthBar : MonoBehaviour
     }
 
     // Update is called once per frame
+    // Temporary until attack methods are created, then will be tied to said methods
     void Update()
     {
         transform.position = new Vector3(unit.transform.position.x, unit.transform.position.y + offset,  unit.transform.position.z);
