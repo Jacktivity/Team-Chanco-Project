@@ -49,8 +49,8 @@ public class BlockScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        int costOfUnit = 1;
-        if (manager.getSelectedUnit() != null && (manager.getPlacementPoints() - costOfUnit) >= 0)
+        var costOfUnit = manager.getSelectedUnit().GetComponent<Character>().cost;
+        if (manager.getSelectedUnit() != null && (manager.getPlacementPoints() - costOfUnit) >= 0 && placeable)
         {
             manager.spawnUnit(new Vector3(transform.position.x, 1, transform.position.z));
             manager.resetSelectedUnit();

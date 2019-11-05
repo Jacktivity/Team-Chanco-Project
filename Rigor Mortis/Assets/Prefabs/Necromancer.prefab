@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2924914681836274734
+--- !u!1 &7826452461569162009
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9174458072726600154}
-  - component: {fileID: 3207363803379905960}
-  - component: {fileID: 3103857825191622958}
-  - component: {fileID: 371396883732879494}
-  - component: {fileID: 5663001783453113287}
-  - component: {fileID: 3439975189141904017}
+  - component: {fileID: 4276306823175718637}
+  - component: {fileID: 7532445228712921759}
+  - component: {fileID: 8005528060436563481}
+  - component: {fileID: 4696462880482486193}
+  - component: {fileID: 764839505697105136}
+  - component: {fileID: 4790737883455124222}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Necromancer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9174458072726600154
+--- !u!4 &4276306823175718637
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2924914681836274734}
+  m_GameObject: {fileID: 7826452461569162009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2112917, y: -16.327068, z: 11.938577}
+  m_LocalPosition: {x: -1.5930375, y: -2.1036327, z: 6.5743036}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3207363803379905960
+--- !u!33 &7532445228712921759
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2924914681836274734}
+  m_GameObject: {fileID: 7826452461569162009}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3103857825191622958
+--- !u!23 &8005528060436563481
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2924914681836274734}
+  m_GameObject: {fileID: 7826452461569162009}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f415ede22327dea46905369f94094850, type: 2}
+  - {fileID: 2100000, guid: 09a4b448001e81b4b913b9c6a6cb73be, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,26 +80,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &371396883732879494
+--- !u!65 &4696462880482486193
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2924914681836274734}
+  m_GameObject: {fileID: 7826452461569162009}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.8, y: 1, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5663001783453113287
+--- !u!54 &764839505697105136
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2924914681836274734}
+  m_GameObject: {fileID: 7826452461569162009}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -107,19 +107,32 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &3439975189141904017
+--- !u!114 &4790737883455124222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2924914681836274734}
+  m_GameObject: {fileID: 7826452461569162009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6861b3edbf9f5b04993b8f727ca84cc8, type: 3}
+  m_Script: {fileID: 11500000, guid: c5c60e9467860784fa0e0f3295be4a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasTurn: 1
+  cost: 2
+  hitPoints: 5
+  accuracy: 5
+  power: 5
+  evade: 2
+  armour: 3
+  resistance: 1
+  movementSpeed: 3
+  movemenSprint: 7
+  manaPoints: 10
+  isFlying: 0
+  isCaptain: 1
   turnManager: {fileID: 0}
+  hasTurn: 1
+  floor: {fileID: 0}
