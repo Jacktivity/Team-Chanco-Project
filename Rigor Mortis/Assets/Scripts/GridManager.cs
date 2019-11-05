@@ -92,7 +92,7 @@ public class GridManager : MonoBehaviour
         unit.tag = "Player";
         if(placementPoints <= 0)
         {
-            turnManager.cycleTurns();
+            turnManager.CycleTurns();
         }
     }
     public GameObject getSelectedUnit()

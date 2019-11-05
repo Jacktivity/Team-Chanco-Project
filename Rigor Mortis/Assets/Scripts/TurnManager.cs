@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     public bool playerTurn;
-    private Coroutine coroutine;
+    private Coroutine enemyTurnCoroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +18,7 @@ public class TurnManager : MonoBehaviour
         
     }
 
-    public bool checkPlayeTurn()
+    public bool CheckPlayerTurn()
     {
         playerTurn = false;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -32,18 +32,18 @@ public class TurnManager : MonoBehaviour
         return playerTurn;
     }
 
-    public IEnumerator moveEnemies()
+    public IEnumerator MoveEnemies()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
-            coroutine = StartCoroutine(movingEnemies(enemy));
-            yield return coroutine;
+            enemyTurnCoroutine = StartCoroutine(MovingEnemies(enemy));
+            yield return enemyTurnCoroutine;
         }
-        resetPlayerTurn();
+        ResetPlayerTurn();
     }
 
-    public void resetPlayerTurn()
+    public void ResetPlayerTurn()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
@@ -53,14 +53,14 @@ public class TurnManager : MonoBehaviour
         playerTurn = true;
     }
 
-    public void cycleTurns()
+    public void CycleTurns()
     {
-        if (!checkPlayeTurn())
+        if (!CheckPlayerTurn())
         {
-            StartCoroutine(moveEnemies());
+            StartCoroutine(MoveEnemies());
         }
     }
-    IEnumerator movingEnemies(GameObject enemy)
+    IEnumerator MovingEnemies(GameObject enemy)
     {
         yield return new WaitForSeconds(1);
     }

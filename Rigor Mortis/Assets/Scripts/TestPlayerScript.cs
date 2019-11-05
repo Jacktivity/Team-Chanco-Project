@@ -22,7 +22,7 @@ public class TestPlayerScript : MonoBehaviour
         if (hasTurn)
         {
             hasTurn = false;
-            turnManager.cycleTurns();
+            turnManager.CycleTurns();
         }
     }
 }
