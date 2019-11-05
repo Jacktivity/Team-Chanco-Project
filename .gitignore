@@ -1,8 +1,8 @@
 Rigor Mortis/[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
+Rigor Mortis/[Tt]emp/
+Rigor Mortis/[Oo]bj/
+Rigor Mortis/[Bb]uild/
+Rigor Mortis/[Bb]uilds/
 Assets/AssetStoreTools*
 
 # Visual Studio cache directory
