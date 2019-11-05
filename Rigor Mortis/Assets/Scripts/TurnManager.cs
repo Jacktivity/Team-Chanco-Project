@@ -6,10 +6,13 @@ public class TurnManager : MonoBehaviour
 {
     public bool playerTurn;
     private Coroutine enemyTurnCoroutine;
+    static int turnNumber = 0;
+    UIManager uiManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -51,6 +54,9 @@ public class TurnManager : MonoBehaviour
             player.GetComponent<TestPlayerScript>().hasTurn = true;
         }
         playerTurn = true;
+
+        turnNumber++;
+        uiManager.UpdateTurnNumber(turnNumber);
     }
 
     public void CycleTurns()
@@ -63,5 +69,10 @@ public class TurnManager : MonoBehaviour
     IEnumerator MovingEnemies(GameObject enemy)
     {
         yield return new WaitForSeconds(1);
+    }
+
+    public int GetTurnNumber()
+    {
+        return turnNumber;
     }
 }

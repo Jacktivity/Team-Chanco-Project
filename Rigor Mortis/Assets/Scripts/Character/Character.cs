@@ -27,6 +27,11 @@ public class Character : MonoBehaviour
         hitPoints = hitPoints - damage;
     }
 
+    public HashSet<Attacks> Attack()
+    {
+        return attacks;
+    }
+
     public float GetHealth()
     {
         return hitPoints;
