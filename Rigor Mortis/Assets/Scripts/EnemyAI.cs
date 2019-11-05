@@ -35,7 +35,7 @@ public class EnemyAI : MonoBehaviour
                     walkPath = path.Take(unitToMove.movemenSprint + unitToMove.movementSpeed);
                 }
 
-                unitToMove.MoveUnit(walkPath.Last());
+                unitToMove.MoveUnit(walkPath);
 
                 if(walked)
                 {

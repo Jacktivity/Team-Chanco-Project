@@ -128,8 +128,8 @@ MonoBehaviour:
   evade: 0
   armour: 1
   resistance: 1
-  movementSpeed: 3
-  movemenSprint: 5
+  movementSpeed: 2
+  movemenSprint: 3
   manaPoints: 0
   isFlying: 0
   isCaptain: 0

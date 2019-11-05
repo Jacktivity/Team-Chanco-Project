@@ -16,8 +16,8 @@ public class SkeletonCharacter : Character
         manaPoints = 0;
         power = 7;
         resistance = 1;
-        movementSpeed = 5;
-        movemenSprint = 5;
+        movementSpeed = 3;
+        movemenSprint = 2;
 
         attacks = new HashSet<Attacks>();
 

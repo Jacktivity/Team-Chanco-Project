@@ -282,6 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 411395488}
   - component: {fileID: 411395487}
+  - component: {fileID: 411395489}
   m_Layer: 0
   m_Name: GridGenerator
   m_TagString: Untagged
@@ -328,6 +329,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &411395489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411395486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4da87210aea6f4469d30d6759915a7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &474889187
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 813066465}
+  - component: {fileID: 813066466}
   m_Layer: 0
   m_Name: EnemyContainer
   m_TagString: Untagged
@@ -685,6 +699,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &813066466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813066464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0f8ee3481e3424e9e2e5f94dc044ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathfinder: {fileID: 411395489}
 --- !u!1 &1056572165
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTurn: 0
+  enemyAIContainer: {fileID: 813066466}
 --- !u!1 &1928802851
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,7 +976,7 @@ GameObject:
   - component: {fileID: 1945696226}
   - component: {fileID: 1945696225}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: PrepCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

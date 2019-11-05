@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3351411145026690899, guid: d97985ffba5394441ac5eed483f38df1,
         type: 3}
       propertyPath: m_Name
-      value: GridWall
+      value: GridWall Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4610920386816732231, guid: d97985ffba5394441ac5eed483f38df1,
         type: 3}
@@ -72,5 +72,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5a6f8ced1731d754a86ec7e6c1619895, type: 2}
+    - target: {fileID: 8404058976917668895, guid: d97985ffba5394441ac5eed483f38df1,
+        type: 3}
+      propertyPath: MoveModifier
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d97985ffba5394441ac5eed483f38df1, type: 3}

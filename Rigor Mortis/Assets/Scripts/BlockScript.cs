@@ -49,14 +49,16 @@ public class BlockScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        var costOfUnit = manager.getSelectedUnit().GetComponent<Character>().cost;
-        if (manager.getSelectedUnit() != null && (manager.getPlacementPoints() - costOfUnit) >= 0 && placeable)
+        if(manager.getSelectedUnit() != null)
         {
-            manager.spawnUnit(new Vector3(transform.position.x, 1, transform.position.z));
-            manager.resetSelectedUnit();
-            manager.reducePlacementPoints(costOfUnit);
+            var costOfUnit = manager.getSelectedUnit().GetComponent<Character>().cost;
+            if ((manager.getPlacementPoints() - costOfUnit) >= 0 && placeable)
+            {
+                manager.spawnUnit(new Vector3(transform.position.x, 1, transform.position.z));
+                manager.resetSelectedUnit();
+                manager.reducePlacementPoints(costOfUnit);
+            }
         }
-
     }
 
     public void OnCollisionExit(Collision collision)
