@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
 
     public HashSet<Attacks> attacks;
 
+    public TurnManager turnManager;
     public bool hasTurn;
     [SerializeField] GameObject floor;
     //TurnManager turnManager;
@@ -37,6 +38,14 @@ public class Character : MonoBehaviour
         if(collision.transform.tag == "Floor")
         {
             floor = collision.transform.gameObject;
+        }
+    }
+    private void OnMouseDown()
+    {
+        if (hasTurn)
+        {
+            hasTurn = false;
+            turnManager.CycleTurns();
         }
     }
 }

@@ -88,12 +88,8 @@ public class GridManager : MonoBehaviour
     public void spawnUnit(Vector3 location)
     {
         var unit = Instantiate(SelectedUnit, location, new Quaternion(), playerContainter.transform);
-        unit.GetComponent<TestPlayerScript>().turnManager = turnManager;
+        unit.GetComponent<Character>().turnManager = turnManager;
         unit.tag = "Player";
-        if(placementPoints <= 0)
-        {
-            turnManager.CycleTurns();
-        }
     }
     public GameObject getSelectedUnit()
     {
@@ -114,6 +110,14 @@ public class GridManager : MonoBehaviour
     public void reducePlacementPoints(int reduction)
     {
         placementPoints -= reduction;
+
+        if (placementPoints <= 0)
+        {
+            Canvas canvas = GameObject.Find("PrepCanvas").GetComponent<Canvas>();
+            canvas.enabled = false;
+            Debug.Log("doned");
+            turnManager.CycleTurns();
+        }
     }
 
     /**

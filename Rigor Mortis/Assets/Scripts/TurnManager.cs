@@ -24,7 +24,7 @@ public class TurnManager : MonoBehaviour
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
-            if (player.GetComponent<TestPlayerScript>().hasTurn)
+            if (player.GetComponent<Character>().hasTurn)
             {
                 playerTurn = true;
             }
@@ -48,7 +48,7 @@ public class TurnManager : MonoBehaviour
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
-            player.GetComponent<TestPlayerScript>().hasTurn = true;
+            player.GetComponent<Character>().hasTurn = true;
         }
         playerTurn = true;
     }
