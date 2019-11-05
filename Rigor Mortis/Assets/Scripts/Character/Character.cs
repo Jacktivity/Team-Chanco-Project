@@ -15,7 +15,7 @@ public class Character : MonoBehaviour
 
     public TurnManager turnManager;
     public bool hasTurn;
-    [SerializeField] GameObject floor;
+    public BlockScript floor;
     //TurnManager turnManager;
 
     private void Start()
@@ -33,12 +33,19 @@ public class Character : MonoBehaviour
         return hitPoints;
     }
 
+    public void MoveUnit(BlockScript moveTo)
+    {
+        floor.occupier = null;
+        floor = moveTo;
+        gameObject.transform.position = moveTo.gameObject.transform.position + gameObject.transform.up;
+        floor.occupier = gameObject;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Floor")
-        {
-            floor = collision.transform.gameObject;
-        }
+        var blockScript = collision.gameObject.GetComponent<BlockScript>();
+        if (blockScript != null)
+            floor = blockScript;
     }
     private void OnMouseDown()
     {
