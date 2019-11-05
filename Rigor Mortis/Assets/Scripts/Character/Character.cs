@@ -14,13 +14,15 @@ public class Character : MonoBehaviour
     public HashSet<Attacks> attacks;
 
     public TurnManager turnManager;
+    public UIManager uiManager;
     public bool hasTurn;
     public BlockScript floor;
     //TurnManager turnManager;
 
-    private void Start()
+    private void Awake()
     {
         attacks = new HashSet<Attacks>();
+        uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
     }
 
     public void TakeDamage(int damage)
@@ -54,10 +56,23 @@ public class Character : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (hasTurn)
+        if (hasTurn && this.tag == "Player")
         {
             hasTurn = false;
             turnManager.CycleTurns();
+        }
+
+        if(uiManager.attacking)
+        {
+            if(/*uiManager.attackerAssigned == false && */uiManager.targetAssigned == false && tag == "Player")
+            {
+                uiManager.AssignAttacker(this);
+            } 
+
+            if(uiManager.attackerAssigned && uiManager.targetAssigned == false && tag == "Enemy")
+            {
+                uiManager.AssignTarget(this);
+            }
         }
     }
 }
