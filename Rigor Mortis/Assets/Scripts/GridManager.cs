@@ -115,7 +115,6 @@ public class GridManager : MonoBehaviour
         {
             Canvas canvas = GameObject.Find("PrepCanvas").GetComponent<Canvas>();
             canvas.enabled = false;
-            Debug.Log("doned");
             turnManager.CycleTurns();
         }
     }

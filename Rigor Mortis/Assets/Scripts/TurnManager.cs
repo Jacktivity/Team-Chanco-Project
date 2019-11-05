@@ -39,6 +39,7 @@ public class TurnManager : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
+            enemy.GetComponent<Character>().hasTurn = true;
             enemyTurnCoroutine = StartCoroutine(MovingEnemies(enemy));
             yield return enemyTurnCoroutine;
         }
@@ -64,7 +65,7 @@ public class TurnManager : MonoBehaviour
     }
     IEnumerator MovingEnemies(GameObject enemy)
     {
-        enemyAIContainer.MoveUnit();
+      //  enemyAIContainer.MoveUnit();
         yield return new WaitForSeconds(1);
     }
 }
