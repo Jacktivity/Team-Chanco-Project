@@ -24,7 +24,7 @@ public class TESTPathifinding : MonoBehaviour
 
         Debug.Log(randomTile.transform.name);
 
-        var foundTiles = path.GetTilesInRange(randomTile, 4f);
+        var foundTiles = path.GetTilesInRange(randomTile, 4f, false);
 
         Debug.Log(foundTiles.Length);
 

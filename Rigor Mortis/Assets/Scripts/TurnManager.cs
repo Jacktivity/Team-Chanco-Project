@@ -65,7 +65,7 @@ public class TurnManager : MonoBehaviour
     }
     IEnumerator MovingEnemies(GameObject enemy)
     {
-      //  enemyAIContainer.MoveUnit();
+        enemyAIContainer.MoveUnit();
         yield return new WaitForSeconds(1);
     }
 }

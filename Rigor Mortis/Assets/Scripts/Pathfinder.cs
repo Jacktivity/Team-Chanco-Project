@@ -18,6 +18,8 @@ public class Pathfinder : MonoBehaviour
         BlockScript targetTile = null;
 
         var gameMap = Map.ToList();
+        if (gameMap.Contains(start) == false)
+            gameMap.Add(start);
 
         foreach (var node in gameMap)
         {
@@ -191,9 +193,9 @@ public class Pathfinder : MonoBehaviour
 
     private static BlockScript[] PathFromDictionary(Dictionary<BlockScript, BlockScript> pathDictionary, ref BlockScript targetTile)
     {
-        var foundPath = new List<BlockScript>();
+        var foundPath = new List<BlockScript>() { targetTile };
 
-        while (targetTile != null)
+        while (pathDictionary[targetTile] != null)
         {
             var step = pathDictionary[targetTile];
             foundPath.Add(step);

@@ -53,12 +53,16 @@ public class EnemyAI : MonoBehaviour
 
     public void TESTMoveUnit()
     {
-        var moveTo = pathfinder.Map.ElementAt(UnityEngine.Random.Range(0, pathfinder.Map.Length - 1));
+        var enemy = Units.First();
+        Debug.Log(enemy.name);
+        var path = pathfinder.GetPath(enemy.floor, Check, false);
+        Debug.Log(path.Count());
+    }
 
-        Debug.Log(moveTo.name);
-
-        Units.First().MoveUnit(moveTo);
-
+    public bool Check(BlockScript block)
+    {
+        var returnVal = block.AdjacentTiles().Where(s => s.Occupied).Any(t => t.occupier.tag == "Player");
+        return returnVal;
     }
 }
 
