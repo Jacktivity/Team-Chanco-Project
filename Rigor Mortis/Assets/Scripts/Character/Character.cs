@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -16,11 +17,12 @@ public class Character : MonoBehaviour
     public TurnManager turnManager;
     public UIManager uiManager;
     public Pathfinder pathfinder;
-    public bool hasTurn;
+    public bool hasTurn, movedThisTurn;
     public BlockScript floor;
     bool moving = false;
     float startTime;
 
+    public static EventHandler<Character> characterClicked;
 
     IEnumerable<BlockScript> path;
     int pathIndex;
@@ -96,36 +98,36 @@ public class Character : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if(hasTurn || gameObject.tag == "Enemy")
-        {
-            if (uiManager.waiting)
-            {
-                uiManager.waiting = false;
-                hasTurn = false;
-                turnManager.CycleTurns();
-            }
-            // Attack Button Removed
-            //if (uiManager.attacking)
-            //{
-                if (/*uiManager.attackerAssigned == false && */uiManager.targetAssigned == false && tag == "Player")
-                {
-                    uiManager.AssignAttacker(this);
-                }
+        characterClicked?.Invoke(this, this);
+        //if(hasTurn || gameObject.tag == "Enemy")
+        //{
+        //    if (uiManager.waiting)
+        //    {
+        //        uiManager.waiting = false;
+        //        hasTurn = false;
+        //        turnManager.CycleTurns();
+        //    }
+        //    if (uiManager.attacking)
+        //    {
+        //        if (/*uiManager.attackerAssigned == false && */uiManager.targetAssigned == false && tag == "Player")
+        //        {
+        //            uiManager.AssignAttacker(this);
+        //        }
 
-                if (uiManager.attackerAssigned && uiManager.targetAssigned == false && tag == "Enemy")
-                {
-                    uiManager.AssignTarget(this);
-                }
-            //}
-            /*if(!uiManager.waiting && !uiManager.attacking ) temp for testing
-            {
-                var moveArea = pathfinder.GetTilesInRange(floor, movementSpeed, false);
+        //        if (uiManager.attackerAssigned && uiManager.targetAssigned == false && tag == "Enemy")
+        //        {
+        //            uiManager.AssignTarget(this);
+        //        }
+        //    }
+        //    if(!uiManager.waiting && !uiManager.attacking )
+        //    {
+        //        var moveArea = pathfinder.GetTilesInRange(floor, movementSpeed, false);
 
-                foreach(var tile in moveArea)
-                {
-                    tile.GetComponent<Renderer>().material.color = Color.blue;
-                }
-            }*/
-        }
+        //        foreach(var tile in moveArea)
+        //        {
+        //            tile.GetComponent<Renderer>().material.color = Color.blue;
+        //        }
+        //    }
+        //}
     }
 }
