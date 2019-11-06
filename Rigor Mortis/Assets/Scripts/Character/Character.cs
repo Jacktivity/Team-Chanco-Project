@@ -63,6 +63,11 @@ public class Character : MonoBehaviour
     public void TakeDamage(int damage)
     {
         hitPoints = hitPoints - damage;
+
+        if(hitPoints <= 0)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     public HashSet<Attacks> Attack()
@@ -99,8 +104,9 @@ public class Character : MonoBehaviour
                 hasTurn = false;
                 turnManager.CycleTurns();
             }
-            if (uiManager.attacking)
-            {
+            // Attack Button Removed
+            //if (uiManager.attacking)
+            //{
                 if (/*uiManager.attackerAssigned == false && */uiManager.targetAssigned == false && tag == "Player")
                 {
                     uiManager.AssignAttacker(this);
@@ -110,8 +116,8 @@ public class Character : MonoBehaviour
                 {
                     uiManager.AssignTarget(this);
                 }
-            }
-            if(!uiManager.waiting && !uiManager.attacking )
+            //}
+            /*if(!uiManager.waiting && !uiManager.attacking ) temp for testing
             {
                 var moveArea = pathfinder.GetTilesInRange(floor, movementSpeed, false);
 
@@ -119,7 +125,7 @@ public class Character : MonoBehaviour
                 {
                     tile.GetComponent<Renderer>().material.color = Color.blue;
                 }
-            }
+            }*/
         }
     }
 }
