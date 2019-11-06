@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
 
     public TurnManager turnManager;
     public UIManager uiManager;
+    public AttackManager attackManager;
     public Pathfinder pathfinder;
     public bool hasTurn;
     public BlockScript floor;
@@ -30,6 +31,7 @@ public class Character : MonoBehaviour
     {
         attacks = new HashSet<Attacks>();
         uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
+        attackManager = GameObject.Find("EventSystem").GetComponent<AttackManager>();
 
         startTime = Time.time;
     }
@@ -98,25 +100,25 @@ public class Character : MonoBehaviour
     {
         if(hasTurn || gameObject.tag == "Enemy")
         {
-            if (uiManager.waiting)
+            if (attackManager.waiting)
             {
-                uiManager.waiting = false;
+                attackManager.waiting = false;
                 hasTurn = false;
                 turnManager.CycleTurns();
             }
-            // Attack Button Removed
-            //if (uiManager.attacking)
-            //{
-                if (/*uiManager.attackerAssigned == false && */uiManager.targetAssigned == false && tag == "Player")
+
+            if (uiManager.attacking)
+            {
+                if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
                 {
-                    uiManager.AssignAttacker(this);
+                    attackManager.AssignAttacker(this);
                 }
 
-                if (uiManager.attackerAssigned && uiManager.targetAssigned == false && tag == "Enemy")
+                if (attackManager.attackerAssigned && attackManager.targetAssigned == false && tag == "Enemy")
                 {
-                    uiManager.AssignTarget(this);
+                    attackManager.AssignTarget(this);
                 }
-            //}
+            }
             /*if(!uiManager.waiting && !uiManager.attacking ) temp for testing
             {
                 var moveArea = pathfinder.GetTilesInRange(floor, movementSpeed, false);
