@@ -74,14 +74,18 @@ public class AttackManager : MonoBehaviour
 
     public void Attack()
     {
+        //Attack in progress
         if (uiManager.blocksInRange.Contains<BlockScript>(target.floor))
         {
-            int damage = Random.Range(attack.physicalMinAttack, attack.physicalMaxAttack);
-            target.TakeDamage(damage);
+            int attackRoll = Random.Range(1, 100);
+            float hitChance = (attacker.accuracy * attack.accuracy) - (target.evade /*+ terrain.defence */);
+            if (attackRoll <= hitChance) {
+                int damage = Random.Range(attack.physicalMinAttack, attack.physicalMaxAttack);
+                target.TakeDamage(damage);
+                Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.name + " dealing " + damage + " damage. Leaving " + target.name + " with " + target.GetHealth() + " health left");
+            }
+            Debug.Log("The attack missed! The attack roll was " + attackRoll + " and the ");
 
-            Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.name + " dealing " + damage + " damage. Leaving " + target.name + " with " + target.GetHealth() + " health left");
-
-            
             uiManager.ClearRangeBlocks();
             attacker.hasTurn = false;
             ClearAttack();
