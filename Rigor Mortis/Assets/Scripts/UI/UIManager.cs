@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour
     {
         foreach (var block in blocksInRange)
         {
-            block.GetComponent<Renderer>().material.color = block.origin;
+            block.GetComponent<Renderer>().material.color = block.Normal;
         }
     }
 }

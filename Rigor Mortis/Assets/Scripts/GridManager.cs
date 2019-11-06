@@ -17,7 +17,7 @@ public class GridManager : MonoBehaviour
 
     [Header("Player Data")]
     [SerializeField] private GameObject playerContainter;
-    [SerializeField] private Character[] playerPrefabs;
+    [SerializeField] public Character[] playerPrefabs;
 
     [Header("MapData")]
     [SerializeField] private GameObject[] tiles;
