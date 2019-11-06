@@ -109,7 +109,7 @@ public class Pathfinder : MonoBehaviour
         return returnValue;
     }
 
-    public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier)
+    public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool searchOccupied = true)
     {
         var distDictionary = new Dictionary<BlockScript, float>();
 
@@ -139,7 +139,9 @@ public class Pathfinder : MonoBehaviour
 
             gameMap.Remove(pathTile);
 
-            foreach (var tile in pathTile.AdjacentTiles())
+            var adjacent = searchOccupied ? pathTile.AdjacentTiles() : pathTile.UnoccupiedAdjacentTiles();
+
+            foreach (var tile in adjacent)
             {
                 float pathLength = Vector2.Distance(new Vector2(tile.coordinates.x, tile.coordinates.z),
                     new Vector2(pathTile.coordinates.x, pathTile.coordinates.z));
