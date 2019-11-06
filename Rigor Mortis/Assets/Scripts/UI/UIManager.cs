@@ -7,13 +7,13 @@ using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
-    Pathfinder pathFinder;
+    [SerializeField]Pathfinder pathFinder;
 
-    Canvas battleCanvas;
-    Canvas prepCanvas;
-    Canvas fixedCanvas;
+    [SerializeField]Canvas battleCanvas;
+    [SerializeField]Canvas prepCanvas;
+    [SerializeField]Canvas fixedCanvas;
 
-    Text turnDisplay;
+    [SerializeField]Text turnDisplay;
 
     public bool attacking = false;
     public bool waiting = false;
@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     public Character attacker;
     public Character target;
 
-    public GameObject popUpButton;
+    public GameObject attackButton;
     public List<GameObject> popUpButtons;
 
     Attacks attack;
@@ -34,15 +34,10 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pathFinder = GameObject.Find("GridGenerator").GetComponent<Pathfinder>();
+        pathFinder = pathFinder.GetComponent<Pathfinder>();
+        turnDisplay = GetComponent<Text>();
 
-        battleCanvas = GameObject.Find("BattleCanvas").GetComponent<Canvas>();
-        prepCanvas = GameObject.Find("PrepCanvas").GetComponent<Canvas>();
-        fixedCanvas = GameObject.Find("FixedCanvas").GetComponent<Canvas>();
-
-        turnDisplay = GameObject.Find("TurnNumberDisplay").GetComponentInChildren<Text>();
-
-        popUpButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/PopUpButton.prefab", typeof(GameObject));
+        attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
     }
 
     public void UpdateTurnNumber(int turn)
@@ -132,7 +127,7 @@ public class UIManager : MonoBehaviour
         {
             popUpOffset = new Vector3(0, 0, 1 * i);
 
-            GameObject button = Instantiate(popUpButton, instantiationPoint + popUpOffset, battleCanvas.transform.rotation, fixedCanvas.transform);
+            GameObject button = Instantiate(attackButton, instantiationPoint + popUpOffset, battleCanvas.transform.rotation, fixedCanvas.transform);
             popUpButtons.Add(button);
             button.GetComponent<ChooseAttackButton>().uiManager = this;
             button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
