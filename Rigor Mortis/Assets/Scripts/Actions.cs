@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProtoButton : MonoBehaviour
+public class Actions : MonoBehaviour
 {
-    public Character unit;
-    public GridManager manager;
     // Start is called before the first frame update
     void Start()
     {
+        
     }
-     public void SetUnit()
+
+    // Update is called once per frame
+    void Update()
     {
-        manager.SetSelectedUnit(unit);
+        
     }
 }

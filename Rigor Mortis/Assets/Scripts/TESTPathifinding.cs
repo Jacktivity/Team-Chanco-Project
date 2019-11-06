@@ -11,6 +11,7 @@ public class TESTPathifinding : MonoBehaviour
     void Start()
     {
         path = GetComponent<Pathfinder>();
+        ColourArea();
     }
 
     public void ColourArea()

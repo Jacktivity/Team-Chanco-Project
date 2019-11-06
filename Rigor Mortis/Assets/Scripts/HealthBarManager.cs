@@ -9,33 +9,34 @@ public class HealthBarManager : MonoBehaviour
     public Canvas canvas;
     Slider healthBar;
     List<Slider> healthBars;
-    List<GameObject> units;
+    List<Character> units;
 
     void Awake()
     {
         healthBar = (Slider) AssetDatabase.LoadAssetAtPath( "Assets/Prefabs/UI/HealthBarSlider.prefab", typeof(Slider));
-        units = new List<GameObject>();
+        units = new List<Character>();
         healthBars = new List<Slider>();
 
         BuildUnits();
     }
 
     void BuildUnits() {
-        foreach(GameObject unit in GameObject.FindGameObjectsWithTag("Player")) {
+        foreach(Character unit in FindObjectsOfType<Character>()) {
             units.Add(unit);
             InstantiateHealthBar(unit);
         }
     }
 
-    void InstantiateHealthBar(GameObject unit)
+    void InstantiateHealthBar(Character unit)
     {
-        Slider newSlider = Instantiate(healthBar, unit.transform.position, unit.transform.rotation, canvas.transform);
-        healthBars.Add(newSlider);
-        newSlider.gameObject.AddComponent<HealthBar>().unit = unit;
+        //Slider newSlider = Instantiate(healthBar, unit.transform.position, unit.transform.rotation, canvas.transform);
+        //healthBars.Add(newSlider);
+        //unit.gameObject.AddComponent<HealthBar>().unit = unit;
+        //unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
     }
 
-    public void AddUnit(GameObject newUnit) {
-        units.Add( newUnit );
-        InstantiateHealthBar(newUnit);
+    public void AddUnit(Character newUnit) {
+        //units.Add( newUnit );
+       // InstantiateHealthBar(newUnit);
     }
 }
