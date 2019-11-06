@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 235474111}
   - component: {fileID: 235474115}
   - component: {fileID: 235474116}
+  - component: {fileID: 235474114}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -180,6 +181,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &235474114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235474110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e93d0b28e64304ca37edda6a304e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiManager: {fileID: 0}
+  pathFinder: {fileID: 411395489}
+  attacker: {fileID: 0}
+  target: {fileID: 0}
+  waiting: 0
+  attackerAssigned: 0
+  targetAssigned: 0
+  attackAssigned: 0
 --- !u!114 &235474115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,14 +218,11 @@ MonoBehaviour:
   prepCanvas: {fileID: 1945696227}
   fixedCanvas: {fileID: 912303909}
   turnDisplay: {fileID: 1630482983}
+  attackManager: {fileID: 0}
   attacking: 0
-  waiting: 0
-  attackerAssigned: 0
-  targetAssigned: 0
-  attacker: {fileID: 0}
-  target: {fileID: 0}
   attackButton: {fileID: 0}
   popUpButtons: []
+  blocksInRange: []
 --- !u!114 &235474116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,15 +351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cddd6b713af7ac4297c32d19aa403f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiles:
-  - {fileID: 3351411145026690899, guid: d97985ffba5394441ac5eed483f38df1, type: 3}
-  - {fileID: 6376823529244009597, guid: fef1ea99826d654429888df56395427b, type: 3}
-  - {fileID: 7147944759944686706, guid: 6e3fe52d3d8ec6d4a80f8e7e07b7e4f2, type: 3}
-  - {fileID: 6645742794849477671, guid: 269d7f95c0acf8948b2e5b2414ef05e5, type: 3}
-  - {fileID: 803779068645609789, guid: aaf2bcdbc7187ff46823f0181ca61923, type: 3}
-  - {fileID: 651419668214571210, guid: 09e64d81afb4ff244944a18d751e2b4e, type: 3}
-  - {fileID: 6623639865727720075, guid: d2cbacb4c83d2d649a59025e3b8dd8ed, type: 3}
-  - {fileID: 4120780230417916056, guid: 7f5bb6b7c49baed408d40722779cc591, type: 3}
   enemyContainter: {fileID: 813066464}
   enemyPrefabs:
   - {fileID: 7401539981024866147, guid: 6d269dfb0b1988647b8ca867b319a0a5, type: 3}
@@ -350,10 +359,22 @@ MonoBehaviour:
   playerPrefabs:
   - {fileID: 4790737883455124222, guid: 30dab48646b25b443bb2fa9b8e982140, type: 3}
   - {fileID: 6690734147878028020, guid: 3f819d25698f8af408f0d42edfebced9, type: 3}
+  tiles:
+  - {fileID: 5226057197208204854, guid: 6ec685ae8a2349f4babda7fe8186af89, type: 3}
+  - {fileID: 6376823529244009597, guid: fef1ea99826d654429888df56395427b, type: 3}
+  - {fileID: 7147944759944686706, guid: 6e3fe52d3d8ec6d4a80f8e7e07b7e4f2, type: 3}
+  - {fileID: 6645742794849477671, guid: 269d7f95c0acf8948b2e5b2414ef05e5, type: 3}
+  - {fileID: 803779068645609789, guid: aaf2bcdbc7187ff46823f0181ca61923, type: 3}
+  - {fileID: 651419668214571210, guid: 09e64d81afb4ff244944a18d751e2b4e, type: 3}
+  - {fileID: 6623639865727720075, guid: d2cbacb4c83d2d649a59025e3b8dd8ed, type: 3}
+  - {fileID: 4120780230417916056, guid: 7f5bb6b7c49baed408d40722779cc591, type: 3}
   levelMap: {fileID: 4900000, guid: 5f07e7bca074f5f49bf53be9efa4bd0f, type: 3}
   SelectedUnit: {fileID: 0}
   turnManager: {fileID: 1913043340}
   eventSystem: {fileID: 0}
+  spawnPoint: {r: 0, g: 0, b: 0, a: 0}
+  lowSpeedTile: {r: 0, g: 0, b: 0, a: 0}
+  highSpeedTile: {r: 0, g: 0, b: 0, a: 0}
   moveMode: 0
   selectedBlock: {fileID: 0}
 --- !u!4 &411395488
@@ -845,17 +866,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912303906}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 749, y: 377}
-  m_SizeDelta: {x: 1498, y: 754}
+  m_AnchoredPosition: {x: 15, y: 5}
+  m_SizeDelta: {x: 30, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1056572165
 GameObject:
@@ -1163,7 +1184,7 @@ PrefabInstance:
     - target: {fileID: 8340796270077940530, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_RenderMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8340796270077940531, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
@@ -1648,6 +1669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2124585194}
+  - component: {fileID: 2124585195}
   m_Layer: 0
   m_Name: PlayerContainer
   m_TagString: Untagged
@@ -1669,3 +1691,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2124585195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124585193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58482faf10d80547ae2f9328ac6f74e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkTiles: []
+  sprintTiles: []
+  turnManager: {fileID: 1913043340}
+  gridManager: {fileID: 411395487}

@@ -80,14 +80,6 @@ public class BlockScript : MonoBehaviour
         blockMousedOver?.Invoke(this, this);
     }
 
-    private void OnMouseExit()
-    {
-        if(manager.moveMode)
-        {
-            ChangeColour(Color.white);
-        }
-    }
-
     public void OnCollisionExit(Collision collision)
     {
         occupier = null;

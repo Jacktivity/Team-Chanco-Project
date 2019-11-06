@@ -29,7 +29,6 @@ public class UIManager : MonoBehaviour
     {
         pathFinder = GetComponent<Pathfinder>();
         attackManager = GetComponent<AttackManager>();
-        turnDisplay = GetComponent<Text>();
 
         attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
     }

@@ -15,8 +15,8 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GridManager.unitSpawned += (s, e) => { Character.characterClicked += (sender, character) => PlayerUnitChosen(e); };
-        GridManager.enemySpawned += (s, e) => { Character.characterClicked += (sender, character) => EnemyUnitChosen(e); };
+        GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
+        GridManager.enemySpawned += (s, e) => { e.characterClicked += (sender, character) => EnemyUnitChosen(e); };
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
     }
 

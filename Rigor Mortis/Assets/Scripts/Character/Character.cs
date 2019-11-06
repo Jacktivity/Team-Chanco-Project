@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
     bool moving = false;
     float startTime;
 
-    public static EventHandler<Character> characterClicked;
+    public EventHandler<Character> characterClicked;
 
     IEnumerable<BlockScript> path;
     int pathIndex;
@@ -102,28 +102,28 @@ public class Character : MonoBehaviour
     {
 
         characterClicked?.Invoke(this, this);
-        //if (hasTurn || gameObject.tag == "Enemy")
-        //{
-        //    if (attackManager.waiting)
-        //    {
-        //        attackManager.waiting = false;
-        //        hasTurn = false;
-        //        turnManager.CycleTurns();
-        //    }
+        if (hasTurn || gameObject.tag == "Enemy")
+        {
+            if (attackManager.waiting)
+            {
+                attackManager.waiting = false;
+                hasTurn = false;
+                turnManager.CycleTurns();
+            }
 
-        //    if (uiManager.attacking)
-        //    {
-        //        if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
-        //        {
-        //            attackManager.AssignAttacker(this);
-        //        }
+            if (uiManager.attacking)
+            {
+                if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
+                {
+                    attackManager.AssignAttacker(this);
+                }
 
-        //        if (attackManager.attackerAssigned && attackManager.targetAssigned == false && tag == "Enemy")
-        //        {
-        //            attackManager.AssignTarget(this);
-        //        }
-        //    }
-        //}
+                if (attackManager.attackerAssigned && attackManager.targetAssigned == false && tag == "Enemy")
+                {
+                    attackManager.AssignTarget(this);
+                }
+            }
+        }
         /*if(!uiManager.waiting && !uiManager.attacking ) temp for testing
             {
                 var moveArea = pathfinder.GetTilesInRange(floor, movementSpeed, false);
