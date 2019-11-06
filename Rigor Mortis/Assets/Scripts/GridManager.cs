@@ -13,7 +13,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject enemyContainter;
     [SerializeField] private Character[] enemyPrefabs;
     [SerializeField] private GameObject playerContainter;
-    [SerializeField] private Character[] playerPrefabs;
+    [SerializeField] public Character[] playerPrefabs;
     [SerializeField] private TextAsset levelMap;
     [SerializeField] private Character SelectedUnit;
     [SerializeField] private TurnManager turnManager;
@@ -52,7 +52,7 @@ public class GridManager : MonoBehaviour
         {
             if (pos.Value >= 0)
             {
-                GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, 0, pos.ZPos), new Quaternion(), gameObject.transform);
+                GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, 0, pos.ZPos), tiles[pos.Value].transform.rotation, gameObject.transform);
                 tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, 0, pos.ZPos);
                 tile.name = tile.name.Replace("(Clone)", "");
                 tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
@@ -97,7 +97,7 @@ public class GridManager : MonoBehaviour
 
     public void SpawnUnit(Vector3 location)
     {
-        var unit = Instantiate(SelectedUnit, location, new Quaternion(), playerContainter.transform);
+        var unit = Instantiate(SelectedUnit, location, SelectedUnit.transform.rotation, playerContainter.transform);
         unit.GetComponent<Character>().turnManager = turnManager;
         unit.tag = "Player";
         unit.pathfinder = gameObject.GetComponent<Pathfinder>();

@@ -32,12 +32,12 @@ public class AttackLibrary
 
 public class Attacks
 {
-    int physicalMaxAttack;
-    int physicalMinAttack;
-    int magicalMaxAttack;
-    int magicalMinAttack;
-    int range;
-    float accuracy;
+    public int physicalMaxAttack;
+    public int physicalMinAttack;
+    public int magicalMaxAttack;
+    public int magicalMinAttack;
+    public int range;
+    public float accuracy;
     public string name;
 
     public Attacks(int _PhyMaxAtk, int _PhyMinDam, int _magicMaxAtk, int _magicMinAtk,int _range, float _acc, string _name)
