@@ -54,7 +54,7 @@ public class GridManager : MonoBehaviour
     {
         if(tile.placeable)
         {
-            var costOfUnit = GetSelectedUnit().cost;
+            var costOfUnit = SelectedUnit.cost;
             if ((GetPlacementPoints() - costOfUnit) >= 0)
             {
                 SpawnUnit(new Vector3(tile.gameObject.transform.position.x, 1, tile.gameObject.transform.position.z));

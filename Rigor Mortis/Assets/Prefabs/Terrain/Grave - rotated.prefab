@@ -109,8 +109,8 @@ MonoBehaviour:
   coordinates: {x: 0, y: 0, z: 0}
   manager: {fileID: 0}
   placeable: 0
-  origin: {r: 0, g: 0, b: 0, a: 0}
   MoveModifier: 10
+  normal: {r: 0, g: 0, b: 0, a: 0}
   N: {fileID: 0}
   NE: {fileID: 0}
   E: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   SW: {fileID: 0}
   W: {fileID: 0}
   NW: {fileID: 0}
-  occupier: {fileID: 0}
+  occupier: {fileID: 7874885558268740225}
 --- !u!54 &1203569322063611315
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -205,6 +205,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
+--- !u!1 &7874885558268740225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 03863dea836206540a46b8838eb34df3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7874885558268838945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7874885558268452513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 03863dea836206540a46b8838eb34df3,
