@@ -50,10 +50,6 @@ public class AttackManager : MonoBehaviour
         {
             Attack();
         }
-        //attacks = attacker.Attack();
-        //DisplayAttacks(attacks);
-
-        //Attack(); 
     }
 
     public void AssignAttack(Attacks _attack)
@@ -86,6 +82,8 @@ public class AttackManager : MonoBehaviour
             Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.name + " dealing " + damage + " damage. Leaving " + target.name + " with " + target.GetHealth() + " health left");
 
             ClearAttack();
+            uiManager.ClearRangeBlocks();
+            attacker.hasTurn = false;
         }
         else
         {
