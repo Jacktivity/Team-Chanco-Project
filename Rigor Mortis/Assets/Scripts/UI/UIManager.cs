@@ -42,7 +42,6 @@ public class UIManager : MonoBehaviour
     public void ToggleAttack()
     {
         attacking = !attacking;
-        //attacks = character.Attack();
         if (attackManager.attackerAssigned) {
             DisplayAttacks(attackManager.attacks);
         }
