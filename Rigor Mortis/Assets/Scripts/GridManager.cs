@@ -33,8 +33,8 @@ public class GridManager : MonoBehaviour
     public BlockScript[] Map => GetComponentsInChildren<BlockScript>();
 
     public Color SpawnColor => spawnPoint;
-    public EventHandler<Character> unitSpawned, enemySpawned;
-    public EventHandler mapGenerated;
+    public static EventHandler<Character> unitSpawned, enemySpawned;
+    public static EventHandler<BlockScript[]> mapGenerated;
     private int placementPoints;
 
     GridXML.levels xmlData;
@@ -44,10 +44,13 @@ public class GridManager : MonoBehaviour
     {
         xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
         GenerateLevel();
+
+        mapGenerated?.Invoke(this, Map);
+
         PlaceEnemy();
         UnitPlacement();
 
-        mapGenerated?.Invoke(this, new EventArgs());
+        mapGenerated?.Invoke(this, Map);
     }
 
     /**
@@ -73,7 +76,8 @@ public class GridManager : MonoBehaviour
                 tile.name = tile.name.Replace("(Clone)", "");
                 tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
 
-                tile.GetComponent<BlockScript>().blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
+                BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
+                
             }
         }
 

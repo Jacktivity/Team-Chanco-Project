@@ -13,7 +13,8 @@ public class BlockScript : MonoBehaviour
     public bool Traversable { get; private set; }
     public bool Occupied => occupier != null;
 
-    public EventHandler<BlockScript> blockMousedOver, blockClicked;
+    public static EventHandler<BlockScript> blockMousedOver;
+    public static EventHandler<BlockScript> blockClicked;
 
 #pragma warning disable 069
     [SerializeField] private Color normal;
@@ -56,6 +57,9 @@ public class BlockScript : MonoBehaviour
 
     private void OnMouseDown()
     {
+        blockClicked?.Invoke(this, this);
+        Debug.Log("Click");
+
         if(manager.GetSelectedUnit() != null)
         {
             var costOfUnit = manager.GetSelectedUnit().cost;
@@ -74,7 +78,7 @@ public class BlockScript : MonoBehaviour
 
     void OnMouseOver()
     {
-        blockMousedOver?.Invoke(this, gameObject.GetComponent<BlockScript>());
+        blockMousedOver?.Invoke(this, this);
     }
 
     private void OnMouseExit()

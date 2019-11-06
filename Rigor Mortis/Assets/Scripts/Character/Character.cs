@@ -17,7 +17,7 @@ public class Character : MonoBehaviour
     public TurnManager turnManager;
     public UIManager uiManager;
     public Pathfinder pathfinder;
-    public bool hasTurn;
+    public bool hasTurn, movedThisTurn;
     public BlockScript floor;
     bool moving = false;
     float startTime;
