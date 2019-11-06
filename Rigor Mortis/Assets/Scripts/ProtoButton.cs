@@ -10,7 +10,8 @@ public class ProtoButton : MonoBehaviour
     void Start()
     {
     }
-     public void SetUnit()
+
+    public void setUnit()
     {
         manager.SetSelectedUnit(unit);
     }
