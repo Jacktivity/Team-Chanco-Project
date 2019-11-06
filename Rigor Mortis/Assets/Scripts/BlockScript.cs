@@ -58,7 +58,6 @@ public class BlockScript : MonoBehaviour
     private void OnMouseDown()
     {
         blockClicked?.Invoke(this, this);
-        Debug.Log("Click");
 
         if(manager.GetSelectedUnit() != null)
         {

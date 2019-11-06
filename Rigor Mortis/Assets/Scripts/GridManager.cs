@@ -44,13 +44,24 @@ public class GridManager : MonoBehaviour
     {
         xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
         GenerateLevel();
-
-        mapGenerated?.Invoke(this, Map);
-
         PlaceEnemy();
         UnitPlacement();
 
-        mapGenerated?.Invoke(this, Map);
+        BlockScript.blockClicked += (s, e) => BlockClicked(e);
+    }
+
+    private void BlockClicked(BlockScript tile)
+    {
+        if(tile.placeable)
+        {
+            var costOfUnit = GetSelectedUnit().cost;
+            if ((GetPlacementPoints() - costOfUnit) >= 0)
+            {
+                SpawnUnit(new Vector3(tile.gameObject.transform.position.x, 1, tile.gameObject.transform.position.z));
+                ResetSelectedUnit();
+                ReducePlacementPoints(costOfUnit);
+            }
+        }        
     }
 
     /**

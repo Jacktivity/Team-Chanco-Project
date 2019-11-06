@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
     bool moving = false;
     float startTime;
 
-    public EventHandler characterClicked;
+    public static EventHandler<Character> characterClicked;
 
     IEnumerable<BlockScript> path;
     int pathIndex;
@@ -93,7 +93,7 @@ public class Character : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        characterClicked?.Invoke(this, new EventArgs());
+        characterClicked?.Invoke(this, this);
         //if(hasTurn || gameObject.tag == "Enemy")
         //{
         //    if (uiManager.waiting)

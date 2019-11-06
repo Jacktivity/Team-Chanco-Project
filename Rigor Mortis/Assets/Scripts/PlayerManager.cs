@@ -11,11 +11,12 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private GridManager gridManager;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
-        GridManager.enemySpawned += (s, e) => { e.characterClicked += (sender, character) => EnemyUnitChosen(e); };
+        GridManager.unitSpawned += (s, e) => { Character.characterClicked += (sender, character) => PlayerUnitChosen(e); };
+        GridManager.enemySpawned += (s, e) => { Character.characterClicked += (sender, character) => EnemyUnitChosen(e); };
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
     }
 
@@ -29,7 +30,7 @@ public class PlayerManager : MonoBehaviour
                 if(sprinting)
                 {
                     selectedPlayer.hasTurn = false;
-                    selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == t, selectedPlayer.isFlying == false));
+                    selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == t, selectedPlayer.isFlying == false));                    
                 }
                 else if (walkTiles.Contains(t))
                 {
@@ -40,17 +41,8 @@ public class PlayerManager : MonoBehaviour
                 {
                     Debug.Log("Clicked invalid block");
                 }
-            }
+            }            
         }
-
-        turnManager.CheckPlayerTurn();
-    }
-
-    private void CheckEnemyUnitClicks()
-    {
-        var enemyUnits = FindObjectOfType<EnemyAI>().Units;
-        Debug.Log(enemyUnits.Length);
-        enemyUnits.Select(u => u.characterClicked += (s, e) => { EnemyUnitChosen(u); });
     }
 
     public void PlayerUnitChosen(Character unit)
@@ -59,8 +51,7 @@ public class PlayerManager : MonoBehaviour
         {
             selectedPlayer = unit;
             walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false);
-            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false);
-            
+            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false);            
         }            
         else
             selectedPlayer = null;

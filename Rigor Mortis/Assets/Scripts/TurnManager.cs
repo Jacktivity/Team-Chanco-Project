@@ -53,7 +53,10 @@ public class TurnManager : MonoBehaviour
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
-            player.GetComponent<Character>().hasTurn = true;
+            var playerScript = player.GetComponent<Character>();
+            playerScript.hasTurn = true;
+            playerScript.movedThisTurn = false;
+
         }
         playerTurn = true;
 
