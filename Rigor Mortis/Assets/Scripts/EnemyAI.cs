@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    private Character[] Units => transform.GetComponentsInChildren<Character>();
+    public Character[] Units => GetComponentsInChildren<Character>();
     private AIStates currentPlayState = AIStates.Attack;
     [SerializeField] private Pathfinder pathfinder;
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using System.Xml;
 using System.Text;
 using System.IO;
@@ -9,18 +10,31 @@ using System.Linq;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] tiles;
+    
+    [Header("Enemy Data")]
     [SerializeField] private GameObject enemyContainter;
     [SerializeField] private Character[] enemyPrefabs;
+
+    [Header("Player Data")]
     [SerializeField] private GameObject playerContainter;
     [SerializeField] private Character[] playerPrefabs;
+
+    [Header("MapData")]
+    [SerializeField] private GameObject[] tiles;
     [SerializeField] private TextAsset levelMap;
+
     [SerializeField] private Character SelectedUnit;
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private HealthBarManager eventSystem;
+    [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile;
     public bool moveMode;
     public BlockScript selectedBlock;
 
+    public BlockScript[] Map => GetComponentsInChildren<BlockScript>();
+
+    public Color SpawnColor => spawnPoint;
+    public EventHandler<Character> unitSpawned, enemySpawned;
+    public EventHandler mapGenerated;
     private int placementPoints;
 
     GridXML.levels xmlData;
@@ -32,6 +46,8 @@ public class GridManager : MonoBehaviour
         GenerateLevel();
         PlaceEnemy();
         UnitPlacement();
+
+        mapGenerated?.Invoke(this, new EventArgs());
     }
 
     /**
@@ -56,10 +72,12 @@ public class GridManager : MonoBehaviour
                 tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, 0, pos.ZPos);
                 tile.name = tile.name.Replace("(Clone)", "");
                 tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
+
+                tile.GetComponent<BlockScript>().blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
             }
         }
 
-        placementPoints = level.map.placementPoints;
+        placementPoints = level.map.placementPoints;        
     }
 
     void PlaceEnemy()
@@ -71,6 +89,8 @@ public class GridManager : MonoBehaviour
             Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, 1, enemy.posZ), new Quaternion(), enemyContainter.transform);
             placedEnemy.name = enemy.name;
             placedEnemy.tag = "Enemy";
+
+            enemySpawned?.Invoke(this, placedEnemy);
           // eventSystem.AddUnit(placedEnemy);
         }
     }
@@ -83,9 +103,10 @@ public class GridManager : MonoBehaviour
 
         var placeableTiles = placeables.Select(s => map.First(tile => tile.coordinates.x == s.posX && tile.coordinates.z == s.posZ));
 
-        foreach(var placeable in placeableTiles)
+        foreach(var spawnTile in placeableTiles)
         {
-            placeable.placeable = true;
+            spawnTile.placeable = true;
+            spawnTile.ChangeColour(spawnPoint);
         }
     }
 
@@ -101,6 +122,7 @@ public class GridManager : MonoBehaviour
         unit.GetComponent<Character>().turnManager = turnManager;
         unit.tag = "Player";
         unit.pathfinder = gameObject.GetComponent<Pathfinder>();
+        unitSpawned?.Invoke(this, unit);
        // eventSystem.AddUnit(SelectedUnit);
     }
     public Character GetSelectedUnit()
@@ -121,6 +143,7 @@ public class GridManager : MonoBehaviour
     }
     public void ReducePlacementPoints(int reduction)
     {
+        Debug.Log(placementPoints + "-" + reduction);
         placementPoints -= reduction;
 
         if (placementPoints <= 0)
@@ -128,6 +151,12 @@ public class GridManager : MonoBehaviour
             Canvas canvas = GameObject.Find("PrepCanvas").GetComponent<Canvas>();
             canvas.enabled = false;
             turnManager.CycleTurns();
+            var remainingSpawnTiles = Map.Where(t => t.placeable);
+            foreach (var tile in remainingSpawnTiles)
+            {
+                tile.placeable = false;
+                tile.ChangeColour(tile.Normal);
+            }
         }
     }
 
