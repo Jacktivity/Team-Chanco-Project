@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c60e9467860784fa0e0f3295be4a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 2
+  cost: 0
   hitPoints: 5
   accuracy: 5
   power: 5
@@ -135,6 +135,8 @@ MonoBehaviour:
   isCaptain: 1
   turnManager: {fileID: 0}
   uiManager: {fileID: 0}
+  attackManager: {fileID: 0}
   pathfinder: {fileID: 0}
   hasTurn: 1
+  movedThisTurn: 0
   floor: {fileID: 0}

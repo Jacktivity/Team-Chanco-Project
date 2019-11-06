@@ -108,7 +108,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &1249761370544840288
 MonoBehaviour:
@@ -149,6 +149,8 @@ MonoBehaviour:
   isCaptain: 0
   turnManager: {fileID: 0}
   uiManager: {fileID: 0}
+  attackManager: {fileID: 0}
   pathfinder: {fileID: 0}
   hasTurn: 0
+  movedThisTurn: 0
   floor: {fileID: 0}

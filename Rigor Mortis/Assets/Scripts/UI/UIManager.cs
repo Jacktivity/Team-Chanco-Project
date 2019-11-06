@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]Pathfinder pathFinder;
 
+    [SerializeField] TurnManager turnManager;
     [SerializeField]Canvas battleCanvas;
     [SerializeField]Canvas prepCanvas;
     [SerializeField]Canvas fixedCanvas;
@@ -53,6 +54,7 @@ public class UIManager : MonoBehaviour
     public void wait()
     {
         attackManager.waiting = true;
+        turnManager.CheckPlayerTurn();
     }
 
     public void DisplayAttacks(HashSet<Attacks> _attacks)
@@ -64,9 +66,9 @@ public class UIManager : MonoBehaviour
 
             for (int i = 0; i < _attacks.Count; i++)
             {
-                popUpOffset = new Vector3(0, 0, 1 * i);
+                popUpOffset = new Vector3(325, 30 * i, 100);
 
-                GameObject button = Instantiate(attackButton, instantiationPoint + popUpOffset, battleCanvas.transform.rotation, fixedCanvas.transform);
+                GameObject button = Instantiate(attackButton, instantiationPoint + popUpOffset, battleCanvas.transform.rotation, battleCanvas.transform);
                 popUpButtons.Add(button);
                 button.GetComponent<ChooseAttackButton>().attackManager = attackManager;
                 button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
