@@ -65,25 +65,6 @@ public class BlockScript : MonoBehaviour
         }
     }
 
-    void OnMouseOver()
-    {
-        if(manager.moveMode)
-        {
-            manager.selectedBlock = this;
-            this.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-            
-        }
-
-    }
-
-    private void OnMouseExit()
-    {
-        if(manager.moveMode)
-        {
-            this.gameObject.GetComponent<Renderer>().material.color = Color.white;
-        }
-    }
-
     public void OnCollisionExit(Collision collision)
     {
         occupier = null;
@@ -96,6 +77,10 @@ public class BlockScript : MonoBehaviour
         if (contact.tag == "Floor")
         {
             Vector3 newCoord = coordinates - contact.GetComponent<BlockScript>().coordinates;
+            if(collision.transform.position.y > transform.position.y)
+            {
+                occupier = contact;
+            }
 
             switch ((int)newCoord.z)
             {

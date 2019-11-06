@@ -52,7 +52,7 @@ public class GridManager : MonoBehaviour
         {
             if (pos.Value >= 0)
             {
-                GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, 0, pos.ZPos), new Quaternion(), gameObject.transform);
+                GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, 0, pos.ZPos), tiles[pos.Value].transform.rotation, gameObject.transform);
                 tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, 0, pos.ZPos);
                 tile.name = tile.name.Replace("(Clone)", "");
                 tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
