@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChooseAttackButton : MonoBehaviour
 {
-    public UIManager uiManager;
+    public AttackManager attackManager;
     public Attacks attack;
 
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class ChooseAttackButton : MonoBehaviour
 
     public void ChooseAttack()
     {
-        uiManager.AssignAttack(attack);
+        attackManager.AssignAttack(attack);
         //uiManager.Attack();
     }
 }
