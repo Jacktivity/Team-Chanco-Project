@@ -52,7 +52,9 @@ public class AttackManager : MonoBehaviour
         attacker = character;
 
         attacks = attacker.Attack();
-        uiManager.DisplayAttacks(attacks);
+        if (uiManager.attacking) {
+            uiManager.DisplayAttacks(attacks);
+        }
 
         if (attackAssigned)
         {

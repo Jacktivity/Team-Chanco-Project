@@ -132,14 +132,14 @@ public class Character : MonoBehaviour
                 turnManager.CycleTurns();
             }
 
+            attackManager.GetComponent<AttackManager>().gridManager.ClearMap(); ;
+            if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
+            {
+                attackManager.AssignAttacker(this);
+            }
+
             if (uiManager.attacking)
             {
-                attackManager.GetComponent<AttackManager>().gridManager.ClearMap(); ;
-                if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
-                {
-                    attackManager.AssignAttacker(this);
-                }
-
                 if (attackManager.attackerAssigned && attackManager.targetAssigned == false && tag == "Enemy")
                 {
                     attackManager.AssignTarget(this);
