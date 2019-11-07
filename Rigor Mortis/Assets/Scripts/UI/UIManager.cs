@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
     {
         pathFinder = GetComponent<Pathfinder>();
         attackManager = GetComponent<AttackManager>();
-        gridManager = GetComponent<GridManager>();
+        //gridManager = GetComponent<GridManager>();
         attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
     }
 
@@ -47,7 +47,8 @@ public class UIManager : MonoBehaviour
         }
         if(!attacking)
         {
-            ClearRangeBlocks();
+            //ClearRangeBlocks();
+            gridManager.ClearMap();
             //attackManager.ClearAttack();
         }
     }
