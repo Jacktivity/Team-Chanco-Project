@@ -50,6 +50,8 @@ public class UIManager : MonoBehaviour
             //ClearRangeBlocks();
             gridManager.ClearMap();
             //attackManager.ClearAttack();
+            attackManager.attacker = null;
+            attackManager.attackerAssigned = false;
         }
     }
 
@@ -57,6 +59,7 @@ public class UIManager : MonoBehaviour
     {
         attackManager.waiting = true;
         turnManager.CycleTurns();
+        attackManager.ClearAttack();
     }
 
     public void DisplayAttacks(HashSet<Attacks> _attacks)
