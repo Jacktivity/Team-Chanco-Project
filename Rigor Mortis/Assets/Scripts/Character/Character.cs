@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -83,6 +84,8 @@ public class Character : MonoBehaviour
         if(hitPoints <= 0)
         {
             this.gameObject.SetActive(false);
+            Slider slider = GetComponent<HealthBar>().slider;
+            slider.gameObject.SetActive(false);
         }
     }
 
