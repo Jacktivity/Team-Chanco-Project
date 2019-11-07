@@ -27,6 +27,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private HealthBarManager eventSystem;
     [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile;
+    [SerializeField] private HealthBarManager healthBarManager;
+
     public bool moveMode;
     public BlockScript selectedBlock;
 
@@ -124,6 +126,7 @@ public class GridManager : MonoBehaviour
             placedEnemy.tag = "Enemy";
 
             enemySpawned?.Invoke(this, placedEnemy);
+            healthBarManager.AddUnit(placedEnemy);
           // eventSystem.AddUnit(placedEnemy);
         }
     }
@@ -162,7 +165,7 @@ public class GridManager : MonoBehaviour
         unit.pathfinder = gameObject.GetComponent<Pathfinder>();
         unitSpawned?.Invoke(this, unit);
 
-
+        healthBarManager.AddUnit(unit);
        // eventSystem.AddUnit(SelectedUnit);
     }
     public Character GetSelectedUnit()

@@ -29,14 +29,16 @@ public class HealthBarManager : MonoBehaviour
 
     void InstantiateHealthBar(Character unit)
     {
-        //Slider newSlider = Instantiate(healthBar, unit.transform.position, unit.transform.rotation, canvas.transform);
-        //healthBars.Add(newSlider);
-        //unit.gameObject.AddComponent<HealthBar>().unit = unit;
-        //unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
+        Vector3 offset = new Vector3();
+        offset.y = 1f;
+        Slider newSlider = Instantiate(healthBar, unit.transform.position + offset, canvas.transform.rotation, canvas.transform);
+        healthBars.Add(newSlider);
+        unit.gameObject.AddComponent<HealthBar>().unit = unit;
+        unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
     }
 
     public void AddUnit(Character newUnit) {
-        //units.Add( newUnit );
-       // InstantiateHealthBar(newUnit);
+        units.Add( newUnit );
+        InstantiateHealthBar(newUnit);
     }
 }
