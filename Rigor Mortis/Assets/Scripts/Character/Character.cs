@@ -120,6 +120,7 @@ public class Character : MonoBehaviour
             {
                 attackManager.waiting = false;
                 hasTurn = false;
+                floor.manager.ClearMap();
                 turnManager.CycleTurns();
             }
 
