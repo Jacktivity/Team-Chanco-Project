@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class AttackManager : MonoBehaviour
 {
-    [SerializeField] UIManager uiManager;
-    [SerializeField] Pathfinder pathFinder;
+    [SerializeField]UIManager uiManager;
+    [SerializeField]Pathfinder pathFinder;
+    [SerializeField] GridManager gridManager;
 
     Attacks attack;
 
@@ -83,14 +84,32 @@ public class AttackManager : MonoBehaviour
 
     public void Attack()
     {
+        //Attack in progress
         if (uiManager.blocksInRange.Contains<BlockScript>(target.floor))
         {
-            int damage = Random.Range(attack.physicalMinAttack, attack.physicalMaxAttack);
-            target.TakeDamage(damage);
+            int attackRoll = Random.Range(1, 100);
+            float hitChance = (attacker.accuracy * attack.accuracy) - (target.evade /*+ terrain.defence */);
+            int randomDamageValue = -1;
+            int damage = -1;
+            if (attackRoll <= hitChance) {
+                if (attack.physicalMaxAttack > attack.magicalMaxAttack)
+                {
+                    randomDamageValue = Random.Range(attack.physicalMinAttack, attack.physicalMaxAttack);
+                    damage = (attacker.power + randomDamageValue) - target.armour;
+                } else
+                {
+                    randomDamageValue = Random.Range(attack.magicalMinAttack, attack.magicalMaxAttack);
+                    damage = (attacker.power + randomDamageValue) - target.resistance;
+                }
 
-            Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.name + " dealing " + damage + " damage. Leaving " + target.name + " with " + target.GetHealth() + " health left");
+                target.TakeDamage(damage);
+                Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.name + " dealing (" + " (Attacker Power: " +  attacker.power + " + " + " Damage " + randomDamageValue + ") - " + " Target Armour: " + target.armour + " OR Target Resistance: " + target.resistance + ") Overall Damage = " + damage + ". Leaving " + target.name + " with " + target.GetHealth() + " health left.");
+            }
+            else
+            {
+                Debug.Log("The attack missed! The attack roll was " + attackRoll + " and the hit chance was " + hitChance);
+            }
 
-            
             uiManager.ClearRangeBlocks();
             attacker.hasTurn = false;
             attacker.GetComponent<Character>().turnManager.CycleTurns();
@@ -100,6 +119,8 @@ public class AttackManager : MonoBehaviour
         {
             Debug.Log("Target is out of range");
         }
+
+        gridManager.ClearMap();
     }
 
     public void ClearAttack()
