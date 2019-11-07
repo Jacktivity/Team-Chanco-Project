@@ -45,14 +45,6 @@ public class BlockScript : MonoBehaviour
     private void Update()
     {
 
-        //if (placeable)
-        //{
-        //    if (manager.GetPlacementPoints() <= 0)
-        //    {
-        //        placeable = false;
-        //        ChangeColour(normal);
-        //    }
-        //}
     }
 
     private void OnMouseDown()
