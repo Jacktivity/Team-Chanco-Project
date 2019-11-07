@@ -26,6 +26,15 @@ public class AttackManager : MonoBehaviour
         uiManager = GetComponent<UIManager>();
     }
 
+    public void Attack(Character attacking, Character defending, Attacks attack)
+    {
+        AssignAttacker(attacking);
+        AssignTarget(defending);
+        AssignAttack(attack);
+
+        Attack();
+    }
+
     public void AssignAttacker(Character character)
     {
         attackerAssigned = true;

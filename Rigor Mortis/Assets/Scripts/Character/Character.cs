@@ -26,6 +26,7 @@ public class Character : MonoBehaviour
     Color colourStart;
 
     public EventHandler<Character> characterClicked;
+    public EventHandler<Character> moveComplete;
 
     IEnumerable<BlockScript> path;
     int pathIndex;
@@ -69,6 +70,8 @@ public class Character : MonoBehaviour
                     moving = false;
                     pathIndex = 0;
                     startTime = Time.time;
+
+                    moveComplete?.Invoke(this, this);
                 } else
                 {
                     pathIndex++;
