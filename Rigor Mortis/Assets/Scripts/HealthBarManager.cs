@@ -10,6 +10,7 @@ public class HealthBarManager : MonoBehaviour
     Slider healthBar;
     List<Slider> healthBars;
     List<Character> units;
+    public Vector3 offset;
 
     void Awake()
     {
@@ -29,12 +30,11 @@ public class HealthBarManager : MonoBehaviour
 
     void InstantiateHealthBar(Character unit)
     {
-        Vector3 offset = new Vector3();
-        offset.y = 1f;
         Slider newSlider = Instantiate(healthBar, unit.transform.position + offset, canvas.transform.rotation, canvas.transform);
         healthBars.Add(newSlider);
         unit.gameObject.AddComponent<HealthBar>().unit = unit;
         unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
+        unit.gameObject.GetComponent<HealthBar>().offset = offset;
     }
 
     public void AddUnit(Character newUnit) {
