@@ -157,5 +157,6 @@ public class AttackManager : MonoBehaviour
             Destroy(button);
         }
         uiManager.popUpButtons.Clear();
+        gridManager.ClearMap();
     }
 }

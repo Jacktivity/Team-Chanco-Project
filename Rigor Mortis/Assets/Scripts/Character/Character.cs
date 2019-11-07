@@ -109,6 +109,7 @@ public class Character : MonoBehaviour
             pathIndex = 0;
             moving = true;
             gameObject.GetComponent<Renderer>().material.color = colourStart;
+            attackManager.ClearAttack();
         } 
     }
 
@@ -120,8 +121,8 @@ public class Character : MonoBehaviour
     }
     private void OnMouseDown()
     {
-
         characterClicked?.Invoke(this, this);
+
         if (hasTurn || gameObject.tag == "Enemy")
         {
             if (attackManager.waiting)
@@ -132,7 +133,6 @@ public class Character : MonoBehaviour
                 turnManager.CycleTurns();
             }
 
-            attackManager.GetComponent<AttackManager>().gridManager.ClearMap(); ;
             if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
             {
                 attackManager.AssignAttacker(this);
