@@ -79,12 +79,26 @@ public class AttackManager : MonoBehaviour
         {
             int attackRoll = Random.Range(1, 100);
             float hitChance = (attacker.accuracy * attack.accuracy) - (target.evade /*+ terrain.defence */);
+            int randomDamageValue = -1;
+            int damage = -1;
             if (attackRoll <= hitChance) {
-                int damage = Random.Range(attack.physicalMinAttack, attack.physicalMaxAttack);
+                if (attack.physicalMaxAttack > attack.magicalMaxAttack)
+                {
+                    randomDamageValue = Random.Range(attack.physicalMinAttack, attack.physicalMaxAttack);
+                    damage = (attacker.power + randomDamageValue) - target.armour;
+                } else
+                {
+                    randomDamageValue = Random.Range(attack.magicalMinAttack, attack.magicalMaxAttack);
+                    damage = (attacker.power + randomDamageValue) - target.resistance;
+                }
+
                 target.TakeDamage(damage);
-                Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.name + " dealing " + damage + " damage. Leaving " + target.name + " with " + target.GetHealth() + " health left");
+                Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.name + " dealing (" + " (Attacker Power: " +  attacker.power + " + " + " Damage " + randomDamageValue + ") - " + " Target Armour: " + target.armour + " OR Target Resistance: " + target.resistance + ") Overall Damage = " + damage + ". Leaving " + target.name + " with " + target.GetHealth() + " health left.");
             }
-            Debug.Log("The attack missed! The attack roll was " + attackRoll + " and the ");
+            else
+            {
+                Debug.Log("The attack missed! The attack roll was " + attackRoll + " and the hit chance was " + hitChance);
+            }
 
             uiManager.ClearRangeBlocks();
             attacker.hasTurn = false;
