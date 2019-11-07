@@ -8,9 +8,8 @@ using System.Linq;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]Pathfinder pathFinder;
-    [SerializeField]GridManager gridManager;
-
-    [SerializeField]TurnManager turnManager;
+    [SerializeField] GridManager gridManager;
+    [SerializeField] TurnManager turnManager;
     [SerializeField]Canvas battleCanvas;
     [SerializeField]Canvas prepCanvas;
     [SerializeField]Canvas fixedCanvas;
@@ -31,8 +30,7 @@ public class UIManager : MonoBehaviour
     {
         pathFinder = GetComponent<Pathfinder>();
         attackManager = GetComponent<AttackManager>();
-        gridManager = gridManager.GetComponent<GridManager>();
-
+        gridManager = GetComponent<GridManager>();
         attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
     }
 
@@ -43,24 +41,19 @@ public class UIManager : MonoBehaviour
 
     public void ToggleAttack()
     {
-        if (gridManager.GetPlacementPoints() == 0) {
-            attacking = !attacking;
-            attackManager.waiting = false;
-            if (attackManager.attackerAssigned) {
-                DisplayAttacks(attackManager.attacks);
-            }
-            if (!attacking)
-            {
-                ClearRangeBlocks();
-            }
+        attacking = !attacking;
+        if (attackManager.attackerAssigned) {
+            DisplayAttacks(attackManager.attacks);
+        }
+        if(!attacking)
+        {
+            ClearRangeBlocks();
         }
     }
 
     public void wait()
     {
         attackManager.waiting = true;
-        turnManager.CheckPlayerTurn();
-        attacking = false;
         turnManager.CycleTurns();
     }
 

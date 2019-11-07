@@ -7,7 +7,8 @@ public class AttackManager : MonoBehaviour
 {
     [SerializeField]UIManager uiManager;
     [SerializeField]Pathfinder pathFinder;
-    [SerializeField]GridManager gridManager;
+
+    [SerializeField] public GridManager gridManager;
 
     Attacks attack;
 

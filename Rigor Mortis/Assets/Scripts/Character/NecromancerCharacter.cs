@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NecromancerCharacter : Character
 {
+    [SerializeField] GameObject necroButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +25,11 @@ public class NecromancerCharacter : Character
         attacks.Add(AttackLibrary.attacks.First(a => a.name == "StaffWhack"));
         attacks.Add(AttackLibrary.attacks.First(a => a.name == "TeslaStab"));
         attacks.Add(AttackLibrary.attacks.First(a => a.name == "TeslaZap"));
+
+        if(gameObject.tag == "Player")
+        {
+            necroButton = GameObject.Find("NecromancerButton");
+            necroButton.SetActive(false);
+        }
     }
 }

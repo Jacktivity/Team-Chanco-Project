@@ -1,31 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &3752190137407581080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920243412519659277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 412d63a51e960dd47a2f7f384a499822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coordinates: {x: 0, y: 0, z: 0}
-  manager: {fileID: 0}
-  placeable: 0
-  MoveModifier: 1
-  normal: {r: 0, g: 0, b: 0, a: 0}
-  N: {fileID: 0}
-  NE: {fileID: 0}
-  E: {fileID: 0}
-  SE: {fileID: 0}
-  S: {fileID: 0}
-  SW: {fileID: 0}
-  W: {fileID: 0}
-  NW: {fileID: 0}
-  occupier: {fileID: 0}
 --- !u!1 &6854757643019782258
 GameObject:
   m_ObjectHideFlags: 0
@@ -38,7 +12,6 @@ GameObject:
   - component: {fileID: 3755643191392839035}
   - component: {fileID: 2606821755473856380}
   - component: {fileID: 8323477740526265494}
-  - component: {fileID: 361220841122501438}
   - component: {fileID: 1475200958394750794}
   - component: {fileID: 3891573089494103406}
   m_Layer: 0
@@ -121,32 +94,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &361220841122501438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6854757643019782258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 412d63a51e960dd47a2f7f384a499822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coordinates: {x: 0, y: 0, z: 0}
-  manager: {fileID: 0}
-  placeable: 0
-  MoveModifier: 20
-  normal: {r: 0.25882354, g: 0.25882354, b: 0.25882354, a: 0}
-  N: {fileID: 0}
-  NE: {fileID: 0}
-  E: {fileID: 0}
-  SE: {fileID: 0}
-  S: {fileID: 0}
-  SW: {fileID: 0}
-  W: {fileID: 0}
-  NW: {fileID: 0}
-  occupier: {fileID: 0}
 --- !u!54 &1475200958394750794
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -178,8 +125,8 @@ MonoBehaviour:
   coordinates: {x: 0, y: 0, z: 0}
   manager: {fileID: 0}
   placeable: 0
-  MoveModifier: 5
-  normal: {r: 0, g: 0, b: 0, a: 0}
+  MoveModifier: 2
+  normal: {r: 1, g: 1, b: 1, a: 1}
   N: {fileID: 0}
   NE: {fileID: 0}
   E: {fileID: 0}
@@ -199,6 +146,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
       propertyPath: m_Name
       value: Mesh_Placeholder_DifficultTerrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
       propertyPath: m_LocalPosition.x
@@ -258,12 +209,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
---- !u!1 &1920243412519659277 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: cfb1ed586cfd42342a236acc9c385add,
-    type: 3}
-  m_PrefabInstance: {fileID: 1920243412519690669}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1920243412519566125 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: cfb1ed586cfd42342a236acc9c385add,

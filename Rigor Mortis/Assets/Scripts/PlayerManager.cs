@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
 
     private void BlockClicked(BlockScript t)
     {
-        if(turnManager.playerTurn && selectedPlayer != null)
+        if(turnManager.playerTurn && selectedPlayer != null && t.occupier == null)
         {
             if(selectedPlayer.movedThisTurn == false && selectedPlayer.hasTurn)
             {
@@ -53,11 +53,12 @@ public class PlayerManager : MonoBehaviour
         if (turnManager.playerTurn)
         {
             selectedPlayer = unit;
+            selectedPlayer.GetComponent<Renderer>().material.color = Color.yellow;
 
-            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false);
+            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
 
 
-            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false);
+            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
 
             gridManager.ColourTiles(sprintTiles, false);
             gridManager.ColourTiles(walkTiles, true);
