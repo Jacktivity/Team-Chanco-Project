@@ -54,6 +54,9 @@ public class Character : MonoBehaviour
             float journey = Vector3.Distance(transform.position, (block.gameObject.transform.position + gameObject.transform.up));
             float fractionOfJourney = distCovered / journey;
             transform.position = Vector3.Lerp(transform.position, (block.gameObject.transform.position + gameObject.transform.up), fractionOfJourney);
+            HealthBar healthBar = GetComponent<HealthBar>();
+            Vector3 offset = healthBar.offset;
+            healthBar.slider.transform.position = transform.position + offset;
             floor.occupier = gameObject;
             if(fractionOfJourney >= 1)
             {
