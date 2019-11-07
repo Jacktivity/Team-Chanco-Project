@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
         if(!attacking)
         {
             ClearRangeBlocks();
-            attackManager.ClearAttack();
+            //attackManager.ClearAttack();
         }
     }
 
@@ -81,10 +81,10 @@ public class UIManager : MonoBehaviour
                 button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
                 button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).name;
             }
-        } else
-        {
-            attackManager.ClearAttack();
-        }
+        }// else
+        //{
+        //    attackManager.ClearAttack();
+        //}
     }
 
     public void ClearRangeBlocks()
