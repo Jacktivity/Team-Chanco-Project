@@ -54,6 +54,7 @@ public class UIManager : MonoBehaviour
     public void wait()
     {
         attackManager.waiting = true;
+        gridManager.ClearMap();
         turnManager.CycleTurns();
     }
 
