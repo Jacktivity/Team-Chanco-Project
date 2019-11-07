@@ -43,17 +43,9 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
-
-        if (!hasTurn)
+        if(!hasTurn)
         {
-            this.gameObject.GetComponent<Renderer>().material.color = Color.grey;
-            if (gameObject.tag == "Player")
-            {
-                turnManager.CycleTurns();
-            }
-        } else
-        {
-            this.gameObject.GetComponent<Renderer>().material.color = colourStart;
+            this.gameObject.GetComponent<Renderer>().material.color = Color.gray;
         }
         if (moving)
         {
