@@ -102,10 +102,10 @@ public class AttackManager : MonoBehaviour
             int attackRoll1 = Random.Range(1, 101);
             int attackRoll2 = Random.Range(1, 101);
             int attackRoll = (attackRoll1 + attackRoll2) / 2;
-            float hitChance = (attacker.accuracy * attack.accuracy) - (target.evade /*+ terrain.defence */);
-            int randomDamageValue = -1;
-            int damage = -1;
-            if (attackRoll <= hitChance) {
+            float hitChance = 100 - (attacker.accuracy * attack.accuracy) - (target.evade /*+ terrain.defence */);
+            int randomDamageValue;
+            int damage;
+            if (attackRoll >= hitChance) {
                 if (attack.physicalMaxAttack > attack.magicalMaxAttack)
                 {
                     randomDamageValue = Random.Range(attack.physicalMinAttack, attack.physicalMaxAttack);
