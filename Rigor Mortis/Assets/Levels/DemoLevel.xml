@@ -1,6 +1,6 @@
 <levels>
   <level>
-    <map placementPoints ="2">
+    <map placementPoints ="6">
       <map-line value ="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
 	  <map-line value ="0,0,0,6,6,6,0,0,6,0,7,0,0,0,0,0,0,0,0,0"/>
 	  <map-line value ="0,4,0,0,0,0,0,0,0,0,7,0,4,0,0,4,0,0,0,0"/>

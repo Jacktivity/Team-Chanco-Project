@@ -99,8 +99,8 @@ public class AttackManager : MonoBehaviour
         //Attack in progress
         if (uiManager.blocksInRange.Contains<BlockScript>(target.floor))
         {
-            int attackRoll1 = Random.Range(1, 100);
-            int attackRoll2 = Random.Range(1, 100);
+            int attackRoll1 = Random.Range(1, 101);
+            int attackRoll2 = Random.Range(1, 101);
             int attackRoll = (attackRoll1 + attackRoll2) / 2;
             float hitChance = (attacker.accuracy * attack.accuracy) - (target.evade /*+ terrain.defence */);
             int randomDamageValue = -1;

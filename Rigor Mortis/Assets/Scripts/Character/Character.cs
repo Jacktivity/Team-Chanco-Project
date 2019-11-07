@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
     public Pathfinder pathfinder;
     public bool hasTurn, movedThisTurn;
     public BlockScript floor;
-    bool moving = false;
+    public bool moving = false;
     float startTime;
 
     Color colourStart;
