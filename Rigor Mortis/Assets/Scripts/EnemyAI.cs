@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour
 
     public void Start()
     {
+        enemyMood = new Dictionary<Character, AIStates>();
         GridManager.enemySpawned += (s, e) => enemyMood.Add(e, AIStates.Attack);
     }
 
@@ -34,7 +35,7 @@ public class EnemyAI : MonoBehaviour
             case AIStates.Attack:
 
                 var longestAttack = unitToMove.attacks.OrderByDescending(a => a.range).First();
-
+                
                 var path = pathfinder.GetPath(unitToMove.floor, (s) => pathfinder.GetTilesInRange(s, longestAttack.range,true).Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), unitToMove.isFlying == false);
 
                 var walkPath = path.Take(unitToMove.movementSpeed);
@@ -51,7 +52,7 @@ public class EnemyAI : MonoBehaviour
 
                 if(walked)
                 {
-                   // unitToMove.moveComplete += AIAAttack;
+                    unitToMove.moveComplete += AIAttack;
                 }
 
 
@@ -64,12 +65,15 @@ public class EnemyAI : MonoBehaviour
         return true;
     }
 
-    private void AIAAttack(object sender, Character unit)
+    private void AIAttack(object sender, Character unit)
     {
         var atkManager = unit.attackManager;
         var longestAttack = unit.attacks.OrderByDescending(s => s.range).First();
 
-        var tilesInRange = unit.pathfinder.GetTilesInRange(unit.floor, longestAttack.range, true);
+        Debug.Log(longestAttack.name);
+
+        var tilesInRange = pathfinder.GetTilesInRange(unit.floor, longestAttack.range, true);
+
         var unitsToHit = tilesInRange.Where(t => t.Occupied ? t.occupier.tag == "Player" : false).Select(c => c.occupier.GetComponent<Character>());
 
         if(unitsToHit.Count() != 0)
@@ -77,7 +81,7 @@ public class EnemyAI : MonoBehaviour
             atkManager.Attack(unit, unitsToHit.OrderBy(s => s.GetHealth()).First(), longestAttack);
         }        
 
-        unit.moveComplete -= AIAAttack;
+        unit.moveComplete -= AIAttack;
     }
 
     public void TESTMoveUnit()

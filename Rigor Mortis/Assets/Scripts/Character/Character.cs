@@ -83,6 +83,7 @@ public class Character : MonoBehaviour
 
         if(hitPoints <= 0)
         {
+            gameObject.GetComponent<HealthBar>().slider.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
             Slider slider = GetComponent<HealthBar>().slider;
             slider.gameObject.SetActive(false);
@@ -126,6 +127,7 @@ public class Character : MonoBehaviour
             {
                 attackManager.waiting = false;
                 hasTurn = false;
+                floor.manager.ClearMap();
                 turnManager.CycleTurns();
             }
 
