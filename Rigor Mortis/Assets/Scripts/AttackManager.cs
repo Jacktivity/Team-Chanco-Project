@@ -29,9 +29,17 @@ public class AttackManager : MonoBehaviour
 
     public void Attack(Character attacking, Character defending, Attacks attack)
     {
-        AssignAttacker(attacking);
-        AssignTarget(defending);
-        AssignAttack(attack);
+        ClearAttack();
+
+        attacker = attacking;
+        target = defending;
+        this.attack = attack;
+
+        uiManager.blocksInRange = pathFinder.GetTilesInRange(attacker.floor, attack.range, true);
+
+        attackerAssigned = true;
+        targetAssigned = true;
+        attackAssigned = true;
 
         Attack();
     }
@@ -112,7 +120,9 @@ public class AttackManager : MonoBehaviour
 
             uiManager.ClearRangeBlocks();
             attacker.hasTurn = false;
-            attacker.GetComponent<Character>().turnManager.CycleTurns();
+
+            if(attacker.gameObject.tag == "Player")
+                attacker.GetComponent<Character>().turnManager.CycleTurns();
             ClearAttack();
         }
         else
