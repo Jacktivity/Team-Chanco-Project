@@ -100,6 +100,7 @@ public class Character : MonoBehaviour
             path = moveTo;
             pathIndex = 0;
             moving = true;
+            gameObject.GetComponent<Renderer>().material.color = colourStart;
         } 
     }
 
@@ -124,6 +125,7 @@ public class Character : MonoBehaviour
 
             if (uiManager.attacking)
             {
+                attackManager.GetComponent<AttackManager>().gridManager.ClearMap(); ;
                 if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
                 {
                     attackManager.AssignAttacker(this);
