@@ -100,10 +100,12 @@ public class Character : MonoBehaviour
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
     {
-        path = moveTo;
-        pathIndex = 0;
-        moving = true;
-       
+        if(moveTo.Count() > 0)
+        {
+            path = moveTo;
+            pathIndex = 0;
+            moving = true;
+        } 
     }
 
     void OnCollisionEnter(Collision collision)
