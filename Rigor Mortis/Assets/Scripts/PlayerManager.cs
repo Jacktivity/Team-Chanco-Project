@@ -22,38 +22,44 @@ public class PlayerManager : MonoBehaviour
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
     }
 
-    private void BlockClicked(BlockScript t)
+    private void BlockClicked(BlockScript tile)
     {
         bool unitCanMove = selectedPlayer != null && turnManager.playerTurn;
 
-        if (unitCanMove && t.occupier == null && uiManager.attacking == false)
+        if (unitCanMove && tile.occupier == null && uiManager.attacking == false)
         {
-            if (selectedPlayer.movedThisTurn == false && selectedPlayer.hasTurn)
+            bool playerCanMove = selectedPlayer.movedThisTurn == false && selectedPlayer.hasTurn;
+            if(playerCanMove)
             {
-                bool sprinting = walkTiles.Contains(t) == false && sprintTiles.Contains(t);
-                if (sprinting)
-                {
-                    selectedPlayer.hasTurn = false;
-                    selectedPlayer.turnManager.CycleTurns();
-                    selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == t, selectedPlayer.isFlying == false));
-                    gridManager.ClearMap();
-                }
-                else if (walkTiles.Contains(t))
-                {
-                    selectedPlayer.movedThisTurn = true;
-                    selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == t, selectedPlayer.isFlying == false));
-                    gridManager.ClearMap();
-                }
-                else
-                {
-                    Debug.Log("Clicked invalid block");
-                }
+                MovePlayerToBlock(tile);
             }
         }
         else
         {
             if(selectedPlayer != null)
                 Debug.Log(selectedPlayer.attackManager.attackerAssigned);
+        }
+    }
+
+    private void MovePlayerToBlock(BlockScript tile)
+    {
+        bool sprinting = walkTiles.Contains(tile) == false && sprintTiles.Contains(tile);
+        if (sprinting)
+        {
+            selectedPlayer.hasTurn = false;
+            selectedPlayer.turnManager.CycleTurns();
+            selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
+            gridManager.ClearMap();
+        }
+        else if (walkTiles.Contains(tile))
+        {
+            selectedPlayer.movedThisTurn = true;
+            selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
+            gridManager.ClearMap();
+        }
+        else
+        {
+            Debug.Log("Clicked invalid block");
         }
     }
 
