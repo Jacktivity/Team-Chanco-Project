@@ -7,7 +7,7 @@ public class AttackManager : MonoBehaviour
 {
     [SerializeField]UIManager uiManager;
     [SerializeField]Pathfinder pathFinder;
-    [SerializeField] GridManager gridManager;
+    [SerializeField]GridManager gridManager;
 
     Attacks attack;
 
@@ -25,6 +25,7 @@ public class AttackManager : MonoBehaviour
     {
         pathFinder = pathFinder.GetComponent<Pathfinder>();
         uiManager = GetComponent<UIManager>();
+        gridManager = gridManager.GetComponent<GridManager>();
     }
 
     public void Attack(Character attacking, Character defending, Attacks attack)
@@ -103,6 +104,8 @@ public class AttackManager : MonoBehaviour
                 }
 
                 target.TakeDamage(damage);
+                HealthBar healthBar = target.GetComponent<HealthBar>();
+                healthBar.slider.value = target.GetHealth();
                 Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.name + " dealing (" + " (Attacker Power: " +  attacker.power + " + " + " Damage " + randomDamageValue + ") - " + " Target Armour: " + target.armour + " OR Target Resistance: " + target.resistance + ") Overall Damage = " + damage + ". Leaving " + target.name + " with " + target.GetHealth() + " health left.");
             }
             else
