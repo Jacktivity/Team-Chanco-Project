@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class AttackManager : MonoBehaviour
 {
-    [SerializeField] UIManager uiManager;
-    [SerializeField] Pathfinder pathFinder;
+    [SerializeField]UIManager uiManager;
+    [SerializeField]Pathfinder pathFinder;
+    [SerializeField] GridManager gridManager;
 
     Attacks attack;
 
@@ -117,6 +118,8 @@ public class AttackManager : MonoBehaviour
         {
             Debug.Log("Target is out of range");
         }
+
+        gridManager.ClearMap();
     }
 
     public void ClearAttack()

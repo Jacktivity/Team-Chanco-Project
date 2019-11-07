@@ -7,7 +7,7 @@ public class TurnManager : MonoBehaviour
 {
     public bool playerTurn;
     private Coroutine enemyTurnCoroutine;
-    static int turnNumber = 0;
+    static int turnNumber = 1;
     UIManager uiManager;
     public static EventHandler turnEnded;
     [SerializeField] private EnemyAI enemyAIContainer;
