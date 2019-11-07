@@ -30,12 +30,14 @@ public class PlayerManager : MonoBehaviour
                 if(sprinting)
                 {
                     selectedPlayer.hasTurn = false;
-                    selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == t, selectedPlayer.isFlying == false));                    
+                    selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == t, selectedPlayer.isFlying == false));
+                    gridManager.ClearMap();
                 }
                 else if (walkTiles.Contains(t))
                 {
                     selectedPlayer.movedThisTurn = true;
                     selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == t, selectedPlayer.isFlying == false));
+                    gridManager.ClearMap();
                 }
                 else
                 {
@@ -50,8 +52,14 @@ public class PlayerManager : MonoBehaviour
         if (turnManager.playerTurn)
         {
             selectedPlayer = unit;
+
             walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false);
-            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false);            
+
+
+            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false);
+
+            gridManager.ColourTiles(sprintTiles, false);
+            gridManager.ColourTiles(walkTiles, true);
         }            
         else
             selectedPlayer = null;

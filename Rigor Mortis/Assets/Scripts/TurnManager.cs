@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class TurnManager : MonoBehaviour
     private Coroutine enemyTurnCoroutine;
     static int turnNumber = 0;
     UIManager uiManager;
+    public static EventHandler turnEnded;
     [SerializeField] private EnemyAI enemyAIContainer;
 
     // Start is called before the first frame update
@@ -45,6 +47,7 @@ public class TurnManager : MonoBehaviour
             enemyTurnCoroutine = StartCoroutine(MovingEnemies(enemy));
             yield return enemyTurnCoroutine;
         }
+        turnEnded?.Invoke(this, new EventArgs());
         ResetPlayerTurn();
     }
 
@@ -68,6 +71,7 @@ public class TurnManager : MonoBehaviour
     {
         if (!CheckPlayerTurn())
         {
+            turnEnded?.Invoke(this, new EventArgs());
             StartCoroutine(MoveEnemies());
         }
     }

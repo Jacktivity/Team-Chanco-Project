@@ -48,6 +48,25 @@ public class GridManager : MonoBehaviour
         UnitPlacement();
 
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
+        TurnManager.turnEnded += (s, e) => ClearMap();
+    }
+
+    public void ColourTiles(IEnumerable<BlockScript> tiles, bool walking)
+    {
+        if (walking)
+            foreach (var tile in tiles)
+                tile.ChangeColour(lowSpeedTile);
+        else
+            foreach (var tile in tiles)
+                tile.ChangeColour(highSpeedTile);
+    }
+
+    public void ClearMap()
+    {
+        foreach (var tile in Map)
+        {
+            tile.ChangeColour(tile.Normal);
+        }
     }
 
     private void BlockClicked(BlockScript tile)
