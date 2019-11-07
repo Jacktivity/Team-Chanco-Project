@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour
         attackManager.waiting = true;
         turnManager.CheckPlayerTurn();
         attacking = false;
+        turnManager.CycleTurns();
     }
 
     public void DisplayAttacks(HashSet<Attacks> _attacks)

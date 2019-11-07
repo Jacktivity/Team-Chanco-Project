@@ -23,6 +23,8 @@ public class Character : MonoBehaviour
     bool moving = false;
     float startTime;
 
+    Color colourStart;
+
     public EventHandler<Character> characterClicked;
 
     IEnumerable<BlockScript> path;
@@ -34,12 +36,24 @@ public class Character : MonoBehaviour
         attacks = new HashSet<Attacks>();
         uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
         attackManager = GameObject.Find("EventSystem").GetComponent<AttackManager>();
-
+        colourStart = this.gameObject.GetComponent<Renderer>().material.color;
         startTime = Time.time;
     }
 
     private void Update()
     {
+
+        if (!hasTurn)
+        {
+            this.gameObject.GetComponent<Renderer>().material.color = Color.grey;
+            if (gameObject.tag == "Player")
+            {
+                turnManager.CycleTurns();
+            }
+        } else
+        {
+            this.gameObject.GetComponent<Renderer>().material.color = colourStart;
+        }
         if (moving)
         {
             block = path.ElementAt(pathIndex);
