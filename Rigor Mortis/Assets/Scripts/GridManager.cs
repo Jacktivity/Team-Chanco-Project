@@ -71,13 +71,12 @@ public class GridManager : MonoBehaviour
 
     private void BlockClicked(BlockScript tile)
     {
-        if(tile.placeable)
+        if(tile.placeable && SelectedUnit != null)
         {
             var costOfUnit = SelectedUnit.cost;
             if ((GetPlacementPoints() - costOfUnit) >= 0)
             {
                 SpawnUnit(new Vector3(tile.gameObject.transform.position.x, 1, tile.gameObject.transform.position.z));
-                ResetSelectedUnit();
                 ReducePlacementPoints(costOfUnit);
             }
         }        
@@ -152,11 +151,18 @@ public class GridManager : MonoBehaviour
 
     public void SpawnUnit(Vector3 location)
     {
+
         var unit = Instantiate(SelectedUnit, location, SelectedUnit.transform.rotation, playerContainter.transform);
+        if (unit.isCaptain)
+        {
+            ResetSelectedUnit();
+        }
         unit.GetComponent<Character>().turnManager = turnManager;
         unit.tag = "Player";
         unit.pathfinder = gameObject.GetComponent<Pathfinder>();
         unitSpawned?.Invoke(this, unit);
+
+
        // eventSystem.AddUnit(SelectedUnit);
     }
     public Character GetSelectedUnit()

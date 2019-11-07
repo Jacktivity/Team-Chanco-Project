@@ -58,21 +58,6 @@ public class BlockScript : MonoBehaviour
     private void OnMouseDown()
     {
         blockClicked?.Invoke(this, this);
-
-        if(manager.GetSelectedUnit() != null)
-        {
-            var costOfUnit = manager.GetSelectedUnit().cost;
-            if ((manager.GetPlacementPoints() - costOfUnit) >= 0 && placeable)
-            {
-                manager.SpawnUnit(new Vector3(transform.position.x, 1, transform.position.z));
-                manager.ResetSelectedUnit();
-                manager.ReducePlacementPoints(costOfUnit);
-            }
-        }
-        if(Traversable)
-        {
-
-        }
     }
 
     void OnMouseOver()
