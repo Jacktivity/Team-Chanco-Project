@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviour
                 if(sprinting)
                 {
                     selectedPlayer.hasTurn = false;
+                    selectedPlayer.turnManager.CycleTurns();
                     selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == t, selectedPlayer.isFlying == false));
                     gridManager.ClearMap();
                 }

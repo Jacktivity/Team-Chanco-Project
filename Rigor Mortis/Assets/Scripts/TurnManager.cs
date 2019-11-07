@@ -59,6 +59,7 @@ public class TurnManager : MonoBehaviour
             var playerScript = player.GetComponent<Character>();
             playerScript.hasTurn = true;
             playerScript.movedThisTurn = false;
+            this.gameObject.GetComponent<Renderer>().material.color = Color.white;
 
         }
         playerTurn = true;
