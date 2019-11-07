@@ -110,7 +110,7 @@ MonoBehaviour:
   manager: {fileID: 0}
   placeable: 0
   MoveModifier: 20
-  normal: {r: 0, g: 0, b: 0, a: 0}
+  normal: {r: 0.25882354, g: 0.25882354, b: 0.25882354, a: 0}
   N: {fileID: 0}
   NE: {fileID: 0}
   E: {fileID: 0}
