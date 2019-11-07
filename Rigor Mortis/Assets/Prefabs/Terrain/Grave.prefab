@@ -110,7 +110,7 @@ MonoBehaviour:
   manager: {fileID: 0}
   placeable: 0
   MoveModifier: 10
-  normal: {r: 0, g: 0, b: 0, a: 0}
+  normal: {r: 1, g: 1, b: 1, a: 1}
   N: {fileID: 0}
   NE: {fileID: 0}
   E: {fileID: 0}
@@ -146,6 +146,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
       propertyPath: m_Name
       value: Mesh_Placeholder_Gravestone
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
       propertyPath: m_LocalPosition.x

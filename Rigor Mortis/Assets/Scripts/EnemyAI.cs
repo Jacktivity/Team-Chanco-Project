@@ -51,7 +51,7 @@ public class EnemyAI : MonoBehaviour
 
                 if(walked)
                 {
-                    unitToMove.moveComplete += AIAAttack;
+                   // unitToMove.moveComplete += AIAAttack;
                 }
 
 

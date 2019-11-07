@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6924808457703341108}
   - component: {fileID: 8082324831599926835}
   - component: {fileID: 2847836168851226073}
-  - component: {fileID: 5837849836648499825}
   - component: {fileID: 4647594399000022533}
   - component: {fileID: 5692676466439998744}
   m_Layer: 0
@@ -95,32 +94,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5837849836648499825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803779068645609789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 412d63a51e960dd47a2f7f384a499822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coordinates: {x: 0, y: 0, z: 0}
-  manager: {fileID: 0}
-  placeable: 0
-  MoveModifier: 15
-  normal: {r: 0, g: 0, b: 0, a: 0}
-  N: {fileID: 0}
-  NE: {fileID: 0}
-  E: {fileID: 0}
-  SE: {fileID: 0}
-  S: {fileID: 0}
-  SW: {fileID: 0}
-  W: {fileID: 0}
-  NW: {fileID: 0}
-  occupier: {fileID: 0}
 --- !u!54 &4647594399000022533
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -153,7 +126,7 @@ MonoBehaviour:
   manager: {fileID: 0}
   placeable: 0
   MoveModifier: 1
-  normal: {r: 0, g: 0, b: 0, a: 0}
+  normal: {r: 1, g: 1, b: 1, a: 1}
   N: {fileID: 0}
   NE: {fileID: 0}
   E: {fileID: 0}
@@ -192,32 +165,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.3, y: 1.8, z: 1.6220198}
   m_Center: {x: 7.8917636e-17, y: 0.0055533363, z: 0.8110095}
---- !u!114 &3821944754724525649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5840345381922619870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 412d63a51e960dd47a2f7f384a499822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coordinates: {x: 0, y: 0, z: 0}
-  manager: {fileID: 0}
-  placeable: 0
-  MoveModifier: 1
-  normal: {r: 0, g: 0, b: 0, a: 0}
-  N: {fileID: 0}
-  NE: {fileID: 0}
-  E: {fileID: 0}
-  SE: {fileID: 0}
-  S: {fileID: 0}
-  SW: {fileID: 0}
-  W: {fileID: 0}
-  NW: {fileID: 0}
-  occupier: {fileID: 0}
 --- !u!1001 &5840345381922588542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -231,7 +178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
       propertyPath: m_TagString
-      value: Floor
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
       propertyPath: m_LocalPosition.x

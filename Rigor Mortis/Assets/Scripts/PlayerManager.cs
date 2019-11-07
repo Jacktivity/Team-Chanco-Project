@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
 
     private void BlockClicked(BlockScript t)
     {
-        if(turnManager.playerTurn && selectedPlayer != null)
+        if(turnManager.playerTurn && selectedPlayer != null && t.occupier == null)
         {
             if(selectedPlayer.movedThisTurn == false && selectedPlayer.hasTurn)
             {
