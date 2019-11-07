@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour
 
     public void Start()
     {
+        enemyMood = new Dictionary<Character, AIStates>();
         GridManager.enemySpawned += (s, e) => enemyMood.Add(e, AIStates.Attack);
     }
 
@@ -51,7 +52,7 @@ public class EnemyAI : MonoBehaviour
 
                 if(walked)
                 {
-                    unitToMove.moveComplete += AIAAttack;
+                    //unitToMove.moveComplete += AIAAttack;
                 }
 
 

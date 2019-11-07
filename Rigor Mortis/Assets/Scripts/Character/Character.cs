@@ -44,17 +44,17 @@ public class Character : MonoBehaviour
     private void Update()
     {
 
-        if (!hasTurn)
-        {
-            this.gameObject.GetComponent<Renderer>().material.color = Color.grey;
-            if (gameObject.tag == "Player")
-            {
-                turnManager.CycleTurns();
-            }
-        } else
-        {
-            this.gameObject.GetComponent<Renderer>().material.color = colourStart;
-        }
+        //if (!hasTurn)
+        //{
+        //    this.gameObject.GetComponent<Renderer>().material.color = Color.grey;
+        //    if (gameObject.tag == "Player")
+        //    {
+        //        turnManager.CycleTurns();
+        //    }
+        //} else
+        //{
+        //    this.gameObject.GetComponent<Renderer>().material.color = colourStart;
+        //}
         if (moving)
         {
             block = path.ElementAt(pathIndex);
