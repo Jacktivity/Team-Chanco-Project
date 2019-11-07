@@ -52,7 +52,7 @@ public class EnemyAI : MonoBehaviour
 
                 if(walked)
                 {
-                    //unitToMove.moveComplete += AIAAttack;
+                    //unitToMove.moveComplete += AIAttack;
                 }
 
 
@@ -65,7 +65,7 @@ public class EnemyAI : MonoBehaviour
         return true;
     }
 
-    private void AIAAttack(object sender, Character unit)
+    private void AIAttack(object sender, Character unit)
     {
         var atkManager = unit.attackManager;
         var longestAttack = unit.attacks.OrderByDescending(s => s.range).First();
@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour
             atkManager.Attack(unit, unitsToHit.OrderBy(s => s.GetHealth()).First(), longestAttack);
         }        
 
-        unit.moveComplete -= AIAAttack;
+        unit.moveComplete -= AIAttack;
     }
 
     public void TESTMoveUnit()

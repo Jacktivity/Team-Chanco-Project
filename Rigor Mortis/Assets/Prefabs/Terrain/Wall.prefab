@@ -110,7 +110,7 @@ MonoBehaviour:
   manager: {fileID: 0}
   placeable: 0
   MoveModifier: 15
-  normal: {r: 0, g: 0, b: 0, a: 0}
+  normal: {r: 1, g: 1, b: 1, a: 1}
   N: {fileID: 0}
   NE: {fileID: 0}
   E: {fileID: 0}
@@ -165,32 +165,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.3, z: 1.97091}
   m_Center: {x: 0, y: -0.00000047683716, z: 0.985455}
---- !u!114 &438163401639082635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7974977846293492939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 412d63a51e960dd47a2f7f384a499822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coordinates: {x: 0, y: 0, z: 0}
-  manager: {fileID: 0}
-  placeable: 0
-  MoveModifier: 1
-  normal: {r: 0, g: 0, b: 0, a: 0}
-  N: {fileID: 0}
-  NE: {fileID: 0}
-  E: {fileID: 0}
-  SE: {fileID: 0}
-  S: {fileID: 0}
-  SW: {fileID: 0}
-  W: {fileID: 0}
-  NW: {fileID: 0}
-  occupier: {fileID: 6376823529244009597}
 --- !u!1001 &7974977846293525099
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ using System.Linq;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]Pathfinder pathFinder;
-
+    [SerializeField] GridManager gridManager;
     [SerializeField] TurnManager turnManager;
     [SerializeField]Canvas battleCanvas;
     [SerializeField]Canvas prepCanvas;
@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
     {
         pathFinder = GetComponent<Pathfinder>();
         attackManager = GetComponent<AttackManager>();
-
+        gridManager = GetComponent<GridManager>();
         attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
     }
 

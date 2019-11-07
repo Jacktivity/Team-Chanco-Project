@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 235474111}
   - component: {fileID: 235474114}
   - component: {fileID: 235474115}
+  - component: {fileID: 235474116}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -206,14 +207,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b433ab48bbe154c9eab2e2db47332c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathFinder: {fileID: 411395489}
+  battleCanvas: {fileID: 946444236}
+  prepCanvas: {fileID: 1945696227}
+  fixedCanvas: {fileID: 912303909}
+  turnDisplay: {fileID: 1123154819}
+  attackManager: {fileID: 0}
   attacking: 0
+  attackButton: {fileID: 0}
+  popUpButtons: []
+  blocksInRange: []
+--- !u!114 &235474116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235474110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e93d0b28e64304ca37edda6a304e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiManager: {fileID: 0}
+  pathFinder: {fileID: 411395489}
+  attacker: {fileID: 0}
+  target: {fileID: 0}
   waiting: 0
   attackerAssigned: 0
   targetAssigned: 0
-  attacker: {fileID: 0}
-  target: {fileID: 0}
-  popUpButton: {fileID: 0}
-  popUpButtons: []
+  attackAssigned: 0
 --- !u!1 &312799975
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,6 +857,12 @@ RectTransform:
   m_AnchoredPosition: {x: 15, y: 0}
   m_SizeDelta: {x: 30, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &946444236 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 8340796270077940530, guid: 195497fdef40b4f4aa04d0c47b056391,
+    type: 3}
+  m_PrefabInstance: {fileID: 1648462415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1056572165
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +942,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056572165}
   m_CullTransparentMesh: 0
+--- !u!114 &1123154819 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8340796271434194619, guid: 195497fdef40b4f4aa04d0c47b056391,
+    type: 3}
+  m_PrefabInstance: {fileID: 1648462415}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1648462415
 PrefabInstance:
   m_ObjectHideFlags: 0
