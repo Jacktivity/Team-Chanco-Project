@@ -43,17 +43,9 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
-
-        if (!hasTurn)
+        if(!hasTurn)
         {
-            this.gameObject.GetComponent<Renderer>().material.color = Color.grey;
-            if (gameObject.tag == "Player")
-            {
-                turnManager.CycleTurns();
-            }
-        } else
-        {
-            this.gameObject.GetComponent<Renderer>().material.color = colourStart;
+            this.gameObject.GetComponent<Renderer>().material.color = Color.gray;
         }
         if (moving)
         {
@@ -103,10 +95,12 @@ public class Character : MonoBehaviour
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
     {
-        path = moveTo;
-        pathIndex = 0;
-        moving = true;
-       
+        if(moveTo.Count() > 0)
+        {
+            path = moveTo;
+            pathIndex = 0;
+            moving = true;
+        } 
     }
 
     void OnCollisionEnter(Collision collision)

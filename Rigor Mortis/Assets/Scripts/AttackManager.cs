@@ -112,6 +112,7 @@ public class AttackManager : MonoBehaviour
 
             uiManager.ClearRangeBlocks();
             attacker.hasTurn = false;
+            attacker.GetComponent<Character>().turnManager.CycleTurns();
             ClearAttack();
         }
         else
