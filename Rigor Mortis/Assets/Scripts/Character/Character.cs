@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -85,6 +86,8 @@ public class Character : MonoBehaviour
             floor.occupier = null;
             gameObject.GetComponent<HealthBar>().slider.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
+            Slider slider = GetComponent<HealthBar>().slider;
+            slider.gameObject.SetActive(false);
         }
     }
 

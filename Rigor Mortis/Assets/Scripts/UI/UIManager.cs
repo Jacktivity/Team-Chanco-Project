@@ -48,6 +48,7 @@ public class UIManager : MonoBehaviour
         if(!attacking)
         {
             ClearRangeBlocks();
+            attackManager.ClearAttack();
         }
     }
 
@@ -59,6 +60,12 @@ public class UIManager : MonoBehaviour
 
     public void DisplayAttacks(HashSet<Attacks> _attacks)
     {
+        foreach (GameObject button in popUpButtons)
+        {
+            Destroy(button);
+        }
+        popUpButtons.Clear();
+
         if (attacking) {
             Vector3 popUpOffset = new Vector3(2f, 0, 0);
             Vector3 instantiationPoint = fixedCanvas.transform.position + popUpOffset;
