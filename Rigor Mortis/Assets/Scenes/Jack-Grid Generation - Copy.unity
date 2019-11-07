@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 235474115}
   - component: {fileID: 235474116}
   - component: {fileID: 235474114}
+  - component: {fileID: 235474117}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -195,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
   pathFinder: {fileID: 411395489}
+  gridManager: {fileID: 411395487}
   attacker: {fileID: 0}
   target: {fileID: 0}
   waiting: 0
@@ -214,6 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathFinder: {fileID: 411395489}
+  gridManager: {fileID: 0}
   turnManager: {fileID: 1913043340}
   battleCanvas: {fileID: 436957298}
   prepCanvas: {fileID: 1945696227}
@@ -243,6 +246,19 @@ MonoBehaviour:
     type: 3}
   prepCanvas: {fileID: 1945696224}
   unit: {fileID: 0}
+--- !u!114 &235474117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235474110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cbca79ecaa5a5645839101c1e32f3d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 912303909}
 --- !u!1 &312799975
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,10 +388,11 @@ MonoBehaviour:
   levelMap: {fileID: 4900000, guid: 5f07e7bca074f5f49bf53be9efa4bd0f, type: 3}
   SelectedUnit: {fileID: 0}
   turnManager: {fileID: 1913043340}
-  eventSystem: {fileID: 0}
+  eventSystem: {fileID: 235474117}
   spawnPoint: {r: 1, g: 1, b: 0, a: 1}
   lowSpeedTile: {r: 0, g: 1, b: 1, a: 1}
   highSpeedTile: {r: 1, g: 0.48650533, b: 0, a: 1}
+  healthBarManager: {fileID: 235474117}
   moveMode: 0
   selectedBlock: {fileID: 0}
 --- !u!4 &411395488
@@ -848,7 +865,7 @@ Canvas:
   m_GameObject: {fileID: 912303906}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 2
   m_Camera: {fileID: 1741087676}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -869,16 +886,16 @@ RectTransform:
   m_GameObject: {fileID: 912303906}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 749, y: 377}
+  m_SizeDelta: {x: 1498, y: 754}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1056572165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,7 +1020,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 4790737883455124222, guid: 30dab48646b25b443bb2fa9b8e982140, type: 3}
   manager: {fileID: 411395487}
-  mybutton: {fileID: 474889187}
 --- !u!1 &1582223449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1065,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 6690734147878028020, guid: 3f819d25698f8af408f0d42edfebced9, type: 3}
   manager: {fileID: 411395487}
-  mybutton: {fileID: 757605006}
 --- !u!114 &1630482983 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8340796271434194619, guid: 195497fdef40b4f4aa04d0c47b056391,
