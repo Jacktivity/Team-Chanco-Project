@@ -10,11 +10,13 @@ public class PlayerManager : MonoBehaviour
     public BlockScript[] walkTiles, sprintTiles;
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private GridManager gridManager;
+    [SerializeField] private UIManager uiManager;
 
 
     // Start is called before the first frame update
     void Start()
     {
+
         GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
         GridManager.enemySpawned += (s, e) => { e.characterClicked += (sender, character) => EnemyUnitChosen(e); };
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
@@ -22,12 +24,14 @@ public class PlayerManager : MonoBehaviour
 
     private void BlockClicked(BlockScript t)
     {
-        if(turnManager.playerTurn && selectedPlayer != null && t.occupier == null)
+        bool unitCanMove = selectedPlayer != null && turnManager.playerTurn;
+
+        if (unitCanMove && t.occupier == null && uiManager.attacking == false)
         {
-            if(selectedPlayer.movedThisTurn == false && selectedPlayer.hasTurn)
+            if (selectedPlayer.movedThisTurn == false && selectedPlayer.hasTurn)
             {
                 bool sprinting = walkTiles.Contains(t) == false && sprintTiles.Contains(t);
-                if(sprinting)
+                if (sprinting)
                 {
                     selectedPlayer.hasTurn = false;
                     selectedPlayer.turnManager.CycleTurns();
@@ -44,7 +48,12 @@ public class PlayerManager : MonoBehaviour
                 {
                     Debug.Log("Clicked invalid block");
                 }
-            }            
+            }
+        }
+        else
+        {
+            if(selectedPlayer != null)
+                Debug.Log(selectedPlayer.attackManager.attackerAssigned);
         }
     }
 
