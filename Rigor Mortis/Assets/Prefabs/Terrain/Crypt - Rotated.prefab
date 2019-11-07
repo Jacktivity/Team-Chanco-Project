@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5561282965939698927}
   m_Layer: 0
   m_Name: Crypt - Rotated
-  m_TagString: Floor
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,8 +110,8 @@ MonoBehaviour:
   coordinates: {x: 0, y: 0, z: 0}
   manager: {fileID: 0}
   placeable: 0
-  origin: {r: 0, g: 0, b: 0, a: 0}
   MoveModifier: 15
+  normal: {r: 0, g: 0, b: 0, a: 0}
   N: {fileID: 0}
   NE: {fileID: 0}
   E: {fileID: 0}
@@ -152,8 +152,8 @@ MonoBehaviour:
   coordinates: {x: 0, y: 0, z: 0}
   manager: {fileID: 0}
   placeable: 0
-  origin: {r: 0, g: 0, b: 0, a: 0}
   MoveModifier: 1
+  normal: {r: 0, g: 0, b: 0, a: 0}
   N: {fileID: 0}
   NE: {fileID: 0}
   E: {fileID: 0}
@@ -207,8 +207,8 @@ MonoBehaviour:
   coordinates: {x: 0, y: 0, z: 0}
   manager: {fileID: 0}
   placeable: 0
-  origin: {r: 0, g: 0, b: 0, a: 0}
   MoveModifier: 1
+  normal: {r: 0, g: 0, b: 0, a: 0}
   N: {fileID: 0}
   NE: {fileID: 0}
   E: {fileID: 0}

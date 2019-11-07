@@ -95,6 +95,7 @@ public class BlockScript : MonoBehaviour
             if(collision.transform.position.y > transform.position.y)
             {
                 occupier = contact;
+                occupier.GetComponent<BlockScript>().manager = manager;
             }
 
             switch ((int)newCoord.z)
