@@ -394,6 +394,7 @@ MonoBehaviour:
   lowSpeedTile: {r: 0, g: 1, b: 1, a: 1}
   highSpeedTile: {r: 1, g: 0.48650533, b: 0, a: 1}
   healthBarManager: {fileID: 235474117}
+  playerManager: {fileID: 2124585195}
   moveMode: 0
   selectedBlock: {fileID: 0}
 --- !u!4 &411395488
@@ -1482,6 +1483,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58482faf10d80547ae2f9328ac6f74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedPlayer: {fileID: 0}
+  selectedEnemy: {fileID: 0}
   walkTiles: []
   sprintTiles: []
   turnManager: {fileID: 1913043340}

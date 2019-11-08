@@ -28,6 +28,11 @@ public class GridManager : MonoBehaviour
     [SerializeField] private HealthBarManager eventSystem;
     [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile;
     [SerializeField] private HealthBarManager healthBarManager;
+    [SerializeField] private PlayerManager playerManager;
+
+    private int unitIndex;
+
+    GameObject[] playerUnits;
 
     public bool moveMode;
     public BlockScript selectedBlock;
@@ -80,6 +85,11 @@ public class GridManager : MonoBehaviour
             {
                 SpawnUnit(new Vector3(tile.gameObject.transform.position.x, 1, tile.gameObject.transform.position.z));
                 ReducePlacementPoints(costOfUnit);
+                tile.occupier = tile.gameObject;
+
+                playerUnits = GameObject.FindGameObjectsWithTag("Player");
+                var firstUnit = playerUnits[unitIndex].GetComponent<Character>();
+                playerManager.PlayerUnitChosen(firstUnit);
             }
         }        
     }
@@ -113,6 +123,15 @@ public class GridManager : MonoBehaviour
         }
 
         placementPoints = level.map.placementPoints;        
+    }
+
+    public void nextUnit()
+    {
+        var comingUnit = playerManager.selectedPlayer;
+        unitIndex++;
+        playerUnits[unitIndex].GetComponent<Renderer>().material.color = Color.white;
+        comingUnit =  playerUnits[unitIndex].GetComponent<Character>();
+        playerManager.PlayerUnitChosen(comingUnit);
     }
 
     void PlaceEnemy()
@@ -166,6 +185,7 @@ public class GridManager : MonoBehaviour
         unitSpawned?.Invoke(this, unit);
 
         healthBarManager.AddUnit(unit);
+
        // eventSystem.AddUnit(SelectedUnit);
     }
     public Character GetSelectedUnit()

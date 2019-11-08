@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    private Character selectedPlayer, selectedEnemy;
+    public Character selectedPlayer, selectedEnemy;
     public BlockScript[] walkTiles, sprintTiles;
     [SerializeField] private TurnManager turnManager;
     [SerializeField] private GridManager gridManager;
@@ -50,6 +50,7 @@ public class PlayerManager : MonoBehaviour
             selectedPlayer.turnManager.CycleTurns();
             selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
             gridManager.ClearMap();
+            gridManager.nextUnit();
         }
         else if (walkTiles.Contains(tile))
         {
@@ -65,7 +66,7 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerUnitChosen(Character unit)
     {
-        if (turnManager.playerTurn && unit.movedThisTurn == false && unit.hasTurn)
+        if (turnManager.playerTurn && !unit.movedThisTurn && unit.hasTurn)
         {
             if(selectedPlayer != null)
             {

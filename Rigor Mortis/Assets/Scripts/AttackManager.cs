@@ -128,8 +128,9 @@ public class AttackManager : MonoBehaviour
 
             uiManager.ClearRangeBlocks();
             attacker.hasTurn = false;
+            gridManager.nextUnit();
 
-            if(attacker.gameObject.tag == "Player")
+            if (attacker.gameObject.tag == "Player")
                 attacker.GetComponent<Character>().turnManager.CycleTurns();
             ClearAttack();
         }
