@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
     {
         pathFinder = GetComponent<Pathfinder>();
         attackManager = GetComponent<AttackManager>();
-        gridManager = GetComponent<GridManager>();
+        //gridManager = GetComponent<GridManager>();
         attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
     }
 
@@ -47,8 +47,11 @@ public class UIManager : MonoBehaviour
         }
         if(!attacking)
         {
-            ClearRangeBlocks();
-            attackManager.ClearAttack();
+            //ClearRangeBlocks();
+            gridManager.ClearMap();
+            //attackManager.ClearAttack();
+            attackManager.attacker = null;
+            attackManager.attackerAssigned = false;
         }
     }
 
@@ -56,6 +59,7 @@ public class UIManager : MonoBehaviour
     {
         attackManager.waiting = true;
         turnManager.CycleTurns();
+        attackManager.ClearAttack();
     }
 
     public void DisplayAttacks(HashSet<Attacks> _attacks)
@@ -81,10 +85,10 @@ public class UIManager : MonoBehaviour
                 button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
                 button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).name;
             }
-        } else
-        {
-            attackManager.ClearAttack();
-        }
+        }// else
+        //{
+        //    attackManager.ClearAttack();
+        //}
     }
 
     public void ClearRangeBlocks()

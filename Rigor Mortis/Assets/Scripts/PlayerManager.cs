@@ -65,7 +65,7 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerUnitChosen(Character unit)
     {
-        if (turnManager.playerTurn)
+        if (turnManager.playerTurn && unit.movedThisTurn == false && unit.hasTurn)
         {
             if(selectedPlayer != null)
             {
