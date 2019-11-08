@@ -67,6 +67,12 @@ public class PlayerManager : MonoBehaviour
     {
         if (turnManager.playerTurn && unit.movedThisTurn == false && unit.hasTurn)
         {
+            if(selectedPlayer != null)
+            {
+                selectedPlayer.GetComponent<Renderer>().material.color = Color.white;
+                gridManager.ClearMap();
+            }
+
             selectedPlayer = unit;
             selectedPlayer.GetComponent<Renderer>().material.color = Color.yellow;
 
