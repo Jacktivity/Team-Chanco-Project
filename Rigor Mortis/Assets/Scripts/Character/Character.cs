@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
+    private Animator animator;
+    private BlockScript previousBlock;
     //0 = necromancer, 1 = skeleton, 2 = SteamingSkull, 3 = SpectralSkeleton, 4 = TombGuard
     public int cost, hitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
     
@@ -22,7 +24,7 @@ public class Character : MonoBehaviour
     public bool hasTurn, movedThisTurn;
     public BlockScript floor;
     public bool moving = false;
-    float startTime;
+    float counterTime;
 
     Color colourStart;
 
@@ -35,38 +37,42 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         attacks = new HashSet<Attacks>();
         uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
         attackManager = GameObject.Find("EventSystem").GetComponent<AttackManager>();
-        colourStart = this.gameObject.GetComponent<Renderer>().material.color;
-        startTime = Time.time;
+        colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
     }
 
     private void Update()
     {
         if(!hasTurn)
         {
-            this.gameObject.GetComponent<Renderer>().material.color = Color.gray;
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
         }
         if (moving)
         {
+            counterTime += Time.deltaTime * 6;
             block = path.ElementAt(pathIndex);
-            float distCovered = (Time.time - startTime) * 0.06f;
-            float journey = Vector3.Distance(transform.position, (block.gameObject.transform.position + gameObject.transform.up));
-            float fractionOfJourney = distCovered / journey;
-            transform.position = Vector3.Lerp(transform.position, (block.gameObject.transform.position + gameObject.transform.up), fractionOfJourney);
+
+            float journey = Vector3.Distance(transform.position, (block.transform.position + transform.up));
+            transform.position = Vector3.Lerp(new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z), new Vector3(block.transform.position.x, transform.position.y, block.transform.position.z), counterTime);
+
+
             HealthBar healthBar = GetComponent<HealthBar>();
             Vector3 offset = healthBar.offset;
             healthBar.slider.transform.position = transform.position + offset;
             floor.occupier = gameObject;
-            if(fractionOfJourney >= 1)
+            if(counterTime >= 1)
             {
+                counterTime = 0;
+                previousBlock = block;
                 if(pathIndex >= path.Count() - 1)
                 {
                     moving = false;
+                    if (animator != null)
+                        animator.SetBool("Moving", moving);
                     pathIndex = 0;
-                    startTime = Time.time;
-
                     moveComplete?.Invoke(this, this);
                 } else
                 {
@@ -108,7 +114,9 @@ public class Character : MonoBehaviour
             path = moveTo;
             pathIndex = 0;
             moving = true;
-            gameObject.GetComponent<Renderer>().material.color = colourStart;
+            if (animator != null)
+                animator.SetBool("Moving", moving);
+            gameObject.GetComponentInChildren<Renderer>().material.color = colourStart;
             attackManager.ClearAttack();
         } 
     }
@@ -117,7 +125,12 @@ public class Character : MonoBehaviour
     {
         var blockScript = collision.gameObject.GetComponent<BlockScript>();
         if (blockScript != null)
+        {
             floor = blockScript;
+            if (previousBlock == null)
+                previousBlock = floor;                
+        }
+            
     }
     private void OnMouseDown()
     {

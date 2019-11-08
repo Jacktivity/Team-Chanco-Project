@@ -69,12 +69,12 @@ public class PlayerManager : MonoBehaviour
         {
             if(selectedPlayer != null)
             {
-                selectedPlayer.GetComponent<Renderer>().material.color = Color.white;
+                selectedPlayer.GetComponentInChildren<Renderer>().material.color = Color.white;
                 gridManager.ClearMap();
             }
 
             selectedPlayer = unit;
-            selectedPlayer.GetComponent<Renderer>().material.color = Color.yellow;
+            selectedPlayer.GetComponentInChildren<Renderer>().material.color = Color.yellow;
 
             walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
 
