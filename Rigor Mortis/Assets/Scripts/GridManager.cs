@@ -84,7 +84,11 @@ public class GridManager : MonoBehaviour
             var costOfUnit = SelectedUnit.cost;
             if ((GetPlacementPoints() - costOfUnit) >= 0)
             {
-                SpawnUnit(new Vector3(tile.gameObject.transform.position.x, 1, tile.gameObject.transform.position.z));
+                var unitPos = SelectedUnit.GetComponent<Collider>().bounds.center + SelectedUnit.GetComponent<Collider>().bounds.extents;
+                var tilePos = tile.GetComponent<Collider>().bounds.center + tile.GetComponent<Collider>().bounds.extents;
+                
+
+                SpawnUnit(new Vector3(tile.transform.position.x, unitPos.y + tilePos.y + tile.transform.position.y, tile.transform.position.z));
                 ReducePlacementPoints(costOfUnit);
                 tile.occupier = tile.gameObject;
 
