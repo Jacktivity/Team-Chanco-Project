@@ -30,19 +30,11 @@ public class Camera : MonoBehaviour
         Vector3 direction = _camera.transform.TransformDirection( Input.GetAxisRaw( "Horizontal" ), 0, Input.GetAxisRaw( "Vertical" ) );
         Vector3 scroll = _camera.transform.TransformDirection(0, -Input.GetAxis("Mouse ScrollWheel"), 0);
 
-        if ((transform.position.x + direction.x) >= posColliderExtents.x)
+        if ((transform.position.x + direction.x) >= posColliderExtents.x || (transform.position.x + direction.x) <= negColliderExtents.x)
         {
             direction.x = 0;
         }
-        if((transform.position.x + direction.x) <= negColliderExtents.x)
-        {
-            direction.x = 0;
-        }
-        if((transform.position.z + direction.z) >= posColliderExtents.z)
-        {
-            direction.z = 0;
-        }
-        if((transform.position.z + direction.z) <= negColliderExtents.z)
+        if((transform.position.z + direction.z) >= posColliderExtents.z || (transform.position.z + direction.z) <= negColliderExtents.z)
         {
             direction.z = 0;
         }
@@ -54,29 +46,17 @@ public class Camera : MonoBehaviour
             scroll.x = -(scroll.x / scrollOffset);
             scroll.z = -(scroll.z / scrollOffset);
 
-            if((transform.position.x + scroll.x) >= posColliderExtents.x)
+            if((transform.position.x + scroll.x) >= posColliderExtents.x || (transform.position.x + scroll.x) <= negColliderExtents.x)
             {
-                scroll = new Vector3();
+                scroll.x = 0;
             }
-            if ((transform.position.x + scroll.x) <= negColliderExtents.x)
+            if ((transform.position.y + scroll.y) >= posColliderExtents.y || (transform.position.y + scroll.y) <= negColliderExtents.y)
             {
-                scroll = new Vector3();
+                scroll.y = 0;
             }
-            if ((transform.position.y + scroll.y) >= posColliderExtents.y)
+            if ((transform.position.z + scroll.z) >= posColliderExtents.z || (transform.position.z + scroll.z) <= negColliderExtents.z)
             {
-                scroll = new Vector3();
-            }
-            if((transform.position.y + scroll.y) <= negColliderExtents.y)
-            {
-                scroll = new Vector3();
-            }
-            if ((transform.position.z + scroll.z) >= posColliderExtents.z)
-            {
-                scroll = new Vector3();
-            }
-            if ((transform.position.z + scroll.z) <= negColliderExtents.z)
-            {
-                scroll = new Vector3();
+                scroll.z = 0;
             }
             transform.position += scrollSpeed * new Vector3(scroll.x, scroll.y, scroll.z) * Time.deltaTime;
         }
