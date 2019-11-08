@@ -139,7 +139,7 @@ public class GridManager : MonoBehaviour
             unitIndex = 0;
         }
         var comingUnit = playerManager.selectedPlayer;
-        playerUnits[unitIndex].GetComponent<Renderer>().material.color = Color.white;
+        playerUnits[unitIndex].GetComponentInChildren<Renderer>().material.color = Color.white;
         comingUnit = playerUnits[unitIndex].GetComponent<Character>();
         playerManager.PlayerUnitChosen(comingUnit);
         attackManager.AssignAttacker(comingUnit);
