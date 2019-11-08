@@ -29,6 +29,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile;
     [SerializeField] private HealthBarManager healthBarManager;
     [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private AttackManager attackManager;
 
     private int unitIndex;
 
@@ -137,6 +138,7 @@ public class GridManager : MonoBehaviour
         playerUnits[unitIndex].GetComponent<Renderer>().material.color = Color.white;
         comingUnit = playerUnits[unitIndex].GetComponent<Character>();
         playerManager.PlayerUnitChosen(comingUnit);
+        attackManager.AssignAttacker(comingUnit);
     }
 
     void PlaceEnemy()
