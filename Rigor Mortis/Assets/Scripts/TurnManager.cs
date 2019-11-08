@@ -10,6 +10,7 @@ public class TurnManager : MonoBehaviour
     static int turnNumber = 1;
     UIManager uiManager;
     public static EventHandler turnEnded;
+    public GridManager gridManager;
     [SerializeField] private EnemyAI enemyAIContainer;
 
     // Start is called before the first frame update
@@ -61,10 +62,10 @@ public class TurnManager : MonoBehaviour
             playerScript.hasTurn = true;
             playerScript.movedThisTurn = false;
             player.gameObject.GetComponent<Renderer>().material.color = Color.white;
-
+            
         }
         playerTurn = true;
-
+        gridManager.nextUnit();
         turnNumber++;
         uiManager.UpdateTurnNumber(turnNumber);
     }

@@ -129,8 +129,10 @@ public class Character : MonoBehaviour
             {
                 attackManager.waiting = false;
                 hasTurn = false;
-                floor.manager.GetComponent<GridManager>().nextUnit();
-                //floor.manager.ClearMap();
+                if(gameObject.tag == "Player")
+                {
+                    floor.manager.GetComponent<GridManager>().nextUnit();
+                }
                 turnManager.CycleTurns();
 
             }

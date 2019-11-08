@@ -50,7 +50,10 @@ public class PlayerManager : MonoBehaviour
             selectedPlayer.turnManager.CycleTurns();
             selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
             gridManager.ClearMap();
-            gridManager.nextUnit();
+            if(selectedPlayer.tag =="Player")
+            {
+                gridManager.nextUnit();
+            }
         }
         else if (walkTiles.Contains(tile))
         {

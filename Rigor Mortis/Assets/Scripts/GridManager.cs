@@ -88,6 +88,7 @@ public class GridManager : MonoBehaviour
                 tile.occupier = tile.gameObject;
 
                 playerUnits = GameObject.FindGameObjectsWithTag("Player");
+                unitIndex = 0;
                 var firstUnit = playerUnits[unitIndex].GetComponent<Character>();
                 playerManager.PlayerUnitChosen(firstUnit);
             }
@@ -127,10 +128,14 @@ public class GridManager : MonoBehaviour
 
     public void nextUnit()
     {
-        var comingUnit = playerManager.selectedPlayer;
         unitIndex++;
+        if (unitIndex >= playerUnits.Count())
+        {
+            unitIndex = 0;
+        }
+        var comingUnit = playerManager.selectedPlayer;
         playerUnits[unitIndex].GetComponent<Renderer>().material.color = Color.white;
-        comingUnit =  playerUnits[unitIndex].GetComponent<Character>();
+        comingUnit = playerUnits[unitIndex].GetComponent<Character>();
         playerManager.PlayerUnitChosen(comingUnit);
     }
 
