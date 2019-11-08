@@ -142,7 +142,7 @@ public class GridManager : MonoBehaviour
         playerUnits[unitIndex].GetComponentInChildren<Renderer>().material.color = Color.white;
         comingUnit = playerUnits[unitIndex].GetComponent<Character>();
         playerManager.PlayerUnitChosen(comingUnit);
-        attackManager.AssignAttacker(comingUnit);
+        //attackManager.AssignAttacker(comingUnit);
     }
 
     void PlaceEnemy()
