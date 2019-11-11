@@ -57,7 +57,7 @@ namespace ShaderForge {
 		public bool isDraggingRMB = false;
 
 		[SerializeField]
-		public Camera cam;
+		public UnityEngine.Camera cam;
 		[SerializeField]
 		Transform camPivot;
 		[SerializeField]
@@ -124,7 +124,7 @@ namespace ShaderForge {
 			// Create preview camera
 			GameObject camObj = new GameObject("Shader Forge Camera");
 			camObj.hideFlags = HideFlags.HideAndDontSave;
-			cam = camObj.AddComponent<Camera>();
+			cam = camObj.AddComponent<UnityEngine.Camera>();
 			cam.targetTexture = render;
 			cam.clearFlags = CameraClearFlags.SolidColor;
 			cam.renderingPath = RenderingPath.Forward;

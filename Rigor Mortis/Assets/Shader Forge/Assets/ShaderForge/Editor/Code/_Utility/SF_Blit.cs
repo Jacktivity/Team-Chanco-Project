@@ -68,14 +68,14 @@ namespace ShaderForge {
 
 
 		static GameObject blitObject;
-		public static Camera _blitCamera;
-		public static Camera blitCamera {
+		public static UnityEngine.Camera _blitCamera;
+		public static UnityEngine.Camera blitCamera {
 			get {
 				if( blitObject == null ) {
 					blitObject = new GameObject( "SHADER_FORGE_BLIT_CAMERA" );
 					blitObject.hideFlags = HideFlags.HideAndDontSave;
 					blitObject.transform.position = new Vector3( 0, 0, -4f );
-					_blitCamera = blitObject.AddComponent<Camera>();
+					_blitCamera = blitObject.AddComponent<UnityEngine.Camera>();
 					_blitCamera.enabled = false;
 					_blitCamera.clearFlags = CameraClearFlags.Nothing;
 					_blitCamera.orthographic = true;

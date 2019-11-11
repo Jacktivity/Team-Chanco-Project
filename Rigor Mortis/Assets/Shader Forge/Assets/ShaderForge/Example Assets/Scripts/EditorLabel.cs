@@ -5,7 +5,7 @@
 
 	public class EditorLabel : MonoBehaviour {
 
-
+    
 
 		public string text;
 
@@ -28,27 +28,25 @@
 
 
 			RaycastHit hit;
-			Ray r = new Ray(transform.position + Camera.current.transform.up * 8f, -Camera.current.transform.up );
+			Ray r = new Ray(transform.position + UnityEngine.Camera.current.transform.up * 8f, -UnityEngine.Camera.current.transform.up );
 			if( GetComponent<Collider>().Raycast( r, out hit, Mathf.Infinity) ){
 
-				float dist = (Camera.current.transform.position - hit.point).magnitude;
+				float dist = (UnityEngine.Camera.current.transform.position - hit.point).magnitude;
 
 				float fontSize = Mathf.Lerp(64, 12, dist/10f);
 				
 				Style.fontSize = (int)fontSize;
 
-				Vector3 wPos = hit.point + Camera.current.transform.up*dist*0.07f;
+				Vector3 wPos = hit.point + UnityEngine.Camera.current.transform.up*dist*0.07f;            
 
-
-
-				Vector3 scPos = Camera.current.WorldToScreenPoint(wPos);
+				Vector3 scPos = UnityEngine.Camera.current.WorldToScreenPoint(wPos);
 				if(scPos.z <= 0){
 					return;
 				}
 
 			
 
-				float alpha = Mathf.Clamp(-Camera.current.transform.forward.y, 0f, 1f);
+				float alpha = Mathf.Clamp(-UnityEngine.Camera.current.transform.forward.y, 0f, 1f);
 				alpha = 1f-((1f-alpha)*(1f-alpha));
 
 				alpha = Mathf.Lerp(-0.2f,1f,alpha);

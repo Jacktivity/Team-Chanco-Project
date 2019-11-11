@@ -5,7 +5,7 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Camera))]
+[RequireComponent(typeof(UnityEngine.Camera))]
 public class EnableCameraDepthInForward : MonoBehaviour {
 #if UNITY_EDITOR
 	void OnDrawGizmos(){
@@ -16,7 +16,7 @@ public class EnableCameraDepthInForward : MonoBehaviour {
 		Set();
 	}
 	void Set(){
-		if(GetComponent<Camera>().depthTextureMode == DepthTextureMode.None)
-			GetComponent<Camera>().depthTextureMode = DepthTextureMode.Depth;
+		if(GetComponent<UnityEngine.Camera>().depthTextureMode == DepthTextureMode.None)
+			GetComponent<UnityEngine.Camera>().depthTextureMode = DepthTextureMode.Depth;
 	}
 }
