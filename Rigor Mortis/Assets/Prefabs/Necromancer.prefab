@@ -1622,7 +1622,7 @@ Transform:
   m_GameObject: {fileID: 7826452461569162009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4964462300606098995}
   - {fileID: 7682521515082561419}
@@ -1672,7 +1672,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c60e9467860784fa0e0f3295be4a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1915332122485464447}
   cost: 0
   hitPoints: 5
   accuracy: 5
