@@ -1,0 +1,23 @@
+<levels>
+  <level>
+    <map placementPoints ="2">
+      <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+      <map-line value ="0,-1,0,-1,0,0,0,0,-1,0,-1,0"/>
+      <map-line value ="0,-1,0,-1,0,0,0,0,-1,0,-1,0"/>
+      <map-line value ="0,0,0,0,1,1,1,1,0,0,0,0"/>
+      <map-line value ="0,0,0,0,1,1,1,1,0,0,0,0"/>
+      <map-line value ="0,-1,0,-1,0,0,0,0,-1,0,-1,0"/>
+      <map-line value ="0,-1,0,-1,0,0,0,0,-1,0,-1,0"/>
+      <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0"/>
+    </map>
+    <enemies>
+      <enemy name="redblock" type="0" posX="0" posZ="0"/>
+      <enemy name="redblock" type="0" posX="0" posZ="3"/>
+    </enemies>
+    <placeables>
+      <placeable posX="7" posZ="10"/>
+      <placeable posX="7" posZ="9"/>
+      <placeable posX="7" posZ="8"/>
+    </placeables>
+  </level>
+</levels>
