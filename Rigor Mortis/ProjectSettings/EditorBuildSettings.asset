@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Demo_Scene.unity
     guid: 34b8685c5a068bc4e885ed05996f57e3
+  - enabled: 1
+    path: Assets/Scenes/Oliver-AI Test.unity
+    guid: 5770705b189da9d41abf11cea469a97e
   m_configObjects: {}

@@ -79,7 +79,7 @@ public class GridManager : MonoBehaviour
 
     private void BlockClicked(BlockScript tile)
     {
-        if(tile.placeable && SelectedUnit != null)
+        if(tile.placeable && SelectedUnit != null && tile.Occupied == false)
         {
             var costOfUnit = SelectedUnit.cost;
             if ((GetPlacementPoints() - costOfUnit) >= 0)

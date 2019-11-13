@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 82028632}
   - component: {fileID: 82028634}
   - component: {fileID: 82028633}
+  - component: {fileID: 82028636}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -250,12 +251,21 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82028631}
   m_LocalRotation: {x: 0.48296294, y: -0.22414385, z: 0.1294095, w: 0.8365163}
-  m_LocalPosition: {x: 17.68, y: 23.35, z: -3.93}
+  m_LocalPosition: {x: 20.884142, y: 20.37, z: -0.52888304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 60, y: -30, z: 0}
+--- !u!45 &82028636
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82028631}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 53d690bb4e70abf4498a339340c6673f, type: 2}
 --- !u!1 &178928438
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +373,7 @@ Canvas:
   m_GameObject: {fileID: 205023745}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 82028632}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1390,7 +1400,7 @@ MonoBehaviour:
   highSpeedTile: {r: 1, g: 0.48650533, b: 0, a: 1}
   healthBarManager: {fileID: 1024436347}
   playerManager: {fileID: 1353577215}
-  attackManager: {fileID: 0}
+  attackManager: {fileID: 1024436348}
   moveMode: 0
   selectedBlock: {fileID: 0}
 --- !u!114 &1469572277
@@ -1447,7 +1457,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 30}
+  m_Size: {x: 23.55, y: 25, z: 21.9}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1605485691
 Transform:
@@ -1457,7 +1467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605485689}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.68, y: 23.35, z: 10.15}
+  m_LocalPosition: {x: 9.71, y: 17.21, z: 10.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1480,6 +1490,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 82028632}
+    - target: {fileID: 8340796270077940530, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8340796270077940529, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_LocalPosition.x
