@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetAxis("Cancel") != 0)
         {
-            SceneManager.LoadScene(sceneToLoad);
+            Application.Quit(0);
+            //SceneManager.LoadScene(sceneToLoad);
         }
     }
 }

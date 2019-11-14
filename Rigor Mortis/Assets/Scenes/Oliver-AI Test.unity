@@ -818,7 +818,8 @@ MonoBehaviour:
   turnDisplay: {fileID: 333307314}
   attackManager: {fileID: 0}
   attacking: 0
-  attackButton: {fileID: 0}
+  attackButton: {fileID: 3428575637537108063, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
+    type: 3}
   popUpButtons: []
   blocksInRange: []
 --- !u!114 &1024436347
@@ -834,6 +835,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 209558815}
+  healthBar: {fileID: 4641054099590450111, guid: aa6eb00298d4d92499e90ed5b4efed7f,
+    type: 3}
   offset: {x: 0, y: 1, z: 0}
 --- !u!114 &1024436348
 MonoBehaviour:

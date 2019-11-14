@@ -7,14 +7,14 @@ using UnityEngine.UI;
 public class HealthBarManager : MonoBehaviour
 {
     public Canvas canvas;
-    Slider healthBar;
+    [SerializeField] Slider healthBar;
     List<Slider> healthBars;
     List<Character> units;
     public Vector3 offset;
 
     void Awake()
     {
-        healthBar = (Slider) AssetDatabase.LoadAssetAtPath( "Assets/Prefabs/UI/HealthBarSlider.prefab", typeof(Slider));
+        //healthBar = (Slider) AssetDatabase.LoadAssetAtPath( "Assets/Prefabs/UI/HealthBarSlider.prefab", typeof(Slider));
         units = new List<Character>();
         healthBars = new List<Slider>();
 
