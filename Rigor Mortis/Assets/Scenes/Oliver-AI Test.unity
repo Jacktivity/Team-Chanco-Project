@@ -112,51 +112,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &51866433
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 51866435}
-  - component: {fileID: 51866434}
-  m_Layer: 0
-  m_Name: 'SekllyButtonEvent '
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &51866434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 51866433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67eb0f97cf280e645bd069b1b24d4c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unit: {fileID: 6690734147878028020, guid: 3f819d25698f8af408f0d42edfebced9, type: 3}
-  manager: {fileID: 1469572276}
---- !u!4 &51866435
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 51866433}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 156.72356, y: -71.17837, z: 32.709183}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &82028631
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,51 +498,6 @@ RectTransform:
   m_AnchoredPosition: {x: -4.1158543, y: -66.232544}
   m_SizeDelta: {x: 1289, y: 638}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &281590373
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 281590375}
-  - component: {fileID: 281590374}
-  m_Layer: 0
-  m_Name: NecroButtonEvent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &281590374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281590373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67eb0f97cf280e645bd069b1b24d4c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unit: {fileID: 4790737883455124222, guid: 30dab48646b25b443bb2fa9b8e982140, type: 3}
-  manager: {fileID: 1469572276}
---- !u!4 &281590375
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281590373}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 156.72356, y: -71.17837, z: 32.709183}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &333307314 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8340796271434194619, guid: 195497fdef40b4f4aa04d0c47b056391,
@@ -642,7 +552,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &758763301
 GameObject:
@@ -816,11 +726,13 @@ MonoBehaviour:
   prepCanvas: {fileID: 205023746}
   fixedCanvas: {fileID: 209558815}
   turnDisplay: {fileID: 333307314}
-  attackManager: {fileID: 0}
   attacking: 0
   attackButton: {fileID: 3428575637537108063, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
     type: 3}
   popUpButtons: []
+  healthBar: {fileID: 4641054099590450111, guid: aa6eb00298d4d92499e90ed5b4efed7f,
+    type: 3}
+  healthBarOffset: {x: 0, y: 0, z: 0}
   blocksInRange: []
 --- !u!114 &1024436347
 MonoBehaviour:
@@ -834,10 +746,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cbca79ecaa5a5645839101c1e32f3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 209558815}
-  healthBar: {fileID: 4641054099590450111, guid: aa6eb00298d4d92499e90ed5b4efed7f,
-    type: 3}
-  offset: {x: 0, y: 2, z: 0}
 --- !u!114 &1024436348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1005,12 +913,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 281590374}
+      - m_Target: {fileID: 1024436346}
         m_MethodName: setUnit
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 4790737883455124222, guid: 30dab48646b25b443bb2fa9b8e982140,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: Character, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1203,12 +1112,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 51866434}
+      - m_Target: {fileID: 1024436346}
         m_MethodName: setUnit
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6690734147878028020, guid: 3f819d25698f8af408f0d42edfebced9,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: Character, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1397,11 +1307,10 @@ MonoBehaviour:
   levelMap: {fileID: 4900000, guid: 5f07e7bca074f5f49bf53be9efa4bd0f, type: 3}
   SelectedUnit: {fileID: 0}
   turnManager: {fileID: 758763302}
-  eventSystem: {fileID: 1024436347}
   spawnPoint: {r: 1, g: 1, b: 0, a: 1}
   lowSpeedTile: {r: 0, g: 1, b: 1, a: 1}
   highSpeedTile: {r: 1, g: 0.48650533, b: 0, a: 1}
-  healthBarManager: {fileID: 1024436347}
+  uiManager: {fileID: 1024436346}
   playerManager: {fileID: 1353577215}
   attackManager: {fileID: 1024436348}
   moveMode: 0
