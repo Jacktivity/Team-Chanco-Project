@@ -11,16 +11,20 @@ public class Character : MonoBehaviour
     private BlockScript previousBlock;
     private Vector3 previousForward;
     //0 = necromancer, 1 = skeleton, 2 = SteamingSkull, 3 = SpectralSkeleton, 4 = TombGuard
-    public int cost, hitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
-    
+    #region statblock
+    public int cost, maxHitPoints, accuracy, strength, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
+    #endregion
+
+    private int currentHitPoints;
+
     public bool isFlying;
     public bool isCaptain;
 
-    public HashSet<Attacks> attacks;
+    public IEnumerable<Attack> attacks;
 
     public TurnManager turnManager;
     public UIManager uiManager;
-    public AttackManager attackManager;
+    //public AttackManager attackManager;
     public Pathfinder pathfinder;
     public bool hasTurn, movedThisTurn;
     public BlockScript floor;
@@ -31,38 +35,60 @@ public class Character : MonoBehaviour
 
     public EventHandler<Character> characterClicked;
     public EventHandler<Character> moveComplete;
+    public static EventHandler<AttackEventArgs> attackEvent;
+    public Attack SelectedAttack { get; private set; }
+    public BlockScript attackSourceBlock;
 
-    IEnumerable<BlockScript> path;
-    int pathIndex;
-    BlockScript block;
+    private IEnumerable<BlockScript> path;
+    private int pathIndex;
+    private BlockScript moveToBlock;
 
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        attacks = new HashSet<Attacks>();
-        uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
-        attackManager = GameObject.Find("EventSystem").GetComponent<AttackManager>();
+        uiManager = FindObjectOfType<UIManager>();
+        //attackManager = FindObjectOfType<AttackManager>();
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
+
+        attackEvent += DamageCheck;
     }
 
-    private void Update()
+    public void Attack()
     {
-        if(!hasTurn)
+        if(SelectedAttack != null)
         {
-            gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
+            var baseDamage = SelectedAttack.RollDamage();
+            if (baseDamage.Magical > 0)
+                baseDamage.Magical += power;
+            if (baseDamage.Physical > 0)
+                baseDamage.Physical += strength;
+
+            var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, SelectedAttack.Area, true);
+            var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
+
+            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical));
         }
+    }
+
+    private void Movement()
+    {
         if (moving)
         {
             counterTime += Time.deltaTime * 6;
-            block = path.ElementAt(pathIndex);
+            moveToBlock = path.ElementAt(pathIndex);
 
-            float journey = Vector3.Distance(transform.position, (block.transform.position + transform.up));
-            transform.position = Vector3.Lerp(new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z), new Vector3(block.transform.position.x, transform.position.y, block.transform.position.z), counterTime);
-            previousBlock.occupier = null;
+            float journey = Vector3.Distance(transform.position, (moveToBlock.transform.position + transform.up));
 
-            var angle = block.transform.position - previousBlock.transform.position;
+
+            transform.position = Vector3.Lerp(
+                new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z),
+                new Vector3(moveToBlock.transform.position.x, transform.position.y, moveToBlock.transform.position.z),
+                counterTime);
+
+
+            var angle = moveToBlock.transform.position - previousBlock.transform.position;
 
             transform.forward = Vector3.Lerp(previousForward, angle, counterTime);
 
@@ -70,21 +96,23 @@ public class Character : MonoBehaviour
             Vector3 offset = healthBar.offset;
             healthBar.slider.transform.position = transform.position + offset;
             floor.occupier = gameObject;
-            if(counterTime >= 1)
+            if (counterTime >= 1)
             {
                 counterTime = 0;
-                floor = block;
-                block.occupier = gameObject;
-                previousBlock = block;
+                floor = moveToBlock;
+                moveToBlock.occupier = gameObject;
+                previousBlock = moveToBlock;
+
                 previousForward = transform.forward;
-                if(pathIndex >= path.Count() - 1)
+                if (pathIndex >= path.Count() - 1)
                 {
                     moving = false;
                     if (animator != null)
                         animator.SetBool("Moving", moving);
                     pathIndex = 0;
                     moveComplete?.Invoke(this, this);
-                } else
+                }
+                else
                 {
                     pathIndex++;
                 }
@@ -92,28 +120,40 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    protected void DamageCheck(object sender, AttackEventArgs e)
     {
-        hitPoints = hitPoints - damage;
-
-        if(hitPoints <= 0)
+        if (e.AttackedCharacters.Contains(this))
         {
-            floor.occupier = null;
-            gameObject.GetComponent<HealthBar>().slider.gameObject.SetActive(false);
-            this.gameObject.SetActive(false);
-            Slider slider = GetComponent<HealthBar>().slider;
-            slider.gameObject.SetActive(false);
+            if (e.MagicDamage > resistance)
+                TakeDamage(e.MagicDamage - resistance);
+
+            if (e.PhysicalDamage > armour)
+                TakeDamage(e.PhysicalDamage - armour);
         }
     }
 
-    public HashSet<Attacks> Attack()
+    public void TakeDamage(int damage)
     {
-        return attacks;
+        currentHitPoints -= damage;
+
+        if(currentHitPoints <= 0)
+        {
+            DestroyUnit();
+        }
+    }
+
+    protected void DestroyUnit()
+    {
+        floor.occupier = null;
+        gameObject.GetComponent<HealthBar>().slider.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
+        Slider slider = GetComponent<HealthBar>().slider;
+        slider.gameObject.SetActive(false);
     }
 
     public float GetHealth()
     {
-        return hitPoints;
+        return maxHitPoints;
     }
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
@@ -125,10 +165,7 @@ public class Character : MonoBehaviour
             moving = true;
 
             if (animator != null)
-                animator.SetBool("Moving", moving);
-            //gameObject.GetComponentInChildren<Renderer>().material.color = colourStart;
-
-            attackManager.ClearAttack();
+                animator.SetBool("Moving", moving);            
         } 
     }
 
@@ -147,41 +184,56 @@ public class Character : MonoBehaviour
     {
         characterClicked?.Invoke(this, this);
 
-        if (hasTurn || gameObject.tag == "Enemy")
+        //if (hasTurn || gameObject.tag == "Enemy")
+        //{
+        //    if (attackManager.waiting)
+        //    {
+        //        attackManager.waiting = false;
+        //        hasTurn = false;
+        //        if(gameObject.tag == "Player")
+        //        {
+        //            floor.manager.GetComponent<GridManager>().nextUnit();
+        //        }
+        //        turnManager.CycleTurns();
+
+        //    }
+
+        //    if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
+        //    {
+        //        attackManager.AssignAttacker(this);
+        //    }
+
+        //    if (uiManager.attacking)
+        //    {
+        //        if (attackManager.attackerAssigned && attackManager.targetAssigned == false && tag == "Enemy")
+        //        {
+        //            attackManager.AssignTarget(this);
+        //        }
+        //    }
+        //}
+    }
+
+    private void Update()
+    {
+        if (!hasTurn)
         {
-            if (attackManager.waiting)
-            {
-                attackManager.waiting = false;
-                hasTurn = false;
-                if(gameObject.tag == "Player")
-                {
-                    floor.manager.GetComponent<GridManager>().nextUnit();
-                }
-                turnManager.CycleTurns();
-
-            }
-
-            if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
-            {
-                attackManager.AssignAttacker(this);
-            }
-
-            if (uiManager.attacking)
-            {
-                if (attackManager.attackerAssigned && attackManager.targetAssigned == false && tag == "Enemy")
-                {
-                    attackManager.AssignTarget(this);
-                }
-            }
+            //Make highlighter of transparent material? Outline renderer etc?        
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
         }
-        /*if(!uiManager.waiting && !uiManager.attacking ) temp for testing
-            {
-                var moveArea = pathfinder.GetTilesInRange(floor, movementSpeed, false);
+        Movement();
+    }
+}
 
-                foreach(var tile in moveArea)
-                {
-                    tile.GetComponent<Renderer>().material.color = Color.blue;
-                }
-            }*/
+public struct AttackEventArgs
+{
+    public Character[] AttackedCharacters;
+    public int MagicDamage;
+    public int PhysicalDamage;
+
+    public AttackEventArgs(IEnumerable<Character> attackedCharaters, int magicDmg, int physDmg)
+    {
+        AttackedCharacters = attackedCharaters.ToArray();
+        MagicDamage = magicDmg;
+        PhysicalDamage = physDmg;
     }
 }

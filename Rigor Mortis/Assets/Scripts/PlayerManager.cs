@@ -36,8 +36,10 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            if(selectedPlayer != null)
-                Debug.Log(selectedPlayer.attackManager.attackerAssigned);
+            if (selectedPlayer != null)
+            {
+                //Debug.Log(selectedPlayer.attackManager.attackerAssigned);
+            }
         }
     }
 

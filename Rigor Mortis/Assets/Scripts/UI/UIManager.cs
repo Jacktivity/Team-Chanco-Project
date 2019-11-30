@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
         attackManager.ClearAttack();
     }
 
-    public void DisplayAttacks(HashSet<Attacks> _attacks)
+    public void DisplayAttacks(IEnumerable<Attack> _attacks)
     {
         foreach (GameObject button in popUpButtons)
         {
@@ -95,15 +95,15 @@ public class UIManager : MonoBehaviour
             Vector3 instantiationPoint = fixedCanvas.transform.position + popUpOffset;
             popUpButtons = new List<GameObject>();
 
-            for (int i = 0; i < _attacks.Count; i++)
+            for (int i = 0; i < _attacks.Count(); i++)
             {
-                popUpOffset = new Vector3(325, 30 * i, 100);
+                popUpOffset = new Vector3(0, 30 * i, 100);
 
                 GameObject button = Instantiate(attackButton, instantiationPoint + popUpOffset, battleCanvas.transform.rotation, battleCanvas.transform);
                 popUpButtons.Add(button);
                 button.GetComponent<ChooseAttackButton>().attackManager = attackManager;
                 button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
-                button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).name;
+                button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).Name;
             }
         }// else
         //{
