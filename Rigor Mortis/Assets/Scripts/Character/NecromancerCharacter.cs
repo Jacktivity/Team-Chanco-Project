@@ -10,7 +10,7 @@ public class NecromancerCharacter : Character
     void Start()
     {
         cost = 0;
-        hitPoints = 40;
+        maxHitPoints = 40;
         accuracy = 75;
         armour = 2;
         evade = 25;
@@ -20,11 +20,11 @@ public class NecromancerCharacter : Character
         movementSpeed = 6;
         movemenSprint = 6;
 
-        attacks = new HashSet<Attacks>();
-
-        attacks.Add(AttackLibrary.attacks.First(a => a.name == "StaffWhack"));
-        attacks.Add(AttackLibrary.attacks.First(a => a.name == "TeslaStab"));
-        attacks.Add(AttackLibrary.attacks.First(a => a.name == "TeslaZap"));
+        attacks = new Attack[] {
+            AttackLibrary.StaffWhack,
+            AttackLibrary.TeslaStab,
+            AttackLibrary.TeslaZap
+        };
 
         if(gameObject.tag == "Player")
         {

@@ -9,7 +9,7 @@ public class SkeletonCharacter : Character
     void Start()
     {
         cost = 10;
-        hitPoints = 20;
+        maxHitPoints = 20;
         accuracy = 75;
         armour = 3;
         evade = 25;
@@ -19,8 +19,6 @@ public class SkeletonCharacter : Character
         movementSpeed = 3;
         movemenSprint = 2;
 
-        attacks = new HashSet<Attacks>();
-
-        attacks.Add(AttackLibrary.attacks.First(a => a.name == "RustySword"));
+        attacks = new Attack[] { AttackLibrary.RustySword };
     }
 }
