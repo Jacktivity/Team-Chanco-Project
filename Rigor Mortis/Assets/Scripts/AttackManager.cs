@@ -10,12 +10,12 @@ public class AttackManager : MonoBehaviour
 
     [SerializeField] public GridManager gridManager;
 
-    Attacks attack;
+    Attack attack;
 
     public Character attacker;
     public Character target;
 
-    public HashSet<Attacks> attacks;
+    public IEnumerable<Attack> attacks;
 
     public bool waiting = false;
     public bool attackerAssigned = false;
@@ -29,7 +29,7 @@ public class AttackManager : MonoBehaviour
         gridManager = gridManager.GetComponent<GridManager>();
     }
 
-    public void Attack(Character attacking, Character defending, Attacks attack)
+    public void Attack(Character attacking, Character defending, Attack attack)
     {
         ClearAttack();
 
@@ -37,7 +37,7 @@ public class AttackManager : MonoBehaviour
         target = defending;
         this.attack = attack;
 
-        uiManager.blocksInRange = pathFinder.GetTilesInRange(attacker.floor, attack.range, true);
+        uiManager.blocksInRange = pathFinder.GetTilesInRange(attacker.floor, attack.Range, true);
 
         attackerAssigned = true;
         targetAssigned = true;
@@ -48,19 +48,19 @@ public class AttackManager : MonoBehaviour
 
     public void AssignAttacker(Character character)
     {
-        attackerAssigned = true;
-        attacker = character;
+    //    attackerAssigned = true;
+    //    attacker = character;
 
-        attacks = attacker.Attack();
-        if (uiManager.attacking) {
-            uiManager.DisplayAttacks(attacks);
-        }
+    //    attacks = attacker.Attack();
+    //    if (uiManager.attacking) {
+    //        uiManager.DisplayAttacks(attacks);
+    //    }
 
-        if (attackAssigned)
-        {
-            attack = null;
-            attackAssigned = false;
-        }
+    //    if (attackAssigned)
+    //    {
+    //        attack = null;
+    //        attackAssigned = false;
+    //    }
     }
 
     public void AssignTarget(Character character)
@@ -74,14 +74,14 @@ public class AttackManager : MonoBehaviour
         }
     }
 
-    public void AssignAttack(Attacks _attack)
+    public void AssignAttack(Attack _attack)
     {
         attackAssigned = true;
         attack = _attack;
 
         uiManager.ClearRangeBlocks();
 
-        uiManager.blocksInRange = pathFinder.GetTilesInRange(attacker.floor, attack.range, true);
+        uiManager.blocksInRange = pathFinder.GetTilesInRange(attacker.floor, attack.Range, true);
 
         foreach (var block in uiManager.blocksInRange)
         {
@@ -102,24 +102,16 @@ public class AttackManager : MonoBehaviour
             int attackRoll1 = Random.Range(1, 101);
             int attackRoll2 = Random.Range(1, 101);
             int attackRoll = (attackRoll1 + attackRoll2) / 2;
-            float hitChance = 100 - (attacker.accuracy * attack.accuracy) - (target.evade /*+ terrain.defence */);
-            int randomDamageValue;
-            int damage;
-            if (attackRoll >= hitChance) {
-                if (attack.physicalMaxAttack > attack.magicalMaxAttack)
-                {
-                    randomDamageValue = Random.Range(attack.physicalMinAttack, attack.physicalMaxAttack);
-                    damage = (attacker.power + randomDamageValue) - target.armour;
-                } else
-                {
-                    randomDamageValue = Random.Range(attack.magicalMinAttack, attack.magicalMaxAttack);
-                    damage = (attacker.power + randomDamageValue) - target.resistance;
-                }
+            float hitChance = 100 - (attacker.accuracy * attack.Accuracy) - (target.evade /*+ terrain.defence */);
+            if (attackRoll >= hitChance)
+            {
+                var damage = attack.RollDamage();               
 
-                target.TakeDamage(damage);
+                target.TakeDamage(damage.Magical);
+                target.TakeDamage(damage.Physical);
                 HealthBar healthBar = target.GetComponent<HealthBar>();
                 healthBar.slider.value = target.GetHealth();
-                Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.name + " dealing (" + " (Attacker Power: " +  attacker.power + " + " + " Damage " + randomDamageValue + ") - " + " Target Armour: " + target.armour + " OR Target Resistance: " + target.resistance + ") Overall Damage = " + damage + ". Leaving " + target.name + " with " + target.GetHealth() + " health left.");
+                Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.Name + " dealing (" + " (Attacker Power: " +  attacker.power + " + " + " Damage " + damage.Magical + damage.Physical + ") - " + " Target Armour: " + target.armour + " OR Target Resistance: " + target.resistance + ") Overall Damage = " + damage + ". Leaving " + target.name + " with " + target.GetHealth() + " health left.");
             }
             else
             {

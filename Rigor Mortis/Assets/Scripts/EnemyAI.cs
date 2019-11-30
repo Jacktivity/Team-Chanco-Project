@@ -34,9 +34,9 @@ public class EnemyAI : MonoBehaviour
                 break;
             case AIStates.Attack:
 
-                var longestAttack = unitToMove.attacks.OrderByDescending(a => a.range).First();
+                var longestAttack = unitToMove.attacks.OrderByDescending(a => a.Range).First();
                 
-                var path = pathfinder.GetPath(unitToMove.floor, (s) => pathfinder.GetTilesInRange(s, longestAttack.range,true).Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), unitToMove.isFlying == false);
+                var path = pathfinder.GetPath(unitToMove.floor, (s) => pathfinder.GetTilesInRange(s, longestAttack.Range,true).Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), unitToMove.isFlying == false);
 
                 var walkPath = path.Take(unitToMove.movementSpeed);
 
@@ -67,18 +67,18 @@ public class EnemyAI : MonoBehaviour
 
     private void AIAttack(object sender, Character unit)
     {
-        var atkManager = unit.attackManager;
-        var longestAttack = unit.attacks.OrderByDescending(s => s.range).First();
+        //var atkManager = unit.attackManager;
+        var longestAttack = unit.attacks.OrderByDescending(s => s.Range).First();
 
-        Debug.Log(longestAttack.name);
+        Debug.Log(longestAttack.Name);
 
-        var tilesInRange = pathfinder.GetTilesInRange(unit.floor, longestAttack.range, true);
+        var tilesInRange = pathfinder.GetTilesInRange(unit.floor, longestAttack.Range, true);
 
         var unitsToHit = tilesInRange.Where(t => t.Occupied ? t.occupier.tag == "Player" : false).Select(c => c.occupier.GetComponent<Character>());
 
         if(unitsToHit.Count() != 0)
         {
-            atkManager.Attack(unit, unitsToHit.OrderBy(s => s.GetHealth()).First(), longestAttack);
+            //atkManager.Attack(unit, unitsToHit.OrderBy(s => s.GetHealth()).First(), longestAttack);
         }        
 
         unit.moveComplete -= AIAttack;
