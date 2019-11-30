@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -29,6 +30,12 @@ public class UIManager : MonoBehaviour
     public Vector3 healthBarOffset;
 
     public BlockScript[] blocksInRange;
+    public static EventHandler<UIManager.PlacementStates> placementStateChange;
+
+    public enum PlacementStates
+    {
+        placementPhase, playerTurn, enemyTurn
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +47,11 @@ public class UIManager : MonoBehaviour
         unitList = new List<Character>();
         healthBars = new List<Slider>();
 
+        placementStateChange += PlacementStateChanged;
+
         BuildUnits();
+
+        placementStateChange?.Invoke(this, UIManager.PlacementStates.placementPhase);
     }
 
     public void UpdateTurnNumber(int turn)
@@ -135,5 +146,43 @@ public class UIManager : MonoBehaviour
     // Unit Assignment
     public void setUnit(Character unit) {
         gridManager.SetSelectedUnit(unit);
+    }
+
+
+    //Canvas
+    private void PlacementStateChanged(object sender, PlacementStates state) {
+        switch(state)
+        {
+            case PlacementStates.placementPhase:
+                SetPrepCanvas(true);
+                SetBattleCanvas(false);
+                SetFixedCanvas(false);
+            break;
+
+            case PlacementStates.playerTurn:
+                SetPrepCanvas(false);
+                SetBattleCanvas(true);
+                SetFixedCanvas(true);
+                break;
+
+            case PlacementStates.enemyTurn:
+                SetPrepCanvas(false);
+                SetBattleCanvas(false);
+                SetFixedCanvas(true);
+                break;
+        }
+    }
+
+
+    public void SetPrepCanvas(bool enabled) {
+        prepCanvas.enabled = enabled;
+    }
+
+    public void SetBattleCanvas(bool enabled) {
+        battleCanvas.enabled = enabled;
+    }
+
+    public void SetFixedCanvas(bool enabled) {
+        fixedCanvas.enabled = enabled;
     }
 }
