@@ -8,8 +8,8 @@ using System.Linq;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]Pathfinder pathFinder;
-    [SerializeField] GridManager gridManager;
-    [SerializeField] TurnManager turnManager;
+    [SerializeField]GridManager gridManager;
+    [SerializeField]TurnManager turnManager;
     [SerializeField]Canvas battleCanvas;
     [SerializeField]Canvas prepCanvas;
     [SerializeField]Canvas fixedCanvas;
@@ -108,6 +108,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+
     //Health Bars
     void BuildUnits() {
         foreach (Character unit in FindObjectsOfType<Character>())
@@ -128,5 +129,11 @@ public class UIManager : MonoBehaviour
     public void AddUnit(Character newUnit) {
         unitList.Add(newUnit);
         InstantiateHealthBar(newUnit);
+    }
+
+
+    // Unit Assignment
+    public void setUnit(Character unit) {
+        gridManager.SetSelectedUnit(unit);
     }
 }
