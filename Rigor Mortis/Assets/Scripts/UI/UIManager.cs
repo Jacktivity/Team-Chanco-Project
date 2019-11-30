@@ -17,8 +17,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]Text turnDisplay;
 
-    [SerializeField]AttackManager attackManager;
-
     public bool attacking = false;
 
     [SerializeField] GameObject attackButton;
@@ -40,17 +38,16 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pathFinder = GetComponent<Pathfinder>();
-        attackManager = GetComponent<AttackManager>();
+        //pathFinder = GetComponent<Pathfinder>();
+        //attackManager = GetComponent<AttackManager>();
         //gridManager = GetComponent<GridManager>();
         //attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
         unitList = new List<Character>();
         healthBars = new List<Slider>();
 
-        placementStateChange += PlacementStateChanged;
-
         BuildUnits();
 
+        placementStateChange += PlacementStateChanged;
         placementStateChange?.Invoke(this, UIManager.PlacementStates.placementPhase);
     }
 
@@ -59,30 +56,12 @@ public class UIManager : MonoBehaviour
         turnDisplay.text = "Turn " + turn;
     }
 
-    public void ToggleAttack()
-    {
-        attacking = !attacking;
-        if (attackManager.attackerAssigned) {
-            DisplayAttacks(attackManager.attacks);
-        }
-        if(!attacking)
-        {
-            //ClearRangeBlocks();
-            gridManager.ClearMap();
-            //attackManager.ClearAttack();
-            attackManager.attacker = null;
-            attackManager.attackerAssigned = false;
-        }
-    }
-
     public void wait()
     {
-        attackManager.waiting = true;
         turnManager.CycleTurns();
-        attackManager.ClearAttack();
     }
 
-    public void DisplayAttacks(IEnumerable<Attack> _attacks)
+    public void DisplayAttacks(IEnumerable<Attack> _attacks, Character character)
     {
         foreach (GameObject button in popUpButtons)
         {
@@ -90,25 +69,20 @@ public class UIManager : MonoBehaviour
         }
         popUpButtons.Clear();
 
-        if (attacking) {
-            Vector3 popUpOffset = new Vector3(2f, 0, 0);
-            Vector3 instantiationPoint = fixedCanvas.transform.position + popUpOffset;
-            popUpButtons = new List<GameObject>();
+        Vector3 popUpOffset = new Vector3(2f, 0, 0);
+        Vector3 instantiationPoint = fixedCanvas.transform.position + popUpOffset;
+        popUpButtons = new List<GameObject>();
 
-            for (int i = 0; i < _attacks.Count(); i++)
-            {
-                popUpOffset = new Vector3(0, 30 * i, 100);
+        for (int i = 0; i < _attacks.Count(); i++)
+        {
+            popUpOffset = new Vector3(0, 30 * i, 100);
 
-                GameObject button = Instantiate(attackButton, instantiationPoint + popUpOffset, battleCanvas.transform.rotation, battleCanvas.transform);
-                popUpButtons.Add(button);
-                button.GetComponent<ChooseAttackButton>().attackManager = attackManager;
-                button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
-                button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).Name;
-            }
-        }// else
-        //{
-        //    attackManager.ClearAttack();
-        //}
+            GameObject button = Instantiate(attackButton, instantiationPoint + popUpOffset, battleCanvas.transform.rotation, battleCanvas.transform);
+            popUpButtons.Add(button);
+            button.GetComponent<ChooseAttackButton>().character = character;
+            button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
+            button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).Name;
+        }
     }
 
     public void ClearRangeBlocks()

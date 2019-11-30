@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChooseAttackButton : MonoBehaviour
-{    
-    public AttackManager attackManager;
+{
+    //public AttackManager attackManager;
+    public Character character;
     public Attack attack;
 
     // Start is called before the first frame update
@@ -19,5 +20,5 @@ public class ChooseAttackButton : MonoBehaviour
         
     }
 
-    public void ChooseAttack() => attackManager.AssignAttack(attack);//uiManager.Attack();
+    public void ChooseAttack() => character.selectedAttack = attack;//uiManager.Attack();
 }
