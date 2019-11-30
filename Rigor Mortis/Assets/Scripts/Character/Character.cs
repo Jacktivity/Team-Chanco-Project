@@ -16,7 +16,7 @@ public class Character : MonoBehaviour
     public bool isFlying;
     public bool isCaptain;
 
-    public HashSet<Attacks> attacks;
+    public IEnumerable<Attack> attacks;
 
     public TurnManager turnManager;
     public UIManager uiManager;
@@ -31,6 +31,8 @@ public class Character : MonoBehaviour
 
     public EventHandler<Character> characterClicked;
     public EventHandler<Character> moveComplete;
+    public static EventHandler<Character[]> attack;
+    public Attack SelectedAttack { get; private set; }
 
     IEnumerable<BlockScript> path;
     int pathIndex;
@@ -40,7 +42,6 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        attacks = new HashSet<Attacks>();
         uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
         attackManager = GameObject.Find("EventSystem").GetComponent<AttackManager>();
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
@@ -51,6 +52,7 @@ public class Character : MonoBehaviour
     {
         if(!hasTurn)
         {
+            //Make highlighter of transparent material? Outline renderer etc?        
             gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
         }
         if (moving)
@@ -59,7 +61,11 @@ public class Character : MonoBehaviour
             block = path.ElementAt(pathIndex);
 
             float journey = Vector3.Distance(transform.position, (block.transform.position + transform.up));
-            transform.position = Vector3.Lerp(new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z), new Vector3(block.transform.position.x, transform.position.y, block.transform.position.z), counterTime);
+
+            transform.position = Vector3.Lerp(
+                new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z),
+                new Vector3(block.transform.position.x, transform.position.y, block.transform.position.z),
+                counterTime);
 
             var angle = block.transform.position - previousBlock.transform.position;
 
@@ -104,7 +110,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    public HashSet<Attacks> Attack()
+    public IEnumerable<Attack> Attack()
     {
         return attacks;
     }

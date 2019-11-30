@@ -19,8 +19,6 @@ public class SkeletonCharacter : Character
         movementSpeed = 3;
         movemenSprint = 2;
 
-        attacks = new HashSet<Attacks>();
-
-        attacks.Add(AttackLibrary.attacks.First(a => a.name == "RustySword"));
+        attacks = new Attack[] { AttackLibrary.RustySword };
     }
 }
