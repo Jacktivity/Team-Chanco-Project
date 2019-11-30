@@ -10,7 +10,7 @@ public class NecromancerCharacter : Character
     void Start()
     {
         cost = 0;
-        hitPoints = 40;
+        maxHitPoints = 40;
         accuracy = 75;
         armour = 2;
         evade = 25;

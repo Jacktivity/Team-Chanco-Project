@@ -48,19 +48,19 @@ public class AttackManager : MonoBehaviour
 
     public void AssignAttacker(Character character)
     {
-        attackerAssigned = true;
-        attacker = character;
+    //    attackerAssigned = true;
+    //    attacker = character;
 
-        attacks = attacker.Attack();
-        if (uiManager.attacking) {
-            uiManager.DisplayAttacks(attacks);
-        }
+    //    attacks = attacker.Attack();
+    //    if (uiManager.attacking) {
+    //        uiManager.DisplayAttacks(attacks);
+    //    }
 
-        if (attackAssigned)
-        {
-            attack = null;
-            attackAssigned = false;
-        }
+    //    if (attackAssigned)
+    //    {
+    //        attack = null;
+    //        attackAssigned = false;
+    //    }
     }
 
     public void AssignTarget(Character character)
@@ -107,11 +107,11 @@ public class AttackManager : MonoBehaviour
             {
                 var damage = attack.RollDamage();               
 
-                target.TakeDamage(damage.Item1);
-                target.TakeDamage(damage.Item2);
+                target.TakeDamage(damage.Magical);
+                target.TakeDamage(damage.Physical);
                 HealthBar healthBar = target.GetComponent<HealthBar>();
                 healthBar.slider.value = target.GetHealth();
-                Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.Name + " dealing (" + " (Attacker Power: " +  attacker.power + " + " + " Damage " + damage.Item1 + damage.Item2 + ") - " + " Target Armour: " + target.armour + " OR Target Resistance: " + target.resistance + ") Overall Damage = " + damage + ". Leaving " + target.name + " with " + target.GetHealth() + " health left.");
+                Debug.Log("Attacked! " + attacker.name + " attacked " + target.name + " with " + attack.Name + " dealing (" + " (Attacker Power: " +  attacker.power + " + " + " Damage " + damage.Magical + damage.Physical + ") - " + " Target Armour: " + target.armour + " OR Target Resistance: " + target.resistance + ") Overall Damage = " + damage + ". Leaving " + target.name + " with " + target.GetHealth() + " health left.");
             }
             else
             {

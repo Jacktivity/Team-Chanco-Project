@@ -9,7 +9,7 @@ public class SkeletonCharacter : Character
     void Start()
     {
         cost = 10;
-        hitPoints = 20;
+        maxHitPoints = 20;
         accuracy = 75;
         armour = 3;
         evade = 25;
