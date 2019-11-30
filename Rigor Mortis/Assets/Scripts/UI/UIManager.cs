@@ -9,7 +9,6 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]Pathfinder pathFinder;
     [SerializeField] GridManager gridManager;
-    [SerializeField] TurnManager turnManager;
     [SerializeField]Canvas battleCanvas;
     [SerializeField]Canvas prepCanvas;
     [SerializeField]Canvas fixedCanvas;
@@ -58,7 +57,7 @@ public class UIManager : MonoBehaviour
     public void wait()
     {
         attackManager.waiting = true;
-        turnManager.CycleTurns();
+        gridManager.CycleTurns();
         attackManager.ClearAttack();
     }
 

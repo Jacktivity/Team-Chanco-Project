@@ -5,7 +5,6 @@ using UnityEngine;
 public class TestPlayerScript : MonoBehaviour
 {
     public bool hasTurn;
-    public TurnManager turnManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +21,7 @@ public class TestPlayerScript : MonoBehaviour
         if (hasTurn)
         {
             hasTurn = false;
-            turnManager.CycleTurns();
+
         }
     }
 }
