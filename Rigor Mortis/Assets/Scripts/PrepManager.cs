@@ -14,7 +14,7 @@ public class PrepManager : MonoBehaviour
     void Start()
     {
         // -410, -218, -278
-         Vector3 popUpOffset = new Vector3(0, 0, 0);
+        Vector3 popUpOffset = new Vector3(0, 0, 0);
         Vector3 instantiationPoint = transform.position;// + popUpOffset;
 
         for (int i = 0; i < manager.playerPrefabs.Length; i++)
