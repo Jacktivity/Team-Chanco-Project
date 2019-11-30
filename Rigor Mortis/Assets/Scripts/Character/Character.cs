@@ -60,6 +60,7 @@ public class Character : MonoBehaviour
 
             float journey = Vector3.Distance(transform.position, (block.transform.position + transform.up));
             transform.position = Vector3.Lerp(new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z), new Vector3(block.transform.position.x, transform.position.y, block.transform.position.z), counterTime);
+            previousBlock.occupier = null;
 
             var angle = block.transform.position - previousBlock.transform.position;
 
@@ -72,6 +73,8 @@ public class Character : MonoBehaviour
             if(counterTime >= 1)
             {
                 counterTime = 0;
+                floor = block;
+                block.occupier = gameObject;
                 previousBlock = block;
                 previousForward = transform.forward;
                 if(pathIndex >= path.Count() - 1)
@@ -85,7 +88,6 @@ public class Character : MonoBehaviour
                 {
                     pathIndex++;
                 }
-                
             }
         }
     }

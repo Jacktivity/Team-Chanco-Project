@@ -57,11 +57,6 @@ public class BlockScript : MonoBehaviour
         blockMousedOver?.Invoke(this, this);
     }
 
-    public void OnCollisionExit(Collision collision)
-    {
-        occupier = null;
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         GameObject contact = collision.gameObject;
@@ -125,9 +120,6 @@ public class BlockScript : MonoBehaviour
                 default:
                     break;
             }
-        }
-        else {
-            occupier = contact;
         }
     }
 
