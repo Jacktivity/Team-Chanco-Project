@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
 {
     private Animator animator;
     private BlockScript previousBlock;
+    private Vector3 previousForward;
     //0 = necromancer, 1 = skeleton, 2 = SteamingSkull, 3 = SpectralSkeleton, 4 = TombGuard
     public int cost, hitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
     
@@ -35,6 +36,7 @@ public class Character : MonoBehaviour
     int pathIndex;
     BlockScript block;
 
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -42,6 +44,7 @@ public class Character : MonoBehaviour
         uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
         attackManager = GameObject.Find("EventSystem").GetComponent<AttackManager>();
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
+        previousForward = transform.forward;
     }
 
     private void Update()
@@ -59,6 +62,10 @@ public class Character : MonoBehaviour
             transform.position = Vector3.Lerp(new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z), new Vector3(block.transform.position.x, transform.position.y, block.transform.position.z), counterTime);
             previousBlock.occupier = null;
 
+            var angle = block.transform.position - previousBlock.transform.position;
+
+            transform.forward = Vector3.Lerp(previousForward, angle, counterTime);
+
             HealthBar healthBar = GetComponent<HealthBar>();
             Vector3 offset = healthBar.offset;
             healthBar.slider.transform.position = transform.position + offset;
@@ -69,6 +76,7 @@ public class Character : MonoBehaviour
                 floor = block;
                 block.occupier = gameObject;
                 previousBlock = block;
+                previousForward = transform.forward;
                 if(pathIndex >= path.Count() - 1)
                 {
                     moving = false;

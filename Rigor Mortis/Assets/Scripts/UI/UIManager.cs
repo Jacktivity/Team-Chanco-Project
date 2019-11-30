@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
 
     public bool attacking = false;
 
-    public GameObject attackButton;
+    [SerializeField] GameObject attackButton;
     public List<GameObject> popUpButtons;
 
     public BlockScript[] blocksInRange;
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
         pathFinder = GetComponent<Pathfinder>();
         attackManager = GetComponent<AttackManager>();
         //gridManager = GetComponent<GridManager>();
-        attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
+        //attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
     }
 
     public void UpdateTurnNumber(int turn)
