@@ -23,6 +23,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject attackButton;
     public List<GameObject> popUpButtons;
 
+    [SerializeField] Slider healthBar;
+    List<Slider> healthBars;
+    List<Character> unitList;
+    public Vector3 healthBarOffset;
+
     public BlockScript[] blocksInRange;
 
     // Start is called before the first frame update
@@ -32,6 +37,10 @@ public class UIManager : MonoBehaviour
         attackManager = GetComponent<AttackManager>();
         //gridManager = GetComponent<GridManager>();
         //attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
+        unitList = new List<Character>();
+        healthBars = new List<Slider>();
+
+        BuildUnits();
     }
 
     public void UpdateTurnNumber(int turn)
@@ -97,5 +106,27 @@ public class UIManager : MonoBehaviour
         {
             block.GetComponent<Renderer>().material.color = block.Normal;
         }
+    }
+
+    //Health Bars
+    void BuildUnits() {
+        foreach (Character unit in FindObjectsOfType<Character>())
+        {
+            unitList.Add(unit);
+            InstantiateHealthBar(unit);
+        }
+    }
+
+    void InstantiateHealthBar(Character unit) {
+        Slider newSlider = Instantiate(healthBar, unit.transform.position + healthBarOffset, fixedCanvas.transform.rotation, fixedCanvas.transform);
+        healthBars.Add(newSlider);
+        unit.gameObject.AddComponent<HealthBar>().unit = unit;
+        unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
+        unit.gameObject.GetComponent<HealthBar>().offset = healthBarOffset;
+    }
+
+    public void AddUnit(Character newUnit) {
+        unitList.Add(newUnit);
+        InstantiateHealthBar(newUnit);
     }
 }
