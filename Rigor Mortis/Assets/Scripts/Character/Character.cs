@@ -35,7 +35,7 @@ public class Character : MonoBehaviour
     public EventHandler<Character> characterClicked;
     public EventHandler<Character> moveComplete;
     public static EventHandler<AttackEventArgs> attackEvent;
-    public Attack SelectedAttack { get; private set; }
+    public Attack selectedAttack;
     public BlockScript attackSourceBlock;
 
     private IEnumerable<BlockScript> path;
@@ -52,6 +52,7 @@ public class Character : MonoBehaviour
         previousForward = transform.forward;
         attackEvent += DamageCheck;
     }
+       
 
     public void SetFloor(BlockScript tile)
     {
@@ -61,15 +62,15 @@ public class Character : MonoBehaviour
 
     public void Attack()
     {
-        if(SelectedAttack != null)
+        if(selectedAttack != null)
         {
-            var baseDamage = SelectedAttack.RollDamage();
+            var baseDamage = selectedAttack.RollDamage();
             if (baseDamage.Magical > 0)
                 baseDamage.Magical += power;
             if (baseDamage.Physical > 0)
                 baseDamage.Physical += strength;
 
-            var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, SelectedAttack.Area, true);
+            var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, selectedAttack.Area, true);
             var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
 
             attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical));
@@ -177,6 +178,8 @@ public class Character : MonoBehaviour
     private void OnMouseDown()
     {
         characterClicked?.Invoke(this, this);
+
+        uiManager.DisplayAttacks(attacks, this);
 
         //if (hasTurn || gameObject.tag == "Enemy")
         //{

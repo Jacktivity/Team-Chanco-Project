@@ -24,13 +24,13 @@ public class GridManager : MonoBehaviour
     [SerializeField] private TextAsset levelMap;
 
     [SerializeField] private Character SelectedUnit;
-    [SerializeField] private HealthBarManager eventSystem;
+
     [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile;
-    [SerializeField] private HealthBarManager healthBarManager;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private AttackManager attackManager;
     [SerializeField] private EnemyAI enemyAIContainer;
-    [SerializeField] private UIManager uiManager;
+
 
     private int unitIndex;
 
@@ -44,6 +44,7 @@ public class GridManager : MonoBehaviour
     public Color SpawnColor => spawnPoint;
     public static EventHandler<Character> unitSpawned, enemySpawned;
     public static EventHandler<BlockScript[]> mapGenerated;
+
     private int placementPoints;
 
     GridXML.levels xmlData;
@@ -166,7 +167,7 @@ public class GridManager : MonoBehaviour
             placedEnemy.tag = "Enemy";
 
             enemySpawned?.Invoke(this, placedEnemy);
-            healthBarManager.AddUnit(placedEnemy);
+            uiManager.AddUnit(placedEnemy);
           // eventSystem.AddUnit(placedEnemy);
         }
     }
@@ -204,8 +205,8 @@ public class GridManager : MonoBehaviour
         unit.pathfinder = gameObject.GetComponent<Pathfinder>();
         unitSpawned?.Invoke(this, unit);
         unit.SetFloor(tile);
-        
-        healthBarManager.AddUnit(unit);
+        uiManager.AddUnit(unit);
+
 
        // eventSystem.AddUnit(SelectedUnit);
     }
@@ -232,9 +233,11 @@ public class GridManager : MonoBehaviour
 
         if (placementPoints <= 0)
         {
-            Canvas canvas = GameObject.Find("PrepCanvas").GetComponent<Canvas>();
-            canvas.enabled = false;
+
             CycleTurns();
+
+            UIManager.placementStateChange?.Invoke(this, UIManager.PlacementStates.playerTurn);
+
             var remainingSpawnTiles = Map.Where(t => t.placeable);
             foreach (var tile in remainingSpawnTiles)
             {
