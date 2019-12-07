@@ -69,16 +69,16 @@ public class UIManager : MonoBehaviour
         }
         popUpButtons.Clear();
 
-        Vector3 popUpOffset = new Vector3(2f, 0, 0);
-        Vector3 instantiationPoint = fixedCanvas.transform.position + popUpOffset;
         popUpButtons = new List<GameObject>();
 
         for (int i = 0; i < _attacks.Count(); i++)
         {
-            popUpOffset = new Vector3(0, 30 * i, 100);
+            Vector3 popUpOffset = new Vector3(0, 30 * i, 0);
 
-            GameObject button = Instantiate(attackButton, instantiationPoint + popUpOffset, battleCanvas.transform.rotation, battleCanvas.transform);
+            GameObject button = Instantiate(attackButton, new Vector3(), battleCanvas.transform.rotation, battleCanvas.transform);
+            button.transform.localPosition = new Vector3(250, 100, 0) + popUpOffset;
             popUpButtons.Add(button);
+
             button.GetComponent<ChooseAttackButton>().character = character;
             button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
             button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).Name;

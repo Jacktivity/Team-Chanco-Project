@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEngine.EventSystems;
 
 public class BlockScript : MonoBehaviour
 {
@@ -49,7 +50,9 @@ public class BlockScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        blockClicked?.Invoke(this, this);
+        if (!EventSystem.current.IsPointerOverGameObject()) {
+            blockClicked?.Invoke( this, this );
+        }
     }
 
     void OnMouseOver()
