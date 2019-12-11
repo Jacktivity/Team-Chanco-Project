@@ -28,7 +28,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerManager playerManager;
-    [SerializeField] private AttackManager attackManager;
     [SerializeField] private EnemyAI enemyAIContainer;
 
 
