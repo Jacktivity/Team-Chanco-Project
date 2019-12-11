@@ -24,12 +24,13 @@ public class GridManager : MonoBehaviour
     [SerializeField] private TextAsset levelMap;
 
     [SerializeField] private Character SelectedUnit;
-    [SerializeField] private TurnManager turnManager;
-    //[SerializeField] private UIManager eventSystem;
+
     [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private AttackManager attackManager;
+    [SerializeField] private EnemyAI enemyAIContainer;
+
 
     private int unitIndex;
 
@@ -48,6 +49,12 @@ public class GridManager : MonoBehaviour
 
     GridXML.levels xmlData;
 
+    /*Turn Manager*/
+    public bool playerTurn;
+    private Coroutine enemyTurnCoroutine;
+    static int turnNumber = 1;
+    public static EventHandler turnEnded;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +64,7 @@ public class GridManager : MonoBehaviour
         UnitPlacement();
 
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
-        TurnManager.turnEnded += (s, e) => ClearMap();
+        turnEnded += (s, e) => ClearMap();
     }
 
     public void ColourTiles(IEnumerable<BlockScript> tiles, bool walking)
@@ -89,7 +96,7 @@ public class GridManager : MonoBehaviour
                 var tilePos = tile.GetComponent<Collider>().bounds.center + tile.GetComponent<Collider>().bounds.extents;
                 
 
-                SpawnUnit(new Vector3(tile.transform.position.x, unitPos.y + tilePos.y + tile.transform.position.y, tile.transform.position.z));
+                SpawnUnit(new Vector3(tile.transform.position.x, unitPos.y + tilePos.y + tile.transform.position.y, tile.transform.position.z), tile);
                 ReducePlacementPoints(costOfUnit);
                 tile.occupier = tile.gameObject;
 
@@ -152,8 +159,11 @@ public class GridManager : MonoBehaviour
 
         foreach(var enemy in enemies)
         {
-            Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, 1, enemy.posZ), new Quaternion(), enemyContainter.transform);
+            var tile = Map.First(t => t.coordinates.x == enemy.posX && t.coordinates.z == enemy.posZ);
+            var unitPos = enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.center + enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.extents;
+            Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, unitPos.y + tile.transform.position.y + tile.transform.position.y, enemy.posZ), new Quaternion(), enemyContainter.transform);
             placedEnemy.name = enemy.name;
+            placedEnemy.SetFloor(tile);
             placedEnemy.tag = "Enemy";
 
             enemySpawned?.Invoke(this, placedEnemy);
@@ -183,7 +193,7 @@ public class GridManager : MonoBehaviour
 
     }
 
-    public void SpawnUnit(Vector3 location)
+    public void SpawnUnit(Vector3 location, BlockScript tile)
     {
 
         var unit = Instantiate(SelectedUnit, location, SelectedUnit.transform.rotation, playerContainter.transform);
@@ -191,12 +201,12 @@ public class GridManager : MonoBehaviour
         {
             ResetSelectedUnit();
         }
-        unit.GetComponent<Character>().turnManager = turnManager;
         unit.tag = "Player";
         unit.pathfinder = gameObject.GetComponent<Pathfinder>();
         unitSpawned?.Invoke(this, unit);
-
+        unit.SetFloor(tile);
         uiManager.AddUnit(unit);
+
 
        // eventSystem.AddUnit(SelectedUnit);
     }
@@ -223,10 +233,11 @@ public class GridManager : MonoBehaviour
 
         if (placementPoints <= 0)
         {
-            //Canvas canvas = GameObject.Find("PrepCanvas").GetComponent<Canvas>();
-            //canvas.enabled = false;
+
+            CycleTurns();
+
             UIManager.placementStateChange?.Invoke(this, UIManager.PlacementStates.playerTurn);
-            turnManager.CycleTurns();
+
             var remainingSpawnTiles = Map.Where(t => t.placeable);
             foreach (var tile in remainingSpawnTiles)
             {
@@ -234,6 +245,71 @@ public class GridManager : MonoBehaviour
                 tile.ChangeColour(tile.Normal);
             }
         }
+    }
+
+    public bool CheckPlayerTurn()
+    {
+        playerTurn = false;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            var character = player.GetComponent<Character>();
+            if (character.hasTurn && character.moving == false)
+            {
+                playerTurn = true;
+            }
+        }
+        return playerTurn;
+    }
+
+    public IEnumerator MoveEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<Character>().hasTurn = true;
+            enemyTurnCoroutine = StartCoroutine(MovingEnemies(enemy));
+            yield return enemyTurnCoroutine;
+        }
+        turnEnded?.Invoke(this, new EventArgs());
+        ResetPlayerTurn();
+    }
+
+    public void ResetPlayerTurn()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            var playerScript = player.GetComponent<Character>();
+            playerScript.hasTurn = true;
+            playerScript.movedThisTurn = false;
+
+            player.gameObject.GetComponentInChildren<Renderer>().material.color = Color.white;
+        }
+        playerTurn = true;
+        nextUnit();
+        turnNumber++;
+        uiManager.UpdateTurnNumber(turnNumber);
+    }
+
+    public void CycleTurns()
+    {
+        if (!CheckPlayerTurn())
+        {
+            turnEnded?.Invoke(this, new EventArgs());
+            StartCoroutine(MoveEnemies());
+        }
+    }
+    IEnumerator MovingEnemies(GameObject enemy)
+    {
+        enemyAIContainer.MoveUnit();
+
+        yield return new WaitForSeconds(1);
+    }
+
+    public int GetTurnNumber()
+    {
+        return turnNumber;
     }
 
     /**

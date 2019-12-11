@@ -8,7 +8,6 @@ public class PlayerManager : MonoBehaviour
 {
     public Character selectedPlayer, selectedEnemy;
     public BlockScript[] walkTiles, sprintTiles;
-    [SerializeField] private TurnManager turnManager;
     [SerializeField] private GridManager gridManager;
     [SerializeField] private UIManager uiManager;
 
@@ -24,7 +23,7 @@ public class PlayerManager : MonoBehaviour
 
     private void BlockClicked(BlockScript tile)
     {
-        bool unitCanMove = selectedPlayer != null && turnManager.playerTurn;
+        bool unitCanMove = selectedPlayer != null && gridManager.playerTurn;
 
         if (unitCanMove && tile.occupier == null && uiManager.attacking == false)
         {
@@ -49,7 +48,7 @@ public class PlayerManager : MonoBehaviour
         if (sprinting)
         {
             selectedPlayer.hasTurn = false;
-            selectedPlayer.turnManager.CycleTurns();
+            gridManager.CycleTurns();
             selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
             gridManager.ClearMap();
             if(selectedPlayer.tag =="Player")
@@ -71,7 +70,7 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerUnitChosen(Character unit)
     {
-        if (turnManager.playerTurn && !unit.movedThisTurn && unit.hasTurn)
+        if (gridManager.playerTurn && !unit.movedThisTurn && unit.hasTurn)
         {
             if(selectedPlayer != null)
             {

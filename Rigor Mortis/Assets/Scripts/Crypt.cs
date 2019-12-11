@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPlayerScript : MonoBehaviour
+public class Crypt : MonoBehaviour
 {
-    public bool hasTurn;
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame
@@ -16,12 +16,13 @@ public class TestPlayerScript : MonoBehaviour
         
     }
 
-    private void OnMouseDown()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (hasTurn)
-        {
-            hasTurn = false;
+        GameObject contact = collision.gameObject;
 
+        if (contact.tag == "Floor")
+        {
+           contact.GetComponent<BlockScript>().occupier = gameObject;
         }
     }
 }

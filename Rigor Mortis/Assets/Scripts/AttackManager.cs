@@ -126,7 +126,7 @@ public class AttackManager : MonoBehaviour
             }
 
             if (attacker.gameObject.tag == "Player")
-                attacker.GetComponent<Character>().turnManager.CycleTurns();
+                gridManager.CycleTurns();
             ClearAttack();
         }
         else

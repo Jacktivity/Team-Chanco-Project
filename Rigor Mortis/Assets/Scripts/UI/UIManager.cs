@@ -9,8 +9,9 @@ using System;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]Pathfinder pathFinder;
-    [SerializeField]GridManager gridManager;
-    [SerializeField]TurnManager turnManager;
+
+    [SerializeField] GridManager gridManager;
+
     [SerializeField]Canvas battleCanvas;
     [SerializeField]Canvas prepCanvas;
     [SerializeField]Canvas fixedCanvas;
@@ -58,7 +59,7 @@ public class UIManager : MonoBehaviour
 
     public void wait()
     {
-        turnManager.CycleTurns();
+        gridManager.CycleTurns();
     }
 
     public void DisplayAttacks(IEnumerable<Attack> _attacks, Character character)

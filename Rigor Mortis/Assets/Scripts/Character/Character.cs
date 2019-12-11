@@ -22,7 +22,6 @@ public class Character : MonoBehaviour
 
     public IEnumerable<Attack> attacks;
 
-    public TurnManager turnManager;
     public UIManager uiManager;
     //public AttackManager attackManager;
     public Pathfinder pathfinder;
@@ -51,10 +50,15 @@ public class Character : MonoBehaviour
         //attackManager = FindObjectOfType<AttackManager>();
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
-
         attackEvent += DamageCheck;
     }
        
+
+    public void SetFloor(BlockScript tile)
+    {
+        previousBlock = tile;
+        floor = tile;
+    }
 
     public void Attack()
     {
@@ -100,6 +104,7 @@ public class Character : MonoBehaviour
             if (counterTime >= 1)
             {
                 counterTime = 0;
+                floor.occupier = null;
                 floor = moveToBlock;
                 moveToBlock.occupier = gameObject;
                 previousBlock = moveToBlock;
@@ -170,17 +175,6 @@ public class Character : MonoBehaviour
         } 
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        var blockScript = collision.gameObject.GetComponent<BlockScript>();
-        if (blockScript != null)
-        {
-            floor = blockScript;
-            if (previousBlock == null)
-                previousBlock = floor;                
-        }
-            
-    }
     private void OnMouseDown()
     {
         characterClicked?.Invoke(this, this);
