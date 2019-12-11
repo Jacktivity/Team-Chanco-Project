@@ -81,6 +81,7 @@ public class UIManager : MonoBehaviour
             popUpButtons.Add(button);
 
             button.GetComponent<ChooseAttackButton>().character = character;
+            button.GetComponent<ChooseAttackButton>().gridManager = gridManager;
             button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
             button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).Name;
         }

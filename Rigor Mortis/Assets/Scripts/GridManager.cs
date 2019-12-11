@@ -82,6 +82,11 @@ public class GridManager : MonoBehaviour
         {
             tile.ChangeColour(tile.Normal);
         }
+
+        //if(playerTurn && playerManager.selectedPlayer.movedThisTurn == false)
+        //{
+        //    playerManager.PlayerUnitChosen(playerManager.selectedPlayer);
+        //}
     }
 
     private void BlockClicked(BlockScript tile)
@@ -130,8 +135,7 @@ public class GridManager : MonoBehaviour
                 tile.name = tile.name.Replace("(Clone)", "");
                 tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
 
-                BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
-                
+                BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };                
             }
         }
 
