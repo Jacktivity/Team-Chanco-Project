@@ -51,6 +51,13 @@ public class Character : MonoBehaviour
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
         attackEvent += DamageCheck;
+
+        ChooseAttackButton.attackChosen += (s, e) =>
+        {
+            var attackEvent = e as ChooseAttackButton.CharacterAttack;
+            if (attackEvent.attacker == this)
+                selectedAttack = attackEvent.attackChosen;
+        };
     }
        
 

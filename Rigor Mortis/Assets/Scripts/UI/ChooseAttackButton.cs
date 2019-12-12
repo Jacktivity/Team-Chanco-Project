@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
 
 public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     //public AttackManager attackManager;
+    public static EventHandler<CharacterAttack> attackChosen;
+    public Button targetInRangeButton;
     public GridManager gridManager;
     public Character character;
     public Attack attack;
@@ -20,9 +24,13 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     void Update()
     {
         
-    }    
+    }
 
-    public void ChooseAttack() => character.selectedAttack = attack;//uiManager.Attack();
+    public void ChooseAttack()
+    {
+        attackChosen?.Invoke(this, new CharacterAttack(character, attack));
+    }
+
 
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -34,5 +42,17 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerExit(PointerEventData eventData)
     {
         gridManager.ClearMap();
+    }
+
+    public class CharacterAttack
+    {
+        public Character attacker;
+        public Attack attackChosen;
+
+        public CharacterAttack(Character character, Attack attack)
+        {
+            attacker = character;
+            attackChosen = attack;
+        }
     }
 }

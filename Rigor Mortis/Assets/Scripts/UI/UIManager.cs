@@ -20,7 +20,8 @@ public class UIManager : MonoBehaviour
 
     public bool attacking = false;
 
-    [SerializeField] GameObject attackButton;
+    [SerializeField] GameObject attackButton, targetCharacterButton, popupArea;
+    [SerializeField] private Vector3 baseAttackPosition, targetCharacterOffset;
     public List<GameObject> popUpButtons;
 
     [SerializeField] Slider healthBar;
@@ -29,7 +30,9 @@ public class UIManager : MonoBehaviour
     public Vector3 healthBarOffset;
 
     public BlockScript[] blocksInRange;
-    public static EventHandler<UIManager.PlacementStates> placementStateChange;
+    public static EventHandler<PlacementStates> placementStateChange;
+
+    
 
     public enum PlacementStates
     {
@@ -45,11 +48,38 @@ public class UIManager : MonoBehaviour
         //attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
         unitList = new List<Character>();
         healthBars = new List<Slider>();
+        popUpButtons = new List<GameObject>();
 
         BuildUnits();
 
         placementStateChange += PlacementStateChanged;
         placementStateChange?.Invoke(this, UIManager.PlacementStates.placementPhase);
+
+        ChooseAttackButton.attackChosen += DisplayTargets;
+    }
+
+    private void DisplayTargets(object sender, ChooseAttackButton.CharacterAttack e)
+    {
+        //Clear the previous target buttons
+        foreach (var button in popUpButtons.Where(b => b.GetComponent<ChooseAttackButton>() == null))
+        {
+            Destroy(button);
+            popUpButtons.Remove(button);
+        }
+
+        var targetsInRange = e.attacker.pathfinder.GetTilesInRange(e.attacker.floor, e.attackChosen.Range, true).Where(b => b.Occupied ? b.occupier.tag == "Enemy" : false).Select(t => t.occupier.GetComponent<Character>());
+        if(targetsInRange.Count() == 0)
+        {
+            //Say no people to hit
+        }
+        else
+        {
+            for (int i = 0; i < targetsInRange.Count(); i++)
+            {
+                GameObject button = Instantiate(targetCharacterButton, battleCanvas.transform);
+
+            }
+        }
     }
 
     public void UpdateTurnNumber(int turn)
@@ -67,17 +97,17 @@ public class UIManager : MonoBehaviour
         foreach (GameObject button in popUpButtons)
         {
             Destroy(button);
-        }
-        popUpButtons.Clear();
-
-        popUpButtons = new List<GameObject>();
-
+            popUpButtons.Remove(button);
+        }        
+        
         for (int i = 0; i < _attacks.Count(); i++)
         {
             Vector3 popUpOffset = new Vector3(0, 30 * i, 0);
 
-            GameObject button = Instantiate(attackButton, new Vector3(), battleCanvas.transform.rotation, battleCanvas.transform);
-            button.transform.localPosition = new Vector3(250, 100, 0) + popUpOffset;
+            GameObject button = Instantiate(attackButton, battleCanvas.transform);
+            //button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+            //button.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
+            button.transform.localPosition = baseAttackPosition + popUpOffset;
             popUpButtons.Add(button);
 
             button.GetComponent<ChooseAttackButton>().character = character;
