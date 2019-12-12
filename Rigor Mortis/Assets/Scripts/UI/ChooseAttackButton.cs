@@ -9,6 +9,7 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 {
     //public AttackManager attackManager;
     public static EventHandler<CharacterAttack> attackChosen;
+    public static EventHandler pointerExit;
     public Button targetInRangeButton;
     public GridManager gridManager;
     public Character character;
@@ -35,13 +36,15 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //gridManager.ClearMap();
+        gridManager.ClearMap();
         gridManager.ColourTiles(character.pathfinder.GetTilesInRange(character.floor, attack.Range, true), false);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         gridManager.ClearMap();
+        pointerExit?.Invoke(this, new EventArgs());
+        
     }
 
     public class CharacterAttack

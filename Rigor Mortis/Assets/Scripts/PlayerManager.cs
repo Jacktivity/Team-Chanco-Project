@@ -19,6 +19,19 @@ public class PlayerManager : MonoBehaviour
         GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
         GridManager.enemySpawned += (s, e) => { e.characterClicked += (sender, character) => EnemyUnitChosen(e); };
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
+        ChooseAttackButton.pointerExit += (s, e) =>
+        {
+            if (selectedPlayer != null)
+                if(selectedPlayer.selectedAttack == null)
+                {
+                    HighlightMovementTiles(selectedPlayer);
+                }
+                else
+                {
+                    gridManager.ColourTiles(selectedPlayer.pathfinder.GetTilesInRange(selectedPlayer.floor, selectedPlayer.selectedAttack.Range, true), false);
+                }
+
+        };
     }
 
     private void BlockClicked(BlockScript tile)
@@ -72,7 +85,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (gridManager.playerTurn && !unit.movedThisTurn && unit.hasTurn)
         {
-            if(selectedPlayer != null)
+            if (selectedPlayer != null)
             {
                 selectedPlayer.GetComponentInChildren<Renderer>().material.color = Color.white;
                 gridManager.ClearMap();
@@ -80,17 +93,31 @@ public class PlayerManager : MonoBehaviour
 
             selectedPlayer = unit;
             selectedPlayer.GetComponentInChildren<Renderer>().material.color = Color.yellow;
-
-            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
-
-
-            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
-
-            gridManager.ColourTiles(sprintTiles, false);
-            gridManager.ColourTiles(walkTiles, true);
-        }            
+            HighlightMovementTiles(unit);
+        }
         else
             selectedPlayer = null;
+    }
+
+    private void HighlightMovementTiles(Character unit)
+    {
+        if (unit.hasTurn && unit.movedThisTurn == false)
+        {
+            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
+            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
+        }
+        else if(unit.hasTurn)
+        {
+            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
+            walkTiles = new BlockScript[0];
+        }
+        else
+        {
+            walkTiles = sprintTiles = new BlockScript[0];
+        }
+        
+        gridManager.ColourTiles(sprintTiles, false);
+        gridManager.ColourTiles(walkTiles, true);
     }
 
     public void EnemyUnitChosen(Character unit)

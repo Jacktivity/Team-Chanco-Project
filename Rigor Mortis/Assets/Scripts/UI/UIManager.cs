@@ -61,11 +61,12 @@ public class UIManager : MonoBehaviour
     private void DisplayTargets(object sender, ChooseAttackButton.CharacterAttack e)
     {
         //Clear the previous target buttons
-        foreach (var button in popUpButtons.Where(b => b.GetComponent<ChooseAttackButton>() == null))
+        var buttonsToRemove = popUpButtons.Where(b => b.GetComponent<ChooseAttackButton>() == null);
+        foreach (var button in buttonsToRemove)
         {
             Destroy(button);
             popUpButtons.Remove(button);
-        }
+        }        
 
         var targetsInRange = e.attacker.pathfinder.GetTilesInRange(e.attacker.floor, e.attackChosen.Range, true).Where(b => b.Occupied ? b.occupier.tag == "Enemy" : false).Select(t => t.occupier.GetComponent<Character>());
         if(targetsInRange.Count() == 0)
@@ -96,15 +97,15 @@ public class UIManager : MonoBehaviour
     {
         foreach (GameObject button in popUpButtons)
         {
-            Destroy(button);
-            popUpButtons.Remove(button);
-        }        
+            Destroy(button);            
+        }
+        popUpButtons = new List<GameObject>();
         
         for (int i = 0; i < _attacks.Count(); i++)
         {
             Vector3 popUpOffset = new Vector3(0, 30 * i, 0);
 
-            GameObject button = Instantiate(attackButton, battleCanvas.transform);
+            GameObject button = Instantiate(attackButton, popupArea.transform);
             //button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
             //button.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
             button.transform.localPosition = baseAttackPosition + popUpOffset;

@@ -187,39 +187,11 @@ public class Character : MonoBehaviour
         characterClicked?.Invoke(this, this);
 
         uiManager.DisplayAttacks(attacks, this);
-
-        //if (hasTurn || gameObject.tag == "Enemy")
-        //{
-        //    if (attackManager.waiting)
-        //    {
-        //        attackManager.waiting = false;
-        //        hasTurn = false;
-        //        if(gameObject.tag == "Player")
-        //        {
-        //            floor.manager.GetComponent<GridManager>().nextUnit();
-        //        }
-        //        turnManager.CycleTurns();
-
-        //    }
-
-        //    if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
-        //    {
-        //        attackManager.AssignAttacker(this);
-        //    }
-
-        //    if (uiManager.attacking)
-        //    {
-        //        if (attackManager.attackerAssigned && attackManager.targetAssigned == false && tag == "Enemy")
-        //        {
-        //            attackManager.AssignTarget(this);
-        //        }
-        //    }
-        //}
     }
 
     private void Update()
     {
-        if (!hasTurn)
+        if (hasTurn == false)
         {
             //Make highlighter of transparent material? Outline renderer etc?        
             gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
