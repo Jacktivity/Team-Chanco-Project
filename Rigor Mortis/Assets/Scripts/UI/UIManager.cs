@@ -33,6 +33,9 @@ public class UIManager : MonoBehaviour
     public BlockScript[] blocksInRange;
     public static EventHandler<GameStates> gameStateChange;
 
+    GameStates currentState;
+    GameStates resumeState;
+    public bool isPaused;
     
 
     public enum GameStates
@@ -58,6 +61,20 @@ public class UIManager : MonoBehaviour
 
         ChooseAttackButton.attackChosen += DisplayTargets;
         Character.attackEvent += ClearAttackUI;
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown( KeyCode.Escape )) {
+            resumeState = currentState;
+
+            gameStateChange?.Invoke( this, UIManager.GameStates.paused );
+            isPaused = true;
+        }
+    }
+
+    public void Resume() {
+        UIManager.gameStateChange?.Invoke( this, resumeState );
+        isPaused = false;
     }
 
     private void ClearAttackUI(object sender, AttackEventArgs e)
@@ -169,42 +186,47 @@ public class UIManager : MonoBehaviour
 
 
     // Unit Assignment
-    public void setUnit(Character unit) {
+    public void SetUnit(Character unit) {
         gridManager.SetSelectedUnit(unit);
     }
 
 
     //Canvas
     private void GameStateChanged(object sender, GameStates state) {
-        switch(state)
-        {
-            case GameStates.placementPhase:
-                SetPrepCanvas(true);
-                SetBattleCanvas(false);
-                SetFixedCanvas(false);
-                SetPauseCanvas(false);
-                break;
+        if (!isPaused) {
+            currentState = state;
 
-            case GameStates.playerTurn:
-                SetPrepCanvas(false);
-                SetBattleCanvas(true);
-                SetFixedCanvas(true);
-                SetPauseCanvas(false);
-                break;
+            switch (state) {
+                case GameStates.placementPhase:
+                    SetPrepCanvas( true );
+                    SetBattleCanvas( false );
+                    SetFixedCanvas( false );
+                    SetPauseCanvas( false );
+                    break;
 
-            case GameStates.enemyTurn:
-                SetPrepCanvas(false);
-                SetBattleCanvas(false);
-                SetFixedCanvas(true);
-                SetPauseCanvas(false);
-                break;
+                case GameStates.playerTurn:
+                    SetPrepCanvas( false );
+                    SetBattleCanvas( true );
+                    SetFixedCanvas( true );
+                    SetPauseCanvas( false );
+                    break;
 
-            case GameStates.paused:
-                SetPrepCanvas(false);
-                SetBattleCanvas(false);
-                SetFixedCanvas(false);
-                SetPauseCanvas(true);
-                break;
+                case GameStates.enemyTurn:
+                    SetPrepCanvas( false );
+                    SetBattleCanvas( false );
+                    SetFixedCanvas( true );
+                    SetPauseCanvas( false );
+                    break;
+
+                case GameStates.paused:
+                    SetPrepCanvas( false );
+                    SetBattleCanvas( false );
+                    SetFixedCanvas( false );
+                    SetPauseCanvas( true );
+                    break;
+            }
+        } else {
+            resumeState = state;
         }
     }
 
