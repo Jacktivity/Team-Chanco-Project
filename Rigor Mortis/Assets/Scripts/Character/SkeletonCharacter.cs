@@ -8,6 +8,7 @@ public class SkeletonCharacter : Character
     // Start is called before the first frame update
     void Start()
     {
+        name = "Skeleton";
         cost = 10;
         maxHitPoints = 20;
         accuracy = 75;

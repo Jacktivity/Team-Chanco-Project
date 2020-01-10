@@ -51,6 +51,13 @@ public class Character : MonoBehaviour
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
         attackEvent += DamageCheck;
+
+        ChooseAttackButton.attackChosen += (s, e) =>
+        {
+            var attackEvent = e as ChooseAttackButton.CharacterAttack;
+            if (attackEvent.attacker == this)
+                selectedAttack = attackEvent.attackChosen;
+        };
     }
        
 
@@ -64,16 +71,23 @@ public class Character : MonoBehaviour
     {
         if(selectedAttack != null)
         {
+
             var baseDamage = selectedAttack.RollDamage();
+
             if (baseDamage.Magical > 0)
                 baseDamage.Magical += power;
             if (baseDamage.Physical > 0)
                 baseDamage.Physical += strength;
-
+            
             var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, selectedAttack.Area, true);
             var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
 
-            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical));
+            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
+
+
+            //TODO: Replace with AP
+            hasTurn = false;
+            movedThisTurn = true;
         }
     }
 
@@ -130,11 +144,17 @@ public class Character : MonoBehaviour
     {
         if (e.AttackedCharacters.Contains(this))
         {
-            if (e.MagicDamage > resistance)
-                TakeDamage(e.MagicDamage - resistance);
+            var toHit = e.Accuracy - evade;
+            var dodgeRoll = UnityEngine.Random.Range(1, 101);
+            if(dodgeRoll < toHit)
+            {
+                if (e.MagicDamage > resistance)
+                    TakeDamage(e.MagicDamage - resistance);
 
-            if (e.PhysicalDamage > armour)
-                TakeDamage(e.PhysicalDamage - armour);
+                if (e.PhysicalDamage > armour)
+                    TakeDamage(e.PhysicalDamage - armour);
+            }
+            
         }
     }
 
@@ -180,39 +200,11 @@ public class Character : MonoBehaviour
         characterClicked?.Invoke(this, this);
 
         uiManager.DisplayAttacks(attacks, this);
-
-        //if (hasTurn || gameObject.tag == "Enemy")
-        //{
-        //    if (attackManager.waiting)
-        //    {
-        //        attackManager.waiting = false;
-        //        hasTurn = false;
-        //        if(gameObject.tag == "Player")
-        //        {
-        //            floor.manager.GetComponent<GridManager>().nextUnit();
-        //        }
-        //        turnManager.CycleTurns();
-
-        //    }
-
-        //    if (/*uiManager.attackerAssigned == false && */attackManager.targetAssigned == false && tag == "Player")
-        //    {
-        //        attackManager.AssignAttacker(this);
-        //    }
-
-        //    if (uiManager.attacking)
-        //    {
-        //        if (attackManager.attackerAssigned && attackManager.targetAssigned == false && tag == "Enemy")
-        //        {
-        //            attackManager.AssignTarget(this);
-        //        }
-        //    }
-        //}
     }
 
     private void Update()
     {
-        if (!hasTurn)
+        if (hasTurn == false)
         {
             //Make highlighter of transparent material? Outline renderer etc?        
             gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
@@ -226,11 +218,13 @@ public struct AttackEventArgs
     public Character[] AttackedCharacters;
     public int MagicDamage;
     public int PhysicalDamage;
+    public float Accuracy;
 
-    public AttackEventArgs(IEnumerable<Character> attackedCharaters, int magicDmg, int physDmg)
+    public AttackEventArgs(IEnumerable<Character> attackedCharaters, int magicDmg, int physDmg, float accuracy)
     {
         AttackedCharacters = attackedCharaters.ToArray();
         MagicDamage = magicDmg;
         PhysicalDamage = physDmg;
+        Accuracy = accuracy;
     }
 }
