@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]Canvas battleCanvas;
     [SerializeField]Canvas prepCanvas;
     [SerializeField]Canvas fixedCanvas;
+    [SerializeField]Canvas pauseCanvas;
 
     [SerializeField]Text turnDisplay;
 
@@ -30,13 +31,13 @@ public class UIManager : MonoBehaviour
     public Vector3 healthBarOffset;
 
     public BlockScript[] blocksInRange;
-    public static EventHandler<PlacementStates> placementStateChange;
+    public static EventHandler<GameStates> gameStateChange;
 
     
 
-    public enum PlacementStates
+    public enum GameStates
     {
-        placementPhase, playerTurn, enemyTurn
+        placementPhase, playerTurn, enemyTurn, paused
     }
 
     // Start is called before the first frame update
@@ -52,8 +53,8 @@ public class UIManager : MonoBehaviour
 
         BuildUnits();
 
-        placementStateChange += PlacementStateChanged;
-        placementStateChange?.Invoke(this, UIManager.PlacementStates.placementPhase);
+        gameStateChange += GameStateChanged;
+        gameStateChange?.Invoke(this, UIManager.GameStates.placementPhase);
 
         ChooseAttackButton.attackChosen += DisplayTargets;
     }
@@ -157,25 +158,35 @@ public class UIManager : MonoBehaviour
 
 
     //Canvas
-    private void PlacementStateChanged(object sender, PlacementStates state) {
+    private void GameStateChanged(object sender, GameStates state) {
         switch(state)
         {
-            case PlacementStates.placementPhase:
+            case GameStates.placementPhase:
                 SetPrepCanvas(true);
                 SetBattleCanvas(false);
                 SetFixedCanvas(false);
-            break;
+                SetPauseCanvas(false);
+                break;
 
-            case PlacementStates.playerTurn:
+            case GameStates.playerTurn:
                 SetPrepCanvas(false);
                 SetBattleCanvas(true);
                 SetFixedCanvas(true);
+                SetPauseCanvas(false);
                 break;
 
-            case PlacementStates.enemyTurn:
+            case GameStates.enemyTurn:
                 SetPrepCanvas(false);
                 SetBattleCanvas(false);
                 SetFixedCanvas(true);
+                SetPauseCanvas(false);
+                break;
+
+            case GameStates.paused:
+                SetPrepCanvas(false);
+                SetBattleCanvas(false);
+                SetFixedCanvas(false);
+                SetPauseCanvas(true);
                 break;
         }
     }
@@ -191,5 +202,9 @@ public class UIManager : MonoBehaviour
 
     public void SetFixedCanvas(bool enabled) {
         fixedCanvas.enabled = enabled;
+    }
+
+    public void SetPauseCanvas(bool enabled) {
+        pauseCanvas.enabled = enabled;
     }
 }
