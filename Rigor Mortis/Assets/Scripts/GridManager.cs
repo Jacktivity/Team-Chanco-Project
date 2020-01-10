@@ -245,7 +245,7 @@ public class GridManager : MonoBehaviour
 
             CycleTurns();
 
-            UIManager.placementStateChange?.Invoke(this, UIManager.PlacementStates.playerTurn);
+            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.playerTurn);
 
             var remainingSpawnTiles = Map.Where(t => t.placeable);
             foreach (var tile in remainingSpawnTiles)
