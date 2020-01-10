@@ -168,6 +168,7 @@ public class GridManager : MonoBehaviour
             placedEnemy.name = enemy.name;
             placedEnemy.SetFloor(tile);
             placedEnemy.tag = "Enemy";
+            tile.occupier = placedEnemy.gameObject;
 
             enemySpawned?.Invoke(this, placedEnemy);
             uiManager.AddUnit(placedEnemy);

@@ -56,29 +56,46 @@ public class UIManager : MonoBehaviour
         placementStateChange?.Invoke(this, UIManager.PlacementStates.placementPhase);
 
         ChooseAttackButton.attackChosen += DisplayTargets;
+        Character.attackEvent += ClearAttackUI;
     }
+
+    private void ClearAttackUI(object sender, AttackEventArgs e)
+    {
+        foreach (var btn in popUpButtons)
+        {
+            Destroy(btn);
+        }
+        popUpButtons = new List<GameObject>();
+    }    
 
     private void DisplayTargets(object sender, ChooseAttackButton.CharacterAttack e)
     {
         //Clear the previous target buttons
-        var buttonsToRemove = popUpButtons.Where(b => b.GetComponent<ChooseAttackButton>() == null);
-        foreach (var button in buttonsToRemove)
+        var buttonsToRemove = popUpButtons.Where(s => s.GetComponent<ChooseAttackButton>() == null);
+        foreach (var btn in buttonsToRemove)
         {
-            Destroy(button);
-            popUpButtons.Remove(button);
-        }        
+            Destroy(btn);
+        }
+
+        popUpButtons.RemoveAll(s => s.GetComponent<ChooseAttackButton>() == null);       
 
         var targetsInRange = e.attacker.pathfinder.GetTilesInRange(e.attacker.floor, e.attackChosen.Range, true).Where(b => b.Occupied ? b.occupier.tag == "Enemy" : false).Select(t => t.occupier.GetComponent<Character>());
         if(targetsInRange.Count() == 0)
         {
             //Say no people to hit
+            var btn = Instantiate(targetCharacterButton, battleCanvas.transform);
+            popUpButtons.Add(btn);
+            btn.GetComponentInChildren<Text>().text = "No Targets";
         }
         else
         {
             for (int i = 0; i < targetsInRange.Count(); i++)
-            {
+            {                
                 GameObject button = Instantiate(targetCharacterButton, battleCanvas.transform);
-
+                popUpButtons.Add(button);
+                button.GetComponentInChildren<Text>().text = targetsInRange.ElementAt(i).name;
+                var enemySelect = button.GetComponent<EnemySelectButton>();
+                enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i));
             }
         }
     }

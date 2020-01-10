@@ -9,6 +9,7 @@ public class NecromancerCharacter : Character
     // Start is called before the first frame update
     void Start()
     {
+        name = "Necromancer";
         cost = 0;
         maxHitPoints = 40;
         accuracy = 75;
