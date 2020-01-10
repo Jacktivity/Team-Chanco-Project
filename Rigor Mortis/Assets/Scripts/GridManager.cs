@@ -100,7 +100,7 @@ public class GridManager : MonoBehaviour
                 var tilePos = tile.GetComponent<Collider>().bounds.center + tile.GetComponent<Collider>().bounds.extents;
                 
 
-                SpawnUnit(new Vector3(tile.transform.position.x, unitPos.y + tilePos.y + tile.transform.position.y, tile.transform.position.z), tile);
+                SpawnUnit(new Vector3(tile.transform.position.x, unitPos.y + tilePos.y, tile.transform.position.z), tile);
                 ReducePlacementPoints(costOfUnit);
                 tile.occupier = tile.gameObject;
 
@@ -122,24 +122,29 @@ public class GridManager : MonoBehaviour
     void GenerateLevel()
     {
         var level = xmlData.level;
-       
-        var maplines = level.map.mapline.Select(m => m.value.Split(',').Select(v => int.Parse(v)).ToArray()).ToArray();
+        var yPos = 0;
 
-        var anonMap = level.map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
-        foreach(var pos in anonMap)
+        foreach(var map in level.maps)
         {
-            if (pos.Value >= 0)
-            {
-                GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, 0, pos.ZPos), tiles[pos.Value].transform.rotation, gameObject.transform);
-                tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, 0, pos.ZPos);
-                tile.name = tile.name.Replace("(Clone)", "");
-                tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
+            var maplines = map.mapline.Select(m => m.value.Split(',').Select(v => int.Parse(v)).ToArray()).ToArray();
 
+            var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
+            foreach (var pos in anonMap)
+            {
+                if (pos.Value >= 0)
+                {
+                    GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, yPos, pos.ZPos), tiles[pos.Value].transform.rotation, gameObject.transform);
+                    tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, yPos, pos.ZPos);
+                    tile.name = tile.name.Replace("(Clone)", "");
+                    tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
+
+
+                }
                 BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };                
             }
-        }
-
-        placementPoints = level.map.placementPoints;        
+            placementPoints += map.placementPoints;
+            yPos++;
+        }    
     }
 
     public void nextUnit()
@@ -162,9 +167,9 @@ public class GridManager : MonoBehaviour
 
         foreach(var enemy in enemies)
         {
-            var tile = Map.First(t => t.coordinates.x == enemy.posX && t.coordinates.z == enemy.posZ);
+            var tile = Map.First(t => t.coordinates.x == enemy.posX && t.coordinates.y == enemy.posY && t.coordinates.z == enemy.posZ);
             var unitPos = enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.center + enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.extents;
-            Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, unitPos.y + tile.transform.position.y + tile.transform.position.y, enemy.posZ), new Quaternion(), enemyContainter.transform);
+            Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, unitPos.y + tile.transform.position.y, enemy.posZ), new Quaternion(), enemyContainter.transform);
             placedEnemy.name = enemy.name;
             placedEnemy.SetFloor(tile);
             placedEnemy.tag = "Enemy";
@@ -182,7 +187,7 @@ public class GridManager : MonoBehaviour
 
         var map = gameObject.GetComponentsInChildren<BlockScript>();
 
-        var placeableTiles = placeables.Select(s => map.First(tile => tile.coordinates.x == s.posX && tile.coordinates.z == s.posZ));
+        var placeableTiles = placeables.Select(s => map.First(tile => tile.coordinates.x == s.posX && tile.coordinates.y == s.posY && tile.coordinates.z == s.posZ));
 
         foreach(var spawnTile in placeableTiles)
         {
@@ -340,7 +345,6 @@ public class GridManager : MonoBehaviour
 }
 namespace GridXML
 {
-
     // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
     /// <remarks/>
     [System.SerializableAttribute()]
@@ -373,22 +377,23 @@ namespace GridXML
     public partial class levelsLevel
     {
 
-        private levelsLevelMap mapField;
+        private levelsLevelMap[] mapsField;
 
         private levelsLevelEnemy[] enemiesField;
 
         private levelsLevelPlaceable[] placeablesField;
 
         /// <remarks/>
-        public levelsLevelMap map
+        [System.Xml.Serialization.XmlArrayItemAttribute("map", IsNullable = false)]
+        public levelsLevelMap[] maps
         {
             get
             {
-                return this.mapField;
+                return this.mapsField;
             }
             set
             {
-                this.mapField = value;
+                this.mapsField = value;
             }
         }
 
@@ -432,6 +437,8 @@ namespace GridXML
 
         private byte placementPointsField;
 
+        private bool placementPointsFieldSpecified;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("map-line")]
         public levelsLevelMapMapline[] mapline
@@ -457,6 +464,20 @@ namespace GridXML
             set
             {
                 this.placementPointsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementPointsSpecified
+        {
+            get
+            {
+                return this.placementPointsFieldSpecified;
+            }
+            set
+            {
+                this.placementPointsFieldSpecified = value;
             }
         }
     }
@@ -497,6 +518,8 @@ namespace GridXML
         private byte typeField;
 
         private byte posXField;
+
+        private byte posYField;
 
         private byte posZField;
 
@@ -544,6 +567,20 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posY
+        {
+            get
+            {
+                return this.posYField;
+            }
+            set
+            {
+                this.posYField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public byte posZ
         {
             get
@@ -566,6 +603,8 @@ namespace GridXML
 
         private byte posXField;
 
+        private byte posYField;
+
         private byte posZField;
 
         /// <remarks/>
@@ -584,6 +623,20 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posY
+        {
+            get
+            {
+                return this.posYField;
+            }
+            set
+            {
+                this.posYField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public byte posZ
         {
             get
@@ -596,7 +649,7 @@ namespace GridXML
             }
         }
     }
-
-
-
 }
+
+
+
