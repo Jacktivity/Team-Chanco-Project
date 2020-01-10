@@ -10,7 +10,6 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     //public AttackManager attackManager;
     public static EventHandler<CharacterAttack> attackChosen;
     public static EventHandler pointerExit;
-    public Button targetInRangeButton;
     public GridManager gridManager;
     public Character character;
     public Attack attack;
@@ -18,7 +17,7 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     // Start is called before the first frame update
     void Start()
     {
-            
+
     }
 
     // Update is called once per frame
@@ -37,15 +36,15 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         gridManager.ClearMap();
-        gridManager.ColourTiles(character.pathfinder.GetTilesInRange(character.floor, attack.Range, true), false);
+        var tiles = character.pathfinder.GetTilesInRange(character.floor, attack.Range, true);
+        gridManager.ColourTiles(tiles, false);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         gridManager.ClearMap();
-        pointerExit?.Invoke(this, new EventArgs());
-        
-    }
+        pointerExit?.Invoke(this, new EventArgs());        
+    }    
 
     public class CharacterAttack
     {

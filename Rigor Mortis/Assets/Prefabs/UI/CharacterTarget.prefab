@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94db5de7ee0b5040b213c21dd4d4a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridManager: {fileID: 0}
+  character: {fileID: 0}
+  target: {fileID: 0}
 --- !u!1001 &8660637645535223968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22,7 +25,7 @@ PrefabInstance:
     - target: {fileID: 3428575637537108063, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
         type: 3}
       propertyPath: m_Name
-      value: AttackButton Variant
+      value: CharacterTarget
       objectReference: {fileID: 0}
     - target: {fileID: 3428575637537108056, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
         type: 3}
@@ -131,8 +134,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3428575637537108057, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428575637537108057, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 8028937189815666922}
+    - target: {fileID: 3428575637537108057, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428575637537108057, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428575637537108057, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428575637537108057, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4323141497562011209, guid: 5d3cf36a93bf4f64fafd432ea810bb11, type: 3}

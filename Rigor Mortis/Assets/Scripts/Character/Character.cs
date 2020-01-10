@@ -71,16 +71,23 @@ public class Character : MonoBehaviour
     {
         if(selectedAttack != null)
         {
+
             var baseDamage = selectedAttack.RollDamage();
+
             if (baseDamage.Magical > 0)
                 baseDamage.Magical += power;
             if (baseDamage.Physical > 0)
                 baseDamage.Physical += strength;
-
+            
             var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, selectedAttack.Area, true);
             var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
 
-            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical));
+            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
+
+
+            //TODO: Replace with AP
+            hasTurn = false;
+            movedThisTurn = true;
         }
     }
 
@@ -137,11 +144,17 @@ public class Character : MonoBehaviour
     {
         if (e.AttackedCharacters.Contains(this))
         {
-            if (e.MagicDamage > resistance)
-                TakeDamage(e.MagicDamage - resistance);
+            var toHit = e.Accuracy - evade;
+            var dodgeRoll = UnityEngine.Random.Range(1, 101);
+            if(dodgeRoll < toHit)
+            {
+                if (e.MagicDamage > resistance)
+                    TakeDamage(e.MagicDamage - resistance);
 
-            if (e.PhysicalDamage > armour)
-                TakeDamage(e.PhysicalDamage - armour);
+                if (e.PhysicalDamage > armour)
+                    TakeDamage(e.PhysicalDamage - armour);
+            }
+            
         }
     }
 
@@ -205,11 +218,13 @@ public struct AttackEventArgs
     public Character[] AttackedCharacters;
     public int MagicDamage;
     public int PhysicalDamage;
+    public float Accuracy;
 
-    public AttackEventArgs(IEnumerable<Character> attackedCharaters, int magicDmg, int physDmg)
+    public AttackEventArgs(IEnumerable<Character> attackedCharaters, int magicDmg, int physDmg, float accuracy)
     {
         AttackedCharacters = attackedCharaters.ToArray();
         MagicDamage = magicDmg;
         PhysicalDamage = physDmg;
+        Accuracy = accuracy;
     }
 }
