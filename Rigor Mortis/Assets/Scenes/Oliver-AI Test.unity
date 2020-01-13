@@ -545,7 +545,6 @@ MonoBehaviour:
   winCanvas: {fileID: 1637429968940486751}
   loseCanvas: {fileID: 7672784746683577271}
   turnDisplay: {fileID: 333307314}
-  attacking: 0
   attackButton: {fileID: 3428575637537108063, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
     type: 3}
   targetCharacterButton: {fileID: 6315308289696829695, guid: c976e627ed8466448af44ad17b43419f,
@@ -1171,6 +1170,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340796270807491101, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1024436346}
+    - target: {fileID: 8340796270807491101, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Wait
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195497fdef40b4f4aa04d0c47b056391, type: 3}
