@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1175964517155196759}
   - component: {fileID: 3276524848693460102}
   - component: {fileID: 777166147726204609}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EvilBlock
   m_TagString: Enemy
   m_Icon: {fileID: 0}

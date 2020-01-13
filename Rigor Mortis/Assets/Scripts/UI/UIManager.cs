@@ -189,13 +189,15 @@ public class UIManager : MonoBehaviour
     {
         switch(unit.tag) {
             case "Enemy":
-            GameObject enemyMarker = Instantiate(marker, unit.transform.position, transform.rotation, unit.transform);
+            GameObject enemyMarker = Instantiate(marker, unit.transform.position, transform.rotation);
+            enemyMarker.transform.SetParent(unit.transform);
             enemyMarker.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
             markers.Add(enemyMarker);
             break;
 
             case "Player":
-            GameObject playerMarker = Instantiate(marker, unit.transform.position, transform.rotation, unit.transform);
+            GameObject playerMarker = Instantiate(marker, unit.transform.position, transform.rotation);
+            playerMarker.transform.SetParent(unit.transform);
             playerMarker.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
             markers.Add(playerMarker);
             break;

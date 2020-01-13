@@ -162,7 +162,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1335
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -231,22 +231,13 @@ GameObject:
   m_Component:
   - component: {fileID: 97713870}
   - component: {fileID: 97713869}
-  - component: {fileID: 97713868}
   m_Layer: 0
-  m_Name: MiniMapCamera
+  m_Name: MiniMap Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &97713868
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 97713867}
-  m_Enabled: 1
 --- !u!20 &97713869
 Camera:
   m_ObjectHideFlags: 0
@@ -277,7 +268,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 823
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 1fb7ca644f44e604fa6ac70bd549000e, type: 2}
   m_TargetDisplay: 1
@@ -371,9 +362,9 @@ RectTransform:
   m_Father: {fileID: 662603704}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 427.07, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -65, y: -52}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &384422206
@@ -543,7 +534,8 @@ MonoBehaviour:
   targetCharacterButton: {fileID: 6315308289696829695, guid: c976e627ed8466448af44ad17b43419f,
     type: 3}
   popupArea: {fileID: 1688700652}
-  moveButton: {fileID: 0}
+  moveButton: {fileID: 8590537472054130620, guid: 33954a3bffded0841839091831c18d4e,
+    type: 3}
   baseAttackPosition: {x: 70, y: 145, z: 0}
   targetCharacterOffset: {x: 70, y: 0, z: 0}
   popUpButtons: []
@@ -1083,6 +1075,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1631290836, guid: 195497fdef40b4f4aa04d0c47b056391, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1010
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195497fdef40b4f4aa04d0c47b056391, type: 3}
 --- !u!224 &151280165495397517 stripped
@@ -1208,22 +1204,22 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1100370850281584610, guid: 724620522a4814a41a3e3123a1f34ec4,
+    - target: {fileID: 1100370850432538917, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
-    - target: {fileID: 1100370850281584610, guid: 724620522a4814a41a3e3123a1f34ec4,
+    - target: {fileID: 1100370850432538917, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetUnit
       objectReference: {fileID: 0}
-    - target: {fileID: 1100370850432538917, guid: 724620522a4814a41a3e3123a1f34ec4,
+    - target: {fileID: 1100370850281584610, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
-    - target: {fileID: 1100370850432538917, guid: 724620522a4814a41a3e3123a1f34ec4,
+    - target: {fileID: 1100370850281584610, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetUnit
