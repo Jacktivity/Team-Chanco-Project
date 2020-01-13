@@ -16,8 +16,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]Text turnDisplay;
 
-    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea;
-    [SerializeField]private Vector3 baseAttackPosition, targetCharacterOffset;
+    [SerializeField] GameObject attackButton, targetCharacterButton, popupArea, moveButton;
+    [SerializeField] private Vector3 baseAttackPosition, targetCharacterOffset;
+
     public List<GameObject> popUpButtons;
 
     [SerializeField] Slider healthBar;
@@ -121,7 +122,7 @@ public class UIManager : MonoBehaviour
         gridManager.CycleTurns();
     }
 
-    public void DisplayAttacks(IEnumerable<Attack> _attacks, Character character)
+    public void DisplayActionButtons(IEnumerable<Attack> _attacks, Character character)
     {
         foreach (GameObject button in popUpButtons)
         {
@@ -129,19 +130,45 @@ public class UIManager : MonoBehaviour
         }
         popUpButtons = new List<GameObject>();
         
-        for (int i = 0; i < _attacks.Count(); i++)
+        if(character.CanAttack)
         {
-            Vector3 popUpOffset = new Vector3(0, 30 * i, 0);
+            for (int i = 0; i < _attacks.Count(); i++)
+            {
+                CreateAttackButton(_attacks, character, i);
+            }
 
-            GameObject button = Instantiate(attackButton, popupArea.transform);
-            button.transform.localPosition = baseAttackPosition + popUpOffset;
-            popUpButtons.Add(button);
-
-            button.GetComponent<ChooseAttackButton>().character = character;
-            button.GetComponent<ChooseAttackButton>().gridManager = gridManager;
-            button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
-            button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).Name;
+            var moveOffset = new Vector3(0, 30 * (_attacks.Count() + 1), 0);
+            MakeMoveButton(moveOffset, character);
+        }  
+        else if(character.CanMove)
+        {
+            MakeMoveButton(new Vector3(0, 0, 0), character);
         }
+        else
+        {
+            //No actions can be taken add button to represent this
+        }
+    }
+
+    private void CreateAttackButton(IEnumerable<Attack> _attacks, Character character, int i)
+    {
+        Vector3 popUpOffset = new Vector3(0, 30 * i, 0);
+
+        GameObject button = Instantiate(attackButton, popupArea.transform);
+        button.transform.localPosition = baseAttackPosition + popUpOffset;
+        popUpButtons.Add(button);
+
+        button.GetComponent<ChooseAttackButton>().character = character;
+        button.GetComponent<ChooseAttackButton>().gridManager = gridManager;
+        button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
+        button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).Name;
+    }
+
+    private void MakeMoveButton(Vector3 buttonOffset, Character character)
+    {
+        var moveBtn = Instantiate(moveButton, popupArea.transform);
+        moveBtn.transform.localPosition = baseAttackPosition + buttonOffset;
+        moveBtn.GetComponent<MoveButton>().SetUpMoveButton(character);
     }
 
     public void ClearRangeBlocks()

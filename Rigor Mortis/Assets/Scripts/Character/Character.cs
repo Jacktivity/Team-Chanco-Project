@@ -26,10 +26,12 @@ public class Character : MonoBehaviour
     //public AttackManager attackManager;
     public Pathfinder pathfinder;
     //public bool hasTurn, movedThisTurn;
-    public int actionPoints;
+    private int maxActionPoints;
+    public int ActionPoints { get; private set; }
     public BlockScript floor;
     public bool moving = false;
-    float counterTime;
+    private float counterTime;
+    private const float moveAnimationSpeed = 6;
 
     Color colourStart;
 
@@ -52,7 +54,8 @@ public class Character : MonoBehaviour
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
         attackEvent += DamageCheck;
-        actionPoints = 2;
+        //Movement costs 2AP, Attacking costs 3AP
+        ActionPoints = maxActionPoints = 4;
 
         ChooseAttackButton.attackChosen += (s, e) =>
         {
@@ -73,6 +76,7 @@ public class Character : MonoBehaviour
     {
         if(selectedAttack != null)
         {
+            ActionPoints -= 3;
 
             var baseDamage = selectedAttack.RollDamage();
 
@@ -84,21 +88,17 @@ public class Character : MonoBehaviour
             var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, selectedAttack.Area, true);
             var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
 
-            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
-
-
-            //TODO: Replace with AP
-            // hasTurn = false;
-            // movedThisTurn = true;
-            actionPoints -= 1;
+            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));            
         }
     }
+
+    public void SpendAP(int actionPoints) => ActionPoints -= actionPoints;
 
     private void Movement()
     {
         if (moving)
         {
-            counterTime += Time.deltaTime * 6;
+            counterTime += Time.deltaTime * moveAnimationSpeed;
             moveToBlock = path.ElementAt(pathIndex);
 
             float journey = Vector3.Distance(transform.position, (moveToBlock.transform.position + transform.up));
@@ -178,15 +178,15 @@ public class Character : MonoBehaviour
         this.gameObject.SetActive(false);
         Slider slider = GetComponent<HealthBar>().slider;
         slider.gameObject.SetActive(false);
-    }
-
-    public float GetHealth()
-    {
-        return maxHitPoints;
-    }
+    }    
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
     {
+        ActionPoints -= 2;
+
+        if (moveTo.Count() > movementSpeed)
+            ActionPoints -= 2;
+
         if(moveTo.Count() > 0)
         {
             path = moveTo;
@@ -198,19 +198,28 @@ public class Character : MonoBehaviour
         } 
     }
 
+    public float GetHealth => maxHitPoints;
+
+    public bool CanAttack => ActionPoints >= 2;
+
+    public bool CanMove => ActionPoints > 0;
+
+    public void APReset()
+    {
+        ActionPoints = maxActionPoints;
+    }
+
     private void OnMouseDown()
     {
         characterClicked?.Invoke(this, this);
-
-        if(actionPoints > 1)
-        {
-            uiManager.DisplayAttacks(attacks, this);
-        }
+        
+        uiManager.DisplayActionButtons(attacks, this);
     }
 
     private void Update()
     {
-        if (actionPoints <= 0)
+        //TODO Remove and check where things go wrong
+        if (ActionPoints <= 0)
         {
             //Make highlighter of transparent material? Outline renderer etc?        
             gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;

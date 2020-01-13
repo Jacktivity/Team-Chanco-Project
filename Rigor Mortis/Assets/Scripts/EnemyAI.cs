@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour
 
     public bool MoveUnit()
     {
-        var unitToMove = Units.First(u => u.actionPoints > 0);
+        var unitToMove = Units.First(u => u.ActionPoints > 0);
 
         if (unitToMove == null)
             return false;
@@ -60,14 +60,12 @@ public class EnemyAI : MonoBehaviour
             default:
                 break;
         }
-
-        unitToMove.actionPoints -= 2;
         return true;
     }
 
     private void AIAttack(object sender, Character unit)
     {
-        //var atkManager = unit.attackManager;
+        //var atkManager = unit.attackManager;        
         var longestAttack = unit.attacks.OrderByDescending(s => s.Range).First();
 
         Debug.Log(longestAttack.Name);

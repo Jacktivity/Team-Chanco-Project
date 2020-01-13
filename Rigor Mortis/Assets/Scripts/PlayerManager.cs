@@ -18,19 +18,18 @@ public class PlayerManager : MonoBehaviour
 
         GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
         GridManager.enemySpawned += (s, e) => { e.characterClicked += (sender, character) => EnemyUnitChosen(e); };
-        BlockScript.blockClicked += (s, e) => BlockClicked(e);
+        //BlockScript.blockClicked += (s, e) => BlockClicked(e);
         ChooseAttackButton.pointerExit += (s, e) =>
         {
-            if (selectedPlayer != null)
-                if(selectedPlayer.selectedAttack == null)
-                {
-                    HighlightMovementTiles(selectedPlayer);
-                }
-                else
-                {
-                    gridManager.ColourTiles(selectedPlayer.pathfinder.GetTilesInRange(selectedPlayer.floor, selectedPlayer.selectedAttack.Range, true), false);
-                }
-
+            //if (selectedPlayer != null)
+            //    if(selectedPlayer.selectedAttack == null)
+            //    {
+            //        HighlightMovementTiles(selectedPlayer);
+            //    }
+            //    else
+            //    {
+            //        gridManager.ColourTiles(selectedPlayer.pathfinder.GetTilesInRange(selectedPlayer.floor, selectedPlayer.selectedAttack.Range, true), false);
+            //    }
         };
     }
 
@@ -38,9 +37,9 @@ public class PlayerManager : MonoBehaviour
     {
         bool unitCanMove = selectedPlayer != null && gridManager.playerTurn;
 
-        if (unitCanMove && tile.occupier == null)
+        if (unitCanMove && tile.occupier == null && uiManager.attacking == false)
         {
-            bool playerCanMove = selectedPlayer.actionPoints >= 0;
+            bool playerCanMove = selectedPlayer.ActionPoints >= 0;
             if(playerCanMove)
             {
                 MovePlayerToBlock(tile);
@@ -63,7 +62,6 @@ public class PlayerManager : MonoBehaviour
             gridManager.CycleTurns();
             selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
             gridManager.ClearMap();
-            selectedPlayer.actionPoints -= 2;
             if(selectedPlayer.tag =="Player")
             {
                 gridManager.nextUnit();
@@ -73,7 +71,6 @@ public class PlayerManager : MonoBehaviour
         {
             selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
             gridManager.ClearMap();
-            selectedPlayer.actionPoints -= 1;
         }
         else
         {
@@ -83,7 +80,7 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerUnitChosen(Character unit)
     {
-        if (gridManager.playerTurn && unit.actionPoints >= 0)
+        if (gridManager.playerTurn && unit.ActionPoints >= 0)
         {
             if (selectedPlayer != null)
             {
@@ -93,7 +90,7 @@ public class PlayerManager : MonoBehaviour
 
             selectedPlayer = unit;
             selectedPlayer.GetComponentInChildren<Renderer>().material.color = Color.yellow;
-            HighlightMovementTiles(unit);
+            //HighlightMovementTiles(unit);
         }
         else
             selectedPlayer = null;
@@ -101,12 +98,12 @@ public class PlayerManager : MonoBehaviour
 
     private void HighlightMovementTiles(Character unit)
     {
-        if (unit.actionPoints == 2)
+        if (unit.ActionPoints == 2)
         {
             walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
             sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
         }
-        else if(unit.actionPoints == 1)
+        else if(unit.ActionPoints == 1)
         {
             sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
             walkTiles = new BlockScript[0];

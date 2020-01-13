@@ -263,7 +263,7 @@ public class GridManager : MonoBehaviour
         foreach (GameObject player in players)
         {
             var character = player.GetComponent<Character>();
-            if (character.actionPoints > 0 && character.moving == false)
+            if (character.ActionPoints > 0 && character.moving == false)
             {
                 playerTurn = true;
             }
@@ -276,7 +276,7 @@ public class GridManager : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
-            enemy.GetComponent<Character>().actionPoints = 2;
+            enemy.GetComponent<Character>().APReset();
             enemyTurnCoroutine = StartCoroutine(MovingEnemies(enemy));
             yield return enemyTurnCoroutine;
         }
@@ -290,7 +290,7 @@ public class GridManager : MonoBehaviour
         foreach (GameObject player in players)
         {
             var playerScript = player.GetComponent<Character>();
-            playerScript.actionPoints = 2;
+            playerScript.APReset();
 
             player.gameObject.GetComponentInChildren<Renderer>().material.color = Color.white;
         }
