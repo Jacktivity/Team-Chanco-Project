@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviour
     {
         bool unitCanMove = selectedPlayer != null && gridManager.playerTurn;
 
-        if (unitCanMove && tile.occupier == null)
+        if (unitCanMove && tile.occupier == null && uiManager.attacking == false)
         {
             bool playerCanMove = selectedPlayer.ActionPoints >= 0;
             if(playerCanMove)
