@@ -10,20 +10,24 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]Pathfinder pathFinder;
 
-    [SerializeField] GridManager gridManager;
+    [SerializeField]GridManager gridManager;
 
     [SerializeField]Canvas battleCanvas, prepCanvas, fixedCanvas, pauseCanvas, winCanvas, loseCanvas;
 
     [SerializeField]Text turnDisplay;
 
-    [SerializeField] GameObject attackButton, targetCharacterButton, popupArea, moveButton;
-    [SerializeField] private Vector3 baseAttackPosition, targetCharacterOffset;
+    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton;
+    [SerializeField]private Vector3 baseAttackPosition, targetCharacterOffset;
 
     public List<GameObject> popUpButtons;
 
-    [SerializeField] Slider healthBar;
-    List<Slider> healthBars;
     List<Character> unitList;
+
+    [SerializeField]GameObject marker;
+    List<GameObject> markers;
+
+    [SerializeField]Slider healthBar;
+    List<Slider> healthBars;
     public Vector3 healthBarOffset;
 
     public BlockScript[] blocksInRange;
@@ -44,6 +48,7 @@ public class UIManager : MonoBehaviour
     {
         unitList = new List<Character>();
         healthBars = new List<Slider>();
+        markers = new List<GameObject>();
         popUpButtons = new List<GameObject>();
 
         BuildUnits();
@@ -179,6 +184,26 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Minimap Markers
+    void InstantiateMarker(Character unit)
+    {
+        switch(unit.tag) {
+            case "Enemy":
+            GameObject enemyMarker = Instantiate(marker, unit.transform.position, transform.rotation, unit.transform);
+            enemyMarker.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+            markers.Add(enemyMarker);
+            break;
+
+            case "Player":
+            GameObject playerMarker = Instantiate(marker, unit.transform.position, transform.rotation, unit.transform);
+            playerMarker.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+            markers.Add(playerMarker);
+            break;
+
+            default:
+            break;
+        }
+    }
 
     //Health Bars
     void BuildUnits() {
@@ -186,6 +211,7 @@ public class UIManager : MonoBehaviour
         {
             unitList.Add(unit);
             InstantiateHealthBar(unit);
+            InstantiateMarker(unit);
         }
     }
 
@@ -200,6 +226,7 @@ public class UIManager : MonoBehaviour
     public void AddUnit(Character newUnit) {
         unitList.Add(newUnit);
         InstantiateHealthBar(newUnit);
+        InstantiateMarker(newUnit);
     }
 
 
