@@ -25,7 +25,8 @@ public class Character : MonoBehaviour
     public UIManager uiManager;
     //public AttackManager attackManager;
     public Pathfinder pathfinder;
-    public bool hasTurn, movedThisTurn;
+    //public bool hasTurn, movedThisTurn;
+    public int actionPoints;
     public BlockScript floor;
     public bool moving = false;
     float counterTime;
@@ -51,6 +52,7 @@ public class Character : MonoBehaviour
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
         attackEvent += DamageCheck;
+        actionPoints = 2;
 
         ChooseAttackButton.attackChosen += (s, e) =>
         {
@@ -86,8 +88,9 @@ public class Character : MonoBehaviour
 
 
             //TODO: Replace with AP
-            hasTurn = false;
-            movedThisTurn = true;
+            // hasTurn = false;
+            // movedThisTurn = true;
+            actionPoints -= 1;
         }
     }
 
@@ -199,12 +202,15 @@ public class Character : MonoBehaviour
     {
         characterClicked?.Invoke(this, this);
 
-        uiManager.DisplayAttacks(attacks, this);
+        if(actionPoints > 1)
+        {
+            uiManager.DisplayAttacks(attacks, this);
+        }
     }
 
     private void Update()
     {
-        if (hasTurn == false)
+        if (actionPoints <= 0)
         {
             //Make highlighter of transparent material? Outline renderer etc?        
             gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
