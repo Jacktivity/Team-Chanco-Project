@@ -35,23 +35,23 @@ public class PlayerManager : MonoBehaviour
 
     private void BlockClicked(BlockScript tile)
     {
-        bool unitCanMove = selectedPlayer != null && gridManager.playerTurn;
+        //bool unitCanMove = selectedPlayer != null && gridManager.playerTurn;
 
-        if (unitCanMove && tile.occupier == null && uiManager.attacking == false)
-        {
-            bool playerCanMove = selectedPlayer.ActionPoints >= 0;
-            if(playerCanMove)
-            {
-                MovePlayerToBlock(tile);
-            }
-        }
-        else
-        {
-            if (selectedPlayer != null)
-            {
-                //Debug.Log(selectedPlayer.attackManager.attackerAssigned);
-            }
-        }
+        //if (unitCanMove && tile.occupier == null && uiManager.attacking == false)
+        //{
+        //    bool playerCanMove = selectedPlayer.ActionPoints >= 0;
+        //    if(playerCanMove)
+        //    {
+        //        MovePlayerToBlock(tile);
+        //    }
+        //}
+        //else
+        //{
+        //    if (selectedPlayer != null)
+        //    {
+        //        //Debug.Log(selectedPlayer.attackManager.attackerAssigned);
+        //    }
+        //}
     }
 
     private void MovePlayerToBlock(BlockScript tile)
