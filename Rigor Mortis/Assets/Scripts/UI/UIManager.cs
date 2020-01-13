@@ -240,11 +240,19 @@ public class UIManager : MonoBehaviour
 
     public void SetWinCanvas(bool enabled)
     {
+        if (!winCanvas.gameObject.active)
+        {
+            winCanvas.gameObject.SetActive(true);
+        }
         winCanvas.enabled = enabled;
     }
 
     public void SetLoseCanvas(bool enabled)
     {
+        if (!loseCanvas.gameObject.active)
+        {
+            loseCanvas.gameObject.SetActive(true);
+        }
         loseCanvas.enabled = enabled;
     }
 
