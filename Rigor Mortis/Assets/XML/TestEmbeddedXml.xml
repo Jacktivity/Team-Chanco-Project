@@ -6,7 +6,7 @@
       <Enemy type="1" xPos="0" yPos="3"/>
       <Enemy type="1" xPos="0" yPos="4"/>
       <Enemy type="1" xPos="0" yPos="5"/>
-      <Enemy type="1" xPos="0" yPos="6"/>
+      <Enemy type="1" xPos="0" yPos="3"/>
     </Enemies>
   <SpawnPositions>
     <Position x="2" y="0"/>
