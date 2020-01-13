@@ -40,7 +40,7 @@ public class PlayerManager : MonoBehaviour
 
         if (unitCanMove && tile.occupier == null && uiManager.attacking == false)
         {
-            bool playerCanMove = selectedPlayer.movedThisTurn == false && selectedPlayer.hasTurn;
+            bool playerCanMove = selectedPlayer.actionPoints >= 0;
             if(playerCanMove)
             {
                 MovePlayerToBlock(tile);
@@ -60,10 +60,10 @@ public class PlayerManager : MonoBehaviour
         bool sprinting = walkTiles.Contains(tile) == false && sprintTiles.Contains(tile);
         if (sprinting)
         {
-            selectedPlayer.hasTurn = false;
             gridManager.CycleTurns();
             selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
             gridManager.ClearMap();
+            selectedPlayer.actionPoints -= 2;
             if(selectedPlayer.tag =="Player")
             {
                 gridManager.nextUnit();
@@ -71,9 +71,9 @@ public class PlayerManager : MonoBehaviour
         }
         else if (walkTiles.Contains(tile))
         {
-            selectedPlayer.movedThisTurn = true;
             selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
             gridManager.ClearMap();
+            selectedPlayer.actionPoints -= 1;
         }
         else
         {
@@ -83,7 +83,7 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerUnitChosen(Character unit)
     {
-        if (gridManager.playerTurn && !unit.movedThisTurn && unit.hasTurn)
+        if (gridManager.playerTurn && unit.actionPoints >= 0)
         {
             if (selectedPlayer != null)
             {
@@ -101,12 +101,12 @@ public class PlayerManager : MonoBehaviour
 
     private void HighlightMovementTiles(Character unit)
     {
-        if (unit.hasTurn && unit.movedThisTurn == false)
+        if (unit.actionPoints == 2)
         {
             walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
             sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
         }
-        else if(unit.hasTurn)
+        else if(unit.actionPoints == 1)
         {
             sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
             walkTiles = new BlockScript[0];

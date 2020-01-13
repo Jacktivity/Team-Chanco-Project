@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour
 
     public bool MoveUnit()
     {
-        var unitToMove = Units.First(u => u.hasTurn);
+        var unitToMove = Units.First(u => u.actionPoints > 0);
 
         if (unitToMove == null)
             return false;
@@ -61,7 +61,7 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
 
-        unitToMove.hasTurn = false;
+        unitToMove.actionPoints -= 2;
         return true;
     }
 
