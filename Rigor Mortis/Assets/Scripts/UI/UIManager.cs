@@ -21,8 +21,8 @@ public class UIManager : MonoBehaviour
 
     public bool attacking = false;
 
-    [SerializeField] GameObject attackButton, targetCharacterButton, popupArea;
-    [SerializeField] private Vector3 baseAttackPosition, targetCharacterOffset;
+    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea;
+    [SerializeField]private Vector3 baseAttackPosition, targetCharacterOffset;
     public List<GameObject> popUpButtons;
 
     [SerializeField] Slider healthBar;
@@ -33,8 +33,8 @@ public class UIManager : MonoBehaviour
     public BlockScript[] blocksInRange;
     public static EventHandler<GameStates> gameStateChange;
 
-    GameStates currentState;
-    GameStates resumeState;
+    [SerializeField]GameStates currentState;
+    [SerializeField]GameStates resumeState;
     public bool isPaused;
     
 
@@ -64,17 +64,15 @@ public class UIManager : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetKeyDown( KeyCode.Escape )) {
+        if (Input.GetKeyDown( KeyCode.Escape ) && !isPaused) {
             resumeState = currentState;
-
             gameStateChange?.Invoke( this, UIManager.GameStates.paused );
-            isPaused = true;
         }
     }
 
     public void Resume() {
-        UIManager.gameStateChange?.Invoke( this, resumeState );
         isPaused = false;
+        UIManager.gameStateChange?.Invoke( this, resumeState );
     }
 
     private void ClearAttackUI(object sender, AttackEventArgs e)
@@ -219,6 +217,7 @@ public class UIManager : MonoBehaviour
                     break;
 
                 case GameStates.paused:
+                    isPaused = true;
                     SetPrepCanvas( false );
                     SetBattleCanvas( false );
                     SetFixedCanvas( false );
