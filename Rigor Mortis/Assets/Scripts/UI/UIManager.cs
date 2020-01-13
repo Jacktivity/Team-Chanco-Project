@@ -21,8 +21,8 @@ public class UIManager : MonoBehaviour
 
     public bool attacking = false;
 
-    [SerializeField] GameObject attackButton, targetCharacterButton, popupArea;
-    [SerializeField] private Vector3 baseAttackPosition, targetCharacterOffset;
+    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea;
+    [SerializeField]private Vector3 baseAttackPosition, targetCharacterOffset;
     public List<GameObject> popUpButtons;
 
     [SerializeField] Slider healthBar;
@@ -33,6 +33,9 @@ public class UIManager : MonoBehaviour
     public BlockScript[] blocksInRange;
     public static EventHandler<GameStates> gameStateChange;
 
+    [SerializeField]GameStates currentState;
+    [SerializeField]GameStates resumeState;
+    public bool isPaused;
     
 
     public enum GameStates
@@ -43,10 +46,6 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //pathFinder = GetComponent<Pathfinder>();
-        //attackManager = GetComponent<AttackManager>();
-        //gridManager = GetComponent<GridManager>();
-        //attackButton = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AttackButton.prefab", typeof(GameObject));
         unitList = new List<Character>();
         healthBars = new List<Slider>();
         popUpButtons = new List<GameObject>();
@@ -58,6 +57,22 @@ public class UIManager : MonoBehaviour
 
         ChooseAttackButton.attackChosen += DisplayTargets;
         Character.attackEvent += ClearAttackUI;
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown( KeyCode.Escape )) {
+            if (!isPaused) {
+                resumeState = currentState;
+                gameStateChange?.Invoke(this, UIManager.GameStates.paused);
+            } else {
+                Resume();
+            }
+        }
+    }
+
+    public void Resume() {
+        isPaused = false;
+        UIManager.gameStateChange?.Invoke( this, resumeState );
     }
 
     private void ClearAttackUI(object sender, AttackEventArgs e)
@@ -124,8 +139,6 @@ public class UIManager : MonoBehaviour
             Vector3 popUpOffset = new Vector3(0, 30 * i, 0);
 
             GameObject button = Instantiate(attackButton, popupArea.transform);
-            //button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            //button.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
             button.transform.localPosition = baseAttackPosition + popUpOffset;
             popUpButtons.Add(button);
 
@@ -169,42 +182,48 @@ public class UIManager : MonoBehaviour
 
 
     // Unit Assignment
-    public void setUnit(Character unit) {
+    public void SetUnit(Character unit) {
         gridManager.SetSelectedUnit(unit);
     }
 
 
-    //Canvas
+    //Set Canvas'
     private void GameStateChanged(object sender, GameStates state) {
-        switch(state)
-        {
-            case GameStates.placementPhase:
-                SetPrepCanvas(true);
-                SetBattleCanvas(false);
-                SetFixedCanvas(false);
-                SetPauseCanvas(false);
-                break;
+        if (!isPaused) {
+            currentState = state;
 
-            case GameStates.playerTurn:
-                SetPrepCanvas(false);
-                SetBattleCanvas(true);
-                SetFixedCanvas(true);
-                SetPauseCanvas(false);
-                break;
+            switch (state) {
+                case GameStates.placementPhase:
+                    SetPrepCanvas( true );
+                    SetBattleCanvas( false );
+                    SetFixedCanvas( false );
+                    SetPauseCanvas( false );
+                    break;
 
-            case GameStates.enemyTurn:
-                SetPrepCanvas(false);
-                SetBattleCanvas(false);
-                SetFixedCanvas(true);
-                SetPauseCanvas(false);
-                break;
+                case GameStates.playerTurn:
+                    SetPrepCanvas( false );
+                    SetBattleCanvas( true );
+                    SetFixedCanvas( true );
+                    SetPauseCanvas( false );
+                    break;
 
-            case GameStates.paused:
-                SetPrepCanvas(false);
-                SetBattleCanvas(false);
-                SetFixedCanvas(false);
-                SetPauseCanvas(true);
-                break;
+                case GameStates.enemyTurn:
+                    SetPrepCanvas( false );
+                    SetBattleCanvas( false );
+                    SetFixedCanvas( true );
+                    SetPauseCanvas( false );
+                    break;
+
+                case GameStates.paused:
+                    isPaused = true;
+                    SetPrepCanvas( false );
+                    SetBattleCanvas( false );
+                    SetFixedCanvas( false );
+                    SetPauseCanvas( true );
+                    break;
+            }
+        } else {
+            resumeState = state;
         }
     }
 
