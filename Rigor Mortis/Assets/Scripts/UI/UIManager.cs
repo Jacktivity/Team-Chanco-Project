@@ -12,10 +12,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] GridManager gridManager;
 
-    [SerializeField]Canvas battleCanvas;
-    [SerializeField]Canvas prepCanvas;
-    [SerializeField]Canvas fixedCanvas;
-    [SerializeField]Canvas pauseCanvas;
+    [SerializeField]Canvas battleCanvas, prepCanvas, fixedCanvas, pauseCanvas, winCanvas, loseCanvas;
 
     [SerializeField]Text turnDisplay;
 
@@ -40,7 +37,7 @@ public class UIManager : MonoBehaviour
 
     public enum GameStates
     {
-        placementPhase, playerTurn, enemyTurn, paused
+        placementPhase, playerTurn, enemyTurn, paused, winState, loseState
     }
 
     // Start is called before the first frame update
@@ -214,6 +211,22 @@ public class UIManager : MonoBehaviour
                     SetPauseCanvas( false );
                     break;
 
+                case GameStates.winState:
+                    SetPrepCanvas(false);
+                    SetBattleCanvas(false);
+                    SetFixedCanvas(false);
+                    SetPauseCanvas(false);
+                    SetWinCanvas(true);
+                    break;
+
+                case GameStates.loseState:
+                    SetPrepCanvas(false);
+                    SetBattleCanvas(false);
+                    SetFixedCanvas(false);
+                    SetPauseCanvas(false);
+                    SetLoseCanvas(true);
+                    break;
+
                 case GameStates.paused:
                     isPaused = true;
                     SetPrepCanvas( false );
@@ -227,6 +240,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void SetWinCanvas(bool enabled)
+    {
+        winCanvas.enabled = enabled;
+    }
+
+    public void SetLoseCanvas(bool enabled)
+    {
+        loseCanvas.enabled = enabled;
+    }
 
     public void SetPrepCanvas(bool enabled) {
         prepCanvas.enabled = enabled;
