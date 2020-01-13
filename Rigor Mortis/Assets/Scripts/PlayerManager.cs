@@ -18,19 +18,18 @@ public class PlayerManager : MonoBehaviour
 
         GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
         GridManager.enemySpawned += (s, e) => { e.characterClicked += (sender, character) => EnemyUnitChosen(e); };
-        BlockScript.blockClicked += (s, e) => BlockClicked(e);
+        //BlockScript.blockClicked += (s, e) => BlockClicked(e);
         ChooseAttackButton.pointerExit += (s, e) =>
         {
-            if (selectedPlayer != null)
-                if(selectedPlayer.selectedAttack == null)
-                {
-                    HighlightMovementTiles(selectedPlayer);
-                }
-                else
-                {
-                    gridManager.ColourTiles(selectedPlayer.pathfinder.GetTilesInRange(selectedPlayer.floor, selectedPlayer.selectedAttack.Range, true), false);
-                }
-
+            //if (selectedPlayer != null)
+            //    if(selectedPlayer.selectedAttack == null)
+            //    {
+            //        HighlightMovementTiles(selectedPlayer);
+            //    }
+            //    else
+            //    {
+            //        gridManager.ColourTiles(selectedPlayer.pathfinder.GetTilesInRange(selectedPlayer.floor, selectedPlayer.selectedAttack.Range, true), false);
+            //    }
         };
     }
 
@@ -67,9 +66,6 @@ public class PlayerManager : MonoBehaviour
             {
                 gridManager.nextUnit();
             }
-
-            //Improve move to detect if the player is walking or sprinting for AP spending
-            selectedPlayer.SpendAP(2);
         }
         else if (walkTiles.Contains(tile))
         {
@@ -94,7 +90,7 @@ public class PlayerManager : MonoBehaviour
 
             selectedPlayer = unit;
             selectedPlayer.GetComponentInChildren<Renderer>().material.color = Color.yellow;
-            HighlightMovementTiles(unit);
+            //HighlightMovementTiles(unit);
         }
         else
             selectedPlayer = null;

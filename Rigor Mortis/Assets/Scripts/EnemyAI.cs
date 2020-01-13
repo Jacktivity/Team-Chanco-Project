@@ -65,7 +65,7 @@ public class EnemyAI : MonoBehaviour
 
     private void AIAttack(object sender, Character unit)
     {
-        //var atkManager = unit.attackManager;
+        //var atkManager = unit.attackManager;        
         var longestAttack = unit.attacks.OrderByDescending(s => s.Range).First();
 
         Debug.Log(longestAttack.Name);

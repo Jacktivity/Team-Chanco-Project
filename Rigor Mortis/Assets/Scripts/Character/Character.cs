@@ -30,7 +30,8 @@ public class Character : MonoBehaviour
     public int ActionPoints { get; private set; }
     public BlockScript floor;
     public bool moving = false;
-    float counterTime;
+    private float counterTime;
+    private const float moveAnimationSpeed = 6;
 
     Color colourStart;
 
@@ -87,13 +88,7 @@ public class Character : MonoBehaviour
             var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, selectedAttack.Area, true);
             var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
 
-            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
-
-
-            //TODO: Replace with AP
-            // hasTurn = false;
-            // movedThisTurn = true;
-            ActionPoints -= 1;
+            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));            
         }
     }
 
@@ -103,7 +98,7 @@ public class Character : MonoBehaviour
     {
         if (moving)
         {
-            counterTime += Time.deltaTime * 6;
+            counterTime += Time.deltaTime * moveAnimationSpeed;
             moveToBlock = path.ElementAt(pathIndex);
 
             float journey = Vector3.Distance(transform.position, (moveToBlock.transform.position + transform.up));
@@ -189,6 +184,9 @@ public class Character : MonoBehaviour
     {
         ActionPoints -= 2;
 
+        if (moveTo.Count() > movementSpeed)
+            ActionPoints -= 2;
+
         if(moveTo.Count() > 0)
         {
             path = moveTo;
@@ -215,7 +213,7 @@ public class Character : MonoBehaviour
     {
         characterClicked?.Invoke(this, this);
         
-        uiManager.DisplayAttacks(attacks, this);
+        uiManager.DisplayActionButtons(attacks, this);
     }
 
     private void Update()
