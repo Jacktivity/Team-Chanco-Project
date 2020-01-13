@@ -1,45 +1,45 @@
 <levels>
   <level>
-    <map placementPoints ="6">
+    <map placementPoints ="3">
       <map-line value ="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
-	    <map-line value ="0,0,0,6,6,6,0,0,6,0,7,0,0,0,0,0,0,0,0,0"/>
-	    <map-line value ="0,4,0,0,0,0,0,0,0,0,7,0,4,0,0,4,0,0,0,0"/>
-	    <map-line value ="0,0,0,0,0,3,0,0,0,3,7,0,0,0,0,0,0,0,0,0"/>
-	    <map-line value ="0,0,0,0,0,3,0,0,0,3,7,2,2,0,0,0,0,0,0,0"/>
-	    <map-line value ="0,0,0,0,0,0,0,0,0,0,7,2,2,0,0,0,0,0,2,2"/>
-	    <map-line value ="0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,2,7"/>
-	    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,7"/>
-	    <map-line value ="0,0,0,0,3,0,0,0,0,0,0,0,3,0,0,0,0,0,0,7"/>
-	    <map-line value ="0,0,2,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,3,7"/>
-	    <map-line value ="0,0,2,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,7"/>
-	    <map-line value ="0,0,2,2,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,7"/>
-	    <map-line value ="1,1,2,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,3,7"/>
-	    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,7"/>
-	    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7"/>
-	    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,7"/>
-	    <map-line value ="0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,3,7"/>
-	    <map-line value ="0,0,0,0,0,0,0,0,0,0,3,0,0,0,2,2,0,0,0,7"/>
-	    <map-line value ="0,0,0,0,3,0,0,0,0,0,0,0,0,0,2,2,0,5,0,7"/>
-	    <map-line value ="0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,2,0,0,0,7"/>
+	    <map-line value ="0,0,0,3,3,3,0,0,3,0,1,0,0,0,0,0,0,0,0,0"/>
+	    <map-line value ="0,4,0,0,0,0,0,0,0,0,1,0,4,0,0,4,0,0,0,0"/>
+	    <map-line value ="0,0,0,0,0,3,0,0,0,3,1,0,0,0,0,0,0,0,0,0"/>
+	    <map-line value ="0,0,0,0,0,3,0,0,0,3,1,2,2,0,0,0,0,0,0,0"/>
+	    <map-line value ="0,0,0,0,0,0,0,0,0,0,1,2,2,0,0,0,0,0,2,2"/>
+	    <map-line value ="0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,2,1"/>
+	    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1"/>
+	    <map-line value ="0,0,0,0,3,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1"/>
+	    <map-line value ="0,0,2,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1"/>
+	    <map-line value ="0,0,2,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,1"/>
+	    <map-line value ="0,0,2,2,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,1"/>
+	    <map-line value ="1,1,2,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,3,1"/>
+	    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1"/>
+	    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1"/>
+	    <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1"/>
+	    <map-line value ="0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,3,1"/>
+	    <map-line value ="0,0,0,0,0,0,0,0,0,0,3,0,0,0,2,2,0,0,0,1"/>
+	    <map-line value ="0,0,0,0,3,0,0,0,0,0,0,0,0,0,2,2,0,5,0,1"/>
+	    <map-line value ="0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1"/>
     </map>
     <enemies>
       <enemy name="EnemyUnit" type="0" posX="5" posZ="8"/>
       <enemy name="EnemyUnit" type="0" posX="4" posZ="14"/>
-      <enemy name="EnemyUnit" type="1" posX="14" posZ="16"/>
+      <enemy name="EnemyUnit" type="1" posX="14" posZ="13"/>
       <enemy name="EnemyUnit" type="0" posX="18" posZ="12"/>
-      <enemy name="EnemyUnit" type="0" posX="17" posZ="3"/>
+      <enemy name="EnemyUnit" type="0" posX="11" posZ="3"/>
       <enemy name="EnemyUnit" type="0" posX="15" posZ="9"/>
     </enemies>
     <placeables>
       <placeable posX="5" posZ="0"/>
-      <placeable posX="7" posZ="0"/>
+      <placeable posX="1" posZ="0"/>
       <placeable posX="4" posZ="1"/>
-      <placeable posX="6" posZ="1"/>
+      <placeable posX="3" posZ="1"/>
       <placeable posX="8" posZ="1"/>
       <placeable posX="5" posZ="2"/>
-      <placeable posX="7" posZ="2"/>
+      <placeable posX="1" posZ="2"/>
       <placeable posX="4" posZ="3"/>
-      <placeable posX="6" posZ="3"/>
+      <placeable posX="3" posZ="3"/>
       <placeable posX="8" posZ="3"/>
     </placeables>
   </level>

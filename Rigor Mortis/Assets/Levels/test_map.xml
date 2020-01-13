@@ -15,9 +15,9 @@
       <enemy name="redblock" type="0" posX="0" posZ="3"/>
     </enemies>
     <placeables>
-      <placeable posX="7" posZ="10"/>
-      <placeable posX="7" posZ="9"/>
-      <placeable posX="7" posZ="8"/>
+      <placeable posX="1" posZ="10"/>
+      <placeable posX="1" posZ="9"/>
+      <placeable posX="1" posZ="8"/>
     </placeables>
   </level>
 </levels>

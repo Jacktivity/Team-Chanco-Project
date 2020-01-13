@@ -728,9 +728,7 @@ MonoBehaviour:
   - {fileID: 6854757643019782258, guid: e7d6bee70cf76b9409cca67989100ef5, type: 3}
   - {fileID: 6645742794849477671, guid: 269d7f95c0acf8948b2e5b2414ef05e5, type: 3}
   - {fileID: 803779068645609789, guid: aaf2bcdbc7187ff46823f0181ca61923, type: 3}
-  - {fileID: 651419668214571210, guid: 09e64d81afb4ff244944a18d751e2b4e, type: 3}
-  - {fileID: 6623639865727720075, guid: d2cbacb4c83d2d649a59025e3b8dd8ed, type: 3}
-  - {fileID: 4120780230417916056, guid: 7f5bb6b7c49baed408d40722779cc591, type: 3}
+  - {fileID: 5226057197208204854, guid: cc4cb492a5b2af84b82122778849f628, type: 3}
   levelMap: {fileID: 4900000, guid: 1d0a349d7edd35244b54d81cae0dd924, type: 3}
   SelectedUnit: {fileID: 0}
   spawnPoint: {r: 1, g: 1, b: 0, a: 1}

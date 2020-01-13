@@ -64,7 +64,7 @@ public class BlockScript : MonoBehaviour
     {
         GameObject contact = collision.gameObject;
 
-        if (contact.tag == "Floor" && contact.transform.position.y == gameObject.transform.position.y)
+        if (gameObject.tag == "Floor" && contact.tag == "Floor" && contact.transform.position.y == gameObject.transform.position.y)
         {
             Vector3 newCoord = coordinates - contact.GetComponent<BlockScript>().coordinates;
             if(collision.transform.position.y > transform.position.y)
@@ -79,10 +79,12 @@ public class BlockScript : MonoBehaviour
                     switch ((int)newCoord.x)
                     {
                         case -1:
+                            if(E==null)
                             E = contact;
                             break;
                         case 1:
-                            W = contact;
+                            if (W == null)
+                                W = contact;
                             break;
                         default:
                             break;
@@ -92,13 +94,16 @@ public class BlockScript : MonoBehaviour
                     switch ((int)newCoord.x)
                     {
                         case -1:
-                            NE = contact;
+                            if (NE == null)
+                                NE = contact;
                             break;
                         case 1:
-                            NW = contact;
+                            if (NW == null)
+                                NW = contact;
                             break;
                         case 0:
-                            N = contact;
+                            if (N == null)
+                                N = contact;
                             break;
                         default:
                             break;
@@ -108,13 +113,83 @@ public class BlockScript : MonoBehaviour
                     switch ((int)newCoord.x)
                     {
                         case -1:
-                            SE = contact;
+                            if (SE == null)
+                                SE = contact;
                             break;
                         case 1:
-                            SW = contact;
+                            if (SW == null)
+                                SW = contact;
                             break;
                         case 0:
-                            S = contact;
+                            if (S == null)
+                                S = contact;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+           
+        }
+
+        if (gameObject.tag == "Floor-Transition" && contact.tag == "Floor")
+        {
+            Vector3 newCoord = coordinates - contact.GetComponent<BlockScript>().coordinates;
+            var contactBlock = contact.GetComponent<BlockScript>();
+            var direction = gameObject.transform.eulerAngles.y / 90;
+
+            switch ((int)newCoord.z)
+            {
+                case 0:
+                    switch ((int)newCoord.x)
+                    {
+                        case -1:
+                            if (direction == 3 && contact.transform.position.y == gameObject.transform.position.y ||
+                                direction == 1 && contact.transform.position.y == gameObject.transform.position.y - 1)
+                            {
+                                E = contact;
+                                contactBlock.W = gameObject;
+                            }
+                            break;
+                        case 1:
+                            if (direction == 1 && contact.transform.position.y == gameObject.transform.position.y ||
+                                direction == 3 && contact.transform.position.y == gameObject.transform.position.y - 1)
+                            {
+                                W = contact;
+                                contactBlock.E = gameObject;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case -1:
+                    switch ((int)newCoord.x)
+                    {
+                        case 0:
+                            if ((direction == 2 && contact.transform.position.y == gameObject.transform.position.y) || 
+                                direction == 0 && contact.transform.position.y == gameObject.transform.position.y -1)
+                            {
+                                N = contact;
+                                contactBlock.S = gameObject;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch ((int)newCoord.x)
+                    {
+                        case 0:
+                            if (direction == 0 && contact.transform.position.y == gameObject.transform.position.y ||
+                                direction == 2 && contact.transform.position.y == gameObject.transform.position.y - 1)
+                            {
+                                S = contact;
+                                contactBlock.N = gameObject;
+                            }
                             break;
                         default:
                             break;
