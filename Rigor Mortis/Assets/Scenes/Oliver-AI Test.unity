@@ -221,6 +221,12 @@ Skybox:
   m_GameObject: {fileID: 82028631}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 2100000, guid: 53d690bb4e70abf4498a339340c6673f, type: 2}
+--- !u!223 &128932989 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7504293504046169168, guid: b1ebf67617d599243a4af4dc58257d56,
+    type: 3}
+  m_PrefabInstance: {fileID: 7629129161311152103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &205023745 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1100370849367415058, guid: 724620522a4814a41a3e3123a1f34ec4,
@@ -381,7 +387,7 @@ MonoBehaviour:
   battleCanvas: {fileID: 827883148}
   prepCanvas: {fileID: 205023746}
   fixedCanvas: {fileID: 209558815}
-  pauseCanvas: {fileID: 0}
+  pauseCanvas: {fileID: 128932989}
   turnDisplay: {fileID: 333307314}
   attacking: 0
   attackButton: {fileID: 3428575637537108063, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
@@ -725,7 +731,7 @@ MonoBehaviour:
   - {fileID: 651419668214571210, guid: 09e64d81afb4ff244944a18d751e2b4e, type: 3}
   - {fileID: 6623639865727720075, guid: d2cbacb4c83d2d649a59025e3b8dd8ed, type: 3}
   - {fileID: 4120780230417916056, guid: 7f5bb6b7c49baed408d40722779cc591, type: 3}
-  levelMap: {fileID: 4900000, guid: 5f07e7bca074f5f49bf53be9efa4bd0f, type: 3}
+  levelMap: {fileID: 4900000, guid: 1d0a349d7edd35244b54d81cae0dd924, type: 3}
   SelectedUnit: {fileID: 0}
   spawnPoint: {r: 1, g: 1, b: 0, a: 1}
   lowSpeedTile: {r: 0, g: 1, b: 1, a: 1}
@@ -852,11 +858,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8340796270077940530, guid: 195497fdef40b4f4aa04d0c47b056391,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 82028632}
     - target: {fileID: 8340796270077940529, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -962,6 +963,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8340796270077940530, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 82028632}
     - target: {fileID: 8340796270195176612, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
