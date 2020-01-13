@@ -12,8 +12,8 @@ public class HealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        slider.maxValue = unit.GetHealth();
-        slider.value = unit.GetHealth();
+        slider.maxValue = unit.GetHealth;
+        slider.value = unit.GetHealth;
     }
 
     // Update is called once per frame

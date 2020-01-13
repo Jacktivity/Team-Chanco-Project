@@ -119,20 +119,36 @@ public class UIManager : MonoBehaviour
         }
         popUpButtons = new List<GameObject>();
         
-        for (int i = 0; i < _attacks.Count(); i++)
+        if(character.CanAttack)
         {
-            Vector3 popUpOffset = new Vector3(0, 30 * i, 0);
+            for (int i = 0; i < _attacks.Count(); i++)
+            {
+                Vector3 popUpOffset = new Vector3(0, 30 * i, 0);
 
-            GameObject button = Instantiate(attackButton, popupArea.transform);
-            //button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            //button.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
-            button.transform.localPosition = baseAttackPosition + popUpOffset;
-            popUpButtons.Add(button);
+                GameObject button = Instantiate(attackButton, popupArea.transform);
+                //button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+                //button.GetComponent<RectTransform>().pivot = new Vector2(0, 0);
+                button.transform.localPosition = baseAttackPosition + popUpOffset;
+                popUpButtons.Add(button);
 
-            button.GetComponent<ChooseAttackButton>().character = character;
-            button.GetComponent<ChooseAttackButton>().gridManager = gridManager;
-            button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
-            button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).Name;
+                button.GetComponent<ChooseAttackButton>().character = character;
+                button.GetComponent<ChooseAttackButton>().gridManager = gridManager;
+                button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
+                button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).Name;
+            }
+
+            var moveOffset = new Vector3(0, 30 * (_attacks.Count() + 1), 0);
+            var moveBtn = Instantiate(attackButton, popupArea.transform);
+            moveBtn.transform.localPosition = baseAttackPosition + moveOffset;
+        }  
+        else if(character.CanMove)
+        {
+            var moveBtn = Instantiate(attackButton, popupArea.transform);
+            moveBtn.transform.localPosition = baseAttackPosition;
+        }
+        else
+        {
+            //No actions can be taken add button to represent this
         }
     }
 

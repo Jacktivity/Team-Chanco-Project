@@ -26,7 +26,8 @@ public class Character : MonoBehaviour
     //public AttackManager attackManager;
     public Pathfinder pathfinder;
     //public bool hasTurn, movedThisTurn;
-    public int actionPoints;
+    private int maxActionPoints;
+    public int ActionPoints { get; private set; }
     public BlockScript floor;
     public bool moving = false;
     float counterTime;
@@ -52,7 +53,8 @@ public class Character : MonoBehaviour
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
         attackEvent += DamageCheck;
-        actionPoints = 2;
+        //Movement costs 2AP, Attacking costs 3AP
+        ActionPoints = maxActionPoints = 4;
 
         ChooseAttackButton.attackChosen += (s, e) =>
         {
@@ -73,6 +75,7 @@ public class Character : MonoBehaviour
     {
         if(selectedAttack != null)
         {
+            ActionPoints -= 3;
 
             var baseDamage = selectedAttack.RollDamage();
 
@@ -90,9 +93,11 @@ public class Character : MonoBehaviour
             //TODO: Replace with AP
             // hasTurn = false;
             // movedThisTurn = true;
-            actionPoints -= 1;
+            ActionPoints -= 1;
         }
     }
+
+    public void SpendAP(int actionPoints) => ActionPoints -= actionPoints;
 
     private void Movement()
     {
@@ -178,15 +183,12 @@ public class Character : MonoBehaviour
         this.gameObject.SetActive(false);
         Slider slider = GetComponent<HealthBar>().slider;
         slider.gameObject.SetActive(false);
-    }
-
-    public float GetHealth()
-    {
-        return maxHitPoints;
-    }
+    }    
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
     {
+        ActionPoints -= 2;
+
         if(moveTo.Count() > 0)
         {
             path = moveTo;
@@ -198,19 +200,28 @@ public class Character : MonoBehaviour
         } 
     }
 
+    public float GetHealth => maxHitPoints;
+
+    public bool CanAttack => ActionPoints >= 2;
+
+    public bool CanMove => ActionPoints > 0;
+
+    public void APReset()
+    {
+        ActionPoints = maxActionPoints;
+    }
+
     private void OnMouseDown()
     {
         characterClicked?.Invoke(this, this);
-
-        if(actionPoints > 1)
-        {
-            uiManager.DisplayAttacks(attacks, this);
-        }
+        
+        uiManager.DisplayAttacks(attacks, this);
     }
 
     private void Update()
     {
-        if (actionPoints <= 0)
+        //TODO Remove and check where things go wrong
+        if (ActionPoints <= 0)
         {
             //Make highlighter of transparent material? Outline renderer etc?        
             gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
