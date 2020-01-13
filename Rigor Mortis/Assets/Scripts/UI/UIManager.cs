@@ -51,13 +51,14 @@ public class UIManager : MonoBehaviour
         markers = new List<GameObject>();
         popUpButtons = new List<GameObject>();
 
-        BuildUnits();
 
         gameStateChange += GameStateChanged;
         gameStateChange?.Invoke(this, UIManager.GameStates.placementPhase);
 
         ChooseAttackButton.attackChosen += DisplayTargets;
         Character.attackEvent += ClearAttackUI;
+
+        BuildUnits();
     }
 
     private void Update() {
@@ -212,17 +213,17 @@ public class UIManager : MonoBehaviour
         foreach (Character unit in FindObjectsOfType<Character>())
         {
             unitList.Add(unit);
-            InstantiateHealthBar(unit);
             InstantiateMarker(unit);
+            InstantiateHealthBar( unit );
         }
     }
 
     void InstantiateHealthBar(Character unit) {
-        Slider newSlider = Instantiate(healthBar, unit.transform.position + healthBarOffset, fixedCanvas.transform.rotation, fixedCanvas.transform);
+        Slider newSlider = Instantiate(healthBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
         healthBars.Add(newSlider);
         unit.gameObject.AddComponent<HealthBar>().unit = unit;
         unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
-        unit.gameObject.GetComponent<HealthBar>().offset = healthBarOffset;
+        //unit.gameObject.GetComponent<HealthBar>().offset = healthBarOffset;
     }
 
     public void AddUnit(Character newUnit) {

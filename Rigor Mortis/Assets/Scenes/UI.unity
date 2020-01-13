@@ -542,7 +542,7 @@ MonoBehaviour:
   marker: {fileID: 1878347195513547648, guid: a07229e37bec5894f88c212ed5da88bc, type: 3}
   healthBar: {fileID: 4641054099590450111, guid: aa6eb00298d4d92499e90ed5b4efed7f,
     type: 3}
-  healthBarOffset: {x: 0, y: 0, z: 0}
+  healthBarOffset: {x: 0, y: 1.75, z: 0}
   blocksInRange: []
   currentState: 0
   resumeState: 0
