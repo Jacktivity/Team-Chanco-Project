@@ -16,8 +16,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]Text turnDisplay;
 
-    public bool attacking = false;
-
     [SerializeField]GameObject attackButton, targetCharacterButton, popupArea;
     [SerializeField]private Vector3 baseAttackPosition, targetCharacterOffset;
     public List<GameObject> popUpButtons;
@@ -118,7 +116,7 @@ public class UIManager : MonoBehaviour
         turnDisplay.text = "Turn " + turn;
     }
 
-    public void wait()
+    public void Wait()
     {
         gridManager.CycleTurns();
     }
@@ -263,6 +261,9 @@ public class UIManager : MonoBehaviour
     }
 
     public void SetPauseCanvas(bool enabled) {
+        if (!pauseCanvas.gameObject.active) {
+            pauseCanvas.gameObject.SetActive(true);
+        }
         pauseCanvas.enabled = enabled;
     }
 }

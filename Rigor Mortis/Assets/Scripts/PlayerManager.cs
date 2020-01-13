@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
     {
         bool unitCanMove = selectedPlayer != null && gridManager.playerTurn;
 
-        if (unitCanMove && tile.occupier == null && uiManager.attacking == false)
+        if (unitCanMove && tile.occupier == null)
         {
             bool playerCanMove = selectedPlayer.movedThisTurn == false && selectedPlayer.hasTurn;
             if(playerCanMove)
