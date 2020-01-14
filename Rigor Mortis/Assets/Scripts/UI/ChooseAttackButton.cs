@@ -21,20 +21,12 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
         uiManager = FindObjectOfType<UIManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ChooseAttack()
     {
         uiManager.DeleteCurrentPopupButtons();
         attackChosen?.Invoke(this, new CharacterAttack(character, attack));        
     }
-
-
-
+       
     public void OnPointerEnter(PointerEventData eventData)
     {
         gridManager.ClearMap();

@@ -80,22 +80,23 @@ public class UIManager : MonoBehaviour
 
     private void ClearAttackUI(object sender, AttackEventArgs e)
     {
-        foreach (var btn in popUpButtons)
-        {
-            Destroy(btn);
-        }
-        popUpButtons = new List<GameObject>();
+        DeleteCurrentPopupButtons();
     }    
 
     private void DisplayTargets(object sender, ChooseAttackButton.CharacterAttack e)
     {
         DeleteCurrentPopupButtons();
 
-        var targetsInRange = e.attacker.pathfinder.GetTilesInRange(e.attacker.floor, e.attackChosen.Range, true).Where(b => b.Occupied ? b.occupier.tag == "Enemy" : false).Select(t => t.occupier.GetComponent<Character>());
+        var targetsInRange = e.attacker.pathfinder.GetTilesInRange(e.attacker.floor, e.attackChosen.Range, true)
+            .Where(b => b.Occupied ? b.occupier.tag == "Enemy" : false)
+            .Select(t => t.occupier.GetComponent<Character>());
+
+
+        
         if (targetsInRange.Count() == 0)
         {
             //Say no people to hit
-            var btn = Instantiate(targetCharacterButton, battleCanvas.transform);
+            var btn = Instantiate(targetCharacterButton, popupArea.transform);            
             popUpButtons.Add(btn);
             btn.GetComponentInChildren<Text>().text = "No Targets";
         }
@@ -103,13 +104,17 @@ public class UIManager : MonoBehaviour
         {
             for (int i = 0; i < targetsInRange.Count(); i++)
             {
-                GameObject button = Instantiate(targetCharacterButton, battleCanvas.transform);
+                var button = Instantiate(targetCharacterButton, popupArea.transform);
+                var moveOffset = new Vector3(0, 30 * i, 0);
                 popUpButtons.Add(button);
+                button.transform.localPosition = baseAttackPosition + moveOffset; 
                 button.GetComponentInChildren<Text>().text = targetsInRange.ElementAt(i).name;
                 var enemySelect = button.GetComponent<EnemySelectButton>();
                 enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i));
             }
         }
+
+
     }
 
     public void DeleteCurrentPopupButtons()
@@ -134,11 +139,7 @@ public class UIManager : MonoBehaviour
 
     public void DisplayActionButtons(IEnumerable<Attack> _attacks, Character character)
     {
-        foreach (GameObject button in popUpButtons)
-        {
-            Destroy(button);            
-        }
-        popUpButtons = new List<GameObject>();
+        DeleteCurrentPopupButtons();
         
         if(character.CanAttack)
         {
