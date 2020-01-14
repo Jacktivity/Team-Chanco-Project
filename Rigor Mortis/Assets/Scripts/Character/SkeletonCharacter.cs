@@ -15,7 +15,7 @@ public class SkeletonCharacter : Character
         armour = 3;
         evade = 25;
         manaPoints = 0;
-        power = 1;
+        power = 7;
         resistance = 1;
         movementSpeed = 3;
         movemenSprint = 2;
