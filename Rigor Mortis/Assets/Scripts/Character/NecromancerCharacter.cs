@@ -34,5 +34,12 @@ public class NecromancerCharacter : Character
             necroButton = GameObject.Find("NecromancerButton");
             necroButton.SetActive(false);
         }
+
+        playerManager.AddNecromancer(this);
+    }
+
+    private void OnDisable()
+    {
+        playerManager.RemoveNecromancer(this);
     }
 }

@@ -9,7 +9,6 @@ using System;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]Pathfinder pathFinder;
-
     [SerializeField]GridManager gridManager;
 
     [SerializeField]Canvas battleCanvas, prepCanvas, fixedCanvas, pauseCanvas, winCanvas, loseCanvas;
@@ -21,7 +20,6 @@ public class UIManager : MonoBehaviour
 
     public List<GameObject> popUpButtons;
 
-    List<Character> unitList;
 
     [SerializeField]GameObject marker;
     List<GameObject> markers;
@@ -46,7 +44,6 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        unitList = new List<Character>();
         healthBars = new List<Slider>();
         markers = new List<GameObject>();
         popUpButtons = new List<GameObject>();
@@ -57,8 +54,6 @@ public class UIManager : MonoBehaviour
 
         ChooseAttackButton.attackChosen += DisplayTargets;
         Character.attackEvent += ClearAttackUI;
-
-        BuildUnits();
     }
 
 
@@ -113,8 +108,6 @@ public class UIManager : MonoBehaviour
                 enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i));
             }
         }
-
-
     }
 
     public void DeleteCurrentPopupButtons()
@@ -192,9 +185,9 @@ public class UIManager : MonoBehaviour
     }
 
     //Minimap Markers
-    void InstantiateMarker(Character unit)
+    public void InstantiateMarker(Character unit)
     {
-        switch(unit.tag) {
+        switch (unit.tag) {
             case "Enemy":
             GameObject enemyMarker = Instantiate(marker, unit.transform.position, transform.rotation);
             enemyMarker.transform.SetParent(unit.transform);
@@ -214,28 +207,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    //Health Bars
-    void BuildUnits() {
-        foreach (Character unit in FindObjectsOfType<Character>())
-        {
-            unitList.Add(unit);
-            InstantiateMarker(unit);
-            InstantiateHealthBar( unit );
-        }
-    }
-
-    void InstantiateHealthBar(Character unit) {
+    public void InstantiateHealthBar(Character unit) {
         Slider newSlider = Instantiate(healthBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
         healthBars.Add(newSlider);
         unit.gameObject.AddComponent<HealthBar>().unit = unit;
         unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
-        //unit.gameObject.GetComponent<HealthBar>().offset = healthBarOffset;
-    }
-
-    public void AddUnit(Character newUnit) {
-        unitList.Add(newUnit);
-        InstantiateHealthBar(newUnit);
-        InstantiateMarker(newUnit);
     }
 
 
@@ -243,7 +219,6 @@ public class UIManager : MonoBehaviour
     public void SetUnit(Character unit) {
         gridManager.SetSelectedUnit(unit);
     }
-
 
     //Set Canvas'
     private void GameStateChanged(object sender, GameStates state) {

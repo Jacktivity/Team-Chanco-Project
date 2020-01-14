@@ -25,6 +25,7 @@ public class Character : MonoBehaviour
     public UIManager uiManager;
     //public AttackManager attackManager;
     public Pathfinder pathfinder;
+    public PlayerManager playerManager;
     //public bool hasTurn, movedThisTurn;
     private int maxActionPoints;
     public int ActionPoints { get; private set; }
@@ -50,6 +51,7 @@ public class Character : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
+        playerManager = FindObjectOfType<PlayerManager>();
         //attackManager = FindObjectOfType<AttackManager>();
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
@@ -172,12 +174,9 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Hp:"+currentHitPoints);
-        Debug.Log("Dmg:"+damage);
         currentHitPoints -= damage;
 
         
-        Debug.Log("Hp:" + currentHitPoints);
         if(currentHitPoints <= 0)
         {
             DestroyUnit();
@@ -195,7 +194,7 @@ public class Character : MonoBehaviour
         this.gameObject.SetActive(false);
         Slider slider = GetComponent<HealthBar>().slider;
         slider.gameObject.SetActive(false);
-    }    
+    }
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
     {     
@@ -206,7 +205,7 @@ public class Character : MonoBehaviour
             if (moveTo.Count() > movementSpeed + 1)
                 ActionPoints -= 2;
 
-            Debug.Log(ActionPoints);
+            Debug.Log(this.tag + " " + this.name + " Action Points: " + ActionPoints);
             path = moveTo;
             pathIndex = 0;
             moving = true;

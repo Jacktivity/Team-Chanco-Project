@@ -92,7 +92,9 @@
       </rotation>
     </rotations>
     <enemies>
-      <enemy name="EnemyUnit" type="1" posX="9" posY ="1" posZ="6"/>
+      <enemy name="EnemyUnit" type="1" posX="9" posY ="1" posZ="7"/>
+      <enemy name="EnemyUnit" type="0" posX="9" posY ="1" posZ="6"/>
+      <enemy name="EnemyUnit" type="0" posX="9" posY ="1" posZ="8"/>
     </enemies>
     <placeables>
       <placeable posX="5" posY ="1" posZ="0"/>
