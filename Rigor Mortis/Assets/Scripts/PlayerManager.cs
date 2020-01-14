@@ -17,6 +17,8 @@ public class PlayerManager : MonoBehaviour
     {
 
         GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
+        GridManager.unitSpawned += (s, e) => { e.moveComplete += (sender, character) => gridManager.CycleTurns(); };
+        GridManager.unitSpawned += (s, e) => { e.attackComplete += (sender, character) => gridManager.CycleTurns(); };
         GridManager.enemySpawned += (s, e) => { e.characterClicked += (sender, character) => EnemyUnitChosen(e); };
         //BlockScript.blockClicked += (s, e) => BlockClicked(e);
         ChooseAttackButton.pointerExit += (s, e) =>
@@ -59,7 +61,6 @@ public class PlayerManager : MonoBehaviour
         bool sprinting = walkTiles.Contains(tile) == false && sprintTiles.Contains(tile);
         if (sprinting)
         {
-            gridManager.CycleTurns();
             selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
             gridManager.ClearMap();
             if(selectedPlayer.tag =="Player")

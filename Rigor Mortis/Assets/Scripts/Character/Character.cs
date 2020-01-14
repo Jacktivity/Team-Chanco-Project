@@ -36,7 +36,7 @@ public class Character : MonoBehaviour
     Color colourStart;
 
     public EventHandler<Character> characterClicked;
-    public EventHandler<Character> moveComplete;
+    public EventHandler<Character> moveComplete, attackComplete;
     public static EventHandler<AttackEventArgs> attackEvent;
     public Attack selectedAttack;
     public BlockScript attackSourceBlock;
@@ -88,7 +88,8 @@ public class Character : MonoBehaviour
             var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, selectedAttack.Area, true);
             var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
 
-            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));            
+            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
+            attackComplete?.Invoke(this, this);
         }
     }
 
