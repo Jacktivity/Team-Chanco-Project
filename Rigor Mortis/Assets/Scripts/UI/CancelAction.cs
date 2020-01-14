@@ -1,19 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CancelAction : MonoBehaviour
 {
-    private UIManager uiManager;
+    private PlayerManager playerManager;
+    private Character character;
+    public static EventHandler<BlockScript> cancelActions;
     public void Start()
     {
-        uiManager = FindObjectOfType<UIManager>();
+        playerManager = FindObjectOfType<PlayerManager>();
     }
 
-
+    public void SetActions(Character character, IEnumerable<MoveButton> moveButtons)
+    {
+        this.character = character;
+    }
 
     public void CancelCurrentAction()
     {
-        uiManager.DeleteCurrentPopupButtons();
+        playerManager.PlayerUnitChosen(character);
+        FindObjectOfType<PlayerCharacterMover>().ResetMovement();
     }
 }

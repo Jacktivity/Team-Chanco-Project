@@ -22,6 +22,7 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         character.attackSourceBlock = target.floor;
         character.Attack();
+        target.GetComponentInChildren<Renderer>().material.color = Color.white;
         gridManager.ClearMap();
     }
 

@@ -48,6 +48,11 @@ public class BlockScript : MonoBehaviour
 
     }
 
+    public static void ResetBlockScriptEvents()
+    {
+        blockClicked = null;
+    }
+
     private void OnMouseDown()
     {
         if (!EventSystem.current.IsPointerOverGameObject()) {
