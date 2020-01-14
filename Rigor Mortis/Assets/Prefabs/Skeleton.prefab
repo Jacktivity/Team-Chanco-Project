@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 371396883732879494}
   - component: {fileID: 5663001783453113287}
   - component: {fileID: 6690734147878028020}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Skeleton
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -76,8 +76,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 1
-  hitPoints: 3
+  maxHitPoints: 0
   accuracy: 5
+  strength: 0
   power: 5
   evade: 0
   armour: 1
@@ -87,14 +88,11 @@ MonoBehaviour:
   manaPoints: 0
   isFlying: 0
   isCaptain: 0
-  turnManager: {fileID: 0}
   uiManager: {fileID: 0}
-  attackManager: {fileID: 0}
   pathfinder: {fileID: 0}
-  hasTurn: 1
-  movedThisTurn: 0
   floor: {fileID: 0}
   moving: 0
+  attackSourceBlock: {fileID: 0}
 --- !u!1001 &3413289468147232877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,10 +100,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9174458072726600154}
     m_Modifications:
-    - target: {fileID: 100002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
-      propertyPath: m_Name
-      value: SkeletonWIP_Decimated
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -161,6 +155,18 @@ PrefabInstance:
     - target: {fileID: 400002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
+      propertyPath: m_Name
+      value: SkeletonWIP_Decimated
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
       propertyPath: m_Materials.Array.data[0]

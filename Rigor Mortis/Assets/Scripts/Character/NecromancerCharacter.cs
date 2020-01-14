@@ -12,14 +12,14 @@ public class NecromancerCharacter : Character
         name = "Necromancer";
         cost = 0;
         maxHitPoints = 40;
-        accuracy = 75;
+        accuracy = 15;
         armour = 2;
         evade = 25;
         manaPoints = 50;
         power = 8;
         resistance = 5;
-        movementSpeed = 6;
-        movemenSprint = 6;
+        movementSpeed = 3;
+        movemenSprint = 3;
 
         attacks = new Attack[] {
             AttackLibrary.StaffWhack,

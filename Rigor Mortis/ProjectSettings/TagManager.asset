@@ -7,6 +7,7 @@ TagManager:
   - Floor
   - Enemy
   - Wall
+  - Floor-Transition
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
+  - Markers
+  - Units
   - 
   - 
   - 

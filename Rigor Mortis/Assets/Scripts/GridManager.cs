@@ -126,19 +126,19 @@ public class GridManager : MonoBehaviour
 
         foreach(var map in level.maps)
         {
-            var maplines = map.mapline.Select(m => m.value.Split(',').Select(v => int.Parse(v)).ToArray()).ToArray();
-
+            var rotationlines = level.rotations.ElementAt(map.layer).rotationline.SelectMany((r, x) => r.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
             var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
-            foreach (var pos in anonMap)
+            var mythingy = rotationlines.Length;
+            for (int i = 0; i < anonMap.Length; i++)
             {
+                var pos = anonMap[i];
+                var rot = rotationlines[i];
                 if (pos.Value >= 0)
                 {
-                    GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, yPos, pos.ZPos), tiles[pos.Value].transform.rotation, gameObject.transform);
+                    GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, yPos, pos.ZPos), Quaternion.Euler(new Vector3(tiles[pos.Value].transform.rotation.x, (90 * rot.Value), tiles[pos.Value].transform.rotation.z)), gameObject.transform);
                     tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, yPos, pos.ZPos);
                     tile.name = tile.name.Replace("(Clone)", "");
                     tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
-
-
                 }
                 BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };                
             }
@@ -344,6 +344,7 @@ public class GridManager : MonoBehaviour
 }
 namespace GridXML
 {
+
     // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
     /// <remarks/>
     [System.SerializableAttribute()]
@@ -378,6 +379,8 @@ namespace GridXML
 
         private levelsLevelMap[] mapsField;
 
+        private levelsLevelRotation[] rotationsField;
+
         private levelsLevelEnemy[] enemiesField;
 
         private levelsLevelPlaceable[] placeablesField;
@@ -393,6 +396,20 @@ namespace GridXML
             set
             {
                 this.mapsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("rotation", IsNullable = false)]
+        public levelsLevelRotation[] rotations
+        {
+            get
+            {
+                return this.rotationsField;
+            }
+            set
+            {
+                this.rotationsField = value;
             }
         }
 
@@ -434,6 +451,12 @@ namespace GridXML
 
         private levelsLevelMapMapline[] maplineField;
 
+        private byte layerField;
+
+        private byte placementpointsField;
+
+        private bool placementpointsFieldSpecified;
+
         private byte placementPointsField;
 
         private bool placementPointsFieldSpecified;
@@ -449,6 +472,48 @@ namespace GridXML
             set
             {
                 this.maplineField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte layer
+        {
+            get
+            {
+                return this.layerField;
+            }
+            set
+            {
+                this.layerField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte placementpoints
+        {
+            get
+            {
+                return this.placementpointsField;
+            }
+            set
+            {
+                this.placementpointsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool placementpointsSpecified
+        {
+            get
+            {
+                return this.placementpointsFieldSpecified;
+            }
+            set
+            {
+                this.placementpointsFieldSpecified = value;
             }
         }
 
@@ -486,6 +551,70 @@ namespace GridXML
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public partial class levelsLevelMapMapline
+    {
+
+        private string valueField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string value
+        {
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsLevelRotation
+    {
+
+        private levelsLevelRotationRotationline[] rotationlineField;
+
+        private byte layerField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("rotation-line")]
+        public levelsLevelRotationRotationline[] rotationline
+        {
+            get
+            {
+                return this.rotationlineField;
+            }
+            set
+            {
+                this.rotationlineField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte layer
+        {
+            get
+            {
+                return this.layerField;
+            }
+            set
+            {
+                this.layerField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsLevelRotationRotationline
     {
 
         private string valueField;
@@ -648,6 +777,8 @@ namespace GridXML
             }
         }
     }
+
+
 }
 
 

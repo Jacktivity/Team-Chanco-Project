@@ -11,11 +11,11 @@ public class SkeletonCharacter : Character
         name = "Skeleton";
         cost = 10;
         maxHitPoints = 20;
-        accuracy = 75;
+        accuracy = 15;
         armour = 3;
         evade = 25;
         manaPoints = 0;
-        power = 7;
+        power = 1;
         resistance = 1;
         movementSpeed = 3;
         movemenSprint = 2;

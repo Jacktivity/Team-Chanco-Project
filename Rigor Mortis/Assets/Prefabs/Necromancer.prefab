@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7110485719425533515}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1296372382414100887}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLForearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3873460022757235796}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 656255737993929044}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit11 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2597323834993988502}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRUpperarm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5208891693593401866}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit42
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2425807732705847111}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit53
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8389643814002369913}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4918203528114913624}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4850954386553083630}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit11 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4964462300606098995}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2711144971644343259}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigPelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5608950907148059946}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigNeck2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9111976171947390901}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLPalm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5507038853982765112}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRThigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -476,7 +476,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3877932797290712796}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8555388608335705108}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit53
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7914613743966958288}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit33
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +567,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8860843291698482086}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +598,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8958853821280996427}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLCollarbone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,7 +629,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 955997483440088049}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigSpine4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -661,7 +661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7682521515082561419}
   - component: {fileID: 3392386578469617355}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: NecromancerLow001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -795,7 +795,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5184389504592819296}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRPalm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -830,7 +830,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3137382349754908977}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLUpperarm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,7 +861,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6981717473452657432}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRCollarbone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -892,7 +892,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 634983586782608031}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -922,7 +922,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4775152104826146976}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit41
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +953,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2285420272734627234}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRForearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -984,7 +984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7484103686694690754}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1015,7 +1015,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3936625926245331893}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1046,7 +1046,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2791724369724744210}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit43
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1076,7 +1076,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6648326697685862249}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1107,7 +1107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6700047632677894935}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRibcage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1140,7 +1140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3842744395105671824}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLThigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1171,7 +1171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4860195594266983330}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1202,7 +1202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2618688423214342644}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit52
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1233,7 +1233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8239727312463808410}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1264,7 +1264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9112018301747351314}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigSpine1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1295,7 +1295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8361658783833405799}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit41
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1326,7 +1326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2966946930701631276}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1357,7 +1357,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6562308104705708702}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigSpine3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1388,7 +1388,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 251044700189326968}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1418,7 +1418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8227824387555677100}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1448,7 +1448,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7454386508442741470}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRCalf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1479,7 +1479,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6889579937702768791}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit52
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1510,7 +1510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6349103097304812675}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit51
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1541,7 +1541,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 109981866453520442}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit33
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1571,7 +1571,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8506755122255518944}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit43
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1606,7 +1606,7 @@ GameObject:
   - component: {fileID: 4790737883455124222}
   - component: {fileID: 639922894558805702}
   - component: {fileID: 1915332122485464447}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Necromancer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1673,8 +1673,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 0
-  hitPoints: 5
+  maxHitPoints: 0
   accuracy: 5
+  strength: 0
   power: 5
   evade: 2
   armour: 3
@@ -1684,14 +1685,11 @@ MonoBehaviour:
   manaPoints: 10
   isFlying: 0
   isCaptain: 1
-  turnManager: {fileID: 0}
   uiManager: {fileID: 0}
-  attackManager: {fileID: 0}
   pathfinder: {fileID: 0}
-  hasTurn: 1
-  movedThisTurn: 0
   floor: {fileID: 0}
   moving: 0
+  attackSourceBlock: {fileID: 0}
   necroButton: {fileID: 0}
 --- !u!33 &639922894558805702
 MeshFilter:
@@ -1729,7 +1727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7013615398815824299}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLCalf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1760,7 +1758,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8561997755709167492}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1791,7 +1789,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4588116856651809280}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1821,7 +1819,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8401903610568796951}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigLDigit12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1852,7 +1850,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3684388670040139809}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit51
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1883,7 +1881,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3677916078420564478}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit42
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1914,7 +1912,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6069646120168819126}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigSpine2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1945,7 +1943,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8453570029122971480}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigRDigit13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1975,7 +1973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6551060274828543998}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2005,7 +2003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7969596039909875148}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseRigNeck1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
