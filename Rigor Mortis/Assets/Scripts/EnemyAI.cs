@@ -19,13 +19,8 @@ public class EnemyAI : MonoBehaviour
         GridManager.enemySpawned += (s, e) => enemyMood.Add(e, AIStates.Attack);
     }
 
-    public bool MoveUnit()
-    {
-        var unitToMove = Units.First(u => u.MaxAP);
-
-        if (unitToMove == null)
-            return false;
-
+    public bool MoveUnit(Character unit)
+    {      
         switch (currentPlayState)
         {
             case AIStates.Regroup:
@@ -34,25 +29,25 @@ public class EnemyAI : MonoBehaviour
                 break;
             case AIStates.Attack:
 
-                var longestAttack = unitToMove.attacks.OrderByDescending(a => a.Range).First();
+                var longestAttack = unit.attacks.OrderByDescending(a => a.Range).First();
                 
-                var path = pathfinder.GetPath(unitToMove.floor, (s) => pathfinder.GetTilesInRange(s, longestAttack.Range,true).Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), unitToMove.isFlying == false);
+                var path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, longestAttack.Range,true).Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), unit.isFlying == false);
 
-                var walkPath = path.Take(unitToMove.movementSpeed);
+                var walkPath = path.Take(unit.movementSpeed);
 
                 bool walked = true;
 
                 if(walkPath.Last() != path.Last())
                 {
                     walked = false;
-                    walkPath = path.Take(unitToMove.movemenSprint + unitToMove.movementSpeed);
+                    walkPath = path.Take(unit.movemenSprint + unit.movementSpeed);
                 }
 
-                unitToMove.MoveUnit(walkPath);
+                unit.MoveUnit(walkPath);
 
                 if(walked)
                 {
-                    unitToMove.moveComplete += AIAttack;
+                    unit.moveComplete += AIAttack;
                 }
 
 

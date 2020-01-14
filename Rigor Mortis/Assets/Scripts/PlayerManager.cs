@@ -126,7 +126,7 @@ public class PlayerManager : MonoBehaviour
         
         if (gridManager.playerTurn && unit.ActionPoints >= 0)
         {
-            uiManager.DisplayActionButtons(unit.attacks, unit);
+            uiManager.DisplayActionButtons(unit.attacks, unit);            
 
             if (selectedPlayer != null)
             {
@@ -136,7 +136,8 @@ public class PlayerManager : MonoBehaviour
 
             selectedPlayer = unit;
             selectedPlayer.GetComponentInChildren<Renderer>().material.color = Color.yellow;
-            //HighlightMovementTiles(unit);
+            HighlightMovementTiles(unit);
+            GetComponent<PlayerCharacterMover>().SetMovement(unit, walkTiles, sprintTiles);
         }
         else
             selectedPlayer = null;
@@ -144,12 +145,12 @@ public class PlayerManager : MonoBehaviour
 
     private void HighlightMovementTiles(Character unit)
     {
-        if (unit.ActionPoints == 2)
+        if (unit.MaxAP)
         {
             walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
             sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
         }
-        else if(unit.ActionPoints == 1)
+        else if(unit.CanMove)
         {
             sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
             walkTiles = new BlockScript[0];

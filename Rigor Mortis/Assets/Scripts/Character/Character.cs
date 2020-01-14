@@ -49,6 +49,7 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
+        pathfinder = FindObjectOfType<Pathfinder>();
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
         playerManager = FindObjectOfType<PlayerManager>();

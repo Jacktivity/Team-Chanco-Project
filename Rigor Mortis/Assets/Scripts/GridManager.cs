@@ -214,6 +214,7 @@ public class GridManager : MonoBehaviour
         unit.pathfinder = gameObject.GetComponent<Pathfinder>();
         unitSpawned?.Invoke(this, unit);
         unit.SetFloor(tile);
+        tile.occupier = unit.gameObject;
         playerManager.AddUnit(unit);
 
 
@@ -310,7 +311,7 @@ public class GridManager : MonoBehaviour
     }
     IEnumerator MovingEnemies(GameObject enemy)
     {
-        enemyAIContainer.MoveUnit();
+        enemyAIContainer.MoveUnit(enemy.GetComponent<Character>());
 
         yield return new WaitForSeconds(1);
     }
