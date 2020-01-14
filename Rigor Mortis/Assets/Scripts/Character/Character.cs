@@ -73,6 +73,11 @@ public class Character : MonoBehaviour
         currentHitPoints = maxHitPoints;
     }
 
+    public void ActionPointSpend(int amount)
+    {
+        ActionPoints = ActionPoints - amount;
+    }
+
     public void SetFloor(BlockScript tile)
     {
         previousBlock = tile;
