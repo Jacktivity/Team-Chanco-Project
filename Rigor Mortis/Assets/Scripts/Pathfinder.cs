@@ -105,8 +105,7 @@ public class Pathfinder : MonoBehaviour
 
     public bool SearchComplete(BlockScript pathTile, Func<BlockScript, bool> searchCriteria)
     {
-        var returnValue = pathTile.AdjacentTiles().Any(t => searchCriteria(t));
-        return returnValue;
+        return pathTile.AdjacentTiles().Any(t => searchCriteria(t));
     }
 
     public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool searchOccupied = true)

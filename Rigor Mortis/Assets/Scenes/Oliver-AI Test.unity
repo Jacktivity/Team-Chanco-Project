@@ -674,6 +674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1353577216}
   - component: {fileID: 1353577215}
+  - component: {fileID: 1353577217}
   m_Layer: 0
   m_Name: PlayerContainer
   m_TagString: Untagged
@@ -699,6 +700,9 @@ MonoBehaviour:
   sprintTiles: []
   gridManager: {fileID: 1469572276}
   uiManager: {fileID: 1024436346}
+  unitList: []
+  activeEnemyNecromancers: []
+  activePlayerNecromancers: []
 --- !u!4 &1353577216
 Transform:
   m_ObjectHideFlags: 0
@@ -713,6 +717,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1353577217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353577214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8bb2583f729104187f2cccff97f3a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridManager: {fileID: 1469572276}
+  uiManager: {fileID: 1024436346}
 --- !u!224 &1358867849 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6612075941053652904, guid: 796e9cc411e470d4ba67273a729c54b2,
