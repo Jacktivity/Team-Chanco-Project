@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]Text turnDisplay;
 
-    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton;
+    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton, cancelActionBtn;
     [SerializeField]private Vector3 baseAttackPosition, targetCharacterOffset;
 
     public List<GameObject> popUpButtons;
@@ -36,6 +36,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]GameStates currentState;
     [SerializeField]GameStates resumeState;
     public bool isPaused;
+
+    private Vector3 buttonSpacing = new Vector3(0, 30, 0);
     
 
     public enum GameStates
@@ -53,7 +55,7 @@ public class UIManager : MonoBehaviour
 
 
         gameStateChange += GameStateChanged;
-        gameStateChange?.Invoke(this, UIManager.GameStates.placementPhase);
+        gameStateChange?.Invoke(this, GameStates.placementPhase);
 
         ChooseAttackButton.attackChosen += DisplayTargets;
         Character.attackEvent += ClearAttackUI;
@@ -66,7 +68,7 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown( KeyCode.Escape )) {
             if (!isPaused) {
                 resumeState = currentState;
-                gameStateChange?.Invoke(this, UIManager.GameStates.paused);
+                gameStateChange?.Invoke(this, GameStates.paused);
             } else {
                 Resume();
             }
@@ -75,7 +77,7 @@ public class UIManager : MonoBehaviour
 
     public void Resume() {
         isPaused = false;
-        UIManager.gameStateChange?.Invoke( this, resumeState );
+        gameStateChange?.Invoke( this, resumeState );
     }
 
     private void ClearAttackUI(object sender, AttackEventArgs e)
@@ -91,13 +93,14 @@ public class UIManager : MonoBehaviour
             .Where(b => b.Occupied ? b.occupier.tag == "Enemy" : false)
             .Select(t => t.occupier.GetComponent<Character>());
 
+        CreateCancelButton(e.attacker);
 
-        
         if (targetsInRange.Count() == 0)
         {
             //Say no people to hit
-            var btn = Instantiate(targetCharacterButton, popupArea.transform);            
+            var btn = Instantiate(targetCharacterButton, popupArea.transform);
             popUpButtons.Add(btn);
+            btn.transform.localPosition = baseAttackPosition;
             btn.GetComponentInChildren<Text>().text = "No Targets";
         }
         else
@@ -105,9 +108,9 @@ public class UIManager : MonoBehaviour
             for (int i = 0; i < targetsInRange.Count(); i++)
             {
                 var button = Instantiate(targetCharacterButton, popupArea.transform);
-                var moveOffset = new Vector3(0, 30 * i, 0);
+                var moveOffset = buttonSpacing * i;
                 popUpButtons.Add(button);
-                button.transform.localPosition = baseAttackPosition + moveOffset; 
+                button.transform.localPosition = baseAttackPosition + moveOffset;
                 button.GetComponentInChildren<Text>().text = targetsInRange.ElementAt(i).name;
                 var enemySelect = button.GetComponent<EnemySelectButton>();
                 enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i));
@@ -115,6 +118,14 @@ public class UIManager : MonoBehaviour
         }
 
 
+    }
+
+    public void CreateCancelButton(Character unit)
+    {
+        var cancel = Instantiate(cancelActionBtn, popupArea.transform);
+        popUpButtons.Add(cancel);
+        cancel.transform.localPosition = baseAttackPosition - buttonSpacing;
+        cancel.GetComponent<CancelAction>().SetCharacter(unit);
     }
 
     public void DeleteCurrentPopupButtons()
@@ -148,7 +159,7 @@ public class UIManager : MonoBehaviour
                 CreateAttackButton(_attacks, character, i);
             }
 
-            var moveOffset = new Vector3(0, 30 * (_attacks.Count() + 1), 0);
+            var moveOffset = buttonSpacing * (_attacks.Count() + 1);
             MakeMoveButton(moveOffset, character);
         }  
         else if(character.CanMove)
@@ -163,7 +174,7 @@ public class UIManager : MonoBehaviour
 
     private void CreateAttackButton(IEnumerable<Attack> _attacks, Character character, int i)
     {
-        Vector3 popUpOffset = new Vector3(0, 30 * i, 0);
+        Vector3 popUpOffset = buttonSpacing * i;
 
         GameObject button = Instantiate(attackButton, popupArea.transform);
         button.transform.localPosition = baseAttackPosition + popUpOffset;

@@ -330,7 +330,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1335
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -534,9 +534,12 @@ MonoBehaviour:
   popupArea: {fileID: 2032134649}
   moveButton: {fileID: 8590537472054130620, guid: 33954a3bffded0841839091831c18d4e,
     type: 3}
+  cancelActionBtn: {fileID: 6553022043289440012, guid: b2dc836d7c79ecf4884a766aedd5e2dc,
+    type: 3}
   baseAttackPosition: {x: 70, y: 145, z: 0}
   targetCharacterOffset: {x: 70, y: 0, z: 0}
   popUpButtons: []
+  marker: {fileID: 1878347195513547648, guid: a07229e37bec5894f88c212ed5da88bc, type: 3}
   healthBar: {fileID: 4641054099590450111, guid: aa6eb00298d4d92499e90ed5b4efed7f,
     type: 3}
   healthBarOffset: {x: 0, y: 0, z: 0}

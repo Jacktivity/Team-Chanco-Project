@@ -44,7 +44,10 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void ButtonClicked()
     {
         hideGridMoveOnExit = false;
-        //Instantiate cancel button
+
+        uiManager.DeleteCurrentPopupButtons();
+        uiManager.CreateCancelButton(character);
+
         BlockScript.blockClicked += MoveCharacterCheck;
     }
 
