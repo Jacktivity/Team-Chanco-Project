@@ -122,12 +122,11 @@ public class GridManager : MonoBehaviour
     void GenerateLevel()
     {
         var level = xmlData.level;
-        var yPos = 0;
 
         foreach(var map in level.maps)
         {
             var rotationlines = level.rotations.ElementAt(map.layer).rotationline.SelectMany((r, x) => r.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
-            var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
+            var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, YPos = map.layer,XPos = x })).ToArray();
             var mythingy = rotationlines.Length;
             for (int i = 0; i < anonMap.Length; i++)
             {
@@ -135,15 +134,14 @@ public class GridManager : MonoBehaviour
                 var rot = rotationlines[i];
                 if (pos.Value >= 0)
                 {
-                    GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, yPos, pos.ZPos), Quaternion.Euler(new Vector3(tiles[pos.Value].transform.rotation.x, (90 * rot.Value), tiles[pos.Value].transform.rotation.z)), gameObject.transform);
-                    tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, yPos, pos.ZPos);
+                    GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, pos.YPos, pos.ZPos), Quaternion.Euler(new Vector3(tiles[pos.Value].transform.rotation.x, (90 * rot.Value), tiles[pos.Value].transform.rotation.z)), gameObject.transform);
+                    tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);
                     tile.name = tile.name.Replace("(Clone)", "");
-                    tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
+                    tile.name = tile.name + '(' + pos.XPos + ','+ pos.YPos+ ',' + pos.ZPos + ')';
                 }
                 BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };                
             }
-            placementPoints += map.placementPoints;
-            yPos++;
+            placementPoints += map.placementpoints;
         }    
     }
 
@@ -214,6 +212,7 @@ public class GridManager : MonoBehaviour
         unit.pathfinder = gameObject.GetComponent<Pathfinder>();
         unitSpawned?.Invoke(this, unit);
         unit.SetFloor(tile);
+        tile.occupier = unit.gameObject;
         uiManager.AddUnit(unit);
 
 
