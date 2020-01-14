@@ -12,7 +12,7 @@ public class Character : MonoBehaviour
     private Vector3 previousForward;
     //0 = necromancer, 1 = skeleton, 2 = SteamingSkull, 3 = SpectralSkeleton, 4 = TombGuard
     #region statblock
-    public int cost, maxHitPoints, accuracy, strength, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
+    public int cost, maxHitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
     #endregion
 
     [SerializeField] protected int currentHitPoints;
@@ -87,7 +87,7 @@ public class Character : MonoBehaviour
             if (baseDamage.Magical > 0)
                 baseDamage.Magical += power;
             if (baseDamage.Physical > 0)
-                baseDamage.Physical += strength;
+                baseDamage.Physical += power;
             
             var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, selectedAttack.Area, true);
             var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
