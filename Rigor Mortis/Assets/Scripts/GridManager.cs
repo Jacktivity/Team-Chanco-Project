@@ -176,7 +176,7 @@ public class GridManager : MonoBehaviour
             tile.occupier = placedEnemy.gameObject;
 
             enemySpawned?.Invoke(this, placedEnemy);
-            uiManager.AddUnit(placedEnemy);
+            playerManager.AddUnit(placedEnemy);
           // eventSystem.AddUnit(placedEnemy);
         }
     }
@@ -214,7 +214,7 @@ public class GridManager : MonoBehaviour
         unit.pathfinder = gameObject.GetComponent<Pathfinder>();
         unitSpawned?.Invoke(this, unit);
         unit.SetFloor(tile);
-        uiManager.AddUnit(unit);
+        playerManager.AddUnit(unit);
 
 
        // eventSystem.AddUnit(SelectedUnit);

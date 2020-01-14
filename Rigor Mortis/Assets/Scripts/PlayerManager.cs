@@ -11,10 +11,16 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GridManager gridManager;
     [SerializeField] private UIManager uiManager;
 
+    public List<Character> unitList;
+    public List<Character> activeEnemyNecromancers;
+    public List<Character> activePlayerNecromancers;
 
     // Start is called before the first frame update
     void Start()
     {
+        unitList = new List<Character>();
+        activeEnemyNecromancers = new List<Character>();
+        activePlayerNecromancers = new List<Character>();
 
         GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
         GridManager.unitSpawned += (s, e) => { e.moveComplete += (sender, character) => gridManager.CycleTurns(); };
@@ -33,6 +39,48 @@ public class PlayerManager : MonoBehaviour
             //        gridManager.ColourTiles(selectedPlayer.pathfinder.GetTilesInRange(selectedPlayer.floor, selectedPlayer.selectedAttack.Range, true), false);
             //    }
         };
+    }
+
+    public void AddUnit(Character unit)
+    {
+        unitList.Add(unit);
+        uiManager.InstantiateHealthBar(unit);
+        uiManager.InstantiateMarker(unit);
+    }
+
+    public void AddNecromancer(Character unit)
+    {
+        if (unit.tag == "Enemy") {
+            Debug.Log(unit.tag + " " + unit.name + " Added");
+            activeEnemyNecromancers.Add(unit);
+        } else if(unit.tag == "Player") {
+            Debug.Log(unit.tag + " " + unit.name + " Added");
+            activePlayerNecromancers.Add(unit);
+        } else {
+            Debug.Log(unit.tag + " " + unit.name + " Not Added");
+        }
+    }
+
+    public void RemoveNecromancer(Character unit)
+    {
+        if (unit.tag == "Enemy")
+        {
+            Debug.Log(unit.tag + " " + unit.name + " Removed");
+            activeEnemyNecromancers.Remove(unit);
+        }
+        else if (unit.tag == "Player")
+        {
+            Debug.Log(unit.tag + " " + unit.name + " Removed");
+            activePlayerNecromancers.Remove(unit);
+        }
+        else
+        {
+            Debug.Log(unit.tag + " " + unit.name + " Not Removed");
+        }
+
+        if (activeEnemyNecromancers.Count <= 0) {
+            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
+        }
     }
 
     private void BlockClicked(BlockScript tile)
