@@ -75,7 +75,11 @@ public class Character : MonoBehaviour
 
     public void ActionPointSpend(int amount)
     {
-        ActionPoints = ActionPoints - amount;
+        if (ActionPoints - amount <= 0) {
+            ActionPoints = 0;
+        } else {
+            ActionPoints = ActionPoints - amount;
+        }
     }
 
     public void SetFloor(BlockScript tile)
