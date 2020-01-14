@@ -40,6 +40,5 @@ public class HealthBar : MonoBehaviour
                 break;
         }
         slider.transform.position = unit.transform.position + offset; 
-        Debug.Log( unit.tag + " " + unit.name + " Offset: " + offset.y);
     }
 }

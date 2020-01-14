@@ -19,6 +19,8 @@ public class SkeletonCharacter : Character
         resistance = 1;
         movementSpeed = 3;
         movemenSprint = 2;
+        
+        currentHitPoints = maxHitPoints;
 
         attacks = new Attack[] { AttackLibrary.RustySword };
     }

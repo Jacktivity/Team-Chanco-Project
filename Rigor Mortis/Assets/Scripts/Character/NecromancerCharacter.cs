@@ -21,6 +21,8 @@ public class NecromancerCharacter : Character
         movementSpeed = 3;
         movemenSprint = 3;
 
+        currentHitPoints = maxHitPoints;
+
         attacks = new Attack[] {
             AttackLibrary.StaffWhack,
             AttackLibrary.TeslaStab,

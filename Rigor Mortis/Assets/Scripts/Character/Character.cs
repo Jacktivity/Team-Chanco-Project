@@ -15,7 +15,7 @@ public class Character : MonoBehaviour
     public int cost, maxHitPoints, accuracy, strength, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
     #endregion
 
-    private int currentHitPoints;
+    [SerializeField] protected int currentHitPoints;
 
     public bool isFlying;
     public bool isCaptain;
@@ -64,7 +64,11 @@ public class Character : MonoBehaviour
                 selectedAttack = attackEvent.attackChosen;
         };
     }
-       
+
+    private void Start()
+    {
+        currentHitPoints = maxHitPoints;
+    }
 
     public void SetFloor(BlockScript tile)
     {
@@ -149,8 +153,11 @@ public class Character : MonoBehaviour
         if (e.AttackedCharacters.Contains(this))
         {
             var toHit = e.Accuracy - evade;
+
             var dodgeRoll = UnityEngine.Random.Range(1, 101);
-            if(dodgeRoll < toHit)
+
+
+            if (dodgeRoll > toHit)
             {
                 if (e.MagicDamage > resistance)
                     TakeDamage(e.MagicDamage - resistance);
@@ -158,17 +165,26 @@ public class Character : MonoBehaviour
                 if (e.PhysicalDamage > armour)
                     TakeDamage(e.PhysicalDamage - armour);
             }
+
             
         }
     }
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("Hp:"+currentHitPoints);
+        Debug.Log("Dmg:"+damage);
         currentHitPoints -= damage;
 
+        
+        Debug.Log("Hp:" + currentHitPoints);
         if(currentHitPoints <= 0)
         {
             DestroyUnit();
+        }
+        else
+        {
+            gameObject.GetComponent<HealthBar>().slider.value = currentHitPoints;
         }
     }
 
@@ -200,7 +216,7 @@ public class Character : MonoBehaviour
         } 
     }
 
-    public float GetHealth => maxHitPoints;
+    public float GetHealth => currentHitPoints;
 
     public bool MaxAP => ActionPoints == maxActionPoints;
 
