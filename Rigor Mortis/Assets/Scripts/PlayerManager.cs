@@ -115,7 +115,7 @@ public class PlayerManager : MonoBehaviour
         {
             walkTiles = sprintTiles = new BlockScript[0];
         }
-        
+
         gridManager.ColourTiles(sprintTiles, false);
         gridManager.ColourTiles(walkTiles, true);
     }
@@ -128,6 +128,6 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

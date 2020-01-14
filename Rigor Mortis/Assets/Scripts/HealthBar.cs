@@ -14,6 +14,7 @@ public class HealthBar : MonoBehaviour
     {
         slider.maxValue = unit.GetHealth;
         slider.value = unit.GetHealth;
+        Offset();
     }
 
     // Update is called once per frame
@@ -21,5 +22,24 @@ public class HealthBar : MonoBehaviour
     void Update()
     {
         //transform.position = new Vector3(unit.transform.position.x, unit.transform.position.y,  unit.transform.position.z);
+    }
+
+    void Offset() {
+        switch (unit.name) {
+
+            case "Necromancer":
+                offset.y = 1.75f;
+                break;
+
+            case "Skeleton":
+                offset.y = 1.25f;
+                break;
+
+            default:
+                offset.y = 1;
+                break;
+        }
+        slider.transform.position = unit.transform.position + offset; 
+        Debug.Log( unit.tag + " " + unit.name + " Offset: " + offset.y);
     }
 }
