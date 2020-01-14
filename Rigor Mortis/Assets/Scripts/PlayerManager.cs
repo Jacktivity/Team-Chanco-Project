@@ -80,8 +80,11 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerUnitChosen(Character unit)
     {
+        
         if (gridManager.playerTurn && unit.ActionPoints >= 0)
         {
+            uiManager.DisplayActionButtons(unit.attacks, unit);
+
             if (selectedPlayer != null)
             {
                 selectedPlayer.GetComponentInChildren<Renderer>().material.color = Color.white;

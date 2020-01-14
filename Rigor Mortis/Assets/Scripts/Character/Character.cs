@@ -181,14 +181,15 @@ public class Character : MonoBehaviour
     }    
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
-    {
-        ActionPoints -= 2;
-
-        if (moveTo.Count() > movementSpeed)
-            ActionPoints -= 2;
-
+    {     
         if(moveTo.Count() > 0)
         {
+            ActionPoints -= 2;
+
+            if (moveTo.Count() > movementSpeed + 1)
+                ActionPoints -= 2;
+
+            Debug.Log(ActionPoints);
             path = moveTo;
             pathIndex = 0;
             moving = true;
@@ -200,7 +201,11 @@ public class Character : MonoBehaviour
 
     public float GetHealth => maxHitPoints;
 
+    public bool MaxAP => ActionPoints == maxActionPoints;
+
     public bool CanAttack => ActionPoints >= 2;
+
+    public bool HasAttacked => ActionPoints == maxActionPoints - 3;
 
     public bool CanMove => ActionPoints > 0;
 
@@ -211,9 +216,8 @@ public class Character : MonoBehaviour
 
     private void OnMouseDown()
     {
-        characterClicked?.Invoke(this, this);
+        characterClicked?.Invoke(this, this);      
         
-        uiManager.DisplayActionButtons(attacks, this);
     }
 
     private void Update()

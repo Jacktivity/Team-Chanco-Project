@@ -21,6 +21,7 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         character.attackSourceBlock = target.floor;
         character.Attack();
+        gridManager.ClearMap();
     }
 
 

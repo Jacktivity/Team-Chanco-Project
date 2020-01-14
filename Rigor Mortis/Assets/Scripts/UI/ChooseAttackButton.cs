@@ -8,6 +8,7 @@ using System;
 public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     //public AttackManager attackManager;
+    private UIManager uiManager;
     public static EventHandler<CharacterAttack> attackChosen;
     public static EventHandler pointerExit;
     public GridManager gridManager;
@@ -17,7 +18,7 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     // Start is called before the first frame update
     void Start()
     {
-
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     // Update is called once per frame
@@ -28,7 +29,8 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void ChooseAttack()
     {
-        attackChosen?.Invoke(this, new CharacterAttack(character, attack));
+        uiManager.DeleteCurrentPopupButtons();
+        attackChosen?.Invoke(this, new CharacterAttack(character, attack));        
     }
 
 

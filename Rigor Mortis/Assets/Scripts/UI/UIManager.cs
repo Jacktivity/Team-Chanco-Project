@@ -55,6 +55,7 @@ public class UIManager : MonoBehaviour
         Character.attackEvent += ClearAttackUI;
     }
 
+
     private void Update() {
         if (Input.GetKeyDown( KeyCode.Escape )) {
             if (!isPaused) {
@@ -82,17 +83,10 @@ public class UIManager : MonoBehaviour
 
     private void DisplayTargets(object sender, ChooseAttackButton.CharacterAttack e)
     {
-        //Clear the previous target buttons
-        var buttonsToRemove = popUpButtons.Where(s => s.GetComponent<ChooseAttackButton>() == null);
-        foreach (var btn in buttonsToRemove)
-        {
-            Destroy(btn);
-        }
-
-        popUpButtons.RemoveAll(s => s.GetComponent<ChooseAttackButton>() == null);       
+        DeleteCurrentPopupButtons();
 
         var targetsInRange = e.attacker.pathfinder.GetTilesInRange(e.attacker.floor, e.attackChosen.Range, true).Where(b => b.Occupied ? b.occupier.tag == "Enemy" : false).Select(t => t.occupier.GetComponent<Character>());
-        if(targetsInRange.Count() == 0)
+        if (targetsInRange.Count() == 0)
         {
             //Say no people to hit
             var btn = Instantiate(targetCharacterButton, battleCanvas.transform);
@@ -102,7 +96,7 @@ public class UIManager : MonoBehaviour
         else
         {
             for (int i = 0; i < targetsInRange.Count(); i++)
-            {                
+            {
                 GameObject button = Instantiate(targetCharacterButton, battleCanvas.transform);
                 popUpButtons.Add(button);
                 button.GetComponentInChildren<Text>().text = targetsInRange.ElementAt(i).name;
@@ -110,6 +104,16 @@ public class UIManager : MonoBehaviour
                 enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i));
             }
         }
+    }
+
+    public void DeleteCurrentPopupButtons()
+    {
+        //Clear the previous target buttons
+        foreach (var btn in popUpButtons)
+        {
+            Destroy(btn);
+        }
+        popUpButtons = new List<GameObject>();
     }
 
     public void UpdateTurnNumber(int turn)
@@ -167,6 +171,7 @@ public class UIManager : MonoBehaviour
     private void MakeMoveButton(Vector3 buttonOffset, Character character)
     {
         var moveBtn = Instantiate(moveButton, popupArea.transform);
+        popUpButtons.Add(moveBtn);
         moveBtn.transform.localPosition = baseAttackPosition + buttonOffset;
         moveBtn.GetComponent<MoveButton>().SetUpMoveButton(character);
     }
