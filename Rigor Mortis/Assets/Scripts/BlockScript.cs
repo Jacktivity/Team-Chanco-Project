@@ -134,7 +134,7 @@ public class BlockScript : MonoBehaviour
            
         }
 
-        if (gameObject.tag == "Floor-Transition" && contact.tag == "Floor")
+        if (gameObject.tag == "Floor-Transition")
         {
             Vector3 newCoord = coordinates - contact.GetComponent<BlockScript>().coordinates;
             var contactBlock = contact.GetComponent<BlockScript>();
