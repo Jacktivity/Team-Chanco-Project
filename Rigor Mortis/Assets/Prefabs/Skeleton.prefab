@@ -75,10 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f67ce3f55061b41bf3e1df61b1aad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 1
+  cost: 10
   maxHitPoints: 0
   accuracy: 5
-  strength: 0
   power: 5
   evade: 0
   armour: 1
@@ -86,6 +85,7 @@ MonoBehaviour:
   movementSpeed: 3
   movemenSprint: 5
   manaPoints: 0
+  currentHitPoints: 0
   isFlying: 0
   isCaptain: 0
   uiManager: {fileID: 0}
@@ -100,6 +100,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9174458072726600154}
     m_Modifications:
+    - target: {fileID: 100002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
+      propertyPath: m_Name
+      value: SkeletonWIP_Decimated
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -155,18 +167,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
-      propertyPath: m_Name
-      value: SkeletonWIP_Decimated
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
-      propertyPath: m_Layer
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: b1f43979c3baf3e4bb4a43b6474365bd, type: 3}
       propertyPath: m_Materials.Array.data[0]
