@@ -12,6 +12,7 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private GridManager gridManager;
     private UIManager uiManager;
     private bool hideGridMoveOnExit = true;
+    public bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying, false);
         }
 
+
     }
 
     public void ButtonClicked()
@@ -48,20 +50,28 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         uiManager.DeleteCurrentPopupButtons();
         uiManager.CreateCancelButton(character);
 
-        BlockScript.blockClicked += MoveCharacterCheck;
+        FindObjectOfType<PlayerCharacterMover>().SetMovement(character, walkTiles, sprintTiles);
     }
 
-    private void MoveCharacterCheck(object sender, BlockScript e)
-    {
-        if (sprintTiles.Contains(e) || walkTiles.Contains(e))
-        {
-            BlockScript.blockClicked -= MoveCharacterCheck;
-            character.MoveUnit(character.pathfinder.GetPath(character.floor, (block) => block == e, character.isFlying == false));            
-            gridManager.ClearMap();
-            gridManager.ClearMap();
-            uiManager.DeleteCurrentPopupButtons();
-        }
-    }
+    //public void MoveCharacterCheck(object sender, BlockScript e)
+    //{
+    //    if (canMove == false)
+    //        RemoveMoveCheck();
+    //    else if (sprintTiles.Contains(e) || walkTiles.Contains(e))
+    //    {
+    //        uiManager.DeleteCurrentPopupButtons();
+    //        RemoveMoveCheck();
+    //        character.MoveUnit(character.pathfinder.GetPath(character.floor, (block) => block == e, character.isFlying == false));
+    //        gridManager.ClearMap();
+    //        gridManager.ClearMap();
+    //    }        
+    //}
+
+    //public void RemoveMoveCheck()
+    //{
+    //    BlockScript.blockClicked -= MoveCharacterCheck;
+    //}    
+
 
     public void OnPointerEnter(PointerEventData eventData)
     {

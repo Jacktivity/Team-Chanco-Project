@@ -125,7 +125,7 @@ public class UIManager : MonoBehaviour
         var cancel = Instantiate(cancelActionBtn, popupArea.transform);
         popUpButtons.Add(cancel);
         cancel.transform.localPosition = baseAttackPosition - buttonSpacing;
-        cancel.GetComponent<CancelAction>().SetCharacter(unit);
+        cancel.GetComponent<CancelAction>().SetActions(unit, popUpButtons.Select(b => b.GetComponent<MoveButton>()).Where(b => b != null));
     }
 
     public void DeleteCurrentPopupButtons()
@@ -133,6 +133,11 @@ public class UIManager : MonoBehaviour
         //Clear the previous target buttons
         foreach (var btn in popUpButtons)
         {
+            if (btn.GetComponent<MoveButton>() != null)
+            {
+                btn.GetComponent<MoveButton>().canMove = false;
+            }
+
             Destroy(btn);
         }
         popUpButtons = new List<GameObject>();
@@ -149,7 +154,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void DisplayActionButtons(IEnumerable<Attack> _attacks, Character character)
-    {
+    {        
         DeleteCurrentPopupButtons();
         
         if(character.CanAttack)
