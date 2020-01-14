@@ -56,8 +56,6 @@ public class PlayerManager : MonoBehaviour
         } else if(unit.tag == "Player") {
             Debug.Log(unit.tag + " " + unit.name + " Added");
             activePlayerNecromancers.Add(unit);
-        } else {
-            Debug.Log(unit.tag + " " + unit.name + " Not Added");
         }
     }
 
@@ -67,19 +65,15 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.Log(unit.tag + " " + unit.name + " Removed");
             activeEnemyNecromancers.Remove(unit);
-        }
-        else if (unit.tag == "Player")
-        {
+        } else if (unit.tag == "Player") {
             Debug.Log(unit.tag + " " + unit.name + " Removed");
             activePlayerNecromancers.Remove(unit);
-        }
-        else
-        {
-            Debug.Log(unit.tag + " " + unit.name + " Not Removed");
         }
 
         if (activeEnemyNecromancers.Count <= 0) {
             UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
+        } else if(activePlayerNecromancers.Count <= 0 ) {
+            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
         }
     }
 

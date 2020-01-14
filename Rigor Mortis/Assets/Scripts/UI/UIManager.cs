@@ -10,7 +10,6 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]Pathfinder pathFinder;
     [SerializeField]GridManager gridManager;
-    [SerializeField]PlayerManager playerManager;
 
     [SerializeField]Canvas battleCanvas, prepCanvas, fixedCanvas, pauseCanvas, winCanvas, loseCanvas;
 
