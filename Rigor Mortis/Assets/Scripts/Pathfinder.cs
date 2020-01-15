@@ -130,11 +130,12 @@ public class Pathfinder : MonoBehaviour
         {
             var pathTile = gameMap.OrderBy(t => distDictionary[t]).First();
 
-            ////If all traversible tiles do not contain unchecked nodes
-            //if(traversableTerrain.All(t => t.AdjacentTiles().All(a => distDictionary[a] != float.PositiveInfinity)))
-            //{
-            //    break;
-            //}
+            //If the shortest distance path unexplored is greater than the range
+            //then all searches paths are within range, and all unsearched paths will be further away
+            if(distDictionary[pathTile] > range)
+            {
+                break;
+            }
 
             gameMap.Remove(pathTile);
 
