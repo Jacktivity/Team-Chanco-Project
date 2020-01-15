@@ -160,8 +160,6 @@ public class Pathfinder : MonoBehaviour
             }
         }
 
-        var check = distDictionary;
-
         return CompleteMap.Where(t => distDictionary[t] <= range).ToArray();
     }
 
