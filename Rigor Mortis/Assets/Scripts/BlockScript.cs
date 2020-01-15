@@ -69,7 +69,10 @@ public class BlockScript : MonoBehaviour
     {
         GameObject contact = collision.gameObject;
 
-        if (contact.transform.position.y == gameObject.transform.position.y + 1 && contact.transform.position.x == gameObject.transform.position.x && contact.transform.position.z == gameObject.transform.position.z)
+        if (contact.transform.position.y == gameObject.transform.position.y + 1 && 
+            contact.transform.position.x == gameObject.transform.position.x && 
+            contact.transform.position.z == gameObject.transform.position.z 
+            && contact.tag == "Floor")
         {
             occupier = contact;
         }
