@@ -209,8 +209,12 @@ public class Character : MonoBehaviour
         floor.occupier = null;
         gameObject.GetComponent<HealthBar>().slider.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
-        Slider slider = GetComponent<HealthBar>().slider;
-        slider.gameObject.SetActive(false);
+
+        Slider healthSlider = GetComponent<HealthBar>().slider;
+        healthSlider.gameObject.SetActive(false);
+
+        Slider APSlider = GetComponent<ActionPointBar>().slider;
+        APSlider.gameObject.SetActive(false);
     }
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)

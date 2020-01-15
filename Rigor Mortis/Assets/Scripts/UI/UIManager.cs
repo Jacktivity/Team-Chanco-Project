@@ -260,7 +260,7 @@ public class UIManager : MonoBehaviour
         unit.gameObject.AddComponent<HealthBar>().unit = unit;
         unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
 
-        if(tag == "Player")
+        if(unit.tag == "Player")
         {
             Slider apSlider = Instantiate(APBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
             APBars.Add(apSlider);
