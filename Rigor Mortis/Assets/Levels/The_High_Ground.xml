@@ -126,9 +126,9 @@
     </rotations>
     <enemies>
       <enemy name="Necromancer" type="1" posX="1" posY ="2" posZ="5"/>
-      <enemy name="Skeleton" type="0" posX="3" posY ="2" posZ="5"/>
-      <enemy name="Skeleton" type="0" posX="3" posY ="2" posZ="7"/>
-      <enemy name="Skeleton" type="0" posX="3" posY ="2" posZ="3"/>
+      <enemy name="FloatingSkull" type="2" posX="3" posY ="2" posZ="5"/>
+      <enemy name="FloatingSkull" type="2" posX="3" posY ="2" posZ="7"/>
+      <enemy name="FloatingSkull" type="2" posX="3" posY ="2" posZ="3"/>
 
       <enemy name="Skeleton" type="0" posX="4" posY ="2" posZ="0"/>
       <enemy name="Skeleton" type="0" posX="5" posY ="2" posZ="0"/>

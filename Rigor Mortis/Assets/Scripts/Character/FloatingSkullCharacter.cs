@@ -22,6 +22,9 @@ public class FloatingSkullCharacter : Character
 
         currentHitPoints = maxHitPoints;
 
-        attacks = new Attack[] { AttackLibrary.RustySword };
+        attacks = new Attack[] {
+            AttackLibrary.Headbutt,
+            AttackLibrary.Firebolt
+        };
     }
 }

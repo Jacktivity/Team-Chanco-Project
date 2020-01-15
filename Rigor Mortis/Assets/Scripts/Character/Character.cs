@@ -179,7 +179,7 @@ public class Character : MonoBehaviour
             var dodgeRoll = UnityEngine.Random.Range(1, 101);
 
 
-            if (dodgeRoll > toHit)
+            if (dodgeRoll < toHit)
             {
                 if (e.MagicDamage > resistance)
                     TakeDamage(e.MagicDamage - resistance);

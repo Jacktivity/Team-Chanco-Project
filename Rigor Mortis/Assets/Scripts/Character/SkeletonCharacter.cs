@@ -11,9 +11,9 @@ public class SkeletonCharacter : Character
         name = "Skeleton";
         cost = 10;
         maxHitPoints = 20;
-        accuracy = 15;
+        accuracy = 90;
         armour = 3;
-        evade = 25;
+        evade = 20;
         manaPoints = 0;
         power = 7;
         resistance = 1;

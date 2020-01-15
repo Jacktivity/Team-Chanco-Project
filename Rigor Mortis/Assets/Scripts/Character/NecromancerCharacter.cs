@@ -12,9 +12,9 @@ public class NecromancerCharacter : Character
         name = "Necromancer";
         cost = 0;
         maxHitPoints = 40;
-        accuracy = 15;
+        accuracy = 90;
         armour = 2;
-        evade = 25;
+        evade = 20;
         manaPoints = 50;
         power = 8;
         resistance = 5;
