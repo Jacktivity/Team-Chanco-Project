@@ -102,7 +102,6 @@ public class GridManager : MonoBehaviour
 
                 SpawnUnit(new Vector3(tile.transform.position.x, unitPos.y + tilePos.y, tile.transform.position.z), tile);
                 ReducePlacementPoints(costOfUnit);
-                tile.occupier = tile.gameObject;
 
                 playerUnits = GameObject.FindGameObjectsWithTag("Player");
                 unitIndex = 0;

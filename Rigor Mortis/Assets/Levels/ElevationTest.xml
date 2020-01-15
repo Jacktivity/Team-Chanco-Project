@@ -1,7 +1,7 @@
 <levels>
   <level>
     <maps>
-      <map layer ="0" placementpoints ="0">
+      <map layer ="0" placementpoints ="60">
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
@@ -23,7 +23,7 @@
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
       </map>
-      <map layer ="1"  placementPoints ="6">
+      <map layer ="1"  placementPoints ="0">
         <map-line value ="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
 	      <map-line value ="0,0,0,3,3,3,0,0,3,0,1,0,0,0,0,0,0,0,0,0"/>
 	      <map-line value ="0,4,0,0,0,0,0,0,0,0,1,0,4,0,0,4,0,0,0,0"/>

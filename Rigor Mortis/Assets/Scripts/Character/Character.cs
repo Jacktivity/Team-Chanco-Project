@@ -252,7 +252,7 @@ public class Character : MonoBehaviour
         if (ActionPoints <= 0)
         {
             //Make highlighter of transparent material? Outline renderer etc?        
-            gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
+            //gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
         }
         Movement();
     }
