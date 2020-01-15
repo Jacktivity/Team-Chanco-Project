@@ -24,7 +24,7 @@ public class HealthBar : MonoBehaviour
                 break;
 
             case "Skeleton":
-                offset.y = 1.45f;
+                offset.y = 2.15f;
                 break;
 
             default:
