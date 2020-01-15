@@ -708,7 +708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathFinder: {fileID: 1469572277}
   gridManager: {fileID: 1469572276}
-  playerManager: {fileID: 0}
+  playerManager: {fileID: 1353577215}
   battleCanvas: {fileID: 626881399}
   prepCanvas: {fileID: 118043435}
   fixedCanvas: {fileID: 209558815}

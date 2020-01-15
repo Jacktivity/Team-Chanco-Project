@@ -124,6 +124,7 @@ public class GridManager : MonoBehaviour
 
         foreach(var map in level.maps)
         {
+            placementPoints += map.placementpoints;
             var rotationlines = level.rotations.ElementAt(map.layer).rotationline.SelectMany((r, x) => r.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
             var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, YPos = map.layer,XPos = x })).ToArray();
             var mythingy = rotationlines.Length;
@@ -140,7 +141,6 @@ public class GridManager : MonoBehaviour
                 }
                 BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
             }
-            placementPoints += map.placementpoints;
         }
     }
 

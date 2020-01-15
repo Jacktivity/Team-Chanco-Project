@@ -123,7 +123,7 @@ public class Character : MonoBehaviour
 
             transform.position = Vector3.Lerp(
                 new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z),
-                new Vector3(moveToBlock.transform.position.x, transform.position.y, moveToBlock.transform.position.z),
+                new Vector3(moveToBlock.transform.position.x, moveToBlock.transform.position.y + 1, moveToBlock.transform.position.z),
                 counterTime);
 
 
