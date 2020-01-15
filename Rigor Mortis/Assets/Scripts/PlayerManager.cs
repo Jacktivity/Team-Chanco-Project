@@ -44,8 +44,7 @@ public class PlayerManager : MonoBehaviour
     public void AddUnit(Character unit)
     {
         unitList.Add(unit);
-        uiManager.InstantiateHealthBar(unit);
-        uiManager.InstantiateAPBar(unit);
+        uiManager.InstantiateUIBars(unit);
         uiManager.InstantiateMarker(unit);
     }
 

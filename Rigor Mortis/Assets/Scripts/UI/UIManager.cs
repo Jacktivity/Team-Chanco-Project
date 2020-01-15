@@ -254,19 +254,19 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void InstantiateHealthBar(Character unit) {
+    public void InstantiateUIBars(Character unit) {
         Slider newSlider = Instantiate(healthBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
         healthBars.Add(newSlider);
         unit.gameObject.AddComponent<HealthBar>().unit = unit;
         unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
-    }
 
-    public void InstantiateAPBar(Character unit)
-    {
-        Slider newSlider = Instantiate(APBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
-        APBars.Add(newSlider);
-        unit.gameObject.AddComponent<ActionPointBar>().unit = unit;
-        unit.gameObject.GetComponent<ActionPointBar>().slider = newSlider;
+        if(tag == "Player")
+        {
+            Slider apSlider = Instantiate(APBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
+            APBars.Add(apSlider);
+            unit.gameObject.AddComponent<ActionPointBar>().unit = unit;
+            unit.gameObject.GetComponent<ActionPointBar>().slider = apSlider;
+        }
     }
 
     // Unit Assignment

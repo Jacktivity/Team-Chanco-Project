@@ -88,9 +88,9 @@ public class Character : MonoBehaviour
         if(selectedAttack != null)
         {
             ActionPoints -= 3;
-
-            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-
+            if (tag == "Player") {
+                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+            }
             var baseDamage = selectedAttack.RollDamage();
 
             if (baseDamage.Magical > 0)
@@ -132,11 +132,14 @@ public class Character : MonoBehaviour
             Vector3 healthOffset = healthBar.offset;
             healthBar.slider.transform.position = transform.position + healthOffset;
 
-            ActionPointBar actionPointBar = gameObject.GetComponent<ActionPointBar>();
-            Vector3 actionPointOffset = actionPointBar.offset;
-            actionPointBar.slider.transform.position = transform.position + actionPointOffset;
+            if (tag == "Player") {
+                ActionPointBar actionPointBar = gameObject.GetComponent<ActionPointBar>();
+                Vector3 actionPointOffset = actionPointBar.offset;
+                actionPointBar.slider.transform.position = transform.position + actionPointOffset;
 
-            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+            }
+
 
             floor.occupier = gameObject;
             if (counterTime >= 1)
@@ -242,7 +245,10 @@ public class Character : MonoBehaviour
     public void APReset()
     {
         ActionPoints = maxActionPoints;
-        gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+        if(tag == "Player")
+        {
+            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+        }
     }
 
     private void OnMouseDown()
