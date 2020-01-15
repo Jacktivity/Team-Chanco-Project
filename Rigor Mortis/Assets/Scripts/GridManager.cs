@@ -238,9 +238,8 @@ public class GridManager : MonoBehaviour
         Debug.Log(placementPoints + "-" + reduction);
         placementPoints -= reduction;
 
-        if (placementPoints <= 0)
+        if (placementPoints <= 0 && (playerManager.activePlayerNecromancers.Count() > 0 || reduction == 0 ))
         {
-
             CycleTurns();
 
             UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.playerTurn);
@@ -280,7 +279,6 @@ public class GridManager : MonoBehaviour
         }
         turnEnded?.Invoke(this, new EventArgs());
         ResetPlayerTurn();
-        UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.playerTurn);
     }
 
     public void ResetPlayerTurn()
