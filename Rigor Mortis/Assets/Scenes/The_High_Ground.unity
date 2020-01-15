@@ -1095,6 +1095,7 @@ MonoBehaviour:
   - {fileID: 6645742794849477671, guid: 269d7f95c0acf8948b2e5b2414ef05e5, type: 3}
   - {fileID: 803779068645609789, guid: aaf2bcdbc7187ff46823f0181ca61923, type: 3}
   - {fileID: 5226057197208204854, guid: cc4cb492a5b2af84b82122778849f628, type: 3}
+  - {fileID: 6376823529244009597, guid: fa71f44038955fb419aea3e275f07e35, type: 3}
   levelMap: {fileID: 4900000, guid: 7a924b8441da4ad47bec18d730df8be0, type: 3}
   SelectedUnit: {fileID: 0}
   spawnPoint: {r: 1, g: 1, b: 0, a: 1}

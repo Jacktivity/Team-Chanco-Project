@@ -279,6 +279,7 @@ public class GridManager : MonoBehaviour
         }
         turnEnded?.Invoke(this, new EventArgs());
         ResetPlayerTurn();
+        UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.playerTurn);
     }
 
     public void ResetPlayerTurn()

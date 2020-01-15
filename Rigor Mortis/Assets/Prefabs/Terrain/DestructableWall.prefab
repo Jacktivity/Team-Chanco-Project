@@ -165,6 +165,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.3, z: 1.97091}
   m_Center: {x: 0, y: -0.00000047683716, z: 0.985455}
+--- !u!114 &1280302570895348790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7974977846293492939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5274be01902046d47af4c768f2e57fef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  maxHitPoints: 1
+  accuracy: 0
+  power: 0
+  evade: 0
+  armour: 2
+  resistance: 0
+  movementSpeed: 0
+  movemenSprint: 0
+  manaPoints: 0
+  currentHitPoints: 0
+  isFlying: 0
+  isCaptain: 0
+  uiManager: {fileID: 0}
+  pathfinder: {fileID: 0}
+  playerManager: {fileID: 0}
+  floor: {fileID: 170198370566324017}
+  moving: 0
+  attackSourceBlock: {fileID: 0}
 --- !u!1001 &7974977846293525099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -178,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: Breakable_Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -239,7 +270,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b4b92cc0b61d5a743a6dbc903bf06f64, type: 2}
+      objectReference: {fileID: 2100000, guid: d66271e9ea5fb004893587d78006a162, type: 2}
     - target: {fileID: 3300000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
       propertyPath: m_Mesh
       value: 
