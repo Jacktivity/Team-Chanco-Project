@@ -75,6 +75,9 @@ public class Character : MonoBehaviour
     public void ClearActionPoints()
     {
         ActionPoints = 0;
+        if (tag == "Player") {
+            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+        }
     }
 
     public void SetFloor(BlockScript tile)
@@ -213,8 +216,10 @@ public class Character : MonoBehaviour
         Slider healthSlider = GetComponent<HealthBar>().slider;
         healthSlider.gameObject.SetActive(false);
 
-        Slider APSlider = GetComponent<ActionPointBar>().slider;
-        APSlider.gameObject.SetActive(false);
+        if (tag == "Player") {
+            Slider APSlider = GetComponent<ActionPointBar>().slider;
+            APSlider.gameObject.SetActive(false);
+        }
     }
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
