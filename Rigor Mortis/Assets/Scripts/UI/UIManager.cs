@@ -27,7 +27,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]Slider healthBar;
     List<Slider> healthBars;
-    public Vector3 healthBarOffset;
+
+    [SerializeField] Slider APBar;
+    List<Slider> APBars;
 
     public BlockScript[] blocksInRange;
     public static EventHandler<GameStates> gameStateChange;
@@ -48,6 +50,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         healthBars = new List<Slider>();
+        APBars = new List<Slider>();
         markers = new List<GameObject>();
         popUpButtons = new List<GameObject>();
 
@@ -144,7 +147,7 @@ public class UIManager : MonoBehaviour
 
     public void Wait(Character unit)
     {
-        unit.ActionPointSpend(99);
+        unit.ClearActionPoints();
         DeleteCurrentPopupButtons();
         gridManager.CycleTurns();
     }
@@ -155,7 +158,7 @@ public class UIManager : MonoBehaviour
         {
             if(unit.tag == "Player")
             {
-                unit.ActionPointSpend(99);
+                unit.ClearActionPoints();
                 DeleteCurrentPopupButtons();
                 gridManager.CycleTurns();
             }
@@ -258,6 +261,13 @@ public class UIManager : MonoBehaviour
         unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
     }
 
+    public void InstantiateAPBar(Character unit)
+    {
+        Slider newSlider = Instantiate(APBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
+        APBars.Add(newSlider);
+        unit.gameObject.AddComponent<ActionPointBar>().unit = unit;
+        unit.gameObject.GetComponent<ActionPointBar>().slider = newSlider;
+    }
 
     // Unit Assignment
     public void SetUnit(Character unit) {
@@ -322,7 +332,7 @@ public class UIManager : MonoBehaviour
 
     public void SetWinCanvas(bool enabled)
     {
-        if (!winCanvas.gameObject.active)
+        if (!winCanvas.gameObject.activeSelf)
         {
             winCanvas.gameObject.SetActive(true);
         }
@@ -331,7 +341,7 @@ public class UIManager : MonoBehaviour
 
     public void SetLoseCanvas(bool enabled)
     {
-        if (!loseCanvas.gameObject.active)
+        if (!loseCanvas.gameObject.activeSelf)
         {
             loseCanvas.gameObject.SetActive(true);
         }
@@ -351,7 +361,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void SetPauseCanvas(bool enabled) {
-        if (!pauseCanvas.gameObject.active) {
+        if (!pauseCanvas.gameObject.activeSelf) {
             pauseCanvas.gameObject.SetActive(true);
         }
         pauseCanvas.enabled = enabled;
