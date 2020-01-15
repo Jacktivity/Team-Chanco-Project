@@ -65,12 +65,6 @@ public class PlayerManager : MonoBehaviour
         } else if (unit.tag == "Player") {
             activePlayerNecromancers.Remove(unit);
         }
-
-        if (activeEnemyNecromancers.Count <= 0) {
-            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
-        } else if(activePlayerNecromancers.Count <= 0 ) {
-            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
-        }
     }
 
     private void BlockClicked(BlockScript tile)

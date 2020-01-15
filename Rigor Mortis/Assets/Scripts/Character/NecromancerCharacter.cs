@@ -38,8 +38,8 @@ public class NecromancerCharacter : Character
         playerManager.AddNecromancer(this);
     }
 
-    private void OnDisable()
+    /*private void OnDisable()
     {
         playerManager.RemoveNecromancer(this);
-    }
+    }*/
 }

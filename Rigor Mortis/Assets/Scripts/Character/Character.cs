@@ -196,9 +196,13 @@ public class Character : MonoBehaviour
     {
         currentHitPoints -= damage;
 
-        
         if(currentHitPoints <= 0)
         {
+            if(name == "Necromancer")
+            {
+                playerManager.RemoveNecromancer(this);
+                uiManager.GameOverCheck();
+            }
             DestroyUnit();
         }
         else
@@ -253,10 +257,12 @@ public class Character : MonoBehaviour
 
     public void APReset()
     {
-        ActionPoints = maxActionPoints;
-        if(tag == "Player")
-        {
-            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+        if (!uiManager.gameOver) {
+            ActionPoints = maxActionPoints;
+            if (tag == "Player")
+            {
+                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+            }
         }
     }
 

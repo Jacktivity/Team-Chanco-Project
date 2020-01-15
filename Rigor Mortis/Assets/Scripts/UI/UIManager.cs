@@ -36,7 +36,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]GameStates currentState;
     [SerializeField]GameStates resumeState;
+
     public bool isPaused;
+    public bool gameOver;
 
     private Vector3 buttonSpacing = new Vector3(0, 30, 0);
 
@@ -154,15 +156,19 @@ public class UIManager : MonoBehaviour
 
     public void EndTurn()
     {
-        foreach(Character unit in playerManager.unitList)
-        {
-            if(unit.tag == "Player")
+        if (currentState == GameStates.playerTurn) {
+            foreach (Character unit in playerManager.unitList)
             {
-                unit.ClearActionPoints();
-                DeleteCurrentPopupButtons();
-                gridManager.CycleTurns();
+                if (unit.tag == "Player")
+                {
+                    unit.ClearActionPoints();
+                    DeleteCurrentPopupButtons();
+                    gridManager.CycleTurns();
+                }
             }
         }
+
+        gameStateChange?.Invoke(this, GameStates.enemyTurn);
     }
 
     public void DisplayActionButtons(IEnumerable<Attack> _attacks, Character character)
@@ -274,13 +280,27 @@ public class UIManager : MonoBehaviour
         gridManager.SetSelectedUnit(unit);
     }
 
+    public void GameOverCheck()
+    {
+        if (playerManager.activeEnemyNecromancers.Count <= 0)
+        {
+            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
+            gameOver = true;
+        }
+        else if (playerManager.activePlayerNecromancers.Count <= 0)
+        {
+            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
+            gameOver = true;
+        }
+    }
+
     //Set Canvas'
     private void GameStateChanged(object sender, GameStates state) {
-        if (!isPaused) {
-            currentState = state;
-
+        if (!isPaused && !gameOver) {
             switch (state) {
                 case GameStates.placementPhase:
+                    currentState = GameStates.placementPhase;
+
                     SetPrepCanvas( true );
                     SetBattleCanvas( false );
                     SetFixedCanvas( false );
@@ -288,6 +308,8 @@ public class UIManager : MonoBehaviour
                     break;
 
                 case GameStates.playerTurn:
+                    currentState = GameStates.playerTurn;
+
                     SetPrepCanvas( false );
                     SetBattleCanvas( true );
                     SetFixedCanvas( true );
@@ -295,6 +317,8 @@ public class UIManager : MonoBehaviour
                     break;
 
                 case GameStates.enemyTurn:
+                    currentState = GameStates.enemyTurn;
+
                     SetPrepCanvas( false );
                     SetBattleCanvas( false );
                     SetFixedCanvas( true );
@@ -302,6 +326,8 @@ public class UIManager : MonoBehaviour
                     break;
 
                 case GameStates.winState:
+                    currentState = GameStates.winState;
+
                     SetPrepCanvas(false);
                     SetBattleCanvas(false);
                     SetFixedCanvas(false);
@@ -310,6 +336,8 @@ public class UIManager : MonoBehaviour
                     break;
 
                 case GameStates.loseState:
+                    currentState = GameStates.loseState;
+
                     SetPrepCanvas(false);
                     SetBattleCanvas(false);
                     SetFixedCanvas(false);
@@ -318,6 +346,8 @@ public class UIManager : MonoBehaviour
                     break;
 
                 case GameStates.paused:
+                    currentState = GameStates.paused;
+
                     isPaused = true;
                     SetPrepCanvas( false );
                     SetBattleCanvas( false );
@@ -325,45 +355,71 @@ public class UIManager : MonoBehaviour
                     SetPauseCanvas( true );
                     break;
             }
-        } else {
+        }
+        else {
             resumeState = state;
         }
     }
 
     public void SetWinCanvas(bool enabled)
     {
-        if (!winCanvas.gameObject.activeSelf)
-        {
+        if (!winCanvas.gameObject.activeSelf && enabled) {
             winCanvas.gameObject.SetActive(true);
         }
-        winCanvas.enabled = enabled;
+
+        if (!winCanvas.enabled != enabled) {
+            winCanvas.enabled = enabled;
+        }
     }
 
     public void SetLoseCanvas(bool enabled)
     {
-        if (!loseCanvas.gameObject.activeSelf)
-        {
+        if (!loseCanvas.gameObject.activeSelf && enabled) {
             loseCanvas.gameObject.SetActive(true);
         }
-        loseCanvas.enabled = enabled;
+
+        if (loseCanvas.enabled != enabled) {
+            loseCanvas.enabled = enabled;
+        }
     }
 
     public void SetPrepCanvas(bool enabled) {
-        prepCanvas.enabled = enabled;
+        if (!prepCanvas.gameObject.activeSelf && enabled) {
+            prepCanvas.gameObject.SetActive(true);
+        }
+
+        if (prepCanvas.enabled != enabled) {
+            prepCanvas.enabled = enabled;
+        }
     }
 
     public void SetBattleCanvas(bool enabled) {
-        battleCanvas.enabled = enabled;
+        if (!battleCanvas.gameObject.activeSelf && enabled) {
+            battleCanvas.gameObject.SetActive(true);
+        }
+
+        if (battleCanvas.enabled != enabled) {
+            battleCanvas.enabled = enabled;
+        }
     }
 
     public void SetFixedCanvas(bool enabled) {
-        fixedCanvas.enabled = enabled;
+        if (!fixedCanvas.gameObject.activeSelf && enabled) {
+            fixedCanvas.gameObject.SetActive(true);
+        }
+
+        if (fixedCanvas.enabled != enabled) {
+            fixedCanvas.enabled = enabled;
+        }
     }
 
     public void SetPauseCanvas(bool enabled) {
-        if (!pauseCanvas.gameObject.activeSelf) {
+        if (!pauseCanvas.gameObject.activeSelf && enabled) {
             pauseCanvas.gameObject.SetActive(true);
         }
-        pauseCanvas.enabled = enabled;
+
+        if (pauseCanvas.enabled != enabled) {
+            pauseCanvas.enabled = enabled;
+        }
     }
 }
