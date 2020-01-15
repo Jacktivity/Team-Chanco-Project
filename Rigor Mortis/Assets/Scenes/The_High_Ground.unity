@@ -707,7 +707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathFinder: {fileID: 1469572277}
   gridManager: {fileID: 1469572276}
-  playerManager: {fileID: 0}
+  playerManager: {fileID: 1353577215}
   battleCanvas: {fileID: 827883148}
   prepCanvas: {fileID: 205023746}
   fixedCanvas: {fileID: 209558815}
@@ -732,11 +732,12 @@ MonoBehaviour:
   marker: {fileID: 1878347195513547648, guid: a07229e37bec5894f88c212ed5da88bc, type: 3}
   healthBar: {fileID: 4641054099590450111, guid: aa6eb00298d4d92499e90ed5b4efed7f,
     type: 3}
-  healthBarOffset: {x: 0, y: 0, z: 0}
+  APBar: {fileID: 4641054099590450111, guid: 0604e44476310854b8e9a63552203fd9, type: 3}
   blocksInRange: []
   currentState: 0
   resumeState: 0
   isPaused: 0
+  gameOver: 0
 --- !u!114 &1024436347
 MonoBehaviour:
   m_ObjectHideFlags: 0

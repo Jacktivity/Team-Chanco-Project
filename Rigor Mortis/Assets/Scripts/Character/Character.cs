@@ -75,9 +75,6 @@ public class Character : MonoBehaviour
     public void ClearActionPoints()
     {
         ActionPoints = 0;
-        if (tag == "Player") {
-            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-        }
     }
 
     public void SetFloor(BlockScript tile)
@@ -123,7 +120,7 @@ public class Character : MonoBehaviour
 
             transform.position = Vector3.Lerp(
                 new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z),
-                new Vector3(moveToBlock.transform.position.x, moveToBlock.transform.position.y + 1, moveToBlock.transform.position.z),
+                new Vector3(moveToBlock.transform.position.x, moveToBlock.transform.position.y + 0.5f, moveToBlock.transform.position.z),
                 counterTime);
 
 
@@ -196,13 +193,9 @@ public class Character : MonoBehaviour
     {
         currentHitPoints -= damage;
 
+        
         if(currentHitPoints <= 0)
         {
-            if(name == "Necromancer")
-            {
-                playerManager.RemoveNecromancer(this);
-                uiManager.GameOverCheck();
-            }
             DestroyUnit();
         }
         else
@@ -220,10 +213,8 @@ public class Character : MonoBehaviour
         Slider healthSlider = GetComponent<HealthBar>().slider;
         healthSlider.gameObject.SetActive(false);
 
-        if (tag == "Player") {
-            Slider APSlider = GetComponent<ActionPointBar>().slider;
-            APSlider.gameObject.SetActive(false);
-        }
+        Slider APSlider = GetComponent<ActionPointBar>().slider;
+        APSlider.gameObject.SetActive(false);
     }
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
@@ -257,12 +248,10 @@ public class Character : MonoBehaviour
 
     public void APReset()
     {
-        if (!uiManager.gameOver) {
-            ActionPoints = maxActionPoints;
-            if (tag == "Player")
-            {
-                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            }
+        ActionPoints = maxActionPoints;
+        if(tag == "Player")
+        {
+            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
         }
     }
 

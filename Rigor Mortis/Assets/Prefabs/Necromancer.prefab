@@ -1675,7 +1675,6 @@ MonoBehaviour:
   cost: 0
   maxHitPoints: 0
   accuracy: 5
-  strength: 0
   power: 5
   evade: 2
   armour: 3
@@ -1683,10 +1682,12 @@ MonoBehaviour:
   movementSpeed: 3
   movemenSprint: 7
   manaPoints: 10
+  currentHitPoints: 0
   isFlying: 0
   isCaptain: 1
   uiManager: {fileID: 0}
   pathfinder: {fileID: 0}
+  playerManager: {fileID: 0}
   floor: {fileID: 0}
   moving: 0
   attackSourceBlock: {fileID: 0}

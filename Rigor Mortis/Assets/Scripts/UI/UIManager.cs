@@ -163,12 +163,12 @@ public class UIManager : MonoBehaviour
                 {
                     unit.ClearActionPoints();
                     DeleteCurrentPopupButtons();
-                    gridManager.CycleTurns();
                 }
             }
+            gridManager.CycleTurns();
         }
 
-        gameStateChange?.Invoke(this, GameStates.enemyTurn);
+        //gameStateChange?.Invoke(this, GameStates.enemyTurn);
     }
 
     public void DisplayActionButtons(IEnumerable<Attack> _attacks, Character character)
