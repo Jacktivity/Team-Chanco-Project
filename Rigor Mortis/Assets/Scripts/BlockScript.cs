@@ -69,6 +69,10 @@ public class BlockScript : MonoBehaviour
     {
         GameObject contact = collision.gameObject;
 
+        if (contact.transform.position.y == gameObject.transform.position.y + 1 && contact.transform.position.x == gameObject.transform.position.x && contact.transform.position.z == gameObject.transform.position.z)
+        {
+            occupier = contact;
+        }
         if (gameObject.tag == "Floor" && contact.tag == "Floor" && contact.transform.position.y == gameObject.transform.position.y)
         {
             Vector3 newCoord = coordinates - contact.GetComponent<BlockScript>().coordinates;
