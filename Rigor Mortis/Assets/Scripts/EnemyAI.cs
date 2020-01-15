@@ -44,11 +44,16 @@ public class EnemyAI : MonoBehaviour
                 {
                     var walkTiles = pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying);
 
-                    attackTile = walkTiles.First(s => s.Occupied == false && s.AdjacentTiles().Any(t => t.Occupied ? t.occupier.CompareTag("Player") : false)));
+                    attackTile = walkTiles.First(s => s.Occupied == false && s.AdjacentTiles().Any(t => t.Occupied ? t.occupier.CompareTag("Player") : false));
 
                     if(attackTile != null)
                     {
                         unit.MoveUnit(pathfinder.GetPath(unit.floor, (s) => s == attackTile, unit.isFlying));
+                        unit.moveComplete += AIAttack;
+                    }
+                    else
+                    {
+
                     }
                 }
 
