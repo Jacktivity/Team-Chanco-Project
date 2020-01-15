@@ -10,7 +10,7 @@ using System.Linq;
 
 public class GridManager : MonoBehaviour
 {
-    
+
     [Header("Enemy Data")]
     [SerializeField] private GameObject enemyContainter;
     [SerializeField] private Character[] enemyPrefabs;
@@ -98,18 +98,17 @@ public class GridManager : MonoBehaviour
             {
                 var unitPos = SelectedUnit.GetComponent<Collider>().bounds.center + SelectedUnit.GetComponent<Collider>().bounds.extents;
                 var tilePos = tile.GetComponent<Collider>().bounds.center + tile.GetComponent<Collider>().bounds.extents;
-                
+
 
                 SpawnUnit(new Vector3(tile.transform.position.x, unitPos.y + tilePos.y, tile.transform.position.z), tile);
                 ReducePlacementPoints(costOfUnit);
-                tile.occupier = tile.gameObject;
 
                 playerUnits = GameObject.FindGameObjectsWithTag("Player");
                 unitIndex = 0;
                 var firstUnit = playerUnits[unitIndex].GetComponent<Character>();
                 playerManager.PlayerUnitChosen(firstUnit);
             }
-        }        
+        }
     }
 
     /**
@@ -122,12 +121,12 @@ public class GridManager : MonoBehaviour
     void GenerateLevel()
     {
         var level = xmlData.level;
-        var yPos = 0;
 
         foreach(var map in level.maps)
         {
+            placementPoints += map.placementpoints;
             var rotationlines = level.rotations.ElementAt(map.layer).rotationline.SelectMany((r, x) => r.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
-            var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
+            var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, YPos = map.layer,XPos = x })).ToArray();
             var mythingy = rotationlines.Length;
             for (int i = 0; i < anonMap.Length; i++)
             {
@@ -135,16 +134,14 @@ public class GridManager : MonoBehaviour
                 var rot = rotationlines[i];
                 if (pos.Value >= 0)
                 {
-                    GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, yPos, pos.ZPos), Quaternion.Euler(new Vector3(tiles[pos.Value].transform.rotation.x, (90 * rot.Value), tiles[pos.Value].transform.rotation.z)), gameObject.transform);
-                    tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, yPos, pos.ZPos);
+                    GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, pos.YPos, pos.ZPos), Quaternion.Euler(new Vector3(tiles[pos.Value].transform.rotation.x, (90 * rot.Value), tiles[pos.Value].transform.rotation.z)), gameObject.transform);
+                    tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);
                     tile.name = tile.name.Replace("(Clone)", "");
-                    tile.name = tile.name + '(' + pos.XPos + ',' + pos.ZPos + ')';
+                    tile.name = tile.name + '(' + pos.XPos + ','+ pos.YPos+ ',' + pos.ZPos + ')';
                 }
-                BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };                
+                BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
             }
-            placementPoints += map.placementPoints;
-            yPos++;
-        }    
+        }
     }
 
     public void nextUnit()
@@ -781,6 +778,3 @@ namespace GridXML
 
 
 }
-
-
-

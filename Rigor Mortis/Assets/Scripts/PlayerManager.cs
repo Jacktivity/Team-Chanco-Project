@@ -51,10 +51,8 @@ public class PlayerManager : MonoBehaviour
     public void AddNecromancer(Character unit)
     {
         if (unit.tag == "Enemy") {
-            Debug.Log(unit.tag + " " + unit.name + " Added");
             activeEnemyNecromancers.Add(unit);
         } else if(unit.tag == "Player") {
-            Debug.Log(unit.tag + " " + unit.name + " Added");
             activePlayerNecromancers.Add(unit);
         }
     }
@@ -63,10 +61,8 @@ public class PlayerManager : MonoBehaviour
     {
         if (unit.tag == "Enemy")
         {
-            Debug.Log(unit.tag + " " + unit.name + " Removed");
             activeEnemyNecromancers.Remove(unit);
         } else if (unit.tag == "Player") {
-            Debug.Log(unit.tag + " " + unit.name + " Removed");
             activePlayerNecromancers.Remove(unit);
         }
 

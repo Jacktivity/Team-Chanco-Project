@@ -10,12 +10,13 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]Pathfinder pathFinder;
     [SerializeField]GridManager gridManager;
+    [SerializeField]PlayerManager playerManager;
 
     [SerializeField]Canvas battleCanvas, prepCanvas, fixedCanvas, pauseCanvas, winCanvas, loseCanvas;
 
     [SerializeField]Text turnDisplay;
 
-    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton, cancelActionBtn;
+    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton, cancelActionBtn, waitButton;
     [SerializeField]private Vector3 baseAttackPosition, targetCharacterOffset;
 
     public List<GameObject> popUpButtons;
@@ -36,7 +37,7 @@ public class UIManager : MonoBehaviour
     public bool isPaused;
 
     private Vector3 buttonSpacing = new Vector3(0, 30, 0);
-    
+
 
     public enum GameStates
     {
@@ -78,7 +79,7 @@ public class UIManager : MonoBehaviour
     private void ClearAttackUI(object sender, AttackEventArgs e)
     {
         DeleteCurrentPopupButtons();
-    }    
+    }
 
     private void DisplayTargets(object sender, ChooseAttackButton.CharacterAttack e)
     {
@@ -141,15 +142,30 @@ public class UIManager : MonoBehaviour
         turnDisplay.text = "Turn " + turn;
     }
 
-    public void Wait()
+    public void Wait(Character unit)
     {
+        unit.ActionPointSpend(99);
+        DeleteCurrentPopupButtons();
         gridManager.CycleTurns();
     }
 
+    public void EndTurn()
+    {
+        foreach(Character unit in playerManager.unitList)
+        {
+            if(unit.tag == "Player")
+            {
+                unit.ActionPointSpend(99);
+                DeleteCurrentPopupButtons();
+                gridManager.CycleTurns();
+            }
+        }
+    }
+
     public void DisplayActionButtons(IEnumerable<Attack> _attacks, Character character)
-    {        
+    {
         DeleteCurrentPopupButtons();
-        
+
         if(character.CanAttack)
         {
             for (int i = 0; i < _attacks.Count(); i++)
@@ -159,10 +175,14 @@ public class UIManager : MonoBehaviour
 
             var moveOffset = buttonSpacing * (_attacks.Count() + 1);
             MakeMoveButton(moveOffset, character);
-        }  
+
+            moveOffset = new Vector3(0, 30 * (_attacks.Count() + 2), 0);
+            MakeWaitButton(moveOffset, character);
+        }
         else if(character.CanMove)
         {
             MakeMoveButton(new Vector3(0, 0, 0), character);
+            MakeWaitButton(new Vector3(0, 0, 0), character);
         }
         else
         {
@@ -190,6 +210,14 @@ public class UIManager : MonoBehaviour
         popUpButtons.Add(moveBtn);
         moveBtn.transform.localPosition = baseAttackPosition + buttonOffset;
         moveBtn.GetComponent<MoveButton>().SetUpMoveButton(character);
+    }
+
+    private void MakeWaitButton(Vector3 buttonOffset, Character character)
+    {
+        var waitBtn = Instantiate(waitButton, popupArea.transform);
+        popUpButtons.Add(waitBtn);
+        waitBtn.transform.localPosition = baseAttackPosition + buttonOffset;
+        waitBtn.GetComponent<Button>().onClick.AddListener(delegate { Wait(character); });
     }
 
     public void ClearRangeBlocks()
