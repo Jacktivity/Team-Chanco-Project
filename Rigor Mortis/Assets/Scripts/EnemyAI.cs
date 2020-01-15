@@ -27,28 +27,52 @@ public class EnemyAI : MonoBehaviour
                 break;
             case AIStates.Retreat:
                 break;
-            case AIStates.Attack:
-
+            case AIStates.Attack:                
                 var longestAttack = unit.attacks.OrderByDescending(a => a.Range).First();
-                
-                var path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, longestAttack.Range,true).Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), unit.isFlying == false);
 
-                var walkPath = path.Take(unit.movementSpeed);
 
-                bool walked = true;
+                //-----------------------------------------------------------//
 
-                if(walkPath.Last() != path.Last())
+                var attackTile = pathfinder.GetTilesInRange(unit.floor, longestAttack.Range, unit.isFlying).First(s => s.Occupied ? s.occupier.CompareTag("Player") : false);
+
+                if(attackTile != null)
                 {
-                    walked = false;
-                    walkPath = path.Take(unit.movemenSprint + unit.movementSpeed);
+                    AIAttack(this, attackTile.occupier.GetComponent<Character>());
+                    unit.ClearActionPoints();
+                }
+                else
+                {
+                    var walkTiles = pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying);
+
+                    attackTile = walkTiles.First(s => s.Occupied == false && s.AdjacentTiles().Any(t => t.Occupied ? t.occupier.CompareTag("Player") : false)));
+
+                    if(attackTile != null)
+                    {
+                        unit.MoveUnit(pathfinder.GetPath(unit.floor, (s) => s == attackTile, unit.isFlying));
+                    }
                 }
 
-                unit.MoveUnit(walkPath);
+                //-----------------------------------------------------------//
 
-                if(walked)
-                {
-                    unit.moveComplete += AIAttack;
-                }
+                //teleports instead of returns empty list
+                //var path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, longestAttack.Range,true).Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), unit.isFlying == false);
+
+                //var walkPath = path.Take(unit.movementSpeed);
+
+                //bool walked = true;
+
+                //if(walkPath.Last() != path.Last())
+                //{
+                //    walked = false;
+                //    walkPath = path.Take(unit.movemenSprint + unit.movementSpeed);
+                //}
+
+                //unit.MoveUnit(walkPath);
+
+                //if(walked)
+                //{
+                //    unit.moveComplete += AIAttack;
+                //}
 
 
                 break;
