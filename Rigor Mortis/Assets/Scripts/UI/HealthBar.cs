@@ -17,22 +17,14 @@ public class HealthBar : MonoBehaviour
         Offset();
     }
 
-    // Update is called once per frame
-    // Temporary until attack methods are created, then will be tied to said methods
-    void Update()
-    {
-        //transform.position = new Vector3(unit.transform.position.x, unit.transform.position.y,  unit.transform.position.z);
-    }
-
     void Offset() {
         switch (unit.name) {
-
             case "Necromancer":
-                offset.y = 1.75f;
+                offset.y = 1.95f;
                 break;
 
             case "Skeleton":
-                offset.y = 1.25f;
+                offset.y = 1.45f;
                 break;
 
             default:

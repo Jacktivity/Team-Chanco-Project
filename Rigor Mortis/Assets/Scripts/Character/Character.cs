@@ -46,7 +46,6 @@ public class Character : MonoBehaviour
     private int pathIndex;
     private BlockScript moveToBlock;
 
-
     private void Awake()
     {
         pathfinder = FindObjectOfType<Pathfinder>();
@@ -73,13 +72,9 @@ public class Character : MonoBehaviour
         currentHitPoints = maxHitPoints;
     }
 
-    public void ActionPointSpend(int amount)
+    public void ClearActionPoints()
     {
-        if (ActionPoints - amount <= 0) {
-            ActionPoints = 0;
-        } else {
-            ActionPoints = ActionPoints - amount;
-        }
+        ActionPoints = 0;
     }
 
     public void SetFloor(BlockScript tile)
@@ -93,6 +88,8 @@ public class Character : MonoBehaviour
         if(selectedAttack != null)
         {
             ActionPoints -= 3;
+
+            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
 
             var baseDamage = selectedAttack.RollDamage();
 
@@ -132,8 +129,15 @@ public class Character : MonoBehaviour
             transform.forward = Vector3.Lerp(previousForward, angle, counterTime);
 
             HealthBar healthBar = GetComponent<HealthBar>();
-            Vector3 offset = healthBar.offset;
-            healthBar.slider.transform.position = transform.position + offset;
+            Vector3 healthOffset = healthBar.offset;
+            healthBar.slider.transform.position = transform.position + healthOffset;
+
+            ActionPointBar actionPointBar = gameObject.GetComponent<ActionPointBar>();
+            Vector3 actionPointOffset = actionPointBar.offset;
+            actionPointBar.slider.transform.position = transform.position + actionPointOffset;
+
+            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+
             floor.occupier = gameObject;
             if (counterTime >= 1)
             {
@@ -238,6 +242,7 @@ public class Character : MonoBehaviour
     public void APReset()
     {
         ActionPoints = maxActionPoints;
+        gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
     }
 
     private void OnMouseDown()
