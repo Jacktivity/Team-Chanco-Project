@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
         DeleteCurrentPopupButtons();
 
         var targetsInRange = e.attacker.pathfinder.GetTilesInRange(e.attacker.floor, e.attackChosen.Range, true)
-            .Where(b => b.Occupied ? b.occupier.tag == "Enemy" : false)
+            .Where(b => b.Occupied ? b.occupier.tag == "Enemy" || b.occupier.tag == "Breakable_Terrain" : false)
             .Select(t => t.occupier.GetComponent<Character>());
 
         CreateCancelButton(e.attacker);
@@ -163,11 +163,10 @@ public class UIManager : MonoBehaviour
                 {
                     unit.ClearActionPoints();
                     DeleteCurrentPopupButtons();
-                    gridManager.CycleTurns();
                 }
             }
         }
-
+        gridManager.CycleTurns();
         gameStateChange?.Invoke(this, GameStates.enemyTurn);
     }
 
