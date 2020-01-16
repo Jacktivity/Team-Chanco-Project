@@ -6,31 +6,49 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public Character[] Units => GetComponentsInChildren<Character>();
+    public Enemy[] Units => GetComponentsInChildren<Enemy>();
 
     private Dictionary<Character, AIStates> enemyMood;
-
-    private AIStates currentPlayState = AIStates.Attack;
     [SerializeField] private Pathfinder pathfinder;
 
     public void Start()
     {
         enemyMood = new Dictionary<Character, AIStates>();
-        GridManager.enemySpawned += (s, e) => enemyMood.Add(e, AIStates.Attack);
+        GridManager.enemySpawned += EnemySpawnEvent;
+    }
+
+    private void EnemySpawnEvent(object sender, EnemySpawn e)
+    {
+        enemyMood.Add(e.unit, e.defaultState);
+        var enemy = e.unit.gameObject.AddComponent<Enemy>();
+        enemy.AssignData(e);
+
+        Character.attackEvent += AIStateChangeCheck;
+    }
+
+    private void AIStateChangeCheck(object sender, AttackEventArgs e)
+    {
+
     }
 
     public bool MoveUnit(Character unit)
-    {      
-        switch (currentPlayState)
+    {
+        Attack attackToUse;
+        BlockScript[] path;
+
+        switch (enemyMood[unit])
         {
-            case AIStates.Regroup:
+            case AIStates.Stationary:
                 break;
-            case AIStates.Retreat:
+            case AIStates.Defensive:
+                attackToUse = unit.UseableAttacks.OrderByDescending(a => a.Range).First();
+                
+
                 break;
-            case AIStates.Attack:                
-                var longestAttack = unit.attacks.OrderByDescending(a => a.Range).First();
+            case AIStates.Aggressive:                
+                attackToUse = unit.UseableAttacks.OrderByDescending(a => a.Range).First();
             
-                var path = pathfinder.GetPath(unit.floor, (s) => ValidAIMoveBlock(s, longestAttack), unit.isFlying == false);                
+                path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, attackToUse.Range, true).Any(t => t.Occupied ? t.occupier.CompareTag("Player") : false), unit.isFlying == false);                
 
                 var walkPath = path.Take(unit.movementSpeed);
 
@@ -49,20 +67,11 @@ public class EnemyAI : MonoBehaviour
                     unit.moveComplete += AIAttack;
                 }
 
-
                 break;
             default:
                 break;
         }
         return true;
-    }
-
-    public bool ValidAIMoveBlock(BlockScript block, Attack attack)
-    {
-        var attackBlocks = pathfinder.GetTilesInRange(block, attack.Range, true);
-        var occupiedAttackBlocks = attackBlocks.Where(t => t.Occupied);
-        return attackBlocks.Any(t => t.Occupied ? t.occupier.CompareTag("Player") : false);
-
     }
 
     private void AIAttack(object sender, Character unit)
@@ -89,5 +98,22 @@ public class EnemyAI : MonoBehaviour
 
 public enum AIStates
 {
-    Regroup, Retreat, Attack
+    Aggressive, Defensive, Stationary, Thief
+}
+
+public struct EnemySpawn
+{
+    public Character unit;
+    public int id;
+    public IEnumerable<int> linkedUnits;
+    public AIStates defaultState;
+
+
+    public EnemySpawn(Character character, AIStates state, int unitID, IEnumerable<int> linkedUnitIds)
+    {
+        unit = character;
+        defaultState = state;
+        id = unitID;
+        linkedUnits = linkedUnitIds;
+    }
 }

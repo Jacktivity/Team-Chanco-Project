@@ -72,6 +72,8 @@ public class Character : MonoBehaviour
         currentHitPoints = maxHitPoints;
     }
 
+    public Attack[] UseableAttacks => attacks.Where(a => a.Mana <= manaPoints).ToArray();
+
     public void ClearActionPoints()
     {
         ActionPoints = 0;
