@@ -153,7 +153,7 @@ public class GridManager : MonoBehaviour
             unitIndex = 0;
         }
         var comingUnit = playerManager.selectedPlayer;
-        playerUnits[unitIndex].GetComponentInChildren<Renderer>().material.color = Color.white;
+        playerUnits[unitIndex].GetComponent<Character>().godRay.SetActive(true);
         comingUnit = playerUnits[unitIndex].GetComponent<Character>();
         playerManager.PlayerUnitChosen(comingUnit);
         //attackManager.AssignAttacker(comingUnit);
@@ -300,7 +300,7 @@ public class GridManager : MonoBehaviour
             var playerScript = player.GetComponent<Character>();
             playerScript.APReset();
 
-            player.gameObject.GetComponentInChildren<Renderer>().material.color = Color.white;
+            player.GetComponent<Character>().godRay.SetActive(false);
         }
         playerTurn = true;
         nextUnit();

@@ -165,6 +165,7 @@ public class UIManager : MonoBehaviour
                 {
                     unit.ClearActionPoints();
                     DeleteCurrentPopupButtons();
+                    unit.godRay.SetActive(false);
                 }
             }
         }
