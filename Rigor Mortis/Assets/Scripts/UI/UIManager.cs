@@ -311,13 +311,13 @@ public class UIManager : MonoBehaviour
     {
         if (playerManager.activeEnemyNecromancers.Count <= 0)
         {
-            scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
+            //scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
             UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
             gameOver = true;
         }
         else if (playerManager.activePlayerNecromancers.Count <= 0)
         {
-            scorePointsText.text = "Score: " + score.EndTurnLose();
+            //scorePointsText.text = "Score: " + score.EndTurnLose();
             UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
             gameOver = true;
         }
