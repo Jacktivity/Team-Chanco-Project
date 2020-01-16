@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]Canvas battleCanvas, prepCanvas, fixedCanvas, pauseCanvas, winCanvas, loseCanvas;
 
     [SerializeField]Text turnDisplay;
+    private int turnNumber;
 
     [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton, cancelActionBtn, waitButton;
     [SerializeField]private Vector3 baseAttackPosition, targetCharacterOffset;
@@ -42,8 +43,10 @@ public class UIManager : MonoBehaviour
 
     private Vector3 buttonSpacing = new Vector3(0, 30, 0);
 
-    public Text pointText;
+    public Text scorePointsText;
     public Text placementText;
+
+    private Score score;
 
     public enum GameStates
     {
@@ -58,6 +61,7 @@ public class UIManager : MonoBehaviour
         markers = new List<GameObject>();
         popUpButtons = new List<GameObject>();
 
+        score = FindObjectOfType<Score>();
 
         gameStateChange += GameStateChanged;
         gameStateChange?.Invoke(this, GameStates.placementPhase);
@@ -146,7 +150,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTurnNumber(int turn)
     {
-        turnDisplay.text = "Turn " + turn;
+        turnNumber = turn;
+        turnDisplay.text = "Turn " + turnNumber;
     }
 
     public void Wait(Character unit)
@@ -165,6 +170,7 @@ public class UIManager : MonoBehaviour
                 {
                     unit.ClearActionPoints();
                     DeleteCurrentPopupButtons();
+                    unit.godRay.SetActive(false);
                 }
             }
         }
@@ -278,7 +284,7 @@ public class UIManager : MonoBehaviour
 
     public void PlacementPoint(int amount)
     {
-        placementText.text = "Points Remaining: " + amount;
+        placementText.text = "" + amount;
     }
 
     // Unit Assignment
@@ -296,11 +302,13 @@ public class UIManager : MonoBehaviour
     {
         if (playerManager.activeEnemyNecromancers.Count <= 0)
         {
+            scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
             UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
             gameOver = true;
         }
         else if (playerManager.activePlayerNecromancers.Count <= 0)
         {
+            scorePointsText.text = "Score: " + score.EndTurnLose();
             UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
             gameOver = true;
         }
