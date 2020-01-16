@@ -120,12 +120,12 @@ public class PlayerManager : MonoBehaviour
 
             if (selectedPlayer != null)
             {
-                selectedPlayer.GetComponentInChildren<Renderer>().material.color = Color.white;
+                selectedPlayer.godRay.SetActive(false);
                 gridManager.ClearMap();
             }
 
             selectedPlayer = unit;
-            selectedPlayer.GetComponentInChildren<Renderer>().material.color = Color.yellow;
+            selectedPlayer.godRay.SetActive(true);
             HighlightMovementTiles(unit);
             GetComponent<PlayerCharacterMover>().SetMovement(unit, walkTiles, sprintTiles);
         }

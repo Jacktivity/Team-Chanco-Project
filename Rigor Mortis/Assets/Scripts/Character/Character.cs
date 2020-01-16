@@ -34,7 +34,6 @@ public class Character : MonoBehaviour
     private float counterTime;
     private const float moveAnimationSpeed = 6;
 
-    Color colourStart;
 
     public EventHandler<Character> characterClicked;
     public EventHandler<Character> moveComplete, attackComplete;
@@ -46,18 +45,26 @@ public class Character : MonoBehaviour
     private int pathIndex;
     private BlockScript moveToBlock;
 
+    private Score score;
+    public GameObject godRay;
+
+    public bool beingAttacked;
+    public EnemySelectButton beingAttackedButton;
+
+
     private void Awake()
     {
         pathfinder = FindObjectOfType<Pathfinder>();
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
         playerManager = FindObjectOfType<PlayerManager>();
+        score = FindObjectOfType<Score>();
         //attackManager = FindObjectOfType<AttackManager>();
-        colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
         attackEvent += DamageCheck;
         //Movement costs 2AP, Attacking costs 3AP
         ActionPoints = maxActionPoints = 4;
+        godRay.SetActive(false);
 
         ChooseAttackButton.attackChosen += (s, e) =>
         {
@@ -93,6 +100,7 @@ public class Character : MonoBehaviour
         if(selectedAttack != null)
         {
             ActionPoints -= 3;
+            manaPoints -= selectedAttack.Mana;
             if (tag == "Player" ) {
                 gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
             }
@@ -108,7 +116,9 @@ public class Character : MonoBehaviour
 
             attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
             attackComplete?.Invoke(this, this);
+
         }
+        godRay.SetActive(false);
     }
 
     public void SpendAP(int actionPoints) => ActionPoints -= actionPoints;
@@ -169,6 +179,7 @@ public class Character : MonoBehaviour
                     pathIndex++;
                 }
             }
+            godRay.SetActive(false);
         }
     }
 
@@ -211,6 +222,7 @@ public class Character : MonoBehaviour
         {
             gameObject.GetComponent<HealthBar>().slider.value = currentHitPoints;
         }
+        beingAttacked = false;
     }
 
     protected void DestroyUnit()
@@ -222,14 +234,28 @@ public class Character : MonoBehaviour
             Slider healthSlider = GetComponent<HealthBar>().slider;
             healthSlider.gameObject.SetActive(false);
         }
-        this.gameObject.SetActive(false);
-
-
 
         if (tag == "Player") {
+            if(name == "Necromancer") {
+                score.RemoveScore(50);
+            } else {
+                score.RemoveScore(cost);
+            }
+
             Slider APSlider = GetComponent<ActionPointBar>().slider;
             APSlider.gameObject.SetActive(false);
+        } else if(tag == "Enemy") {
+            if (name == "Necromancer")
+            {
+                score.AddScore(50);
+            }
+            else
+            {
+                score.AddScore(cost);
+            }
         }
+
+        this.gameObject.SetActive(false);
     }
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
@@ -275,7 +301,28 @@ public class Character : MonoBehaviour
     private void OnMouseDown()
     {
         characterClicked?.Invoke(this, this);      
+        if(beingAttacked)
+        {
+            beingAttackedButton.SelectTarget();
+        }
         
+    }
+
+    private void OnMouseOver()
+    {
+        if(beingAttacked)
+        {
+            godRay.SetActive(true);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (beingAttacked)
+        {
+            godRay.SetActive(false);
+        }
+
     }
 
     private void Update()
