@@ -21,15 +21,16 @@ public class Enemy : MonoBehaviour
         LinkedUnitIDs = spawnData.linkedUnits.ToArray();
         Unit = spawnData.unit;
     }   
-
-    public void Test(object sender, AIStateChangeEvent e)
-    {
-
-    }
     
     public struct AIStateChangeEvent
     {
-        public IEnumerable<int> changeUnitIDs;
+        public int changeUnitID;
         public AIStates stateToChangeTo;
+
+        public AIStateChangeEvent(AIStates state, int linkedUnitID)
+        {
+            stateToChangeTo = state;
+            changeUnitID = linkedUnitID;
+        }
     }
 }

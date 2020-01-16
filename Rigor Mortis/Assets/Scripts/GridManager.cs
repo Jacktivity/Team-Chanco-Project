@@ -35,7 +35,7 @@ public class GridManager : MonoBehaviour
 
     GameObject[] playerUnits;
 
-    public bool moveMode;
+    public bool moveMode, activeAI;
     public BlockScript selectedBlock;
 
     public BlockScript[] Map => GetComponentsInChildren<BlockScript>();
@@ -63,9 +63,17 @@ public class GridManager : MonoBehaviour
         PlaceEnemy();
         UnitPlacement();
 
+        activeAI = true;
+
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
         turnEnded += (s, e) => ClearMap();
         uiManager.PlacementPoint(placementPoints);
+        UIManager.gameStateChange += AIRunCheck;
+    }
+
+    private void AIRunCheck(object sender, UIManager.GameStates e)
+    {
+        activeAI = e != UIManager.GameStates.loseState && e != UIManager.GameStates.winState;
     }
 
     public void ColourTiles(IEnumerable<BlockScript> tiles, bool walking)
