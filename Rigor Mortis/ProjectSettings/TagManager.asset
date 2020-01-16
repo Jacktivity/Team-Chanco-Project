@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Wall
   - Floor-Transition
+  - Breakable_Terrain
   layers:
   - Default
   - TransparentFX

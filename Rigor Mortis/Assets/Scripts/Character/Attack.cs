@@ -13,6 +13,9 @@ public class AttackLibrary
     public static Attack TeslaStab => new Attack(1, 1, "Tesla Stab", magicDmg: new Dice(4, 1));
     public static Attack TeslaZap => new Attack(10, 1.2f, "Tesla Zap", magicDmg: new Dice(4, 1));
     public static Attack Zap => new Attack(10, 1.2f, "Zap", magicDmg: new Dice(4, 1));
+
+    public static Attack Headbutt => new Attack(1, 0.8f, "Headbutt", physicalDmg: new Dice(1,2));
+    public static Attack Firebolt => new Attack(10, 1.2f, "Firebolt", magicDmg: new Dice(10, 1), manaCost:10);
 }
 
 public class Attack

@@ -94,7 +94,7 @@ public class Character : MonoBehaviour
         if(selectedAttack != null)
         {
             ActionPoints -= 3;
-            if (tag == "Player") {
+            if (tag == "Player" ) {
                 gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
             }
             var baseDamage = selectedAttack.RollDamage();
@@ -182,7 +182,7 @@ public class Character : MonoBehaviour
             var dodgeRoll = UnityEngine.Random.Range(1, 101);
 
 
-            if (dodgeRoll > toHit)
+            if (dodgeRoll < toHit)
             {
                 if (e.MagicDamage > resistance)
                     TakeDamage(e.MagicDamage - resistance);
@@ -217,11 +217,15 @@ public class Character : MonoBehaviour
     protected void DestroyUnit()
     {
         floor.occupier = null;
-        gameObject.GetComponent<HealthBar>().slider.gameObject.SetActive(false);
+        if(gameObject.tag != "Breakable_Terrain")
+        {
+            gameObject.GetComponent<HealthBar>().slider.gameObject.SetActive(false);
+            Slider healthSlider = GetComponent<HealthBar>().slider;
+            healthSlider.gameObject.SetActive(false);
+        }
         this.gameObject.SetActive(false);
 
-        Slider healthSlider = GetComponent<HealthBar>().slider;
-        healthSlider.gameObject.SetActive(false);
+
 
         if (tag == "Player") {
             if(name == "Necromancer") {
