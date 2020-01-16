@@ -233,6 +233,14 @@ public class GridManager : MonoBehaviour
     {
         return placementPoints;
     }
+    public void FinishPlacement()
+    {
+        if(playerManager.activePlayerNecromancers.Count() > 0)
+        {
+            ReducePlacementPoints(placementPoints);
+        }
+    }
+
     public void ReducePlacementPoints(int reduction)
     {
         Debug.Log(placementPoints + "-" + reduction);

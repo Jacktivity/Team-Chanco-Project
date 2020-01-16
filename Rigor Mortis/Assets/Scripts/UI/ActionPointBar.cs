@@ -27,7 +27,9 @@ public class ActionPointBar : MonoBehaviour
             case "Skeleton":
                 offset.y = 1.95f;
                 break;
-
+            case "FlamingSkull":
+                offset.y = 2.0f;
+                break;
             default:
                 offset.y = 1;
                 break;
