@@ -291,6 +291,12 @@ public class UIManager : MonoBehaviour
         gridManager.SetSelectedUnit(unit);
     }
 
+    // Unit Assignment
+    public void FinishPlacement()
+    {
+        gridManager.FinishPlacement();
+    }
+
     public void GameOverCheck()
     {
         if (playerManager.activeEnemyNecromancers.Count <= 0)

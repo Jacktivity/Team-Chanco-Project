@@ -27,17 +27,16 @@ public class EnemyAI : MonoBehaviour
                 break;
             case AIStates.Retreat:
                 break;
-            case AIStates.Attack:
-
+            case AIStates.Attack:                
                 var longestAttack = unit.attacks.OrderByDescending(a => a.Range).First();
-                
-                var path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, longestAttack.Range,true).Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), unit.isFlying == false);
+            
+                var path = pathfinder.GetPath(unit.floor, (s) => ValidAIMoveBlock(s, longestAttack), unit.isFlying == false);                
 
                 var walkPath = path.Take(unit.movementSpeed);
 
                 bool walked = true;
 
-                if(walkPath.Last() != path.Last())
+                if (walkPath.Last() != path.Last())
                 {
                     walked = false;
                     walkPath = path.Take(unit.movemenSprint + unit.movementSpeed);
@@ -45,7 +44,7 @@ public class EnemyAI : MonoBehaviour
 
                 unit.MoveUnit(walkPath);
 
-                if(walked)
+                if (walked)
                 {
                     unit.moveComplete += AIAttack;
                 }
@@ -56,6 +55,14 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
         return true;
+    }
+
+    public bool ValidAIMoveBlock(BlockScript block, Attack attack)
+    {
+        var attackBlocks = pathfinder.GetTilesInRange(block, attack.Range, true);
+        var occupiedAttackBlocks = attackBlocks.Where(t => t.Occupied);
+        return attackBlocks.Any(t => t.Occupied ? t.occupier.CompareTag("Player") : false);
+
     }
 
     private void AIAttack(object sender, Character unit)

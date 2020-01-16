@@ -1,0 +1,22 @@
+<levels>
+  <level>
+    <maps>
+      <map layer ="0" placementpoints ="10">
+        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
+      </map>
+    </maps>
+    <rotations>
+      <rotation layer ="0" >
+        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
+      </rotation>      
+    </rotations>
+    <enemies>
+      <enemy name="Necromancer" type="1" posX="0" posY ="0" posZ="0"/>
+      <enemy name="Skeleton" type="0" posX="0" posY ="0" posZ="1"/>      
+    </enemies>
+    <placeables>       
+	  <placeable posX="0" posY ="0" posZ="10"/>
+	  <placeable posX="0" posY ="0" posZ="9"/>  	  
+    </placeables>
+  </level>
+</levels>
