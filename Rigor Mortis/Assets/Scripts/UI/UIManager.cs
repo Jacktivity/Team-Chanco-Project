@@ -283,7 +283,7 @@ public class UIManager : MonoBehaviour
 
     public void PlacementPoint(int amount)
     {
-        placementText.text = "Points Remaining: " + amount;
+        placementText.text = "" + amount;
     }
 
     // Unit Assignment
@@ -301,7 +301,7 @@ public class UIManager : MonoBehaviour
     {
         if (playerManager.activeEnemyNecromancers.Count <= 0)
         {
-            //scorePointsText.text = "Score: " + score.EndTurnWin(level, turnNumber);
+            scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
             UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
             gameOver = true;
         }

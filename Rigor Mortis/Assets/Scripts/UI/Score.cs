@@ -21,7 +21,7 @@ public class Score : MonoBehaviour
         return score;
     }
 
-    public int Par(int level)
+    /*public int Par(int level)
     {
         switch (level) {
             case 1:
@@ -45,11 +45,11 @@ public class Score : MonoBehaviour
             default:
             return 0;
         }
-    }
+    }*/
 
-    public int EndTurnWin(int level, int turns)
+    public int EndTurnWin(/*int level, int turns*/)
     {
-        float amount = 0;
+        /*float amount = 0;
         if(turns < Par(level)) {
             amount = (turns - Par(level)) * 0.1f;
             amount = Mathf.Abs(amount);
@@ -62,7 +62,8 @@ public class Score : MonoBehaviour
             return Mathf.RoundToInt(score * amount);
         } else {
             return score;
-        }
+        }*/
+        return score;
     }
 
     public int EndTurnLose()

@@ -223,9 +223,6 @@ public class Character : MonoBehaviour
             Slider healthSlider = GetComponent<HealthBar>().slider;
             healthSlider.gameObject.SetActive(false);
         }
-        this.gameObject.SetActive(false);
-
-
 
         if (tag == "Player") {
             if(name == "Necromancer") {
@@ -246,6 +243,8 @@ public class Character : MonoBehaviour
                 score.AddScore(cost);
             }
         }
+
+        this.gameObject.SetActive(false);
     }
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
