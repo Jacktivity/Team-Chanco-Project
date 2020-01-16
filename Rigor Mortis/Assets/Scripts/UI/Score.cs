@@ -49,7 +49,20 @@ public class Score : MonoBehaviour
 
     public int EndTurnWin(int level, int turns)
     {
-        return score * Par(level);
+        float amount = 0;
+        if(turns < Par(level)) {
+            amount = (turns - Par(level)) * 0.1f;
+            amount = Mathf.Abs(amount);
+
+            return Mathf.RoundToInt(score * (-amount));
+        } else if(turns > Par(level)) {
+            amount = (turns - Par(level)) * 0.1f;
+            amount++;
+
+            return Mathf.RoundToInt(score * amount);
+        } else {
+            return score;
+        }
     }
 
     public int EndTurnLose()
