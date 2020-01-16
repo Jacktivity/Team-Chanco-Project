@@ -732,7 +732,7 @@ MonoBehaviour:
     type: 3}
   targetCharacterButton: {fileID: 6315308289696829695, guid: c976e627ed8466448af44ad17b43419f,
     type: 3}
-  popupArea: {fileID: 0}
+  popupArea: {fileID: 1276471929}
   moveButton: {fileID: 8590537472054130620, guid: 33954a3bffded0841839091831c18d4e,
     type: 3}
   cancelActionBtn: {fileID: 6553022043289440012, guid: b2dc836d7c79ecf4884a766aedd5e2dc,
@@ -925,6 +925,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1276471929 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7377603987561923321, guid: 195497fdef40b4f4aa04d0c47b056391,
+    type: 3}
+  m_PrefabInstance: {fileID: 1802571560}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1353577214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,12 +1382,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1467003288, guid: 195497fdef40b4f4aa04d0c47b056391, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1175587684771112558, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 638197823551769075, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
@@ -1431,12 +1437,12 @@ PrefabInstance:
     - target: {fileID: 8896146461645647255, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3884113034683480639, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195497fdef40b4f4aa04d0c47b056391, type: 3}
