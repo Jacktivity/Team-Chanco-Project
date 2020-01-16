@@ -376,6 +376,18 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &357557528 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2858286172575144917, guid: 724620522a4814a41a3e3123a1f34ec4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1100370849162408723}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &424347481
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,6 +777,7 @@ GameObject:
   - component: {fileID: 1024436346}
   - component: {fileID: 1024436349}
   - component: {fileID: 1024436347}
+  - component: {fileID: 1024436348}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -817,7 +830,21 @@ MonoBehaviour:
   resumeState: 0
   isPaused: 0
   gameOver: 0
+  pointText: {fileID: 0}
+  placementText: {fileID: 357557528}
 --- !u!114 &1024436347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024436345}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2993a5ac7c8057c49895e7b80be663a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1024436348
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -826,7 +853,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1024436345}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2993a5ac7c8057c49895e7b80be663a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a2095af691cd474890167bfcdb492c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1024436349
@@ -1992,6 +2019,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetUnit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708848272896600225, guid: 724620522a4814a41a3e3123a1f34ec4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 724620522a4814a41a3e3123a1f34ec4, type: 3}
