@@ -31,7 +31,13 @@ public class Pathfinder : MonoBehaviour
 
         while(gameMap.Count > 0)
         {
-            var pathTile = gameMap.OrderBy(t => distDictionary[t]).First();
+            var pathTile = gameMap.OrderBy(t => distDictionary[t]).First(t => distDictionary[t] != float.MaxValue);
+
+            //Path is blocked, all remaining vlaues are of float.MaxValue (unchecked / cannot be reached)
+            if(pathTile == null)
+            {
+                break;
+            }
 
             bool searchComplete = searchCriteria(pathTile);
 
@@ -44,6 +50,8 @@ public class Pathfinder : MonoBehaviour
             gameMap.Remove(pathTile);
 
             EuclidianAdjacencySearch(pathDictionary, distDictionary, pathTile, ignoreMoveModifier);
+
+            var distances = distDictionary.Values;
         }
 
         if (targetTile == null)

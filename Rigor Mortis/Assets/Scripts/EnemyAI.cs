@@ -29,55 +29,25 @@ public class EnemyAI : MonoBehaviour
                 break;
             case AIStates.Attack:                
                 var longestAttack = unit.attacks.OrderByDescending(a => a.Range).First();
+            
+                var path = pathfinder.GetPath(unit.floor, (s) => ValidAIMoveBlock(s, longestAttack), unit.isFlying == false);                
 
+                var walkPath = path.Take(unit.movementSpeed);
 
-                //-----------------------------------------------------------//
+                bool walked = true;
 
-                var attackTile = pathfinder.GetTilesInRange(unit.floor, longestAttack.Range, unit.isFlying).First(s => s.Occupied ? s.occupier.CompareTag("Player") : false);
-
-                if(attackTile != null)
+                if (walkPath.Last() != path.Last())
                 {
-                    AIAttack(this, attackTile.occupier.GetComponent<Character>());
-                    unit.ClearActionPoints();
-                }
-                else
-                {
-                    var walkTiles = pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying);
-
-                    attackTile = walkTiles.First(s => s.Occupied == false && s.AdjacentTiles().Any(t => t.Occupied ? t.occupier.CompareTag("Player") : false));
-
-                    if(attackTile != null)
-                    {
-                        unit.MoveUnit(pathfinder.GetPath(unit.floor, (s) => s == attackTile, unit.isFlying));
-                        unit.moveComplete += AIAttack;
-                    }
-                    else
-                    {
-
-                    }
+                    walked = false;
+                    walkPath = path.Take(unit.movemenSprint + unit.movementSpeed);
                 }
 
-                //-----------------------------------------------------------//
+                unit.MoveUnit(walkPath);
 
-                //teleports instead of returns empty list
-                //var path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, longestAttack.Range,true).Any(t => t.Occupied? t.occupier.CompareTag("Player"):false), unit.isFlying == false);
-
-                //var walkPath = path.Take(unit.movementSpeed);
-
-                //bool walked = true;
-
-                //if(walkPath.Last() != path.Last())
-                //{
-                //    walked = false;
-                //    walkPath = path.Take(unit.movemenSprint + unit.movementSpeed);
-                //}
-
-                //unit.MoveUnit(walkPath);
-
-                //if(walked)
-                //{
-                //    unit.moveComplete += AIAttack;
-                //}
+                if (walked)
+                {
+                    unit.moveComplete += AIAttack;
+                }
 
 
                 break;
@@ -85,6 +55,14 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
         return true;
+    }
+
+    public bool ValidAIMoveBlock(BlockScript block, Attack attack)
+    {
+        var attackBlocks = pathfinder.GetTilesInRange(block, attack.Range, true);
+        var occupiedAttackBlocks = attackBlocks.Where(t => t.Occupied);
+        return attackBlocks.Any(t => t.Occupied ? t.occupier.CompareTag("Player") : false);
+
     }
 
     private void AIAttack(object sender, Character unit)
