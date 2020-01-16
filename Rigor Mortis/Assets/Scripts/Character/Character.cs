@@ -34,7 +34,6 @@ public class Character : MonoBehaviour
     private float counterTime;
     private const float moveAnimationSpeed = 6;
 
-    Color colourStart;
 
     public EventHandler<Character> characterClicked;
     public EventHandler<Character> moveComplete, attackComplete;
@@ -47,6 +46,7 @@ public class Character : MonoBehaviour
     private BlockScript moveToBlock;
 
     private Score score;
+    public GameObject godRay;
 
     private void Awake()
     {
@@ -56,11 +56,11 @@ public class Character : MonoBehaviour
         playerManager = FindObjectOfType<PlayerManager>();
         score = FindObjectOfType<Score>();
         //attackManager = FindObjectOfType<AttackManager>();
-        colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
         attackEvent += DamageCheck;
         //Movement costs 2AP, Attacking costs 3AP
         ActionPoints = maxActionPoints = 4;
+        godRay.SetActive(false);
 
         ChooseAttackButton.attackChosen += (s, e) =>
         {
@@ -94,6 +94,7 @@ public class Character : MonoBehaviour
         if(selectedAttack != null)
         {
             ActionPoints -= 3;
+            manaPoints -= selectedAttack.Mana;
             if (tag == "Player" ) {
                 gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
             }
@@ -109,7 +110,9 @@ public class Character : MonoBehaviour
 
             attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
             attackComplete?.Invoke(this, this);
+
         }
+        godRay.SetActive(false);
     }
 
     public void SpendAP(int actionPoints) => ActionPoints -= actionPoints;
@@ -170,6 +173,7 @@ public class Character : MonoBehaviour
                     pathIndex++;
                 }
             }
+            godRay.SetActive(false);
         }
     }
 

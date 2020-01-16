@@ -22,7 +22,7 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         character.attackSourceBlock = target.floor;
         character.Attack();
-        target.GetComponentInChildren<Renderer>().material.color = Color.white;
+        target.godRay.SetActive(false);
         gridManager.ClearMap();
     }
 
@@ -31,12 +31,12 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void OnPointerEnter(PointerEventData eventData)
     {
         //Highlight enemy
-        target.GetComponentInChildren<Renderer>().material.color = Color.cyan;
+        target.godRay.SetActive(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         //Unhighlight enemy
-        target.GetComponentInChildren<Renderer>().material.color = Color.white;
+        target.godRay.SetActive(false);
     }
 }
