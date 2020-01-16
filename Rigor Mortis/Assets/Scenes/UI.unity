@@ -330,6 +330,18 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &383545471 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2858286172575144917, guid: 724620522a4814a41a3e3123a1f34ec4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1100370849162408723}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &462187321
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 462187323}
   - component: {fileID: 462187322}
+  - component: {fileID: 462187324}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -374,6 +387,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &462187324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462187321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2095af691cd474890167bfcdb492c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &662603704 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8340796270077940529, guid: 195497fdef40b4f4aa04d0c47b056391,
@@ -554,11 +579,14 @@ MonoBehaviour:
   marker: {fileID: 1878347195513547648, guid: a07229e37bec5894f88c212ed5da88bc, type: 3}
   healthBar: {fileID: 4641054099590450111, guid: aa6eb00298d4d92499e90ed5b4efed7f,
     type: 3}
-  healthBarOffset: {x: 0, y: 1.75, z: 0}
+  APBar: {fileID: 4641054099590450111, guid: 0604e44476310854b8e9a63552203fd9, type: 3}
   blocksInRange: []
   currentState: 0
   resumeState: 0
   isPaused: 0
+  gameOver: 0
+  pointText: {fileID: 0}
+  placementText: {fileID: 383545471}
 --- !u!114 &1024436349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -857,7 +885,7 @@ MonoBehaviour:
   - {fileID: 6645742794849477671, guid: 269d7f95c0acf8948b2e5b2414ef05e5, type: 3}
   - {fileID: 803779068645609789, guid: aaf2bcdbc7187ff46823f0181ca61923, type: 3}
   - {fileID: 5226057197208204854, guid: cc4cb492a5b2af84b82122778849f628, type: 3}
-  levelMap: {fileID: 4900000, guid: 1d29ed5d61a0b0547b297670de6cdeae, type: 3}
+  levelMap: {fileID: 4900000, guid: 7a924b8441da4ad47bec18d730df8be0, type: 3}
   SelectedUnit: {fileID: 0}
   spawnPoint: {r: 1, g: 1, b: 0, a: 1}
   lowSpeedTile: {r: 0, g: 1, b: 1, a: 1}
@@ -1511,6 +1539,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FixedCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6612075941053652885, guid: 796e9cc411e470d4ba67273a729c54b2,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 82028632}
     - target: {fileID: 6612075941053652904, guid: 796e9cc411e470d4ba67273a729c54b2,
         type: 3}
       propertyPath: m_LocalPosition.x

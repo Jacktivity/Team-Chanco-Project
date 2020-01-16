@@ -46,12 +46,15 @@ public class Character : MonoBehaviour
     private int pathIndex;
     private BlockScript moveToBlock;
 
+    private Score score;
+
     private void Awake()
     {
         pathfinder = FindObjectOfType<Pathfinder>();
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
         playerManager = FindObjectOfType<PlayerManager>();
+        score = FindObjectOfType<Score>();
         //attackManager = FindObjectOfType<AttackManager>();
         colourStart = gameObject.GetComponentInChildren<Renderer>().material.color;
         previousForward = transform.forward;
@@ -225,8 +228,23 @@ public class Character : MonoBehaviour
 
 
         if (tag == "Player") {
+            if(name == "Necromancer") {
+                score.RemoveScore(50);
+            } else {
+                score.RemoveScore(cost);
+            }
+
             Slider APSlider = GetComponent<ActionPointBar>().slider;
             APSlider.gameObject.SetActive(false);
+        } else if(tag == "Enemy") {
+            if (name == "Necromancer")
+            {
+                score.AddScore(50);
+            }
+            else
+            {
+                score.AddScore(cost);
+            }
         }
     }
 

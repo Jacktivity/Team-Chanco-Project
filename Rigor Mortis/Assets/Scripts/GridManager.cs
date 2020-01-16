@@ -64,6 +64,7 @@ public class GridManager : MonoBehaviour
 
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
         turnEnded += (s, e) => ClearMap();
+        uiManager.PlacementPoint(placementPoints);
     }
 
     public void ColourTiles(IEnumerable<BlockScript> tiles, bool walking)
@@ -245,6 +246,7 @@ public class GridManager : MonoBehaviour
     {
         Debug.Log(placementPoints + "-" + reduction);
         placementPoints -= reduction;
+        uiManager.PlacementPoint(placementPoints);
 
         if (placementPoints <= 0 && (playerManager.activePlayerNecromancers.Count() > 0 || reduction == 0 ))
         {
@@ -310,6 +312,7 @@ public class GridManager : MonoBehaviour
     {
         if (!CheckPlayerTurn())
         {
+            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.enemyTurn);
             turnEnded?.Invoke(this, new EventArgs());
             StartCoroutine(MoveEnemies());
         }

@@ -42,6 +42,8 @@ public class UIManager : MonoBehaviour
 
     private Vector3 buttonSpacing = new Vector3(0, 30, 0);
 
+    public Text pointText;
+    public Text placementText;
 
     public enum GameStates
     {
@@ -272,6 +274,11 @@ public class UIManager : MonoBehaviour
             unit.gameObject.AddComponent<ActionPointBar>().unit = unit;
             unit.gameObject.GetComponent<ActionPointBar>().slider = apSlider;
         }
+    }
+
+    public void PlacementPoint(int amount)
+    {
+        placementText.text = "Points Remaining: " + amount;
     }
 
     // Unit Assignment
