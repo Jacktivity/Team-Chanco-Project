@@ -37,7 +37,7 @@ public class PlayerCharacterMover : MonoBehaviour
     {
         if(playerUnitToMove != null)
         {
-            if(walkTiles.Contains(e) || sprintTiles.Contains(e))
+            if((walkTiles.Contains(e) || sprintTiles.Contains(e)) && playerUnitToMove.CanMove)
             {
                 playerUnitToMove.MoveUnit(playerUnitToMove.pathfinder.GetPath(playerUnitToMove.floor, (block) => block == e, playerUnitToMove.isFlying == false));
                 playerUnitToMove = null;

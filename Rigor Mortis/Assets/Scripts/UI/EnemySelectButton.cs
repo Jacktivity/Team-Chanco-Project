@@ -16,6 +16,9 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         character = attacker;
         this.target = target;
         gridManager = FindObjectOfType<GridManager>();
+
+        target.beingAttacked = true;
+        target.beingAttackedButton = this;
     }
 
     public void SelectTarget()

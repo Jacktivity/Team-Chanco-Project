@@ -48,6 +48,10 @@ public class Character : MonoBehaviour
     private Score score;
     public GameObject godRay;
 
+    public bool beingAttacked;
+    public EnemySelectButton beingAttackedButton;
+
+
     private void Awake()
     {
         pathfinder = FindObjectOfType<Pathfinder>();
@@ -216,6 +220,7 @@ public class Character : MonoBehaviour
         {
             gameObject.GetComponent<HealthBar>().slider.value = currentHitPoints;
         }
+        beingAttacked = false;
     }
 
     protected void DestroyUnit()
@@ -295,7 +300,28 @@ public class Character : MonoBehaviour
     private void OnMouseDown()
     {
         characterClicked?.Invoke(this, this);      
+        if(beingAttacked)
+        {
+            beingAttackedButton.SelectTarget();
+        }
         
+    }
+
+    private void OnMouseOver()
+    {
+        if(beingAttacked)
+        {
+            godRay.SetActive(true);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (beingAttacked)
+        {
+            godRay.SetActive(false);
+        }
+
     }
 
     private void Update()
