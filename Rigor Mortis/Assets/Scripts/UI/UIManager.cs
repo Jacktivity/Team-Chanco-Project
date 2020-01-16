@@ -18,7 +18,8 @@ public class UIManager : MonoBehaviour
     private int turnNumber;
 
     [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton, cancelActionBtn, waitButton;
-    [SerializeField]private Vector3 baseAttackPosition, targetCharacterOffset;
+    [SerializeField]private Vector3 targetCharacterOffset;
+    [SerializeField]private Vector3 baseAttackPosition;
 
     public List<GameObject> popUpButtons;
 
@@ -41,7 +42,7 @@ public class UIManager : MonoBehaviour
     public bool isPaused;
     public bool gameOver;
 
-    private Vector3 buttonSpacing = new Vector3(0, 30, 0);
+    private Vector3 buttonSpacing = new Vector3(30, 0, 0);
 
     public Text scorePointsText;
     public Text placementText;
@@ -68,6 +69,8 @@ public class UIManager : MonoBehaviour
 
         ChooseAttackButton.attackChosen += DisplayTargets;
         Character.attackEvent += ClearAttackUI;
+
+        baseAttackPosition = popupArea.transform.position;
     }
 
 
@@ -198,7 +201,7 @@ public class UIManager : MonoBehaviour
             var moveOffset = buttonSpacing * (_attacks.Count() + 1);
             MakeMoveButton(moveOffset, character);
 
-            moveOffset = new Vector3(0, 30 * (_attacks.Count() + 2), 0);
+            moveOffset = new Vector3( 30 * (_attacks.Count() + 2), 0, 0);
             MakeWaitButton(moveOffset, character);
         }
         else if(character.CanMove)
@@ -217,7 +220,7 @@ public class UIManager : MonoBehaviour
         Vector3 popUpOffset = buttonSpacing * i;
 
         GameObject button = Instantiate(attackButton, popupArea.transform);
-        button.transform.localPosition = baseAttackPosition + popUpOffset;
+        button.transform.position = baseAttackPosition + popUpOffset;
         popUpButtons.Add(button);
 
         button.GetComponent<ChooseAttackButton>().character = character;
@@ -230,7 +233,7 @@ public class UIManager : MonoBehaviour
     {
         var moveBtn = Instantiate(moveButton, popupArea.transform);
         popUpButtons.Add(moveBtn);
-        moveBtn.transform.localPosition = baseAttackPosition + buttonOffset;
+        moveBtn.transform.position = baseAttackPosition + buttonOffset;
         moveBtn.GetComponent<MoveButton>().SetUpMoveButton(character);
     }
 
@@ -238,7 +241,7 @@ public class UIManager : MonoBehaviour
     {
         var waitBtn = Instantiate(waitButton, popupArea.transform);
         popUpButtons.Add(waitBtn);
-        waitBtn.transform.localPosition = baseAttackPosition + buttonOffset;
+        waitBtn.transform.position = baseAttackPosition + buttonOffset;
         waitBtn.GetComponent<Button>().onClick.AddListener(delegate { Wait(character); });
     }
 

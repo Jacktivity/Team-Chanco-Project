@@ -364,6 +364,12 @@ Canvas:
     type: 3}
   m_PrefabInstance: {fileID: 6612075940846846602}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &245367250 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7377603987561923321, guid: 195497fdef40b4f4aa04d0c47b056391,
+    type: 3}
+  m_PrefabInstance: {fileID: 1802571560}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &333307314 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8340796271434194619, guid: 195497fdef40b4f4aa04d0c47b056391,
@@ -719,15 +725,15 @@ MonoBehaviour:
     type: 3}
   targetCharacterButton: {fileID: 6315308289696829695, guid: c976e627ed8466448af44ad17b43419f,
     type: 3}
-  popupArea: {fileID: 0}
+  popupArea: {fileID: 245367250}
   moveButton: {fileID: 8590537472054130620, guid: 33954a3bffded0841839091831c18d4e,
     type: 3}
   cancelActionBtn: {fileID: 6553022043289440012, guid: b2dc836d7c79ecf4884a766aedd5e2dc,
     type: 3}
   waitButton: {fileID: 8590537472054130620, guid: 17cf6dcff6ea2174db9ba31bd3b595d9,
     type: 3}
-  baseAttackPosition: {x: 70, y: 145, z: 0}
   targetCharacterOffset: {x: 70, y: 0, z: 0}
+  baseAttackPosition: {x: 0, y: 0, z: 0}
   popUpButtons: []
   marker: {fileID: 1878347195513547648, guid: a07229e37bec5894f88c212ed5da88bc, type: 3}
   healthBar: {fileID: 4641054099590450111, guid: aa6eb00298d4d92499e90ed5b4efed7f,
@@ -749,9 +755,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 1024436345}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2993a5ac7c8057c49895e7b80be663a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 5640e61caf0e6cc4f9f437f57d7ab692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPanel: {fileID: 0}
+  attackButton: {fileID: 0}
+  targetCharacterButton: {fileID: 0}
+  popupArea: {fileID: 0}
+  moveButton: {fileID: 0}
+  cancelActionBtn: {fileID: 0}
+  waitButton: {fileID: 0}
+  buttonSpacing: {x: 30, y: 0, z: 0}
+  baseAttackPosition: {x: 0, y: 0, z: 0}
+  popUpButtons: []
+  uiManager: {fileID: 0}
+  gridManager: {fileID: 0}
 --- !u!114 &1024436349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1298,6 +1334,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175587684771112558, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175587684771112558, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175587684771112558, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175587684771112558, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175587684771112558, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175587684771112558, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668749549016975985, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -7.4299927
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195497fdef40b4f4aa04d0c47b056391, type: 3}
