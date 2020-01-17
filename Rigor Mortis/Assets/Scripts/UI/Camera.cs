@@ -58,7 +58,7 @@ public class Camera : MonoBehaviour
             {
                 scroll.z = 0;
             }
-            transform.position += scrollSpeed * new Vector3(scroll.x, scroll.y, scroll.z) * Time.deltaTime;
+            transform.position += scrollSpeed * new Vector3(scroll.x, scroll.y, scroll.z) * Time.fixedDeltaTime;
         }
     }
 }

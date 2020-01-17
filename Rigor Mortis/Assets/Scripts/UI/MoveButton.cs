@@ -48,7 +48,7 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         hideGridMoveOnExit = false;
 
         uiManager.DeleteCurrentPopupButtons();
-        uiManager.CreateCancelButton(character);
+        //uiManager.CreateCancelButton(character);
 
         FindObjectOfType<PlayerCharacterMover>().SetMovement(character, walkTiles, sprintTiles);
     }
