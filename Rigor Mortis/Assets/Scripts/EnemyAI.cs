@@ -84,7 +84,7 @@ public class EnemyAI : MonoBehaviour
 
                 attackToUse = unit.UseableAttacks.OrderByDescending(a => a.Range).First();
 
-                path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, attackToUse.Range, true).Any(t => t.occupier?.CompareTag("Player") ?? false), unit.isFlying == false)
+                path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, attackToUse.Range, true).Any(t => t.Occupied ? t.occupier.CompareTag("Player") : false), unit.isFlying == false)
                     .Take(unit.movementSpeed).ToArray();
 
                 if(path.Length != 0)
@@ -100,7 +100,7 @@ public class EnemyAI : MonoBehaviour
             case AIStates.Aggressive:                
                 attackToUse = unit.UseableAttacks.OrderByDescending(a => a.Range).First();
             
-                path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, attackToUse.Range, true).Any(t => t.occupier?.CompareTag("Player") ?? false), unit.isFlying == false);                
+                path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, attackToUse.Range, true).Any(t => t.Occupied? t.occupier.CompareTag("Player") : false), unit.isFlying == false);                
 
                 var walkPath = path.Take(unit.movementSpeed);
 
