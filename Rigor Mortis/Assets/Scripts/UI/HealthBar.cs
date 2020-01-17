@@ -22,8 +22,16 @@ public class HealthBar : MonoBehaviour
             case "Necromancer":
                 offset.y = 1.95f;
                 break;
-
             case "Skeleton":
+                offset.y = 2.15f;
+                break;
+            case "Skeleton_Axe":
+                offset.y = 2.15f;
+                break;
+            case "Skeleton_Rifle":
+                offset.y = 2.15f;
+                break;
+            case "Skeleton_Spear":
                 offset.y = 2.15f;
                 break;
             case "FlamingSkull":
