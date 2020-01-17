@@ -396,6 +396,18 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &289859010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2858286172575144917, guid: 724620522a4814a41a3e3123a1f34ec4,
+    type: 3}
+  m_PrefabInstance: {fileID: 628917279}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &333307314 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8340796271434194619, guid: 195497fdef40b4f4aa04d0c47b056391,
@@ -664,6 +676,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1024436346}
+    - target: {fileID: 4479441726914357392, guid: 724620522a4814a41a3e3123a1f34ec4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FinishPlacement
       objectReference: {fileID: 0}
     - target: {fileID: 8002214739592008470, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
@@ -978,7 +995,7 @@ MonoBehaviour:
   gridManager: {fileID: 1469572276}
   playerManager: {fileID: 1353577215}
   battleCanvas: {fileID: 827883148}
-  prepCanvas: {fileID: 0}
+  prepCanvas: {fileID: 1787721867}
   fixedCanvas: {fileID: 209558815}
   pauseCanvas: {fileID: 904790290}
   winCanvas: {fileID: 934172819}
@@ -1012,7 +1029,7 @@ MonoBehaviour:
   turnDisplay: {fileID: 333307314}
   attackText: {fileID: 249632446}
   scorePointsText: {fileID: 0}
-  placementText: {fileID: 0}
+  placementText: {fileID: 289859010}
   apRightArrow: {fileID: 626445605}
   apLeftArrow: {fileID: 1466905470}
 --- !u!114 &1024436348
@@ -1826,6 +1843,12 @@ Transform:
 --- !u!224 &1787721864 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1100370849367415062, guid: 724620522a4814a41a3e3123a1f34ec4,
+    type: 3}
+  m_PrefabInstance: {fileID: 628917279}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &1787721867 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 1100370849367415057, guid: 724620522a4814a41a3e3123a1f34ec4,
     type: 3}
   m_PrefabInstance: {fileID: 628917279}
   m_PrefabAsset: {fileID: 0}
