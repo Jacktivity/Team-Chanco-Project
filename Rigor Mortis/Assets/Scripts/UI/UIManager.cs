@@ -124,10 +124,11 @@ public class UIManager : MonoBehaviour
         if (targetsInRange.Count() == 0)
         {
             //Say no people to hit
-            var btn = Instantiate(targetCharacterButton, attackPanel.transform);
-            popUpButtons.Add(btn);
-            btn.transform.position = baseAttackPosition;
-            btn.GetComponentInChildren<Text>().text = "No Targets";
+            //var btn = Instantiate(targetCharacterButton, attackPanel.transform);
+            //popUpButtons.Add(btn);
+            //btn.transform.position = baseAttackPosition;
+            //btn.GetComponentInChildren<Text>().text = "No Targets";
+            CreateCancelButton(e.attacker);
         }
         else
         {
@@ -151,14 +152,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    /*public void CreateCancelButton(Character unit)
-    {
-        var cancel = Instantiate(cancelActionBtn, popupArea.transform);
-        popUpButtons.Add(cancel);
-        cancel.transform.localPosition = baseAttackPosition - buttonSpacing;
-        cancel.GetComponent<CancelAction>().SetActions(unit, popUpButtons.Select(b => b.GetComponent<MoveButton>()).Where(b => b != null));
-    }*/
-
    public void DeleteCurrentPopupButtons()
     {
         //Clear the previous target buttons
@@ -179,7 +172,7 @@ public class UIManager : MonoBehaviour
         popUpButtons = new List<GameObject>();
 
         activePopUpButtons.Clear();
-        activePopUpButtons = new List<GameObject>();
+        activePopUpButtons = new List<GameObject>();        
     }
 
     public void UpdateTurnNumber(int turn)
@@ -232,7 +225,7 @@ public class UIManager : MonoBehaviour
             }
         } else if (character.CanMove) {
             MakeMoveButton( new Vector3( 0, 0, 0 ), character );
-            MakeWaitButton( new Vector3( -buttonSpace, 0, 0 ), character );
+            MakeWaitButton( new Vector3( buttonSpace, 0, 0 ), character );
         }
     }
 
@@ -357,6 +350,17 @@ public class UIManager : MonoBehaviour
         waitBtn.GetComponent<Button>().onClick.AddListener(delegate { Wait(character); });
         waitBtn.GetComponent<WaitButton>().attackText = attackText;
         waitBtn.GetComponent<WaitButton>().gridManager = gridManager;
+        waitBtn.GetComponent<WaitButton>().character = character;
+        waitBtn.GetComponent<WaitButton>().uiManager = this;
+    }
+
+    public void CreateCancelButton(Character unit)
+    {
+        var cancel = Instantiate(cancelActionBtn, attackPanel.transform);
+        popUpButtons.Add(cancel);
+        cancel.transform.position = baseAttackPosition;
+        cancel.GetComponent<CancelAction>().SetActions(unit/*, popUpButtons.Select(b => b.GetComponent<MoveButton>()).Where(b => b != null)*/);
+        cancel.GetComponent<CancelAction>().attackText = attackText;
     }
 
     public void ClearRangeBlocks()

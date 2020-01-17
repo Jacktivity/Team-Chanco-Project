@@ -16,6 +16,9 @@ public class PlayerCharacterMover : MonoBehaviour
         BlockScript.blockClicked += MoveUnit;
     }
 
+    public bool MovableUnit => playerUnitToMove != null;
+    public Character Unit => playerUnitToMove;
+
     public void SetMovement(Character unit, BlockScript[] walkTo, BlockScript[] sprintTo)
     {
         if(gameObject.GetComponentsInChildren<Character>().Contains(unit))

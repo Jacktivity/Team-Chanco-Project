@@ -10,6 +10,7 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     private Character character;
     private BlockScript[] walkTiles, sprintTiles;
+    public static EventHandler pointerExit;
     private GridManager gridManager;
     private UIManager uiManager;
     public Text attackText;
@@ -78,6 +79,8 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        //Update with PLayerCharacterMover link
+
         gridManager.ColourTiles(sprintTiles, false);
         gridManager.ColourTiles(walkTiles, true);
         attackText.text = "Move";
@@ -85,9 +88,7 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (hideGridMoveOnExit)
-            gridManager.ClearMap();
-
+        pointerExit?.Invoke(this, new EventArgs());
         attackText.text = "";
     }
 }

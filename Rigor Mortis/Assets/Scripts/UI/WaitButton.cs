@@ -8,11 +8,14 @@ public class WaitButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     public Text attackText;
     public GridManager gridManager;
+    public UIManager uiManager;
+    public Character character;
 
     public void ButtonClicked()
     {
         attackText.text = "";
         gridManager.ClearMap();
+        uiManager.CreateCancelButton(character);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

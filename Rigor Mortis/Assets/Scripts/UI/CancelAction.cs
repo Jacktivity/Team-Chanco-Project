@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class CancelAction : MonoBehaviour
+public class CancelAction : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private PlayerManager playerManager;
     private Character character;
     public static EventHandler<BlockScript> cancelActions;
+    public Text attackText;
+
     public void Start()
     {
         playerManager = FindObjectOfType<PlayerManager>();
     }
 
-    public void SetActions(Character character, IEnumerable<MoveButton> moveButtons)
+    public void SetActions(Character character/*, IEnumerable<MoveButton> moveButtons*/)
     {
         this.character = character;
     }
@@ -21,6 +25,16 @@ public class CancelAction : MonoBehaviour
     public void CancelCurrentAction()
     {
         playerManager.PlayerUnitChosen(character);
-        FindObjectOfType<PlayerCharacterMover>().ResetMovement();
+        attackText.text = "";
+        //FindObjectOfType<PlayerCharacterMover>().ResetMovement();
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        attackText.text = "Cancel";
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        attackText.text = "";
     }
 }

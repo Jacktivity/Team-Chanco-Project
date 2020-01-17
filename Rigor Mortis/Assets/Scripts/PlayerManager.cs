@@ -27,18 +27,17 @@ public class PlayerManager : MonoBehaviour
         GridManager.unitSpawned += (s, e) => { e.attackComplete += (sender, character) => gridManager.CycleTurns(); };
         GridManager.enemySpawned += (s, e) => { e.unit.characterClicked += (sender, character) => EnemyUnitChosen(e.unit); };
         //BlockScript.blockClicked += (s, e) => BlockClicked(e);
-        ChooseAttackButton.pointerExit += (s, e) =>
+        ChooseAttackButton.pointerExit += ResetMapMovement;
+        MoveButton.pointerExit += ResetMapMovement;
+    }
+
+    private void ResetMapMovement(object sender, EventArgs e)
+    {
+        var playerMover = FindObjectOfType<PlayerCharacterMover>();
+        if (playerMover.MovableUnit)
         {
-            //if (selectedPlayer != null)
-            //    if(selectedPlayer.selectedAttack == null)
-            //    {
-            //        HighlightMovementTiles(selectedPlayer);
-            //    }
-            //    else
-            //    {
-            //        gridManager.ColourTiles(selectedPlayer.pathfinder.GetTilesInRange(selectedPlayer.floor, selectedPlayer.selectedAttack.Range, true), false);
-            //    }
-        };
+            HighlightMovementTiles(playerMover.Unit);
+        }
     }
 
     public void AddUnit(Character unit)
@@ -133,7 +132,7 @@ public class PlayerManager : MonoBehaviour
             selectedPlayer = null;
     }
 
-    private void HighlightMovementTiles(Character unit)
+    public void HighlightMovementTiles(Character unit)
     {
         if (unit.MaxAP)
         {
