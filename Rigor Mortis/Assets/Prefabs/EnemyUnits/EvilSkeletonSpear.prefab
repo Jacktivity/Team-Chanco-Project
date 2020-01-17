@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9174458072726600154}
   - component: {fileID: 371396883732879494}
   - component: {fileID: 5663001783453113287}
-  - component: {fileID: 6690734147878028020}
   - component: {fileID: 189153216239628687}
   - component: {fileID: 6563042350926334587}
   m_Layer: 10
@@ -66,43 +65,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &6690734147878028020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2924914681836274734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48f67ce3f55061b41bf3e1df61b1aad8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cost: 15
-  maxHitPoints: 0
-  accuracy: 5
-  power: 5
-  evade: 0
-  armour: 1
-  resistance: 1
-  movementSpeed: 3
-  movemenSprint: 5
-  manaPoints: 0
-  currentHitPoints: 0
-  isFlying: 0
-  isCaptain: 0
-  uiManager: {fileID: 0}
-  pathfinder: {fileID: 0}
-  playerManager: {fileID: 0}
-  floor: {fileID: 0}
-  moving: 0
-  attackSourceBlock: {fileID: 0}
-  godRay: {fileID: 2974652156917152429}
-  AP_VFX_Full: {fileID: 8579734121242130181}
-  AP_VFX_Half: {fileID: 5876242423193990720}
-  AP_VFX_Empty: {fileID: 7091440376290915228}
-  beingAttacked: 0
-  beingAttackedButton: {fileID: 0}
 --- !u!95 &189153216239628687
 Animator:
   serializedVersion: 3
@@ -153,10 +115,10 @@ MonoBehaviour:
   floor: {fileID: 0}
   moving: 0
   attackSourceBlock: {fileID: 0}
-  godRay: {fileID: 0}
-  AP_VFX_Full: {fileID: 0}
-  AP_VFX_Half: {fileID: 0}
-  AP_VFX_Empty: {fileID: 0}
+  godRay: {fileID: 2974652156917152429}
+  AP_VFX_Full: {fileID: 8579734121242130181}
+  AP_VFX_Half: {fileID: 5876242423193990720}
+  AP_VFX_Empty: {fileID: 7091440376290915228}
   beingAttacked: 0
   beingAttackedButton: {fileID: 0}
 --- !u!1 &9157349250919035960
@@ -269,6 +231,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 97706452928999987}
     m_Modifications:
+    - target: {fileID: 1614290478563651637, guid: e2d9f99584bdcea4b8357667c09b52f6,
+        type: 3}
+      propertyPath: m_Name
+      value: PS_Selection
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614290478563651637, guid: e2d9f99584bdcea4b8357667c09b52f6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1614290478563651638, guid: e2d9f99584bdcea4b8357667c09b52f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -338,16 +310,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1614290478563651637, guid: e2d9f99584bdcea4b8357667c09b52f6,
-        type: 3}
-      propertyPath: m_Name
-      value: PS_Selection
-      objectReference: {fileID: 0}
-    - target: {fileID: 1614290478563651637, guid: e2d9f99584bdcea4b8357667c09b52f6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2d9f99584bdcea4b8357667c09b52f6, type: 3}
@@ -676,16 +638,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 97706452928999987}
     m_Modifications:
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_Name
-      value: PS_Selection_Empty
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1653491297711639668, guid: 02bf5b393ede6a5478042e848987946a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -755,6 +707,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_Name
+      value: PS_Selection_Empty
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02bf5b393ede6a5478042e848987946a, type: 3}

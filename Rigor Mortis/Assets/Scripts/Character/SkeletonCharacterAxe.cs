@@ -22,6 +22,6 @@ public class SkeletonCharacterAxe : Character
         
         currentHitPoints = maxHitPoints;
 
-        attacks = new Attack[] { AttackLibrary.RustySword };
+        attacks = new Attack[] { AttackLibrary.Axe };
     }
 }
