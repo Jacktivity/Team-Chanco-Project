@@ -41,7 +41,7 @@ public class Pathfinder : MonoBehaviour
 
             bool searchComplete = searchCriteria(pathTile);
 
-            if (searchComplete)
+            if (searchComplete && pathTile.Occupied == false)
             {
                 targetTile = pathTile;
                 break;
@@ -129,7 +129,7 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool searchOccupied = true, bool flying = false)
+    public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool canSearchOccupied = true, bool flying = false)
     {
         var distDictionary = new Dictionary<BlockScript, float>();
 
@@ -160,7 +160,7 @@ public class Pathfinder : MonoBehaviour
 
             gameMap.Remove(pathTile);
 
-            var adjacent = searchOccupied ? pathTile.AdjacentTiles() : pathTile.UnoccupiedAdjacentTiles();
+            var adjacent = canSearchOccupied ? pathTile.UnoccupiedAdjacentTiles() : pathTile.AdjacentTiles();
 
             foreach (var tile in adjacent)
             {
