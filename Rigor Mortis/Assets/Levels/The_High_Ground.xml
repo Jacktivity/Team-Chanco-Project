@@ -125,17 +125,19 @@
       </rotation>
     </rotations>
     <enemies>
-      <enemy name="Necromancer" type="1" posX="1" posY ="1" posZ="5"/>
-      <enemy name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="5"/>
-      <enemy name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="7"/>
-      <enemy name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="3"/>
 
-      <enemy name="Skeleton" type="5" posX="4" posY ="1" posZ="0"/>
-      <enemy name="Skeleton" type="0" posX="5" posY ="1" posZ="0"/>
-      <enemy name="Skeleton" type="0" posX="9" posY ="1" posZ="10"/>
-      <enemy name="Skeleton" type="0" posX="7" posY ="1" posZ="9"/>
-      <enemy name="Skeleton" type="0" posX="6" posY ="0" posZ="3"/>
-      <enemy name="Skeleton" type="0" posX="6" posY ="0" posZ="7"/>
+      <enemy name="Necromancer" type="1" posX="1" posY ="1" posZ="5" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="5" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="7" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="3" behaviour="0" linkedUnits=""/>
+
+      <enemy name="Skeleton" type="5" posX="4" posY ="1" posZ="0" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton" type="0" posX="5" posY ="1" posZ="0" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton" type="0" posX="9" posY ="1" posZ="10" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton" type="0" posX="7" posY ="1" posZ="9" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton" type="0" posX="6" posY ="0" posZ="3" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton" type="0" posX="6" posY ="0" posZ="7" behaviour="0" linkedUnits=""/>
+
     </enemies>
     <placeables>
       <placeable posX="17" posY ="0" posZ="3"/>

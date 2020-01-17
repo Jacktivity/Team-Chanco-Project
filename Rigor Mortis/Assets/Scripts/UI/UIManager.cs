@@ -228,7 +228,7 @@ public class UIManager : MonoBehaviour
             }
         } else if (character.CanMove) {
             MakeMoveButton( new Vector3( 0, 0, 0 ), character );
-            MakeWaitButton( new Vector3( 0, 0, 0 ), character );
+            MakeWaitButton( new Vector3( -70, 0, 0 ), character );
         }
     }
 
@@ -342,6 +342,7 @@ public class UIManager : MonoBehaviour
         popUpButtons.Add(moveBtn);
         moveBtn.transform.position = baseAttackPosition + buttonOffset;
         moveBtn.GetComponent<MoveButton>().SetUpMoveButton(character);
+        moveBtn.GetComponent<MoveButton>().attackText = attackText;
     }
 
     private void MakeWaitButton(Vector3 buttonOffset, Character character)
@@ -350,6 +351,8 @@ public class UIManager : MonoBehaviour
         popUpButtons.Add(waitBtn);
         waitBtn.transform.position = baseAttackPosition + buttonOffset;
         waitBtn.GetComponent<Button>().onClick.AddListener(delegate { Wait(character); });
+        waitBtn.GetComponent<WaitButton>().attackText = attackText;
+        waitBtn.GetComponent<WaitButton>().gridManager = gridManager;
     }
 
     public void ClearRangeBlocks()

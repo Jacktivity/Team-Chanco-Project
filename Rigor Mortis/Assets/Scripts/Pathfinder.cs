@@ -65,6 +65,24 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
+    public BlockScript[] AttackRangeCheck(BlockScript startBlock, int attackRange)
+    {
+        var centrePoint = startBlock.coordinates;
+
+        var rangeBlocks = new HashSet<BlockScript>();
+
+        //Gets all perimiter values
+        for (int x = 0; x < attackRange; x++)
+        {
+            for (int y = attackRange; y > 0; y--)
+            {
+                var north = centrePoint + new Vector3(0, 0, 0);
+            }
+        }
+
+        throw new Exception();
+    }
+
 
     public int GetDistance(BlockScript startBlock, BlockScript endBlock)
     {
@@ -109,11 +127,6 @@ public class Pathfinder : MonoBehaviour
         {
             return distDictionary[endBlock];
         }
-    }
-
-    public bool SearchComplete(BlockScript pathTile, Func<BlockScript, bool> searchCriteria)
-    {
-        return pathTile.AdjacentTiles().Any(t => searchCriteria(t));
     }
 
     public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool searchOccupied = true)
