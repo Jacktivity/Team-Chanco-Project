@@ -26,7 +26,7 @@ Material:
     m_Floats:
     - _AbilityScale: 0.5
     - _Cutoff: 0.5
-    - _GlowIntensity: 1.1
+    - _GlowIntensity: 1.2
     - _OutlineGlowAmount: 2
     m_Colors:
-    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 0.6899642, g: 0.9339623, b: 0.3216002, a: 1}
