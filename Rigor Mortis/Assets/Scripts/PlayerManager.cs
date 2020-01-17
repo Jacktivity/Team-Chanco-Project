@@ -116,7 +116,7 @@ public class PlayerManager : MonoBehaviour
         
         if (gridManager.playerTurn && unit.ActionPoints >= 0)
         {
-            uiManager.DisplayActionButtons(unit.attacks, unit);            
+            uiManager.CreateActionButtons( unit.attacks, unit);            
 
             if (selectedPlayer != null)
             {
