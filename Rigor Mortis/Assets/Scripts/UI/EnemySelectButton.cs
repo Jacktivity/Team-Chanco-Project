@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     //public AttackManager attackManager;
     public static EventHandler pointerExit;
+    public Text attackText;
     public GridManager gridManager;
     public Character character, target;
 
@@ -27,6 +29,7 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         character.Attack();
         target.godRay.SetActive(false);
         gridManager.ClearMap();
+        attackText.text = "";
     }
 
 
@@ -35,11 +38,13 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         //Highlight enemy
         target.godRay.SetActive(true);
+        attackText.text = target.name;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         //Unhighlight enemy
         target.godRay.SetActive(false);
+        attackText.text = "";
     }
 }

@@ -125,17 +125,17 @@
       </rotation>
     </rotations>
     <enemies>
-      <enemy name="Necromancer" type="1" posX="1" posY ="2" posZ="5"/>
-      <enemy name="FloatingSkull" type="2" posX="3" posY ="2" posZ="5"/>
-      <enemy name="FloatingSkull" type="2" posX="3" posY ="2" posZ="7"/>
-      <enemy name="FloatingSkull" type="2" posX="3" posY ="2" posZ="3"/>
-
-      <enemy name="Skeleton" type="0" posX="4" posY ="2" posZ="0"/>
-      <enemy name="Skeleton" type="0" posX="5" posY ="2" posZ="0"/>
-      <enemy name="Skeleton" type="0" posX="9" posY ="2" posZ="10"/>
-      <enemy name="Skeleton" type="0" posX="7" posY ="2" posZ="9"/>
-      <enemy name="Skeleton" type="0" posX="6" posY ="0" posZ="3"/>
-      <enemy name="Skeleton" type="0" posX="6" posY ="0" posZ="7"/>
+      <!-- Behaviour 0-Agressive, 1-Defencsive, 2-Stationary, 3-Thief  -->
+      <enemy id="0" name="Necromancer" type="1" posX="1" posY ="2" posZ="5" behaviour="0" linkedUnits=""/>
+      <enemy id="1" name="FloatingSkull" type="2" posX="3" posY ="2" posZ="5" behaviour="0" linkedUnits=""/>
+      <enemy id="2" name="FloatingSkull" type="2" posX="3" posY ="2" posZ="7" behaviour="0" linkedUnits=""/>
+      <enemy id="3" name="FloatingSkull" type="2" posX="3" posY ="2" posZ="3" behaviour="0" linkedUnits=""/>
+      <enemy id="4" name="Skeleton" type="0" posX="4" posY ="2" posZ="0" behaviour="0" linkedUnits="0,1"/>
+      <enemy id="5" name="Skeleton" type="0" posX="5" posY ="2" posZ="0" behaviour="0" linkedUnits=""/>
+      <enemy id="6" name="Skeleton" type="0" posX="9" posY ="2" posZ="10" behaviour="0" linkedUnits=""/>
+      <enemy id="7" name="Skeleton" type="0" posX="7" posY ="2" posZ="9" behaviour="0" linkedUnits=""/>
+      <enemy id="8" name="Skeleton" type="0" posX="6" posY ="0" posZ="3" behaviour="0" linkedUnits=""/>
+      <enemy id="9" name="Skeleton" type="0" posX="6" posY ="0" posZ="7" behaviour="0" linkedUnits=""/>
     </enemies>
     <placeables>
       <placeable posX="17" posY ="0" posZ="3"/>

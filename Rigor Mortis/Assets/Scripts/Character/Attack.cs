@@ -59,6 +59,8 @@ public class Attack
     {
         return Name.GetHashCode();
     }
+
+    public double AverageDamage => (PhysicalDamage?.Average() ?? 0) + (MagicalDamage?.Average() ?? 0);
 }
 
 public struct Damage

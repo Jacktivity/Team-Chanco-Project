@@ -35,13 +35,14 @@ public class GridManager : MonoBehaviour
 
     GameObject[] playerUnits;
 
-    public bool moveMode;
+    public bool moveMode, activeAI;
     public BlockScript selectedBlock;
 
     public BlockScript[] Map => GetComponentsInChildren<BlockScript>();
 
     public Color SpawnColor => spawnPoint;
-    public static EventHandler<Character> unitSpawned, enemySpawned;
+    public static EventHandler<Character> unitSpawned;
+    public static EventHandler<EnemySpawn> enemySpawned;
     public static EventHandler<BlockScript[]> mapGenerated;
 
     private int placementPoints;
@@ -62,9 +63,17 @@ public class GridManager : MonoBehaviour
         PlaceEnemy();
         UnitPlacement();
 
+        activeAI = true;
+
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
         turnEnded += (s, e) => ClearMap();
         uiManager.PlacementPoint(placementPoints);
+        UIManager.gameStateChange += AIRunCheck;
+    }
+
+    private void AIRunCheck(object sender, UIManager.GameStates e)
+    {
+        activeAI = e != UIManager.GameStates.loseState && e != UIManager.GameStates.winState;
     }
 
     public void ColourTiles(IEnumerable<BlockScript> tiles, bool walking)
@@ -173,7 +182,16 @@ public class GridManager : MonoBehaviour
             placedEnemy.tag = "Enemy";
             tile.occupier = placedEnemy.gameObject;
 
-            enemySpawned?.Invoke(this, placedEnemy);
+            var linkedUnits = new int[0];
+
+            bool hasLinkedUnits = enemy.linkedUnits != "";
+
+            if(hasLinkedUnits)
+            {
+                linkedUnits = enemy.linkedUnits.Split(',').Select(v => int.Parse(v)).ToArray();
+            }            
+
+            enemySpawned?.Invoke(this, new EnemySpawn(placedEnemy, (AIStates)enemy.behaviour, enemy.id, linkedUnits));
             playerManager.AddUnit(placedEnemy);
           // eventSystem.AddUnit(placedEnemy);
         }
@@ -464,12 +482,6 @@ namespace GridXML
 
         private byte placementpointsField;
 
-        private bool placementpointsFieldSpecified;
-
-        private byte placementPointsField;
-
-        private bool placementPointsFieldSpecified;
-
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("map-line")]
         public levelsLevelMapMapline[] mapline
@@ -509,48 +521,6 @@ namespace GridXML
             set
             {
                 this.placementpointsField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool placementpointsSpecified
-        {
-            get
-            {
-                return this.placementpointsFieldSpecified;
-            }
-            set
-            {
-                this.placementpointsFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte placementPoints
-        {
-            get
-            {
-                return this.placementPointsField;
-            }
-            set
-            {
-                this.placementPointsField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool placementPointsSpecified
-        {
-            get
-            {
-                return this.placementPointsFieldSpecified;
-            }
-            set
-            {
-                this.placementPointsFieldSpecified = value;
             }
         }
     }
@@ -650,6 +620,8 @@ namespace GridXML
     public partial class levelsLevelEnemy
     {
 
+        private byte idField;
+
         private string nameField;
 
         private byte typeField;
@@ -659,6 +631,24 @@ namespace GridXML
         private byte posYField;
 
         private byte posZField;
+
+        private byte behaviourField;
+
+        private string linkedUnitsField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -727,6 +717,34 @@ namespace GridXML
             set
             {
                 this.posZField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte behaviour
+        {
+            get
+            {
+                return this.behaviourField;
+            }
+            set
+            {
+                this.behaviourField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string linkedUnits
+        {
+            get
+            {
+                return this.linkedUnitsField;
+            }
+            set
+            {
+                this.linkedUnitsField = value;
             }
         }
     }

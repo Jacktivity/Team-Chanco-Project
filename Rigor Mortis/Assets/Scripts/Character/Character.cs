@@ -46,7 +46,7 @@ public class Character : MonoBehaviour
     private BlockScript moveToBlock;
 
     private Score score;
-    public GameObject godRay;
+    public GameObject godRay, AP_VFX_Full, AP_VFX_Half, AP_VFX_Empty;
 
     public bool beingAttacked;
     public EnemySelectButton beingAttackedButton;
@@ -78,6 +78,8 @@ public class Character : MonoBehaviour
     {
         currentHitPoints = maxHitPoints;
     }
+
+    public Attack[] UseableAttacks => attacks.Where(a => a.Mana <= manaPoints).ToArray();
 
     public void ClearActionPoints()
     {
@@ -325,11 +327,26 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
-        //TODO Remove and check where things go wrong
-        if (ActionPoints <= 0)
+        if(tag == "Player")
         {
-            //Make highlighter of transparent material? Outline renderer etc?        
-            //gameObject.GetComponentInChildren<Renderer>().material.color = Color.gray;
+            if (MaxAP)
+            {
+                AP_VFX_Full.SetActive(true);
+                AP_VFX_Half.SetActive(false);
+                AP_VFX_Empty.SetActive(false);
+            }
+            else if (CanMove)
+            {
+                AP_VFX_Full.SetActive(false);
+                AP_VFX_Half.SetActive(true);
+                AP_VFX_Empty.SetActive(false);
+            }
+            else
+            {
+                AP_VFX_Full.SetActive(false);
+                AP_VFX_Half.SetActive(false);
+                AP_VFX_Empty.SetActive(true);
+            }
         }
         Movement();
     }
