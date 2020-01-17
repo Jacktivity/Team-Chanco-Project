@@ -200,6 +200,7 @@ public class Character : MonoBehaviour
                 if (e.PhysicalDamage > armour)
                     TakeDamage(e.PhysicalDamage - armour);
             }
+            beingAttacked = false;
 
             
         }
@@ -222,7 +223,6 @@ public class Character : MonoBehaviour
         {
             gameObject.GetComponent<HealthBar>().slider.value = currentHitPoints;
         }
-        beingAttacked = false;
     }
 
     protected void DestroyUnit()

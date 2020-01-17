@@ -69,27 +69,27 @@
       </rotation>
     </rotations>
     <enemies>
-      <enemy name="Necromancer" type="1" posX="2" posY ="0" posZ="17"/>
-      <enemy name="Necromancer" type="1" posX="27" posY ="0" posZ="2"/>
+      <enemy id="0" name="Necromancer" type="1" posX="2" posY ="0" posZ="17" behaviour="0" linkedUnits=""/>
+      <enemy id="1" name="Necromancer" type="1" posX="27" posY ="0" posZ="2" behaviour="0" linkedUnits=""/>
 
-      <enemy name="Skeleton" type="0" posX="25" posY ="0" posZ="2"/>
-      <enemy name="Skeleton" type="0" posX="27" posY ="0" posZ="4"/>
-      <enemy name="Skeleton" type="0" posX="19" posY ="0" posZ="3"/>
-      <enemy name="Skeleton" type="0" posX="4" posY ="0" posZ="16"/>
-      <enemy name="Skeleton" type="0" posX="3" posY ="0" posZ="12"/>
-      <enemy name="Skeleton" type="0" posX="5" posY ="0" posZ="10"/>
-      <enemy name="Skeleton" type="0" posX="4" posY ="0" posZ="7"/>
-      <enemy name="Skeleton" type="0" posX="7" posY ="0" posZ="2"/>
-      <enemy name="Skeleton" type="0" posX="6" posY ="0" posZ="4"/>
-      <enemy name="Skeleton" type="0" posX="7" posY ="0" posZ="8"/>
-      <enemy name="Skeleton" type="0" posX="7" posY ="0" posZ="12"/>
-      <enemy name="Skeleton" type="0" posX="11" posY ="0" posZ="17"/>
-      <enemy name="Skeleton" type="0" posX="14" posY ="0" posZ="16"/>
-      <enemy name="Skeleton" type="0" posX="21" posY ="0" posZ="17"/>
-      <enemy name="Skeleton" type="0" posX="24" posY ="0" posZ="8"/>
-      <enemy name="Skeleton" type="0" posX="25" posY ="0" posZ="10"/>
+      <enemy id="2" name="Skeleton" type="4" posX="25" posY ="0" posZ="2" behaviour="0" linkedUnits=""/>
+      <enemy id="3" name="Skeleton" type="4" posX="27" posY ="0" posZ="4" behaviour="0" linkedUnits=""/>
+      <enemy id="4" name="Skeleton" type="0" posX="19" posY ="0" posZ="3" behaviour="0" linkedUnits=""/>
+      <enemy id="5" name="Skeleton" type="0" posX="4" posY ="0" posZ="16" behaviour="0" linkedUnits=""/>
+      <enemy id="6" name="Skeleton" type="0" posX="3" posY ="0" posZ="12" behaviour="0" linkedUnits=""/>
+      <enemy id="7" name="Skeleton" type="0" posX="5" posY ="0" posZ="10" behaviour="0" linkedUnits=""/>
+      <enemy id="8" name="Skeleton" type="5" posX="4" posY ="0" posZ="7" behaviour="0" linkedUnits=""/>
+      <enemy id="9" name="Skeleton" type="4" posX="7" posY ="0" posZ="2" behaviour="0" linkedUnits=""/>
+      <enemy id="10" name="Skeleton" type="4" posX="6" posY ="0" posZ="4" behaviour="0" linkedUnits=""/>
+      <enemy id="11" name="Skeleton" type="0" posX="7" posY ="0" posZ="8" behaviour="0" linkedUnits=""/>
+      <enemy id="12" name="Skeleton" type="0" posX="7" posY ="0" posZ="12" behaviour="0" linkedUnits=""/>
+      <enemy id="13" name="Skeleton" type="2" posX="11" posY ="0" posZ="17" behaviour="0" linkedUnits=""/>
+      <enemy id="14" name="Skeleton" type="2" posX="14" posY ="0" posZ="16" behaviour="0" linkedUnits=""/>
+      <enemy id="15" name="Skeleton" type="0" posX="21" posY ="0" posZ="17" behaviour="0" linkedUnits=""/>
+      <enemy id="16" name="Skeleton" type="0" posX="24" posY ="0" posZ="8" behaviour="0" linkedUnits=""/>
+      <enemy id="17" name="Skeleton" type="0" posX="25" posY ="0" posZ="10" behaviour="0" linkedUnits=""/>
 
-      <enemy name="FloatingSkull" type="2" posX="27" posY ="0" posZ="17"/>
+      <enemy id="18" name="FloatingSkull" type="3" posX="27" posY ="0" posZ="17" behaviour="0" linkedUnits=""/>
 
 
     </enemies>
