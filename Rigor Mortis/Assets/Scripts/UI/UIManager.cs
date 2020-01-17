@@ -506,7 +506,7 @@ public class UIManager : MonoBehaviour
             winCanvas.gameObject.SetActive(true);
         }
 
-        if (!winCanvas.enabled != enabled) {
+        if (winCanvas.enabled != enabled) {
             winCanvas.enabled = enabled;
         }
     }
