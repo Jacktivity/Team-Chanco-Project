@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
     public bool isPaused;
     public bool gameOver;
 
-    private Vector3 buttonSpacing = new Vector3(70, 0, 0);
+    private Vector3 buttonSpacing = new Vector3(60, 0, 0);
 
     [SerializeField] Text turnDisplay;
     public Text attackText;
@@ -220,7 +220,7 @@ public class UIManager : MonoBehaviour
                 CreateAttackButton( _attacks, character, i );
             }
 
-            moveOffset = new Vector3( 70 * (_attacks.Count() + 1), 0, 0 );
+            moveOffset = new Vector3( 60 * (_attacks.Count() + 1), 0, 0 );
             MakeWaitButton( moveOffset, character );
             if (popUpButtons.Count() > 3) {
                 LimitAPButtons();
@@ -228,7 +228,7 @@ public class UIManager : MonoBehaviour
             }
         } else if (character.CanMove) {
             MakeMoveButton( new Vector3( 0, 0, 0 ), character );
-            MakeWaitButton( new Vector3( 0, 0, 0 ), character );
+            MakeWaitButton( new Vector3( -60, 0, 0 ), character );
         }
     }
 
@@ -248,9 +248,9 @@ public class UIManager : MonoBehaviour
     public void ResetAPButtons(bool increment) {
         foreach(GameObject button in popUpButtons) {
             if (increment) {
-                button.transform.position = button.transform.position + new Vector3( -70, 0, 0 );
+                button.transform.position = button.transform.position + new Vector3( -60, 0, 0 );
             } else {
-                button.transform.position = button.transform.position + new Vector3( 70, 0, 0 );
+                button.transform.position = button.transform.position + new Vector3( 60, 0, 0 );
             }
             if (!activePopUpButtons.Contains(button)) {
                 button.SetActive(false);
@@ -342,6 +342,7 @@ public class UIManager : MonoBehaviour
         popUpButtons.Add(moveBtn);
         moveBtn.transform.position = baseAttackPosition + buttonOffset;
         moveBtn.GetComponent<MoveButton>().SetUpMoveButton(character);
+        moveBtn.GetComponent<MoveButton>().attackText = attackText;
     }
 
     private void MakeWaitButton(Vector3 buttonOffset, Character character)
@@ -350,6 +351,8 @@ public class UIManager : MonoBehaviour
         popUpButtons.Add(waitBtn);
         waitBtn.transform.position = baseAttackPosition + buttonOffset;
         waitBtn.GetComponent<Button>().onClick.AddListener(delegate { Wait(character); });
+        waitBtn.GetComponent<WaitButton>().attackText = attackText;
+        waitBtn.GetComponent<WaitButton>().gridManager = gridManager;
     }
 
     public void ClearRangeBlocks()
@@ -503,7 +506,7 @@ public class UIManager : MonoBehaviour
             winCanvas.gameObject.SetActive(true);
         }
 
-        if (!winCanvas.enabled != enabled) {
+        if (winCanvas.enabled != enabled) {
             winCanvas.enabled = enabled;
         }
     }

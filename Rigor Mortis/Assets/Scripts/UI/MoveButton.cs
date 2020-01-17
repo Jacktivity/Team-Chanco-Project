@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -11,6 +12,7 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private BlockScript[] walkTiles, sprintTiles;
     private GridManager gridManager;
     private UIManager uiManager;
+    public Text attackText;
     private bool hideGridMoveOnExit = true;
     public bool canMove = true;
 
@@ -46,6 +48,7 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void ButtonClicked()
     {
         hideGridMoveOnExit = false;
+        attackText.text = "";
 
         uiManager.DeleteCurrentPopupButtons();
         //uiManager.CreateCancelButton(character);
@@ -77,11 +80,14 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         gridManager.ColourTiles(sprintTiles, false);
         gridManager.ColourTiles(walkTiles, true);
+        attackText.text = "Move";
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (hideGridMoveOnExit)
             gridManager.ClearMap();
+
+        attackText.text = "";
     }
 }
