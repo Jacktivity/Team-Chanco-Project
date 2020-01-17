@@ -43,7 +43,8 @@ public class UIManager : MonoBehaviour
     public bool isPaused;
     public bool gameOver;
 
-    private Vector3 buttonSpacing = new Vector3(60, 0, 0);
+    float buttonSpace;
+    private Vector3 buttonSpacing;
 
     [SerializeField] Text turnDisplay;
     public Text attackText;
@@ -77,6 +78,9 @@ public class UIManager : MonoBehaviour
         Character.attackEvent += ClearAttackUI;
 
         baseAttackPosition = popupArea.transform.position;
+
+        buttonSpace = 60;
+        buttonSpacing = new Vector3(buttonSpace, 0, 0);
     }
 
 
@@ -220,7 +224,7 @@ public class UIManager : MonoBehaviour
                 CreateAttackButton( _attacks, character, i );
             }
 
-            moveOffset = new Vector3( 60 * (_attacks.Count() + 1), 0, 0 );
+            moveOffset = new Vector3( buttonSpace * (_attacks.Count() + 1), 0, 0 );
             MakeWaitButton( moveOffset, character );
             if (popUpButtons.Count() > 3) {
                 LimitAPButtons();
@@ -228,7 +232,7 @@ public class UIManager : MonoBehaviour
             }
         } else if (character.CanMove) {
             MakeMoveButton( new Vector3( 0, 0, 0 ), character );
-            MakeWaitButton( new Vector3( -60, 0, 0 ), character );
+            MakeWaitButton( new Vector3( -buttonSpace, 0, 0 ), character );
         }
     }
 
@@ -248,9 +252,9 @@ public class UIManager : MonoBehaviour
     public void ResetAPButtons(bool increment) {
         foreach(GameObject button in popUpButtons) {
             if (increment) {
-                button.transform.position = button.transform.position + new Vector3( -60, 0, 0 );
+                button.transform.position = button.transform.position + new Vector3( -buttonSpace, 0, 0 );
             } else {
-                button.transform.position = button.transform.position + new Vector3( 60, 0, 0 );
+                button.transform.position = button.transform.position + new Vector3(buttonSpace, 0, 0 );
             }
             if (!activePopUpButtons.Contains(button)) {
                 button.SetActive(false);
