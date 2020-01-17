@@ -160,7 +160,7 @@ public class Pathfinder : MonoBehaviour
 
             gameMap.Remove(pathTile);
 
-            var adjacent = canSearchOccupied ? pathTile.UnoccupiedAdjacentTiles() : pathTile.AdjacentTiles();
+            var adjacent = canSearchOccupied ? pathTile.AdjacentTiles() : pathTile.UnoccupiedAdjacentTiles();
 
             foreach (var tile in adjacent)
             {
@@ -181,7 +181,7 @@ public class Pathfinder : MonoBehaviour
             }
         }
 
-        return CompleteMap.Where(t => distDictionary[t] <= range && t.Occupied == false).ToArray();
+        return CompleteMap.Where(t => distDictionary[t] <= range).ToArray();
     }
 
     private static void EuclidianAdjacencySearch(Dictionary<BlockScript, BlockScript> pathDictionary, Dictionary<BlockScript, float> distDictionary, BlockScript pathTile, bool ignoreMoveModifier)
