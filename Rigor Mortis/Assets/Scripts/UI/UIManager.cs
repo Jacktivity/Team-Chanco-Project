@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
         gameStateChange += GameStateChanged;
         gameStateChange?.Invoke(this, GameStates.placementPhase);
 
-        //ChooseAttackButton.attackChosen += DisplayTargets;
+        ChooseAttackButton.attackChosen += DisplayTargets;
         Character.attackEvent += ClearAttackUI;
 
         baseAttackPosition = popupArea.transform.position;
@@ -107,7 +107,7 @@ public class UIManager : MonoBehaviour
         DeleteCurrentPopupButtons();
     }
 
-    /*private void DisplayTargets(object sender, ChooseAttackButton.CharacterAttack e)
+    private void DisplayTargets(object sender, ChooseAttackButton.CharacterAttack e)
     {
         DeleteCurrentPopupButtons();
 
@@ -115,30 +115,37 @@ public class UIManager : MonoBehaviour
             .Where(b => b.Occupied ? b.occupier.tag == "Enemy" || b.occupier.tag == "Breakable_Terrain" : false)
             .Select(t => t.occupier.GetComponent<Character>());
 
-        CreateCancelButton(e.attacker);
+        //CreateCancelButton(e.attacker);
 
         if (targetsInRange.Count() == 0)
         {
             //Say no people to hit
-            var btn = Instantiate(targetCharacterButton, popupArea.transform);
+            var btn = Instantiate(targetCharacterButton, attackPanel.transform);
             popUpButtons.Add(btn);
-            btn.transform.localPosition = baseAttackPosition;
+            btn.transform.position = baseAttackPosition;
             btn.GetComponentInChildren<Text>().text = "No Targets";
         }
         else
         {
             for (int i = 0; i < targetsInRange.Count(); i++)
             {
-                var button = Instantiate(targetCharacterButton, popupArea.transform);
+                var button = Instantiate(targetCharacterButton, attackPanel.transform);
                 var moveOffset = buttonSpacing * i;
                 popUpButtons.Add(button);
-                button.transform.localPosition = baseAttackPosition + moveOffset;
-                button.GetComponentInChildren<Text>().text = targetsInRange.ElementAt(i).name;
+                button.transform.position = baseAttackPosition + moveOffset;
+                //button.GetComponentInChildren<Text>().text = targetsInRange.ElementAt(i).name;
                 var enemySelect = button.GetComponent<EnemySelectButton>();
                 enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i));
+                enemySelect.attackText = attackText;
             }
         }
-    }*/
+
+        if (popUpButtons.Count() > 3)
+        {
+            LimitAPButtons();
+            apRightArrow.SetActive(true);
+        }
+    }
 
     /*public void CreateCancelButton(Character unit)
     {
