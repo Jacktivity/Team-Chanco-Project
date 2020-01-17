@@ -698,6 +698,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetUnit
       objectReference: {fileID: 0}
+    - target: {fileID: 1100370849584690447, guid: 724620522a4814a41a3e3123a1f34ec4,
+        type: 3}
+      propertyPath: m_Text
+      value: Skeleton -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100370849584690447, guid: 724620522a4814a41a3e3123a1f34ec4,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1448008006907219476, guid: 724620522a4814a41a3e3123a1f34ec4,
+        type: 3}
+      propertyPath: m_Text
+      value: Floating Skull -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1448008006907219476, guid: 724620522a4814a41a3e3123a1f34ec4,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 724620522a4814a41a3e3123a1f34ec4, type: 3}
 --- !u!224 &662603704 stripped
@@ -948,8 +968,8 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Rifle Skeleton
+    m_LineSpacing: 2
+  m_Text: Rifle Skeleton -15
 --- !u!222 &996797793
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1795,7 +1815,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 2
-  m_Text: Skeleton Spearman
+  m_Text: Skeleton Spearman -15
 --- !u!222 &1711272823
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2063,7 +2083,7 @@ MonoBehaviour:
     m_LineSpacing: 2
   m_Text: 'Skeleton
 
-    Axeman'
+    Axeman -15'
 --- !u!222 &2016169346
 CanvasRenderer:
   m_ObjectHideFlags: 0
