@@ -510,7 +510,7 @@ public class UIManager : MonoBehaviour
 
     public void SetWinCanvas(bool enabled)
     {
-        if (!winCanvas.gameObject.activeSelf && enabled) {
+        if (!winCanvas.gameObject.activeInHierarchy && enabled) {
             winCanvas.gameObject.SetActive(true);
         }
 
