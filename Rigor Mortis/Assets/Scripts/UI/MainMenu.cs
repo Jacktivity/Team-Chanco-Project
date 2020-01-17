@@ -58,6 +58,10 @@ public class MainMenu : MonoBehaviour
                 levelDetailsImage.GetComponent<Image>().sprite = highGroundInfo;
             break;
 
+            case 2:
+                levelDetailsImage.SetActive(false);
+                break;
+
             default:
                 levelDetailsImage.SetActive(false);
             break;
