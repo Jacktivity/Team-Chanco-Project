@@ -1,5 +1,5 @@
 <levels>
-  <level>
+  <level level ="1">
     <maps>
       <map layer ="0" placementpoints ="70">
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
@@ -21,7 +21,7 @@
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
       </map>
-      <map layer ="1" placementpoints ="0">
+      <!--<map layer ="1" placementpoints ="0">
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
@@ -40,8 +40,8 @@
         <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
         <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
         <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
-      </map>
-      <map layer ="2" placementpoints ="0">
+      </map>-->
+      <map layer ="1" placementpoints ="0">
         <map-line value ="0,0,1,0,0,0,0,0,0,1,0"/>
         <map-line value ="1,1,0,0,0,0,0,0,0,0,1"/>
         <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
@@ -83,7 +83,7 @@
         <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
       </rotation>
-      <rotation layer ="1">
+      <!--<rotation layer ="1">
         <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
@@ -102,8 +102,8 @@
         <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-      </rotation>
-      <rotation layer ="2">
+      </rotation>-->
+      <rotation layer ="1">
         <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <rotation-line value ="1,1,0,0,0,0,0,0,0,0,1"/>
         <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
@@ -125,17 +125,19 @@
       </rotation>
     </rotations>
     <enemies>
-      <!-- Behaviour 0-Agressive, 1-Defencsive, 2-Stationary, 3-Thief  -->
-      <enemy id="0" name="Necromancer" type="1" posX="1" posY ="2" posZ="5" behaviour="0" linkedUnits=""/>
-      <enemy id="1" name="FloatingSkull" type="2" posX="3" posY ="2" posZ="5" behaviour="0" linkedUnits=""/>
-      <enemy id="2" name="FloatingSkull" type="2" posX="3" posY ="2" posZ="7" behaviour="0" linkedUnits=""/>
-      <enemy id="3" name="FloatingSkull" type="2" posX="3" posY ="2" posZ="3" behaviour="0" linkedUnits=""/>
-      <enemy id="4" name="Skeleton" type="0" posX="4" posY ="2" posZ="0" behaviour="0" linkedUnits="0,1"/>
-      <enemy id="5" name="Skeleton" type="0" posX="5" posY ="2" posZ="0" behaviour="0" linkedUnits=""/>
-      <enemy id="6" name="Skeleton" type="0" posX="9" posY ="2" posZ="10" behaviour="0" linkedUnits=""/>
-      <enemy id="7" name="Skeleton" type="0" posX="7" posY ="2" posZ="9" behaviour="0" linkedUnits=""/>
-      <enemy id="8" name="Skeleton" type="0" posX="6" posY ="0" posZ="3" behaviour="0" linkedUnits=""/>
-      <enemy id="9" name="Skeleton" type="0" posX="6" posY ="0" posZ="7" behaviour="0" linkedUnits=""/>
+
+      <enemy name="Necromancer" type="1" posX="1" posY ="1" posZ="5" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="5" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="7" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="3" behaviour="0" linkedUnits=""/>
+
+      <enemy name="Skeleton" type="5" posX="4" posY ="1" posZ="0" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton" type="0" posX="5" posY ="1" posZ="0" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton" type="0" posX="9" posY ="1" posZ="10" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton" type="0" posX="7" posY ="1" posZ="9" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton" type="0" posX="6" posY ="0" posZ="3" behaviour="0" linkedUnits=""/>
+      <enemy name="Skeleton" type="0" posX="6" posY ="0" posZ="7" behaviour="0" linkedUnits=""/>
+
     </enemies>
     <placeables>
       <placeable posX="17" posY ="0" posZ="3"/>
