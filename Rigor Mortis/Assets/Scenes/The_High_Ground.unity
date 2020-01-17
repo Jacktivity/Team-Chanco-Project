@@ -952,21 +952,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 4830420569682314807, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 82028632}
-    - target: {fileID: 4830420569686176042, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 82028632}
-    - target: {fileID: 3515464052552298543, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 82028632}
     - target: {fileID: 4830420569195239889, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1022,11 +1007,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3515464052552298540, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515464052552298543, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 82028632}
+    - target: {fileID: 3515464052552298542, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8071483059640361990, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
+    - target: {fileID: 3515464052710022859, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515464052710022859, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 134.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1029836514792210450, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1037,11 +1047,36 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
+    - target: {fileID: 4830420569686176042, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 82028632}
+    - target: {fileID: 4830420569682314800, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830420569682314807, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 82028632}
     - target: {fileID: 4830420568599889411, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
+    - target: {fileID: 4830420569967716905, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830420569967716905, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_Text
+      value: Skeleton -10
+      objectReference: {fileID: 0}
     - target: {fileID: 4830420568448739524, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1052,6 +1087,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
+    - target: {fileID: 6364728679036784946, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364728679036784946, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_Text
+      value: Floating Skull -15
+      objectReference: {fileID: 0}
     - target: {fileID: 8243408226294446006, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1062,25 +1107,37 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
+    - target: {fileID: 4830420570093100436, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830420570093100436, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_Text
+      value: Rifle Skeleton -15
+      objectReference: {fileID: 0}
     - target: {fileID: 4830420568801054922, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
+    - target: {fileID: 4830420569215546585, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Skeleton
+
+        Axeman -15'
+      objectReference: {fileID: 0}
     - target: {fileID: 4830420568250603721, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
-    - target: {fileID: 3515464052552298540, guid: d4f7be2378446da4da1286725ab7e00e,
+    - target: {fileID: 4830420568396824406, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4830420569682314800, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      propertyPath: m_Text
+      value: Skeleton Spearman -15
       objectReference: {fileID: 0}
     - target: {fileID: 2949982985362069343, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
@@ -1096,21 +1153,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3515464052552298542, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_UiScaleMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3515464052710022859, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3515464052710022859, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 134.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4f7be2378446da4da1286725ab7e00e, type: 3}
