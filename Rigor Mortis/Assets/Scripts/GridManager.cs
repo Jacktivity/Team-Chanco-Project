@@ -182,7 +182,14 @@ public class GridManager : MonoBehaviour
             placedEnemy.tag = "Enemy";
             tile.occupier = placedEnemy.gameObject;
 
-            var linkedUnits = enemy.linkedUnits.Split(',').Select(v => int.Parse(v));
+            var linkedUnits = new int[0];
+
+            bool hasLinkedUnits = enemy.linkedUnits != "";
+
+            if(hasLinkedUnits)
+            {
+                linkedUnits = enemy.linkedUnits.Split(',').Select(v => int.Parse(v)).ToArray();
+            }            
 
             enemySpawned?.Invoke(this, new EnemySpawn(placedEnemy, (AIStates)enemy.behaviour, enemy.id, linkedUnits));
             playerManager.AddUnit(placedEnemy);

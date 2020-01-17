@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
         SpawnBlock = spawnData.unit.floor;
         DefaultBehaviour = spawnData.defaultState;
         UnitID = spawnData.id;
-        LinkedUnitIDs = spawnData.linkedUnits.ToArray();
+        LinkedUnitIDs = spawnData.linkedUnits;
         Unit = spawnData.unit;
     }   
     

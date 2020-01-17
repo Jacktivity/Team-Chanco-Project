@@ -184,11 +184,11 @@ public struct EnemySpawn
 {
     public Character unit;
     public int id;
-    public IEnumerable<int> linkedUnits;
+    public int[] linkedUnits;
     public AIStates defaultState;
 
 
-    public EnemySpawn(Character character, AIStates state, int unitID, IEnumerable<int> linkedUnitIds)
+    public EnemySpawn(Character character, AIStates state, int unitID, int[] linkedUnitIds)
     {
         unit = character;
         defaultState = state;
