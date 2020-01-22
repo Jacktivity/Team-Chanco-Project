@@ -16,6 +16,12 @@ public class AttackLibrary
 
     public static Attack Headbutt => new Attack(1, 0.8f, "Headbutt", physicalDmg: new Dice(1,2));
     public static Attack Firebolt => new Attack(10, 1.2f, "Firebolt", magicDmg: new Dice(10, 1), manaCost:10);
+
+
+    public static Attack CaplockRifle => new Attack(10, 0.8f, "Caplock Rifle", physicalDmg: new Dice(2, 2));
+    public static Attack Axe => new Attack(1, 1, "Axe", physicalDmg: new Dice(3, 2));
+    public static Attack Spear => new Attack(2, 1.1f, "Spear", physicalDmg: new Dice(2, 2));
+
 }
 
 public class Attack
@@ -59,6 +65,8 @@ public class Attack
     {
         return Name.GetHashCode();
     }
+
+    public double AverageDamage => (PhysicalDamage?.Average() ?? 0) + (MagicalDamage?.Average() ?? 0);
 }
 
 public struct Damage

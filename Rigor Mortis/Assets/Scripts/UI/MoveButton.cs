@@ -4,13 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private Character character;
     private BlockScript[] walkTiles, sprintTiles;
+    public static EventHandler pointerExit;
     private GridManager gridManager;
     private UIManager uiManager;
+    public Text attackText;
     private bool hideGridMoveOnExit = true;
     public bool canMove = true;
 
@@ -26,18 +29,18 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         character = unit;
         if(unit.MaxAP)
         {
-            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint + unit.movementSpeed, unit.isFlying, false);
-            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying, false);
+            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint + unit.movementSpeed, unit.isFlying, unit.isFlying, unit.isFlying);
+            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying, unit.isFlying, unit.isFlying);
         }
         else if(unit.HasAttacked)
         {
             sprintTiles = new BlockScript[0];
-            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying, false);
+            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying, unit.isFlying = false, unit.isFlying);
         }
         else
         {
             sprintTiles = new BlockScript[0];
-            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying, false);
+            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying, unit.isFlying = false, unit.isFlying);
         }
 
 
@@ -46,9 +49,10 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void ButtonClicked()
     {
         hideGridMoveOnExit = false;
+        attackText.text = "";
 
         uiManager.DeleteCurrentPopupButtons();
-        uiManager.CreateCancelButton(character);
+        //uiManager.CreateCancelButton(character);
 
         FindObjectOfType<PlayerCharacterMover>().SetMovement(character, walkTiles, sprintTiles);
     }
@@ -75,13 +79,16 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        //Update with PLayerCharacterMover link
+
         gridManager.ColourTiles(sprintTiles, false);
         gridManager.ColourTiles(walkTiles, true);
+        attackText.text = "Move";
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (hideGridMoveOnExit)
-            gridManager.ClearMap();
+        pointerExit?.Invoke(this, new EventArgs());
+        attackText.text = "";
     }
 }

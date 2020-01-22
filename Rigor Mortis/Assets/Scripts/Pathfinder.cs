@@ -10,14 +10,14 @@ public class Pathfinder : MonoBehaviour
     
     public BlockScript[] CompleteMap => GetComponentsInChildren<BlockScript>();
 
-    public BlockScript[] GetPath(BlockScript start, Func<BlockScript,bool> searchCriteria, bool ignoreMoveModifier)
+    public BlockScript[] GetPath(BlockScript start, Func<BlockScript,bool> searchCriteria, bool ignoreMoveModifier, bool flying = false)
     {
         var pathDictionary = new Dictionary<BlockScript, BlockScript>();
         var distDictionary = new Dictionary<BlockScript, float>();
 
         BlockScript targetTile = null;
 
-        var gameMap = Map.ToList();
+        var gameMap = flying? CompleteMap.ToList() : Map.ToList();
         if (gameMap.Contains(start) == false)
             gameMap.Add(start);
 
@@ -41,7 +41,7 @@ public class Pathfinder : MonoBehaviour
 
             bool searchComplete = searchCriteria(pathTile);
 
-            if (searchComplete)
+            if (searchComplete && pathTile.Occupied == false)
             {
                 targetTile = pathTile;
                 break;
@@ -63,6 +63,24 @@ public class Pathfinder : MonoBehaviour
         {
             return PathFromDictionary(pathDictionary, ref targetTile);
         }
+    }
+
+    public BlockScript[] AttackRangeCheck(BlockScript startBlock, int attackRange)
+    {
+        var centrePoint = startBlock.coordinates;
+
+        var rangeBlocks = new HashSet<BlockScript>();
+
+        //Gets all perimiter values
+        for (int x = 0; x < attackRange; x++)
+        {
+            for (int y = attackRange; y > 0; y--)
+            {
+                var north = centrePoint + new Vector3(0, 0, 0);
+            }
+        }
+
+        throw new Exception();
     }
 
 
@@ -111,16 +129,11 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    public bool SearchComplete(BlockScript pathTile, Func<BlockScript, bool> searchCriteria)
-    {
-        return pathTile.AdjacentTiles().Any(t => searchCriteria(t));
-    }
-
-    public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool searchOccupied = true)
+    public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool canSearchOccupied = true, bool flying = false)
     {
         var distDictionary = new Dictionary<BlockScript, float>();
 
-        var gameMap = Map.ToList();
+        var gameMap = flying? CompleteMap.ToList() : Map.ToList();
 
         if (gameMap.Contains(start) == false)
             gameMap.Add(start);
@@ -147,7 +160,7 @@ public class Pathfinder : MonoBehaviour
 
             gameMap.Remove(pathTile);
 
-            var adjacent = searchOccupied ? pathTile.AdjacentTiles() : pathTile.UnoccupiedAdjacentTiles();
+            var adjacent = canSearchOccupied ? pathTile.AdjacentTiles() : pathTile.UnoccupiedAdjacentTiles();
 
             foreach (var tile in adjacent)
             {
