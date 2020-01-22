@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 110866c1c577e5f4db0bffa255529f2c
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _MainTex: {fileID: 2800000, guid: 3c80981eef29454469ee944546953ca6, type: 3}
+  - _BumpMap: {fileID: 2800000, guid: 9074eaa2a45a9594e8d42d789b6e95be, type: 3}
+  - _MetalRoughAO: {fileID: 2800000, guid: 14a0b63ffb774ba438a42a4c51e68670, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

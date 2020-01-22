@@ -525,6 +525,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4869746215740234839, guid: 797c756041db8d44bb4d73720497abd3,
         type: 3}
+<<<<<<< HEAD
       propertyPath: InitialModule.startColor.maxColor.g
       value: 0
       objectReference: {fileID: 0}
@@ -532,10 +533,20 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0.71055603
+=======
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4869746215740234839, guid: 797c756041db8d44bb4d73720497abd3,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.009137107
+>>>>>>> VFX
       objectReference: {fileID: 0}
     - target: {fileID: 4869746215740234839, guid: 797c756041db8d44bb4d73720497abd3,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
+<<<<<<< HEAD
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4869746215660338429, guid: 797c756041db8d44bb4d73720497abd3,
@@ -547,11 +558,28 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0.71055603
+=======
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4869746215660338429, guid: 797c756041db8d44bb4d73720497abd3,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4869746215660338429, guid: 797c756041db8d44bb4d73720497abd3,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.009137107
+>>>>>>> VFX
       objectReference: {fileID: 0}
     - target: {fileID: 4869746215660338429, guid: 797c756041db8d44bb4d73720497abd3,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
+<<<<<<< HEAD
       value: 1
+=======
+      value: 0
+>>>>>>> VFX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797c756041db8d44bb4d73720497abd3, type: 3}
