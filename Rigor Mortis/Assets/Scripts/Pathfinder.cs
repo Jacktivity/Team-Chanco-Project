@@ -10,9 +10,12 @@ public class Pathfinder : MonoBehaviour
     
     public BlockScript[] CompleteMap => GetComponentsInChildren<BlockScript>();
 
-    public BlockScript[] GetPath(BlockScript start, BlockScript end, bool ignoreMoveModifier, bool flying = false)
+    public BlockScript[] GetPath(BlockScript start, BlockScript end, bool ignoreMoveModifier, bool flying = false) => flying ? GetFlightPath(start, end, ignoreMoveModifier) : GetPath(start, (t) => t == end, ignoreMoveModifier, flying);
+
+    private BlockScript[] GetFlightPath(BlockScript start, BlockScript end, bool ignoreMoveModifier)
     {
-        return flying ? new BlockScript[] { start, end } : GetPath(start, (t) => t == end, ignoreMoveModifier, flying);
+        //
+        return new BlockScript[] { start, end };
     }
 
     public BlockScript[] GetPath(BlockScript start, Func<BlockScript,bool> searchCriteria, bool ignoreMoveModifier, bool flying = false)
