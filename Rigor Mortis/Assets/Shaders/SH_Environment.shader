@@ -1,13 +1,14 @@
 // Shader created with Shader Forge v1.38 
 // Shader Forge (c) Freya Holmer - http://www.acegikmo.com/shaderforge/
 // Note: Manually altering this data may prevent you from opening it in Shader Forge
-/*SF_DATA;ver:1.38;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,cgin:,lico:1,lgpr:1,limd:3,spmd:1,trmd:0,grmd:1,uamb:True,mssp:True,bkdf:True,hqlp:False,rprd:True,enco:False,rmgx:True,imps:True,rpth:0,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:0,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,atcv:False,rfrpo:True,rfrpn:Refraction,coma:15,ufog:True,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,atwp:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False,fsmp:False;n:type:ShaderForge.SFN_Final,id:2865,x:32719,y:32712,varname:node_2865,prsc:2|diff-7736-RGB,spec-2246-R,gloss-2246-G,normal-5964-RGB,difocc-2246-B;n:type:ShaderForge.SFN_Tex2d,id:7736,x:32095,y:32669,ptovrint:True,ptlb:Base Color,ptin:_MainTex,varname:_MainTex,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:3c80981eef29454469ee944546953ca6,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Tex2d,id:5964,x:32095,y:32870,ptovrint:True,ptlb:Normal Map,ptin:_BumpMap,varname:_BumpMap,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:9074eaa2a45a9594e8d42d789b6e95be,ntxv:2,isnm:False;n:type:ShaderForge.SFN_Tex2d,id:2246,x:32095,y:33066,ptovrint:False,ptlb:Metal/Rough/AO,ptin:_MetalRoughAO,varname:node_2246,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:14a0b63ffb774ba438a42a4c51e68670,ntxv:0,isnm:False;proporder:5964-7736-2246;pass:END;sub:END;*/
+/*SF_DATA;ver:1.38;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,cgin:,lico:1,lgpr:1,limd:3,spmd:1,trmd:0,grmd:1,uamb:True,mssp:True,bkdf:True,hqlp:False,rprd:True,enco:False,rmgx:True,imps:True,rpth:0,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:0,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,atcv:False,rfrpo:True,rfrpn:Refraction,coma:15,ufog:True,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,atwp:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False,fsmp:False;n:type:ShaderForge.SFN_Final,id:2865,x:32388,y:32668,varname:node_2865,prsc:2|diff-7736-RGB,spec-2246-R,gloss-2246-G,normal-5964-RGB,difocc-2246-B;n:type:ShaderForge.SFN_Tex2d,id:7736,x:32095,y:32669,ptovrint:True,ptlb:Base Color,ptin:_MainTex,varname:_MainTex,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:3c80981eef29454469ee944546953ca6,ntxv:0,isnm:False|UVIN-2759-OUT;n:type:ShaderForge.SFN_Tex2d,id:5964,x:32095,y:32870,ptovrint:True,ptlb:Normal Map,ptin:_BumpMap,varname:_BumpMap,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:9074eaa2a45a9594e8d42d789b6e95be,ntxv:2,isnm:False|UVIN-2759-OUT;n:type:ShaderForge.SFN_Tex2d,id:2246,x:32095,y:33066,ptovrint:False,ptlb:Metal/Rough/AO,ptin:_MetalRoughAO,varname:node_2246,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:14a0b63ffb774ba438a42a4c51e68670,ntxv:0,isnm:False|UVIN-2759-OUT;n:type:ShaderForge.SFN_TexCoord,id:7289,x:31482,y:32736,varname:node_7289,prsc:2,uv:0,uaff:False;n:type:ShaderForge.SFN_ValueProperty,id:7950,x:31482,y:32907,ptovrint:False,ptlb:Texture Scale,ptin:_TextureScale,varname:node_7950,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,v1:1;n:type:ShaderForge.SFN_Multiply,id:2759,x:31712,y:32736,varname:node_2759,prsc:2|A-7289-UVOUT,B-7950-OUT;proporder:5964-7736-2246-7950;pass:END;sub:END;*/
 
 Shader "Shader Forge/SH_Environment" {
     Properties {
         _BumpMap ("Normal Map", 2D) = "black" {}
         _MainTex ("Base Color", 2D) = "white" {}
         _MetalRoughAO ("Metal/Rough/AO", 2D) = "white" {}
+        _TextureScale ("Texture Scale", Float ) = 1
     }
     SubShader {
         Tags {
@@ -41,6 +42,7 @@ Shader "Shader Forge/SH_Environment" {
             uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
             uniform sampler2D _BumpMap; uniform float4 _BumpMap_ST;
             uniform sampler2D _MetalRoughAO; uniform float4 _MetalRoughAO_ST;
+            uniform float _TextureScale;
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -91,7 +93,8 @@ Shader "Shader Forge/SH_Environment" {
                 i.normalDir = normalize(i.normalDir);
                 float3x3 tangentTransform = float3x3( i.tangentDir, i.bitangentDir, i.normalDir);
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
-                float4 _BumpMap_var = tex2D(_BumpMap,TRANSFORM_TEX(i.uv0, _BumpMap));
+                float2 node_2759 = (i.uv0*_TextureScale);
+                float4 _BumpMap_var = tex2D(_BumpMap,TRANSFORM_TEX(node_2759, _BumpMap));
                 float3 normalLocal = _BumpMap_var.rgb;
                 float3 normalDirection = normalize(mul( normalLocal, tangentTransform )); // Perturbed normals
                 float3 viewReflectDirection = reflect( -viewDirection, normalDirection );
@@ -104,7 +107,7 @@ Shader "Shader Forge/SH_Environment" {
                 float Pi = 3.141592654;
                 float InvPi = 0.31830988618;
 ///////// Gloss:
-                float4 _MetalRoughAO_var = tex2D(_MetalRoughAO,TRANSFORM_TEX(i.uv0, _MetalRoughAO));
+                float4 _MetalRoughAO_var = tex2D(_MetalRoughAO,TRANSFORM_TEX(node_2759, _MetalRoughAO));
                 float gloss = 1.0 - _MetalRoughAO_var.g; // Convert roughness to gloss
                 float perceptualRoughness = _MetalRoughAO_var.g;
                 float roughness = perceptualRoughness * perceptualRoughness;
@@ -154,7 +157,7 @@ Shader "Shader Forge/SH_Environment" {
                 float LdotH = saturate(dot(lightDirection, halfDirection));
                 float3 specularColor = _MetalRoughAO_var.r;
                 float specularMonochrome;
-                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
+                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(node_2759, _MainTex));
                 float3 diffuseColor = _MainTex_var.rgb; // Need this for specular when using metallic
                 diffuseColor = DiffuseAndSpecularFromMetallic( diffuseColor, specularColor, specularColor, specularMonochrome );
                 specularMonochrome = 1.0-specularMonochrome;
@@ -231,6 +234,7 @@ Shader "Shader Forge/SH_Environment" {
             uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
             uniform sampler2D _BumpMap; uniform float4 _BumpMap_ST;
             uniform sampler2D _MetalRoughAO; uniform float4 _MetalRoughAO_ST;
+            uniform float _TextureScale;
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -270,7 +274,8 @@ Shader "Shader Forge/SH_Environment" {
                 i.normalDir = normalize(i.normalDir);
                 float3x3 tangentTransform = float3x3( i.tangentDir, i.bitangentDir, i.normalDir);
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
-                float4 _BumpMap_var = tex2D(_BumpMap,TRANSFORM_TEX(i.uv0, _BumpMap));
+                float2 node_2759 = (i.uv0*_TextureScale);
+                float4 _BumpMap_var = tex2D(_BumpMap,TRANSFORM_TEX(node_2759, _BumpMap));
                 float3 normalLocal = _BumpMap_var.rgb;
                 float3 normalDirection = normalize(mul( normalLocal, tangentTransform )); // Perturbed normals
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
@@ -282,7 +287,7 @@ Shader "Shader Forge/SH_Environment" {
                 float Pi = 3.141592654;
                 float InvPi = 0.31830988618;
 ///////// Gloss:
-                float4 _MetalRoughAO_var = tex2D(_MetalRoughAO,TRANSFORM_TEX(i.uv0, _MetalRoughAO));
+                float4 _MetalRoughAO_var = tex2D(_MetalRoughAO,TRANSFORM_TEX(node_2759, _MetalRoughAO));
                 float gloss = 1.0 - _MetalRoughAO_var.g; // Convert roughness to gloss
                 float perceptualRoughness = _MetalRoughAO_var.g;
                 float roughness = perceptualRoughness * perceptualRoughness;
@@ -292,7 +297,7 @@ Shader "Shader Forge/SH_Environment" {
                 float LdotH = saturate(dot(lightDirection, halfDirection));
                 float3 specularColor = _MetalRoughAO_var.r;
                 float specularMonochrome;
-                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
+                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(node_2759, _MainTex));
                 float3 diffuseColor = _MainTex_var.rgb; // Need this for specular when using metallic
                 diffuseColor = DiffuseAndSpecularFromMetallic( diffuseColor, specularColor, specularColor, specularMonochrome );
                 specularMonochrome = 1.0-specularMonochrome;
@@ -355,6 +360,7 @@ Shader "Shader Forge/SH_Environment" {
             #pragma target 3.0
             uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
             uniform sampler2D _MetalRoughAO; uniform float4 _MetalRoughAO_ST;
+            uniform float _TextureScale;
             struct VertexInput {
                 float4 vertex : POSITION;
                 float2 texcoord0 : TEXCOORD0;
@@ -384,11 +390,12 @@ Shader "Shader Forge/SH_Environment" {
                 
                 o.Emission = 0;
                 
-                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
+                float2 node_2759 = (i.uv0*_TextureScale);
+                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(node_2759, _MainTex));
                 float3 diffColor = _MainTex_var.rgb;
                 float specularMonochrome;
                 float3 specColor;
-                float4 _MetalRoughAO_var = tex2D(_MetalRoughAO,TRANSFORM_TEX(i.uv0, _MetalRoughAO));
+                float4 _MetalRoughAO_var = tex2D(_MetalRoughAO,TRANSFORM_TEX(node_2759, _MetalRoughAO));
                 diffColor = DiffuseAndSpecularFromMetallic( diffColor, _MetalRoughAO_var.r, specColor, specularMonochrome );
                 float roughness = _MetalRoughAO_var.g;
                 o.Albedo = diffColor + specColor * roughness * roughness * 0.5;
