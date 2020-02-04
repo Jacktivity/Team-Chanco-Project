@@ -42,7 +42,7 @@ public class PlayerCharacterMover : MonoBehaviour
         {
             if((walkTiles.Contains(e) || sprintTiles.Contains(e)) && playerUnitToMove.CanMove)
             {
-                playerUnitToMove.MoveUnit(playerUnitToMove.pathfinder.GetPath(playerUnitToMove.floor, (block) => block == e, playerUnitToMove.isFlying == false));
+                playerUnitToMove.MoveUnit(playerUnitToMove.pathfinder.GetPath(playerUnitToMove.floor, e, playerUnitToMove.isFlying, playerUnitToMove.isFlying));
                 playerUnitToMove = null;
                 walkTiles = sprintTiles = new BlockScript[0];
                 gridManager.ClearMap();

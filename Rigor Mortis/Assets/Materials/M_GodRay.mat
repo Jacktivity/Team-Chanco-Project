@@ -45,7 +45,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Cutoff: 0.5
+    - _GlowIntensity: 1
     - _Intensity1: 0.3
     - _Intensity2: 0.3
     - _node_37: 0
+    - _node_621: 0
     m_Colors: []

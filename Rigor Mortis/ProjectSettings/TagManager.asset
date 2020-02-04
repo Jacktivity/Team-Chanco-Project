@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Floor
-  - Enemy
   - Wall
   - Floor-Transition
+  - Enemy
   - Breakable_Terrain
   layers:
   - Default
@@ -19,8 +19,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Markers
-  - Units
+  - Minimap
+  - 
   - 
   - 
   - 
