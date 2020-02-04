@@ -220,7 +220,7 @@ public class UIManager : MonoBehaviour
             moveOffset = new Vector3( buttonSpace * (_attacks.Count() + 1), 0, 0 );
             MakeWaitButton( moveOffset, character );
             if (popUpButtons.Count() > 3) {
-                LimitAPButtons();
+                LimitAPButtons(); // Scale it here
                 apRightArrow.SetActive(true);
             }
         } else if (character.CanMove) {
@@ -258,7 +258,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void IncrementAPButtons() {
-        if (popUpButtons.Count() > 0 && activePopUpButtons[activePopUpButtons.Count-1] != popUpButtons[popUpButtons.Count-1]) {
+        /*if (popUpButtons.Count() > 0 && activePopUpButtons[activePopUpButtons.Count-1] != popUpButtons[popUpButtons.Count-1]) {
             int i = 0;
             for(int j = 1; j < popUpButtons.Count() + 1; j++) {
                 if (activePopUpButtons.Contains( popUpButtons[j - 1] )) {
@@ -283,11 +283,11 @@ public class UIManager : MonoBehaviour
         }
         if(activePopUpButtons[activePopUpButtons.Count - 1] == popUpButtons[popUpButtons.Count - 1]) {
             apRightArrow.SetActive(false);
-        }
+        }*/
     }
 
     public void DecrementAPButtons() {
-        if (popUpButtons.Count() > 0 && activePopUpButtons[0] != popUpButtons[0]) {
+        /*if (popUpButtons.Count() > 0 && activePopUpButtons[0] != popUpButtons[0]) {
             int i = 0;
             for (int j = 1; j < popUpButtons.Count() + 1; j++) {
                 if (activePopUpButtons.Contains( popUpButtons[j - 1] )) {
@@ -312,7 +312,7 @@ public class UIManager : MonoBehaviour
         }
         if (activePopUpButtons[activePopUpButtons.Count - 1] != popUpButtons[popUpButtons.Count - 1]) {
             apRightArrow.SetActive( true );
-        }
+        }*/
     }
 
     private void CreateAttackButton(IEnumerable<Attack> _attacks, Character character, int i)
