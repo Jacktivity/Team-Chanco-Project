@@ -130,7 +130,7 @@ public class Character : MonoBehaviour
             counterTime += Time.deltaTime * moveAnimationSpeed;
             moveToBlock = path.ElementAt(pathIndex);
 
-            float journey = Vector3.Distance(transform.position, (moveToBlock.transform.position + transform.up));
+            //float journey = Vector3.Distance(transform.position, (moveToBlock.transform.position + transform.up));
 
 
             transform.position = Vector3.Lerp(
@@ -141,7 +141,7 @@ public class Character : MonoBehaviour
 
             var angle = moveToBlock.transform.position - previousBlock.transform.position;
 
-            transform.forward = Vector3.Lerp(previousForward, angle, counterTime);
+            transform.forward = Vector3.Lerp(new Vector3(0,previousForward.y, 0), new Vector3(0, angle.y,0), counterTime);
 
             HealthBar healthBar = GetComponent<HealthBar>();
             Vector3 healthOffset = healthBar.offset;
