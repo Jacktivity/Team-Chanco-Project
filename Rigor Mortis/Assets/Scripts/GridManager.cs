@@ -62,16 +62,15 @@ public class GridManager : MonoBehaviour
     {
         xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
         GenerateLevel();
-        PlaceEnemy();        
+        PlaceEnemy();
+        UnitPlacement();
 
         activeAI = true;
 
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
         turnEnded += (s, e) => ClearMap();
         uiManager.PlacementPoint(placementPoints);
-        UIManager.gameStateChange += AIRunCheck;
-
-        UnitPlacement();
+        UIManager.gameStateChange += AIRunCheck;        
     }
 
     private void AIRunCheck(object sender, UIManager.GameStates e)
