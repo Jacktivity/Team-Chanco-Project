@@ -41,6 +41,8 @@ public class GridManager : MonoBehaviour
     public BlockScript[] Map => GetComponentsInChildren<BlockScript>();
 
     public Color SpawnColor => spawnPoint;
+    public Color WalkColour => lowSpeedTile;
+    public Color SprintColour => highSpeedTile;
     public static EventHandler<Character> unitSpawned;
     public static EventHandler<EnemySpawn> enemySpawned;
     public static EventHandler<BlockScript[]> mapGenerated;
@@ -60,8 +62,7 @@ public class GridManager : MonoBehaviour
     {
         xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
         GenerateLevel();
-        PlaceEnemy();
-        UnitPlacement();
+        PlaceEnemy();        
 
         activeAI = true;
 
@@ -69,6 +70,8 @@ public class GridManager : MonoBehaviour
         turnEnded += (s, e) => ClearMap();
         uiManager.PlacementPoint(placementPoints);
         UIManager.gameStateChange += AIRunCheck;
+
+        UnitPlacement();
     }
 
     private void AIRunCheck(object sender, UIManager.GameStates e)
@@ -76,21 +79,32 @@ public class GridManager : MonoBehaviour
         activeAI = e != UIManager.GameStates.loseState && e != UIManager.GameStates.winState;
     }
 
-    public void ColourTiles(IEnumerable<BlockScript> tiles, bool walking)
+    public void ColourTiles(IEnumerable<BlockScript> tiles, Color colour)
     {
-        if (walking)
-            foreach (var tile in tiles)
-                tile.ChangeColour(lowSpeedTile);
-        else
-            foreach (var tile in tiles)
-                tile.ChangeColour(highSpeedTile);
+        foreach (var tile in tiles)
+        {
+            var brightEdges = new List<Directions>();
+
+            if (tile.N? tiles.Contains(tile.N.GetComponent<BlockScript>()) == false : true)
+                brightEdges.Add(Directions.North);
+            if (tile.S? tiles.Contains(tile.S.GetComponent<BlockScript>()) == false : true)
+                brightEdges.Add(Directions.South);
+            if (tile.E? tiles.Contains(tile.E.GetComponent<BlockScript>()) == false : true)
+                brightEdges.Add(Directions.East);
+            if (tile.W? tiles.Contains(tile.W.GetComponent<BlockScript>()) == false : true)
+                brightEdges.Add(Directions.West);
+
+
+            tile.Highlight(true);
+            tile.SetHighlightColour(colour, brightEdges);
+        }        
     }
 
     public void ClearMap()
     {
         foreach (var tile in Map)
         {
-            tile.ChangeColour(tile.Normal);
+            tile.Highlight(false);
         }
 
         //if(playerTurn && playerManager.selectedPlayer.movedThisTurn == false)
@@ -205,11 +219,14 @@ public class GridManager : MonoBehaviour
 
         var placeableTiles = placeables.Select(s => map.First(tile => tile.coordinates.x == s.posX && tile.coordinates.y == s.posY && tile.coordinates.z == s.posZ));
 
+        ColourTiles(placeableTiles, SpawnColor);
+
         foreach(var spawnTile in placeableTiles)
         {
-            spawnTile.placeable = true;
-            spawnTile.ChangeColour(spawnPoint);
+            spawnTile.placeable = true;            
         }
+
+        ColourTiles(Map.Where(t => t.placeable), SpawnColor);
     }
 
     public void moveUnitMode()
@@ -276,7 +293,7 @@ public class GridManager : MonoBehaviour
             foreach (var tile in remainingSpawnTiles)
             {
                 tile.placeable = false;
-                tile.ChangeColour(tile.Normal);
+                tile.SetHighlightColour(tile.Normal);
             }
         }
     }

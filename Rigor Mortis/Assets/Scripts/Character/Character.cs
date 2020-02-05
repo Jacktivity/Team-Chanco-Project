@@ -141,7 +141,7 @@ public class Character : MonoBehaviour
 
             var angle = moveToBlock.transform.position - previousBlock.transform.position;
 
-            transform.forward = Vector3.Lerp(new Vector3(0,previousForward.y, 0), new Vector3(0, angle.y,0), counterTime);
+            transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.y), counterTime);
 
             HealthBar healthBar = GetComponent<HealthBar>();
             Vector3 healthOffset = healthBar.offset;
