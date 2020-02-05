@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +13,10 @@ public class LevelSliders : MonoBehaviour
     public Text zText;
 
     public BlockScript block;
+    public Canvas generatorCanvas;
+    public GameObject placementCanvas;
+    public GameObject blockContainer;
+    public Placement placement;
 
     // Start is called before the first frame update
     void Start()
@@ -32,13 +38,17 @@ public class LevelSliders : MonoBehaviour
         int j = 0;
         for(int i = 0; i <= xSlider.value; i++)
         {
-            var tileX = Instantiate(block, new Vector3(i, 0, j), block.transform.rotation);
-            tileX.enabled = false;
             for (j = 0; j <= zSlider.value; j++)
             {
-                var tileZ = Instantiate(block, new Vector3(i, 0, j), block.transform.rotation);
-                tileZ.enabled = false;
+                var tile = Instantiate(block, new Vector3(i, 0, j), block.transform.rotation);
+                tile.transform.parent = blockContainer.transform;
+                
             }
         }
+
+        generatorCanvas.enabled = false;
+        //placementCanvas.GetComponent<Canvas>().enabled = true;
+        placement.enabled = true;
+        
     }
 }

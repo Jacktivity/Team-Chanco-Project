@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 public class BlockScript : MonoBehaviour
 {
     public Vector3 coordinates;
-    public GridManager manager;
     public bool placeable;
     public float MoveModifier = 1;
     public bool Traversable { get; private set; }
@@ -30,17 +29,6 @@ public class BlockScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        manager = gameObject.transform.parent.GetComponent<GridManager>();        
-
-        if (placeable)
-        {
-            ChangeColour(manager.SpawnColor);
-            if (manager.GetPlacementPoints() <= 0)
-            {
-                placeable = false;
-                ChangeColour(normal);
-            }
-        }
     }
 
     private void Update()
@@ -81,7 +69,6 @@ public class BlockScript : MonoBehaviour
             if(collision.transform.position.y > transform.position.y)
             {
                 occupier = contact;
-                occupier.GetComponent<BlockScript>().manager = manager;
             }
 
             switch ((int)newCoord.z)
