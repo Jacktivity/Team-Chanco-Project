@@ -248,7 +248,9 @@ public class UIManager : MonoBehaviour
     {
         unit.ClearActionPoints();
         DeleteCurrentPopupButtons();
+        attackText.text = "";
         gridManager.CycleTurns();
+        gridManager.nextUnit();
     }
 
     public void EndTurn()
@@ -550,6 +552,7 @@ public class UIManager : MonoBehaviour
     public void FinishPlacement()
     {
         gridManager.FinishPlacement();
+        gridManager.nextUnit();
     }
 
     public void GameOverCheck()
