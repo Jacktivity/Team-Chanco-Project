@@ -140,9 +140,9 @@ public class UIManager : MonoBehaviour
             for (int i = 0; i < targetsInRange.Count(); i++)
             {
                 var button = Instantiate(targetCharacterButton, attackPanel.transform);
-                var moveOffset = buttonSpacing * (i+1);
+                var moveOffset = (buttonSpacing / 2) * (i+1);
                 popUpButtons.Add(button);
-                button.transform.localPosition = baseAttackPosition + moveOffset;
+                button.transform.localPosition = (baseAttackPosition - (buttonSpacing /2)) + moveOffset;
                 //button.GetComponentInChildren<Text>().text = targetsInRange.ElementAt(i).name;
                 var enemySelect = button.GetComponent<EnemySelectButton>();
                 enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i));
@@ -152,7 +152,7 @@ public class UIManager : MonoBehaviour
 
         if (popUpButtons.Count() > minButtons)
         {
-            ExpandPanel();
+            ExpandPanel(true);
             //apRightArrow.SetActive(true);
         } else {
             attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
@@ -228,7 +228,7 @@ public class UIManager : MonoBehaviour
             moveOffset = new Vector3( buttonSpace * (_attacks.Count() + 1), 0, 0 );
             MakeWaitButton( moveOffset, character );
             if (popUpButtons.Count() > minButtons) {
-                ExpandPanel();
+                ExpandPanel(false);
             } else {
                 attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
                 ResetArrows();
@@ -239,8 +239,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void ExpandPanel() {
+    private void ExpandPanel(bool targets) {
         int amountOver = popUpButtons.Count - minButtons;
+        float _buttonSpace = buttonSpace;
+        if (targets) {
+            _buttonSpace = buttonSpace / 4;
+            foreach(GameObject button in popUpButtons) {
+                button.GetComponent<RectTransform>().sizeDelta = new Vector2(button.GetComponent<RectTransform>().rect.width / 2, button.GetComponent<RectTransform>().rect.height / 2);
+            }
+        }
 
         if (popUpButtons.Count > maxButtons) { //To-Do: Make cap scale with resolution
             for (int i = maxButtons; i < popUpButtons.Count(); i++)
@@ -257,20 +264,20 @@ public class UIManager : MonoBehaviour
                 }
             }
 
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale + new Vector2((maxButtons - minButtons) * buttonSpace, 0);
+            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale + new Vector2((maxButtons - minButtons) * _buttonSpace, 0);
             apRightArrow.SetActive(true);
 
             foreach (GameObject button in popUpButtons)
             {
-                button.transform.position = new Vector3(button.transform.position.x - ((buttonSpace / 2) * (maxButtons - minButtons)), button.transform.position.y, button.transform.position.z);
+                button.transform.position = new Vector3(button.transform.position.x - ((_buttonSpace / 2) * (maxButtons - minButtons)), button.transform.position.y, button.transform.position.z);
             }
-            
+
         } else {
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale + new Vector2(amountOver * buttonSpace, 0);
+            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale + new Vector2(amountOver * _buttonSpace, 0);
 
             foreach (GameObject button in popUpButtons)
             {
-                button.transform.position = new Vector3(button.transform.position.x - ((buttonSpace / 2) * amountOver), button.transform.position.y, button.transform.position.z);
+                button.transform.position = new Vector3(button.transform.position.x - ((_buttonSpace / 2) * amountOver), button.transform.position.y, button.transform.position.z);
             }
         }
 
