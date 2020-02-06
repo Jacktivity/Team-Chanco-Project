@@ -115,7 +115,7 @@ public class UIManager : MonoBehaviour
     {
         DeleteCurrentPopupButtons();
 
-        var targetsInRange = e.attacker.pathfinder.GetTilesInRange(e.attacker.floor, e.attackChosen.Range, true, true, true)
+        var targetsInRange = e.attacker.pathfinder.GetAttackTiles(e.attacker.floor, e.attackChosen)
             .Where(b => b.Occupied ? b.occupier.tag == "Enemy" || b.occupier.tag == "Breakable_Terrain" : false)
             .Select(t => t.occupier.GetComponent<Character>());
 

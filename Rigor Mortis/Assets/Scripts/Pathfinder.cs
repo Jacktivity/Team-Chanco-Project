@@ -73,23 +73,23 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    public BlockScript[] AttackRangeCheck(BlockScript startBlock, int attackRange)
-    {
-        var centrePoint = startBlock.coordinates;
+    //public BlockScript[] AttackRangeCheck(BlockScript startBlock, int attackRange)
+    //{
+    //    var centrePoint = startBlock.coordinates;
 
-        var rangeBlocks = new HashSet<BlockScript>();
+    //    var rangeBlocks = new HashSet<BlockScript>();
 
-        //Gets all perimiter values
-        for (int x = 0; x < attackRange; x++)
-        {
-            for (int y = attackRange; y > 0; y--)
-            {
-                var north = centrePoint + new Vector3(0, 0, 0);
-            }
-        }
+    //    //Gets all perimiter values
+    //    for (int x = 0; x < attackRange; x++)
+    //    {
+    //        for (int y = attackRange; y > 0; y--)
+    //        {
+    //            var north = centrePoint + new Vector3(0, 0, 0);
+    //        }
+    //    }
 
-        throw new Exception();
-    }
+    //    throw new Exception();
+    //}
 
     //Change to A*
     public int GetDistance(BlockScript startBlock, BlockScript endBlock)
@@ -137,11 +137,61 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
+    public BlockScript[] GetAttackTiles(BlockScript attackSource, Attack attack)
+    {
+        var allTiles = GetTilesInRange(attackSource, attack.Range, true, true, true);
+
+        var attackTiles = new List<BlockScript>();
+
+        foreach (var tile in allTiles)
+        {
+            //Vector3 direction;
+            //float range;
+            //RaycastHit hitData;
+
+            Vector3 origin, destination;
+
+            if(attackSource.Occupied)
+            {
+                var collider = attackSource.occupier.GetComponent<Collider>();
+                origin = collider.bounds.center + new Vector3(0, collider.bounds.extents.y, 0);
+            }
+            else
+            {
+                var collider = attackSource.GetComponent<Collider>();
+                origin = collider.bounds.center + new Vector3(0, collider.bounds.extents.y, 0);
+            }
+
+            if(tile.Occupied)
+            {
+                var collider = tile.occupier.GetComponent<Collider>();
+                destination = collider.bounds.center + new Vector3(0, collider.bounds.extents.y, 0);
+            }
+            else
+            {
+                var collider = tile.GetComponent<Collider>();
+                destination = collider.bounds.center + new Vector3(0, collider.bounds.extents.y, 0);
+            }
+
+            //var destination = tile.Occupied ? tile.occupier.GetComponent<Collider>().bounds.max : tile.GetComponent<Collider>().bounds.max;
+            RaycastHit data;
+            Physics.Raycast(origin, destination - origin, out data);
+
+            //TODO Filter by raycast hit
+            
+            //Ray r = new Ray(origin, );     
+            Debug.DrawRay(origin, destination - origin, Color.red, 10f);
+        }
+
+        return allTiles.ToArray();
+    }
+
     public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool canSearchOccupied = true, bool flying = false)
     {
         return flying ? GetFlyingTilesInRange(start, range, canSearchOccupied) : GetWalkingTiles(start, range, ignoreMoveModifier, canSearchOccupied, flying);
     }
 
+    //Needs to not be able to bypass impassable walls
     private BlockScript[] GetFlyingTilesInRange(BlockScript start, float range, bool canSearchOccupied)
     {
         var allowedBlocks = new HashSet<Vector2>();
