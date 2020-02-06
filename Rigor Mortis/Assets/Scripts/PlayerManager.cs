@@ -92,7 +92,7 @@ public class PlayerManager : MonoBehaviour
         bool sprinting = walkTiles.Contains(tile) == false && sprintTiles.Contains(tile);
         if (sprinting)
         {
-            selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
+            selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, tile, selectedPlayer.isFlying == false));
             gridManager.ClearMap();
             if(selectedPlayer.tag =="Player")
             {
@@ -101,7 +101,7 @@ public class PlayerManager : MonoBehaviour
         }
         else if (walkTiles.Contains(tile))
         {
-            selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, (b) => b == tile, selectedPlayer.isFlying == false));
+            selectedPlayer.MoveUnit(selectedPlayer.pathfinder.GetPath(selectedPlayer.floor, tile, selectedPlayer.isFlying == false));
             gridManager.ClearMap();
         }
         else
@@ -136,12 +136,12 @@ public class PlayerManager : MonoBehaviour
     {
         if (unit.MaxAP)
         {
-            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
-            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
+            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying, unit.isFlying, unit.isFlying).Where(t => t.Occupied == false).ToArray();
+            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + unit.movemenSprint, unit.isFlying, unit.isFlying, unit.isFlying).Where(t => t.Occupied == false).ToArray();
         }
         else if(unit.CanMove)
         {
-            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying == false).Where(t => t.Occupied == false).ToArray();
+            sprintTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying, unit.isFlying, unit.isFlying).Where(t => t.Occupied == false).ToArray();
             walkTiles = new BlockScript[0];
         }
         else

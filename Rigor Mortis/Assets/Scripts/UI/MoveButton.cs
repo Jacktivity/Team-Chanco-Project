@@ -35,12 +35,12 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         else if(unit.HasAttacked)
         {
             sprintTiles = new BlockScript[0];
-            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying, unit.isFlying = false, unit.isFlying);
+            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed, unit.isFlying, unit.isFlying, unit.isFlying);
         }
         else
         {
             sprintTiles = new BlockScript[0];
-            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying, unit.isFlying = false, unit.isFlying);
+            walkTiles = unit.pathfinder.GetTilesInRange(unit.floor, unit.movemenSprint, unit.isFlying, unit.isFlying, unit.isFlying);
         }
 
 

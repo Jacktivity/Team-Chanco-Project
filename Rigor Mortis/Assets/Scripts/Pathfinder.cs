@@ -10,8 +10,16 @@ public class Pathfinder : MonoBehaviour
     
     public BlockScript[] CompleteMap => GetComponentsInChildren<BlockScript>();
 
-    public BlockScript[] GetPath(BlockScript start, Func<BlockScript,bool> searchCriteria, bool ignoreMoveModifier, bool flying = false)
+    public BlockScript[] GetPath(BlockScript start, BlockScript end, bool ignoreMoveModifier, bool flying = false) => flying ? GetFlightPath(start, end, ignoreMoveModifier) : GetPath(start, (t) => t == end, ignoreMoveModifier, flying);
+
+    private BlockScript[] GetFlightPath(BlockScript start, BlockScript end, bool ignoreMoveModifier)
     {
+        //
+        return new BlockScript[] { start, end };
+    }
+
+    public BlockScript[] GetPath(BlockScript start, Func<BlockScript,bool> searchCriteria, bool ignoreMoveModifier, bool flying = false)
+    {        
         var pathDictionary = new Dictionary<BlockScript, BlockScript>();
         var distDictionary = new Dictionary<BlockScript, float>();
 
@@ -83,7 +91,7 @@ public class Pathfinder : MonoBehaviour
         throw new Exception();
     }
 
-
+    //Change to A*
     public int GetDistance(BlockScript startBlock, BlockScript endBlock)
     {
         var pathDictionary = new Dictionary<BlockScript, BlockScript>();
@@ -131,9 +139,39 @@ public class Pathfinder : MonoBehaviour
 
     public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool canSearchOccupied = true, bool flying = false)
     {
+        return flying ? GetFlyingTilesInRange(start, range, canSearchOccupied) : GetWalkingTiles(start, range, ignoreMoveModifier, canSearchOccupied, flying);
+    }
+
+    private BlockScript[] GetFlyingTilesInRange(BlockScript start, float range, bool canSearchOccupied)
+    {
+        var allowedBlocks = new HashSet<Vector2>();
+
+        var blockRange = (int)range;
+
+        for (int x = 0; x <= blockRange; x++)
+        {
+            for (int z = 0; z <= blockRange; z++)
+            {
+                if(x + z <= blockRange)
+                {
+                    allowedBlocks.Add(new Vector2(start.coordinates.x + x, start.coordinates.z + z));
+                    allowedBlocks.Add(new Vector2(start.coordinates.x + x, start.coordinates.z - z));
+                    allowedBlocks.Add(new Vector2(start.coordinates.x - x, start.coordinates.z + z));
+                    allowedBlocks.Add(new Vector2(start.coordinates.x - x, start.coordinates.z - z));
+                }
+            }
+        }
+
+        var map = canSearchOccupied ? CompleteMap : Map;
+
+        return map.Where(t => allowedBlocks.Contains(new Vector2(t.coordinates.x, t.coordinates.z))).ToArray();
+    }
+
+    private BlockScript[] GetWalkingTiles(BlockScript start, float range, bool ignoreMoveModifier, bool canSearchOccupied, bool flying)
+    {
         var distDictionary = new Dictionary<BlockScript, float>();
 
-        var gameMap = flying? CompleteMap.ToList() : Map.ToList();
+        var gameMap = flying ? CompleteMap.ToList() : Map.ToList();
 
         if (gameMap.Contains(start) == false)
             gameMap.Add(start);
@@ -147,13 +185,13 @@ public class Pathfinder : MonoBehaviour
 
         distDictionary[start] = 0;
 
-        while(gameMap.Count > 0)
+        while (gameMap.Count > 0)
         {
             var pathTile = gameMap.OrderBy(t => distDictionary[t]).First();
 
             //If the shortest distance path unexplored is greater than the range
             //then all searches paths are within range, and all unsearched paths will be further away
-            if(distDictionary[pathTile] > range)
+            if (distDictionary[pathTile] > range)
             {
                 break;
             }
@@ -167,17 +205,17 @@ public class Pathfinder : MonoBehaviour
                 float pathLength = Vector2.Distance(new Vector2(tile.coordinates.x, tile.coordinates.z),
                     new Vector2(pathTile.coordinates.x, pathTile.coordinates.z));
 
-                if(ignoreMoveModifier == false)
+                if (ignoreMoveModifier == false)
                     pathLength *= tile.MoveModifier;
 
                 pathLength += distDictionary[pathTile];
 
                 //If distanceDictionary[pathTile] is infinite, then tile has not been explored, or a shorter path has been found
-                if(pathLength < distDictionary[tile])
+                if (pathLength < distDictionary[tile])
                 {
                     distDictionary[tile] = pathLength;
                     //traversableTerrain.Add(tile);
-                }                
+                }
             }
         }
 
