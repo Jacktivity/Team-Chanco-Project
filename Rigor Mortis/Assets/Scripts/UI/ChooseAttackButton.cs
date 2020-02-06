@@ -17,6 +17,8 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     public Character character;
     public Attack attack;
     private Button button;
+    private bool disabled;
+    public String previousText;
 
     public Sprite moveSprite, swordSprite, zapSprite, axeSprite;
 
@@ -25,6 +27,20 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         uiManager = FindObjectOfType<UIManager>();
         button = GetComponent<Button>();
+        attackText.text = previousText;
+
+        var targetsInRange = character.pathfinder.GetTilesInRange(character.floor, attack.Range, true, true, true)
+        .Where(b => b.Occupied ? b.occupier.tag == "Enemy" || b.occupier.tag == "Breakable_Terrain" : false)
+        .Select(t => t.occupier.GetComponent<Character>());
+
+        if(targetsInRange.Count() == 0)
+        {
+            button.interactable = false;
+            disabled = true;
+        } else
+        {
+            disabled = false;
+        }
     }
 
     public void ChooseAttack()
@@ -39,14 +55,18 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
         gridManager.ClearMap();
         var tiles = character.pathfinder.GetTilesInRange(character.floor, attack.Range, true, true, true);
         gridManager.ColourTiles(tiles, false);
-        attackText.text = attack.Name;
+        if (disabled) {
+            attackText.text = attack.Name + "\n" + "No Targets";
+        } else {
+            attackText.text = attack.Name;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         gridManager.ClearMap();
         pointerExit?.Invoke(this, new EventArgs());
-        attackText.text = "";
+        attackText.text = previousText;
     }    
 
     public class CharacterAttack

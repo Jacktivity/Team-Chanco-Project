@@ -12,6 +12,8 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public Text attackText;
     public GridManager gridManager;
     public Character character, target;
+    public UIManager uiManager;
+    public String previousText;
 
     public void AssignData(Character attacker, Character target)
     {
@@ -29,6 +31,8 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         character.Attack();
         target.godRay.SetActive(false);
         gridManager.ClearMap();
+        uiManager.DisableAPText();
+        uiManager.ResetPanelSize();
         attackText.text = "";
     }
 
@@ -45,6 +49,6 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         //Unhighlight enemy
         target.godRay.SetActive(false);
-        attackText.text = "";
+        attackText.text = previousText;
     }
 }

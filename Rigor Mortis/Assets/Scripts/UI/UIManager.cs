@@ -18,15 +18,16 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton, cancelActionBtn, waitButton;
     [SerializeField]private Vector3 targetCharacterOffset;
-    [SerializeField]private Vector3 baseAttackPosition;
+    [SerializeField]private Vector3 baseAttackPosition, originalBaseAttackPosition;
     [SerializeField]private GameObject attackPanel;
     [SerializeField]private Button actionPanelButton;
     public List<GameObject> popUpButtons;
     public List<GameObject> activePopUpButtons;
 
-    private Vector2 attackPanelOriginalScale;
-    [SerializeField] int minButtons = 3;
-    [SerializeField]int maxButtons = 9;
+    private Vector2 attackPanelOriginalScale, attackPanelEdges;
+    [SerializeField]int minButtons = 3;
+    [SerializeField]int maxButtons = 20;
+    bool attackPanalShrinkButtons;
 
     [SerializeField]GameObject marker;
     List<GameObject> markers;
@@ -50,7 +51,7 @@ public class UIManager : MonoBehaviour
     private Vector3 buttonSpacing;
 
     [SerializeField] Text turnDisplay;
-    public Text attackText;
+    public Text attackText, hitText, hitStatText, rangeText, rangeStatText, magicText, magicStatText, damageText, damageStatText;
     public Text scorePointsText;
     public Text placementText;
 
@@ -81,11 +82,12 @@ public class UIManager : MonoBehaviour
         Character.attackEvent += ClearAttackUI;
 
         baseAttackPosition = popupArea.transform.localPosition;
-
-        buttonSpace = 60;
-        buttonSpacing = new Vector3(buttonSpace, 0, 0);
+        originalBaseAttackPosition = baseAttackPosition;
 
         attackPanelOriginalScale = attackPanel.GetComponent<RectTransform>().sizeDelta;
+        attackPanelEdges = new Vector2(350, attackPanelOriginalScale.y);
+        attackPanalShrinkButtons = false;
+        ButtonSpaceUpdate(attackPanalShrinkButtons);
     }
 
 
@@ -116,9 +118,24 @@ public class UIManager : MonoBehaviour
         DeleteCurrentPopupButtons();
     }
 
+    void ButtonSpaceUpdate(bool isSmallPanel)
+    {
+        if (!isSmallPanel) {
+            buttonSpace = 60;
+            baseAttackPosition = originalBaseAttackPosition;
+        } else {
+            buttonSpace = 30;
+            baseAttackPosition = new Vector3(originalBaseAttackPosition.x + buttonSpace, originalBaseAttackPosition.y - (buttonSpace/2), originalBaseAttackPosition.z);
+        }
+
+        buttonSpacing = new Vector3(buttonSpace, 0, 0);
+    }
+
     private void DisplayTargets(object sender, ChooseAttackButton.CharacterAttack e)
     {
         DeleteCurrentPopupButtons();
+        attackPanalShrinkButtons = true;
+        ButtonSpaceUpdate(attackPanalShrinkButtons);
 
         var targetsInRange = e.attacker.pathfinder.GetTilesInRange(e.attacker.floor, e.attackChosen.Range, true, true, true)
             .Where(b => b.Occupied ? b.occupier.tag == "Enemy" || b.occupier.tag == "Breakable_Terrain" : false)
@@ -131,33 +148,69 @@ public class UIManager : MonoBehaviour
             //popUpButtons.Add(btn);
             //btn.transform.position = baseAttackPosition;
             //btn.GetComponentInChildren<Text>().text = "No Targets";
-            CreateCancelButton(e.attacker);
+            CreateCancelButton(e.attacker, true);
         }
         else
         {
-            CreateCancelButton(e.attacker);
+            CreateCancelButton(e.attacker, false);
 
             for (int i = 0; i < targetsInRange.Count(); i++)
             {
                 var button = Instantiate(targetCharacterButton, attackPanel.transform);
-                var moveOffset = (buttonSpacing / 2) * (i+1);
+                var moveOffset = buttonSpacing * (i + 1);
                 popUpButtons.Add(button);
-                button.transform.localPosition = (baseAttackPosition - (buttonSpacing /2)) + moveOffset;
+                button.transform.localPosition = baseAttackPosition + moveOffset;
                 //button.GetComponentInChildren<Text>().text = targetsInRange.ElementAt(i).name;
                 var enemySelect = button.GetComponent<EnemySelectButton>();
                 enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i));
                 enemySelect.attackText = attackText;
+                enemySelect.previousText = attackText.text;
+                enemySelect.uiManager = this;
+                EnableAPText(e.attackChosen);
             }
         }
 
         if (popUpButtons.Count() > minButtons)
         {
-            ExpandPanel(true);
+            ExpandPanel();
             //apRightArrow.SetActive(true);
         } else {
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
+            ResetPanelSize();
+            ShrinkButtons();
             ResetArrows();
         }
+    }
+
+    private void EnableAPText(Attack atk)
+    {
+        hitText.enabled = true;
+        hitStatText.enabled = true;
+        hitStatText.text = atk.Accuracy + "%";
+        rangeText.enabled = true;
+        rangeStatText.enabled = true;
+        rangeStatText.text = atk.Range + "";
+        magicText.enabled = true;
+        magicStatText.enabled = true;
+        /*if (atk.MagicalDamage != null) {
+            magicStatText.text = atk.MagicalDamage.ToString() + " MP";
+        } else {*/
+            magicStatText.text = "0 MP";
+        //}
+        damageText.enabled = true;
+        damageStatText.enabled = true;
+        damageStatText.text = atk.AverageDamage + "";
+    }
+
+    public void DisableAPText()
+    {
+        hitText.enabled = false;
+        hitStatText.enabled = false;
+        rangeText.enabled = false;
+        rangeStatText.enabled = false;
+        magicText.enabled = false;
+        magicStatText.enabled = false;
+        damageText.enabled = false;
+        damageStatText.enabled = false;
     }
 
    public void DeleteCurrentPopupButtons()
@@ -180,7 +233,9 @@ public class UIManager : MonoBehaviour
         popUpButtons = new List<GameObject>();
 
         activePopUpButtons.Clear();
-        activePopUpButtons = new List<GameObject>();        
+        activePopUpButtons = new List<GameObject>();
+
+        DisableAPText();
     }
 
     public void UpdateTurnNumber(int turn)
@@ -216,6 +271,10 @@ public class UIManager : MonoBehaviour
     public void CreateActionButtons(IEnumerable<Attack> _attacks, Character character)
     {
         DeleteCurrentPopupButtons();
+        DisableAPText();
+        attackPanalShrinkButtons = false;
+        ButtonSpaceUpdate(attackPanalShrinkButtons);
+        attackText.text = character.name;
 
         if (character.CanAttack) {
             var moveOffset = buttonSpacing * (_attacks.Count() + 1);
@@ -228,25 +287,37 @@ public class UIManager : MonoBehaviour
             moveOffset = new Vector3( buttonSpace * (_attacks.Count() + 1), 0, 0 );
             MakeWaitButton( moveOffset, character );
             if (popUpButtons.Count() > minButtons) {
-                ExpandPanel(false);
+                ExpandPanel();
             } else {
-                attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
+                ResetPanelSize();
                 ResetArrows();
             }
         } else if (character.CanMove) {
             MakeMoveButton( new Vector3( 0, 0, 0 ), character );
-            MakeWaitButton( new Vector3( buttonSpace, 0, 0 ), character );
+            MakeWaitButton( new Vector3( buttonSpace * 2, 0, 0 ), character );
         }
     }
 
-    private void ExpandPanel(bool targets) {
+    void ShrinkButtons()
+    {
+        foreach (GameObject button in popUpButtons)
+        {
+            button.GetComponent<RectTransform>().sizeDelta = new Vector2(button.GetComponent<RectTransform>().rect.width / 2, button.GetComponent<RectTransform>().rect.height / 2);
+        }
+    }
+
+    public void ResetPanelSize()
+    {
+        attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
+    }
+
+    private void ExpandPanel() {
         int amountOver = popUpButtons.Count - minButtons;
-        float _buttonSpace = buttonSpace;
-        if (targets) {
-            _buttonSpace = buttonSpace / 4;
-            foreach(GameObject button in popUpButtons) {
-                button.GetComponent<RectTransform>().sizeDelta = new Vector2(button.GetComponent<RectTransform>().rect.width / 2, button.GetComponent<RectTransform>().rect.height / 2);
-            }
+        //float _buttonSpace = buttonSpace;
+
+        if (attackPanalShrinkButtons) {
+            //_buttonSpace = buttonSpace / 2;
+            ShrinkButtons();
         }
 
         if (popUpButtons.Count > maxButtons) { //To-Do: Make cap scale with resolution
@@ -264,20 +335,20 @@ public class UIManager : MonoBehaviour
                 }
             }
 
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale + new Vector2((maxButtons - minButtons) * _buttonSpace, 0);
+            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2((maxButtons - minButtons) * buttonSpace, 0);
             apRightArrow.SetActive(true);
 
             foreach (GameObject button in popUpButtons)
             {
-                button.transform.position = new Vector3(button.transform.position.x - ((_buttonSpace / 2) * (maxButtons - minButtons)), button.transform.position.y, button.transform.position.z);
+                button.transform.position = new Vector3(button.transform.position.x - ((buttonSpace / 2) * (maxButtons - minButtons)), button.transform.position.y, button.transform.position.z);
             }
 
         } else {
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale + new Vector2(amountOver * _buttonSpace, 0);
+            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2(amountOver * buttonSpace, 0);
 
             foreach (GameObject button in popUpButtons)
             {
-                button.transform.position = new Vector3(button.transform.position.x - ((_buttonSpace / 2) * amountOver), button.transform.position.y, button.transform.position.z);
+                button.transform.position = new Vector3(button.transform.position.x - ((buttonSpace / 2) * amountOver), button.transform.position.y, button.transform.position.z);
             }
         }
 
@@ -377,6 +448,7 @@ public class UIManager : MonoBehaviour
         button.GetComponent<ChooseAttackButton>().character = character;
         button.GetComponent<ChooseAttackButton>().gridManager = gridManager;
         button.GetComponent<ChooseAttackButton>().attackText = attackText;
+        button.GetComponent<ChooseAttackButton>().previousText = attackText.text;
         button.GetComponent<ChooseAttackButton>().attack = _attacks.ElementAt(i);
         //button.GetComponentInChildren<Text>().text = _attacks.ElementAt(i).Name;
     }
@@ -388,6 +460,7 @@ public class UIManager : MonoBehaviour
         moveBtn.transform.localPosition = baseAttackPosition + buttonOffset;
         moveBtn.GetComponent<MoveButton>().SetUpMoveButton(character);
         moveBtn.GetComponent<MoveButton>().attackText = attackText;
+        moveBtn.GetComponent<MoveButton>().previousText = attackText.text;
     }
 
     private void MakeWaitButton(Vector3 buttonOffset, Character character)
@@ -397,18 +470,24 @@ public class UIManager : MonoBehaviour
         waitBtn.transform.localPosition = baseAttackPosition + buttonOffset;
         waitBtn.GetComponent<Button>().onClick.AddListener(delegate { Wait(character); });
         waitBtn.GetComponent<WaitButton>().attackText = attackText;
+        waitBtn.GetComponent<WaitButton>().previousText = attackText.text;
         waitBtn.GetComponent<WaitButton>().gridManager = gridManager;
         waitBtn.GetComponent<WaitButton>().character = character;
         waitBtn.GetComponent<WaitButton>().uiManager = this;
     }
 
-    public void CreateCancelButton(Character unit)
+    public void CreateCancelButton(Character unit, bool onlyButton)
     {
         var cancel = Instantiate(cancelActionBtn, attackPanel.transform);
         popUpButtons.Add(cancel);
         cancel.transform.localPosition = baseAttackPosition;
         cancel.GetComponent<CancelAction>().SetActions(unit/*, popUpButtons.Select(b => b.GetComponent<MoveButton>()).Where(b => b != null)*/);
         cancel.GetComponent<CancelAction>().attackText = attackText;
+        cancel.GetComponent<CancelAction>().previousText = attackText.text;
+        cancel.GetComponent<CancelAction>().uiManager = this;
+
+        if (onlyButton)
+            cancel.transform.localPosition = new Vector3(0, baseAttackPosition.y, baseAttackPosition.z);
     }
 
     public void ClearRangeBlocks()
