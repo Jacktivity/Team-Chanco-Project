@@ -24,6 +24,9 @@ public class UIManager : MonoBehaviour
     public List<GameObject> popUpButtons;
     public List<GameObject> activePopUpButtons;
 
+    private Vector2 attackPanelOriginalScale;
+    [SerializeField] int minButtons = 3;
+    [SerializeField]int maxButtons = 9;
 
     [SerializeField]GameObject marker;
     List<GameObject> markers;
@@ -77,10 +80,12 @@ public class UIManager : MonoBehaviour
         ChooseAttackButton.attackChosen += DisplayTargets;
         Character.attackEvent += ClearAttackUI;
 
-        baseAttackPosition = popupArea.transform.position;
+        baseAttackPosition = popupArea.transform.localPosition;
 
         buttonSpace = 60;
         buttonSpacing = new Vector3(buttonSpace, 0, 0);
+
+        attackPanelOriginalScale = attackPanel.GetComponent<RectTransform>().sizeDelta;
     }
 
 
@@ -119,8 +124,6 @@ public class UIManager : MonoBehaviour
             .Where(b => b.Occupied ? b.occupier.tag == "Enemy" || b.occupier.tag == "Breakable_Terrain" : false)
             .Select(t => t.occupier.GetComponent<Character>());
 
-        //CreateCancelButton(e.attacker);
-
         if (targetsInRange.Count() == 0)
         {
             //Say no people to hit
@@ -132,12 +135,14 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+            CreateCancelButton(e.attacker);
+
             for (int i = 0; i < targetsInRange.Count(); i++)
             {
                 var button = Instantiate(targetCharacterButton, attackPanel.transform);
-                var moveOffset = buttonSpacing * i;
+                var moveOffset = buttonSpacing * (i+1);
                 popUpButtons.Add(button);
-                button.transform.position = baseAttackPosition + moveOffset;
+                button.transform.localPosition = baseAttackPosition + moveOffset;
                 //button.GetComponentInChildren<Text>().text = targetsInRange.ElementAt(i).name;
                 var enemySelect = button.GetComponent<EnemySelectButton>();
                 enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i));
@@ -145,10 +150,13 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        if (popUpButtons.Count() > 3)
+        if (popUpButtons.Count() > minButtons)
         {
-            LimitAPButtons();
-            apRightArrow.SetActive(true);
+            ExpandPanel();
+            //apRightArrow.SetActive(true);
+        } else {
+            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
+            ResetArrows();
         }
     }
 
@@ -219,9 +227,11 @@ public class UIManager : MonoBehaviour
 
             moveOffset = new Vector3( buttonSpace * (_attacks.Count() + 1), 0, 0 );
             MakeWaitButton( moveOffset, character );
-            if (popUpButtons.Count() > 3) {
-                LimitAPButtons(); // Scale it here
-                apRightArrow.SetActive(true);
+            if (popUpButtons.Count() > minButtons) {
+                ExpandPanel();
+            } else {
+                attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
+                ResetArrows();
             }
         } else if (character.CanMove) {
             MakeMoveButton( new Vector3( 0, 0, 0 ), character );
@@ -229,17 +239,48 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void LimitAPButtons() {
-        for(int i = 3; i < popUpButtons.Count(); i++) {
-            GameObject button = popUpButtons[i];
-            button.SetActive(false);
-        }
+    private void ExpandPanel() {
+        int amountOver = popUpButtons.Count - minButtons;
 
-        foreach(GameObject button in popUpButtons) {
-            if (button.activeSelf) {
-                activePopUpButtons.Add(button);
+        if (popUpButtons.Count > maxButtons) { //To-Do: Make cap scale with resolution
+            for (int i = maxButtons; i < popUpButtons.Count(); i++)
+            {
+                GameObject button = popUpButtons[i];
+                button.SetActive(false);
+            }
+
+            foreach (GameObject button in popUpButtons)
+            {
+                if (button.activeSelf)
+                {
+                    activePopUpButtons.Add(button);
+                }
+            }
+
+            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale + new Vector2((maxButtons - minButtons) * buttonSpace, 0);
+            apRightArrow.SetActive(true);
+
+            foreach (GameObject button in popUpButtons)
+            {
+                button.transform.position = new Vector3(button.transform.position.x - ((buttonSpace / 2) * (maxButtons - minButtons)), button.transform.position.y, button.transform.position.z);
+            }
+            
+        } else {
+            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale + new Vector2(amountOver * buttonSpace, 0);
+
+            foreach (GameObject button in popUpButtons)
+            {
+                button.transform.position = new Vector3(button.transform.position.x - ((buttonSpace / 2) * amountOver), button.transform.position.y, button.transform.position.z);
             }
         }
+
+        ResetArrows();
+    }
+
+    void ResetArrows()
+    {
+        apLeftArrow.transform.localPosition = new Vector3(-attackPanel.GetComponent<RectTransform>().rect.width * 0.45f, apLeftArrow.transform.localPosition.y, apLeftArrow.transform.localPosition.z);
+        apRightArrow.transform.localPosition = new Vector3(attackPanel.GetComponent<RectTransform>().rect.width * 0.45f, apRightArrow.transform.localPosition.y, apRightArrow.transform.localPosition.z);
     }
 
     public void ResetAPButtons(bool increment) {
@@ -258,7 +299,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void IncrementAPButtons() {
-        /*if (popUpButtons.Count() > 0 && activePopUpButtons[activePopUpButtons.Count-1] != popUpButtons[popUpButtons.Count-1]) {
+        if (popUpButtons.Count() > 0 && activePopUpButtons[activePopUpButtons.Count-1] != popUpButtons[popUpButtons.Count-1]) {
             int i = 0;
             for(int j = 1; j < popUpButtons.Count() + 1; j++) {
                 if (activePopUpButtons.Contains( popUpButtons[j - 1] )) {
@@ -266,9 +307,9 @@ public class UIManager : MonoBehaviour
                     i = j;
                 }
             }
-            if (i < popUpButtons.Count() && i != 0 || activePopUpButtons.Count < 3 ) {
-                i -= 3;
-                for (int k = 0; k < 3; k++) {
+            if (i < popUpButtons.Count() && i != 0 || activePopUpButtons.Count < maxButtons) {
+                i -= maxButtons;
+                for (int k = 0; k < maxButtons; k++) {
                     i++;
                     if (i < popUpButtons.Count) {
                         activePopUpButtons.Add( popUpButtons[i] );
@@ -283,11 +324,11 @@ public class UIManager : MonoBehaviour
         }
         if(activePopUpButtons[activePopUpButtons.Count - 1] == popUpButtons[popUpButtons.Count - 1]) {
             apRightArrow.SetActive(false);
-        }*/
+        }
     }
 
     public void DecrementAPButtons() {
-        /*if (popUpButtons.Count() > 0 && activePopUpButtons[0] != popUpButtons[0]) {
+        if (popUpButtons.Count() > 0 && activePopUpButtons[0] != popUpButtons[0]) {
             int i = 0;
             for (int j = 1; j < popUpButtons.Count() + 1; j++) {
                 if (activePopUpButtons.Contains( popUpButtons[j - 1] )) {
@@ -295,9 +336,9 @@ public class UIManager : MonoBehaviour
                     i = j;
                 }
             }
-            if (i < popUpButtons.Count() && i != 0 || activePopUpButtons.Count < 3) {
-                i -= 5;
-                for (int k = 0; k < 3; k++) {
+            if (i < popUpButtons.Count() && i != 0 || activePopUpButtons.Count < maxButtons) {
+                i -= maxButtons+2;
+                for (int k = 0; k < maxButtons; k++) {
                     i++;
                     if (i < popUpButtons.Count) {
                         activePopUpButtons.Add( popUpButtons[i] );
@@ -312,7 +353,7 @@ public class UIManager : MonoBehaviour
         }
         if (activePopUpButtons[activePopUpButtons.Count - 1] != popUpButtons[popUpButtons.Count - 1]) {
             apRightArrow.SetActive( true );
-        }*/
+        }
     }
 
     private void CreateAttackButton(IEnumerable<Attack> _attacks, Character character, int i)
@@ -323,7 +364,7 @@ public class UIManager : MonoBehaviour
         }
 
         GameObject button = Instantiate(attackButton, attackPanel.transform);
-        button.transform.position = baseAttackPosition + popUpOffset;
+        button.transform.localPosition = baseAttackPosition + popUpOffset;
         popUpButtons.Add(button);
 
         button.GetComponent<ChooseAttackButton>().character = character;
@@ -337,7 +378,7 @@ public class UIManager : MonoBehaviour
     {
         var moveBtn = Instantiate(moveButton, attackPanel.transform );
         popUpButtons.Add(moveBtn);
-        moveBtn.transform.position = baseAttackPosition + buttonOffset;
+        moveBtn.transform.localPosition = baseAttackPosition + buttonOffset;
         moveBtn.GetComponent<MoveButton>().SetUpMoveButton(character);
         moveBtn.GetComponent<MoveButton>().attackText = attackText;
     }
@@ -346,7 +387,7 @@ public class UIManager : MonoBehaviour
     {
         var waitBtn = Instantiate(waitButton, attackPanel.transform);
         popUpButtons.Add(waitBtn);
-        waitBtn.transform.position = baseAttackPosition + buttonOffset;
+        waitBtn.transform.localPosition = baseAttackPosition + buttonOffset;
         waitBtn.GetComponent<Button>().onClick.AddListener(delegate { Wait(character); });
         waitBtn.GetComponent<WaitButton>().attackText = attackText;
         waitBtn.GetComponent<WaitButton>().gridManager = gridManager;
@@ -358,7 +399,7 @@ public class UIManager : MonoBehaviour
     {
         var cancel = Instantiate(cancelActionBtn, attackPanel.transform);
         popUpButtons.Add(cancel);
-        cancel.transform.position = baseAttackPosition;
+        cancel.transform.localPosition = baseAttackPosition;
         cancel.GetComponent<CancelAction>().SetActions(unit/*, popUpButtons.Select(b => b.GetComponent<MoveButton>()).Where(b => b != null)*/);
         cancel.GetComponent<CancelAction>().attackText = attackText;
     }
