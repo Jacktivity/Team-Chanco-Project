@@ -850,6 +850,8 @@ MonoBehaviour:
   spawnPoint: {r: 1, g: 1, b: 0, a: 1}
   lowSpeedTile: {r: 0, g: 1, b: 1, a: 1}
   highSpeedTile: {r: 1, g: 0.48650533, b: 0, a: 1}
+  attackTile: {r: 1, g: 0, b: 0, a: 1}
+  missTile: {r: 0.5660378, g: 0, b: 0, a: 0.6862745}
   uiManager: {fileID: 1024436346}
   playerManager: {fileID: 1353577215}
   enemyAIContainer: {fileID: 1390264259}

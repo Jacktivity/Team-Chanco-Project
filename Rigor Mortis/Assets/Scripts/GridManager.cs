@@ -25,7 +25,7 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private Character SelectedUnit;
 
-    [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile;
+    [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile, attackTile, missTile;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private EnemyAI enemyAIContainer;
@@ -43,6 +43,8 @@ public class GridManager : MonoBehaviour
     public Color SpawnColor => spawnPoint;
     public Color WalkColour => lowSpeedTile;
     public Color SprintColour => highSpeedTile;
+    public Color AttackTile => attackTile;
+    public Color MissTile => missTile;
     public static EventHandler<Character> unitSpawned;
     public static EventHandler<EnemySpawn> enemySpawned;
     public static EventHandler<BlockScript[]> mapGenerated;

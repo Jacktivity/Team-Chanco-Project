@@ -191,6 +191,7 @@ public class Character : MonoBehaviour
 
             var dodgeRoll = UnityEngine.Random.Range(1, 101);
 
+            var health = currentHitPoints;
 
             if (dodgeRoll < toHit)
             {
@@ -200,9 +201,7 @@ public class Character : MonoBehaviour
                 if (e.PhysicalDamage > armour)
                     TakeDamage(e.PhysicalDamage - armour);
             }
-            beingAttacked = false;
-
-            
+            beingAttacked = false;                          
         }
     }
 
@@ -222,6 +221,7 @@ public class Character : MonoBehaviour
         else
         {
             gameObject.GetComponent<HealthBar>().slider.value = currentHitPoints;
+
         }
     }
 

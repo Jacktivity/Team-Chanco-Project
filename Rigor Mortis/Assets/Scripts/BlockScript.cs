@@ -218,23 +218,23 @@ public class BlockScript : MonoBehaviour
 
     public void SetHighlightColour(Color colour, IEnumerable<Directions> boldHighlight)
     {
-        highlight.GetComponent<Renderer>().material.color = new Color(colour.r,colour.g, colour.b, 0.05f);
+        highlight.GetComponent<Renderer>().material.color = new Color(colour.r,colour.g, colour.b, colour.a * 0.05f);
         if (boldHighlight.Contains(Directions.North))
             borderNorth.material.color = colour;
         else
-            borderNorth.material.color = new Color(colour.r, colour.g, colour.b, 0.1f);
+            borderNorth.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
         if (boldHighlight.Contains(Directions.South))
             borderSouth.material.color = colour;
         else
-            borderSouth.material.color = new Color(colour.r, colour.g, colour.b, 0.1f);
+            borderSouth.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
         if (boldHighlight.Contains(Directions.East))
             borderEast.material.color = colour;
         else
-            borderEast.material.color = new Color(colour.r, colour.g, colour.b, 0.1f);
+            borderEast.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
         if (boldHighlight.Contains(Directions.West))
             borderWest.material.color = colour;
         else
-            borderWest.material.color = new Color(colour.r, colour.g, colour.b, 0.1f);
+            borderWest.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
     }
 }
 
