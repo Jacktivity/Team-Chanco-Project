@@ -145,7 +145,31 @@ MonoBehaviour:
   attackText: {fileID: 0}
   gridManager: {fileID: 0}
   character: {fileID: 0}
-  moveSprite: {fileID: 21300000, guid: 1ecd39ec5d775464982a72b584916bac, type: 3}
-  swordSprite: {fileID: 21300000, guid: 0394ef12062606b40adae5ec1c7687c8, type: 3}
+  previousText: 
+  staffWhackSprite: {fileID: 21300000, guid: 0394ef12062606b40adae5ec1c7687c8, type: 3}
+  rustySwordSprite: {fileID: 21300000, guid: 0394ef12062606b40adae5ec1c7687c8, type: 3}
+  spectralSwordSprite: {fileID: 21300000, guid: 0394ef12062606b40adae5ec1c7687c8,
+    type: 3}
+  whackSprite: {fileID: 21300000, guid: 0394ef12062606b40adae5ec1c7687c8, type: 3}
+  teslaStabSprite: {fileID: 21300000, guid: 5d9093900dc226d4ca379a1a4029625e, type: 3}
+  teslaZapSprite: {fileID: 21300000, guid: 81099581fb5b50049b5441578eebb55f, type: 3}
   zapSprite: {fileID: 21300000, guid: 81099581fb5b50049b5441578eebb55f, type: 3}
+  headbuttSprite: {fileID: 21300000, guid: 0394ef12062606b40adae5ec1c7687c8, type: 3}
+  fireboltSprite: {fileID: 21300000, guid: b9c3e610e39d65b499dd9f0092024a64, type: 3}
+  caplockRifleSprite: {fileID: 21300000, guid: 3ba565b49c914594aa900f6dddf9a98d, type: 3}
   axeSprite: {fileID: 21300000, guid: ae9dbc0c80c4cd844859dea0d29d758c, type: 3}
+  spearSprite: {fileID: 21300000, guid: 535e8d65bc0bd7c48bd06977834a4707, type: 3}
+  staffWhackSpriteHL: {fileID: 21300000, guid: a87bd24db7b96e444a3000333f791e47, type: 3}
+  rustySwordSpriteHL: {fileID: 21300000, guid: a87bd24db7b96e444a3000333f791e47, type: 3}
+  spectralSwordSpriteHL: {fileID: 21300000, guid: a87bd24db7b96e444a3000333f791e47,
+    type: 3}
+  whackSpriteHL: {fileID: 21300000, guid: a87bd24db7b96e444a3000333f791e47, type: 3}
+  teslaStabSpriteHL: {fileID: 21300000, guid: 4ebcbf985ce9b1341b11f11ced789975, type: 3}
+  teslaZapSpriteHL: {fileID: 21300000, guid: 319402abb1ecce342bf84e0744b43f9d, type: 3}
+  zapSpriteHL: {fileID: 21300000, guid: 319402abb1ecce342bf84e0744b43f9d, type: 3}
+  headbuttSpriteHL: {fileID: 21300000, guid: a87bd24db7b96e444a3000333f791e47, type: 3}
+  fireboltSpriteHL: {fileID: 21300000, guid: 848f87d952e22aa4189ec212e3dd92ab, type: 3}
+  caplockRifleSpriteHL: {fileID: 21300000, guid: f293ebe195e730f41915999496695b6b,
+    type: 3}
+  axeSpriteHL: {fileID: 21300000, guid: 3affb1446d84e3740990fe489276a0fb, type: 3}
+  spearSpriteHL: {fileID: 21300000, guid: e54c0f96fbacf034cadbac53b72678d2, type: 3}

@@ -20,7 +20,8 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     private bool disabled;
     public String previousText;
 
-    public Sprite moveSprite, swordSprite, zapSprite, axeSprite;
+    public Sprite staffWhackSprite, rustySwordSprite, spectralSwordSprite, whackSprite, teslaStabSprite, teslaZapSprite, zapSprite, headbuttSprite, fireboltSprite, caplockRifleSprite, axeSprite, spearSprite;
+    public Sprite staffWhackSpriteHL, rustySwordSpriteHL, spectralSwordSpriteHL, whackSpriteHL, teslaStabSpriteHL, teslaZapSpriteHL, zapSpriteHL, headbuttSpriteHL, fireboltSpriteHL, caplockRifleSpriteHL, axeSpriteHL, spearSpriteHL;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,8 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
         {
             disabled = false;
         }
+
+        SetAttackSprite(attack);
     }
 
     public void ChooseAttack()
@@ -80,12 +83,63 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
             attackChosen = attack;
         }
     }
-    public enum Type
+
+    public void SetAttackSprite(Attack atk)
     {
-        Move, RustySword, SpectralSword, Zap
+        switch (atk.Name) {
+            case "Staff Whack":
+                ActionPanelButtonSpriteSwitch(staffWhackSprite, staffWhackSpriteHL);
+                break;
+            case "Rusty Sword":
+                ActionPanelButtonSpriteSwitch(rustySwordSprite, rustySwordSpriteHL);
+                break;
+            case "Spectral Sword":
+                ActionPanelButtonSpriteSwitch(spectralSwordSprite, spectralSwordSpriteHL);
+                break;
+            case "Whack":
+                ActionPanelButtonSpriteSwitch(whackSprite, whackSpriteHL);
+                break;
+            case "Tesla Stab":
+                ActionPanelButtonSpriteSwitch(teslaStabSprite, teslaStabSpriteHL);
+                break;
+            case "Tesla Zap":
+                ActionPanelButtonSpriteSwitch(teslaZapSprite, teslaZapSpriteHL);
+                break;
+            case "Zap":
+                ActionPanelButtonSpriteSwitch(zapSprite, zapSpriteHL);
+                break;
+            case "Headbutt":
+                ActionPanelButtonSpriteSwitch(headbuttSprite, headbuttSpriteHL);
+                break;
+            case "Firebolt":
+                ActionPanelButtonSpriteSwitch(fireboltSprite, fireboltSpriteHL);
+                break;
+            case "Caplock Rifle":
+                ActionPanelButtonSpriteSwitch(caplockRifleSprite, caplockRifleSpriteHL);
+                break;
+            case "Axe":
+                ActionPanelButtonSpriteSwitch(axeSprite, axeSpriteHL);
+                break;
+            case "Spear":
+                ActionPanelButtonSpriteSwitch(spearSprite, spearSpriteHL);
+                break;
+            default:
+                ActionPanelButtonSpriteSwitch(axeSprite, axeSpriteHL);
+                break;
+        }
     }
 
-    public void ActionPanelButtonSpriteSwitch( Sprite sprite ) {
+    public void ActionPanelButtonSpriteSwitch( Sprite sprite, Sprite spriteHL ) {
+        SpriteState st = new SpriteState();
+
+        if(sprite == null) {
+            button.GetComponent<Image>().sprite = axeSprite;
+            st.pressedSprite = axeSpriteHL;
+            st.highlightedSprite = axeSpriteHL;
+        }
+
         button.GetComponent<Image>().sprite = sprite;
+        st.pressedSprite = spriteHL;
+        st.highlightedSprite = spriteHL;
     }
 }
