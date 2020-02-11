@@ -37,7 +37,7 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         gridManager.ClearMap();
-        var tiles = character.pathfinder.GetAttackTiles(character.floor, attack);
+        var tiles = character.pathfinder.GetAttackTiles(character, attack);
         var allTiles = character.pathfinder.GetTilesInRange(character.floor, attack.Range, true, true, true);
 
         gridManager.ColourTiles(allTiles, gridManager.MissTile);

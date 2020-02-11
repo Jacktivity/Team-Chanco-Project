@@ -34,8 +34,10 @@ public class Attack
     public int Area { get; private set; }
     public bool TargetEmptyTiles { get; private set; }
     public int Mana { get; private set; }
+    public bool Piercing { get; private set; }
+    public bool PassAllies { get; private set; }
 
-    public Attack(int atkRange, float accuracy, string name, Dice physicalDmg = null, Dice magicDmg = null, int atkArea = 0, bool targetEmptyTiles = false, int manaCost = 0)
+    public Attack(int atkRange, float accuracy, string name, Dice physicalDmg = null, Dice magicDmg = null, int atkArea = 0, bool targetEmptyTiles = false, int manaCost = 0, bool piercing = false, bool throughAllies = false)
     {
         PhysicalDamage = physicalDmg;
         MagicalDamage = magicDmg;
@@ -45,6 +47,8 @@ public class Attack
         Area = atkArea;
         TargetEmptyTiles = targetEmptyTiles;
         Mana = manaCost;
+        Piercing = piercing;
+        PassAllies = throughAllies;
     }
 
     public Damage RollDamage()
@@ -114,4 +118,9 @@ public class Dice
     {
         return (((double)Faces + 1) / 2) * Count;
     }
+}
+
+public enum Area
+{
+    Circle, Line, Cone
 }

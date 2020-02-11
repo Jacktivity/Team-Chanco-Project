@@ -119,23 +119,35 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    public BlockScript[] GetAttackTiles(BlockScript attackSource, Attack attack)
+    public BlockScript[] GetAttackTiles(Character attacker, Attack attack)
     {
-        var allTiles = GetTilesInRange(attackSource, attack.Range, true, true, true);
+        var allTiles = GetTilesInRange(attacker.floor, attack.Range, true, true, true);
 
         var attackTiles = new List<BlockScript>();
+
+        var tagsToIgnore = new List<string>();
+
+        if(attack.PassAllies)
+        {
+            tagsToIgnore.Add(attacker.gameObject.tag);
+        }
+
+        if(attack.Piercing)
+        {
+            tagsToIgnore.Add(attacker.gameObject.tag == "Enemy" ? "Player" : "Enemy");
+        }
 
         foreach (var tile in allTiles)
         {       
             Vector3 origin, destination;
             Collider startCollider, endCollider;
 
-            var startTileCollider = attackSource.GetComponent<Collider>();
+            var startTileCollider = attacker.GetComponent<Collider>();
             var endTileCollider = tile.GetComponent<Collider>();
 
-            if (attackSource.Occupied)
+            if (attacker.floor.Occupied)
             {
-                startCollider = attackSource.occupier.GetComponent<Collider>();
+                startCollider = attacker.floor.occupier.GetComponent<Collider>();
                 origin = startCollider.bounds.center;// + new Vector3(0, startCollider.bounds.extents.y, 0);
             }
             else
@@ -161,7 +173,9 @@ public class Pathfinder : MonoBehaviour
 
             Debug.DrawRay(origin, destination - origin, Color.red, 10f);
 
-            if (data.Any(d => d.collider != startCollider && d.collider != endCollider && d.collider != startTileCollider && d.collider != endTileCollider) == false)
+            var validColliders = new Collider[] { startCollider, endCollider, startTileCollider, endTileCollider };
+
+            if (data.Any(d => validColliders.Contains(d.collider) == false && tagsToIgnore.Contains(d.collider.gameObject.tag) == false)) // == false
             {
                 attackTiles.Add(tile);
             }
