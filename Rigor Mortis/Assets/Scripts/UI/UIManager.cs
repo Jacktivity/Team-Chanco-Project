@@ -342,7 +342,7 @@ public class UIManager : MonoBehaviour
 
             foreach (GameObject button in popUpButtons)
             {
-                button.transform.position = new Vector3(button.transform.position.x - ((buttonSpace / 2) * (maxButtons - minButtons)), button.transform.position.y, button.transform.position.z);
+                button.transform.position = new Vector3(button.transform.position.x - (((buttonSpace / 2) * (maxButtons - minButtons)) * battleCanvas.scaleFactor), button.transform.position.y, button.transform.position.z);
             }
 
         } else {
@@ -350,7 +350,7 @@ public class UIManager : MonoBehaviour
 
             foreach (GameObject button in popUpButtons)
             {
-                button.transform.position = new Vector3(button.transform.position.x - ((buttonSpace / 2) * amountOver), button.transform.position.y, button.transform.position.z);
+                button.transform.position = new Vector3(button.transform.position.x - (((buttonSpace / 2) * amountOver) * battleCanvas.scaleFactor), button.transform.position.y, button.transform.position.z);
             }
         }
 
