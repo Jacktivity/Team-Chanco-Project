@@ -315,10 +315,8 @@ public class UIManager : MonoBehaviour
 
     private void ExpandPanel() {
         int amountOver = popUpButtons.Count - minButtons;
-        //float _buttonSpace = buttonSpace;
 
         if (attackPanalShrinkButtons) {
-            //_buttonSpace = buttonSpace / 2;
             ShrinkButtons();
         }
 
