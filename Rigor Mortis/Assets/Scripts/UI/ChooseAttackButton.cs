@@ -30,9 +30,9 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
         button = GetComponent<Button>();
         attackText.text = previousText;
 
-        var targetsInRange = character.pathfinder.GetTilesInRange(character.floor, attack.Range, true, true, true)
-        .Where(b => b.Occupied ? b.occupier.tag == "Enemy" || b.occupier.tag == "Breakable_Terrain" : false)
-        .Select(t => t.occupier.GetComponent<Character>());
+        var targetsInRange = character.pathfinder.GetAttackTiles(character, attack)
+            .Where(b => b.Occupied ? b.occupier.tag == "Enemy" || b.occupier.tag == "Breakable_Terrain" : false)
+            .Select(t => t.occupier.GetComponent<Character>());
 
         if(targetsInRange.Count() == 0)
         {

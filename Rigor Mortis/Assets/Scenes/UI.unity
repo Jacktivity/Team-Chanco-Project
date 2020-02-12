@@ -918,6 +918,8 @@ MonoBehaviour:
   spawnPoint: {r: 1, g: 1, b: 0, a: 1}
   lowSpeedTile: {r: 0, g: 1, b: 1, a: 1}
   highSpeedTile: {r: 1, g: 0.48650533, b: 0, a: 1}
+  attackTile: {r: 0, g: 0, b: 0, a: 0}
+  missTile: {r: 0, g: 0, b: 0, a: 0}
   uiManager: {fileID: 1024436346}
   playerManager: {fileID: 1353577215}
   enemyAIContainer: {fileID: 1390264259}
@@ -1358,11 +1360,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3515464052552298540, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8071483059640361990, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1378,11 +1375,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
-    - target: {fileID: 4830420569682314800, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4830420568599889411, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1418,15 +1410,5 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024436346}
-    - target: {fileID: 2949982985362069343, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4140392963122728735, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4f7be2378446da4da1286725ab7e00e, type: 3}

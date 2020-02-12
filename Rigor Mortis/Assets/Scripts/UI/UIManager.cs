@@ -20,7 +20,6 @@ public class UIManager : MonoBehaviour
     [SerializeField]private Vector3 targetCharacterOffset;
     [SerializeField]private Vector3 baseAttackPosition, originalBaseAttackPosition;
     [SerializeField]private GameObject attackPanel;
-    [SerializeField]private Button actionPanelButton;
     public List<GameObject> popUpButtons;
     public List<GameObject> activePopUpButtons;
 
@@ -173,7 +172,6 @@ public class UIManager : MonoBehaviour
         if (popUpButtons.Count() > minButtons)
         {
             ExpandPanel();
-            //apRightArrow.SetActive(true);
         } else {
             ResetPanelSize();
             ShrinkButtons();
