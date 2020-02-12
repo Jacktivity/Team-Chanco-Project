@@ -933,6 +933,10 @@ MonoBehaviour:
   movemenSprint: 0
   manaPoints: 0
   currentHitPoints: 0
+  idleAnim: {fileID: 7400000, guid: 87989048b5b040e4f9c5fbfb2d75c1ac, type: 3}
+  walkAnim: {fileID: 7400000, guid: 87989048b5b040e4f9c5fbfb2d75c1ac, type: 3}
+  attackAnim: {fileID: 7400000, guid: 87989048b5b040e4f9c5fbfb2d75c1ac, type: 3}
+  dmgAnim: {fileID: 7400000, guid: 87989048b5b040e4f9c5fbfb2d75c1ac, type: 3}
   isFlying: 0
   isCaptain: 0
   uiManager: {fileID: 0}

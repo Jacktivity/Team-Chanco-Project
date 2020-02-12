@@ -17,6 +17,10 @@ public class Character : MonoBehaviour
 
     [SerializeField] protected int currentHitPoints;
 
+    #region animations
+    [SerializeField] protected AnimationClip idleAnim, walkAnim, attackAnim, dmgAnim;
+    #endregion
+
     public bool isFlying;
     public bool isCaptain;
 
@@ -77,6 +81,19 @@ public class Character : MonoBehaviour
     private void Start()
     {
         currentHitPoints = maxHitPoints;
+
+        //var animator = GetComponent<Animator>();
+
+        //var animOverride = new AnimatorOverrideController(animator.runtimeAnimatorController);
+
+        //Debug.Log(gameObject.name + " animation overrides " + animOverride.overridesCount);
+
+        //animOverride.animationClips[0] = idleAnim==null? idleAnim : animOverride.animationClips[0];
+        //animOverride.animationClips[1] = attackAnim==null? attackAnim : animOverride.animationClips[1];
+        //animOverride.animationClips[2] = dmgAnim==null? dmgAnim : animOverride.animationClips[2];
+        //animOverride.animationClips[3] = attackAnim==null? attackAnim : animOverride.animationClips[3];
+
+        //animator.runtimeAnimatorController = animOverride;
     }
 
     public Attack[] UseableAttacks => attacks.Where(a => a.Mana <= manaPoints).ToArray();
