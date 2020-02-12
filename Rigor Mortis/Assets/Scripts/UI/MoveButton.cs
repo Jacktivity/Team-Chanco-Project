@@ -84,8 +84,8 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         //Update with PLayerCharacterMover link
 
-        gridManager.ColourTiles(sprintTiles, false);
-        gridManager.ColourTiles(walkTiles, true);
+        gridManager.ColourTiles(sprintTiles, gridManager.SprintColour);
+        gridManager.ColourTiles(walkTiles, gridManager.WalkColour);
         attackText.text = "Move";
     }
 

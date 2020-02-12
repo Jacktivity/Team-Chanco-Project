@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7084402742649403876}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1933,6 +1933,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7084402742649403876}
     m_Modifications:
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_Name
+      value: PS_Selection_Empty
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1653491297711639668, guid: 02bf5b393ede6a5478042e848987946a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2003,16 +2018,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.25
       objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_Name
-      value: PS_Selection_Empty
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02bf5b393ede6a5478042e848987946a, type: 3}
 --- !u!1 &2205658657269252464 stripped
@@ -2043,6 +2048,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565604866780981860, guid: e6f70e18440aa7d4e9371748e7b6b134,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2565604866780981849, guid: e6f70e18440aa7d4e9371748e7b6b134,
         type: 3}
@@ -2140,6 +2150,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PS_Selection
       objectReference: {fileID: 0}
+    - target: {fileID: 1614290478563651637, guid: e2d9f99584bdcea4b8357667c09b52f6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1614290478563651638, guid: e2d9f99584bdcea4b8357667c09b52f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2236,6 +2251,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System
       objectReference: {fileID: 0}
+    - target: {fileID: 4869746215740234837, guid: 797c756041db8d44bb4d73720497abd3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4869746215740234838, guid: 797c756041db8d44bb4d73720497abd3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2320,6 +2340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4869746215660338416, guid: 797c756041db8d44bb4d73720497abd3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797c756041db8d44bb4d73720497abd3, type: 3}

@@ -17,6 +17,10 @@ public class Character : MonoBehaviour
 
     [SerializeField] protected int currentHitPoints;
 
+    #region animations
+    [SerializeField] protected AnimationClip idleAnim, walkAnim, attackAnim, dmgAnim;
+    #endregion
+
     public bool isFlying;
     public bool isCaptain;
 
@@ -77,6 +81,19 @@ public class Character : MonoBehaviour
     private void Start()
     {
         currentHitPoints = maxHitPoints;
+
+        //var animator = GetComponent<Animator>();
+
+        //var animOverride = new AnimatorOverrideController(animator.runtimeAnimatorController);
+
+        //Debug.Log(gameObject.name + " animation overrides " + animOverride.overridesCount);
+
+        //animOverride.animationClips[0] = idleAnim==null? idleAnim : animOverride.animationClips[0];
+        //animOverride.animationClips[1] = attackAnim==null? attackAnim : animOverride.animationClips[1];
+        //animOverride.animationClips[2] = dmgAnim==null? dmgAnim : animOverride.animationClips[2];
+        //animOverride.animationClips[3] = attackAnim==null? attackAnim : animOverride.animationClips[3];
+
+        //animator.runtimeAnimatorController = animOverride;
     }
 
     public Attack[] UseableAttacks => attacks.Where(a => a.Mana <= manaPoints).ToArray();
@@ -130,7 +147,7 @@ public class Character : MonoBehaviour
             counterTime += Time.deltaTime * moveAnimationSpeed;
             moveToBlock = path.ElementAt(pathIndex);
 
-            float journey = Vector3.Distance(transform.position, (moveToBlock.transform.position + transform.up));
+            //float journey = Vector3.Distance(transform.position, (moveToBlock.transform.position + transform.up));
 
 
             transform.position = Vector3.Lerp(
@@ -141,7 +158,7 @@ public class Character : MonoBehaviour
 
             var angle = moveToBlock.transform.position - previousBlock.transform.position;
 
-            transform.forward = Vector3.Lerp(previousForward, angle, counterTime);
+            transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.y), counterTime);
 
             HealthBar healthBar = GetComponent<HealthBar>();
             Vector3 healthOffset = healthBar.offset;
@@ -191,6 +208,7 @@ public class Character : MonoBehaviour
 
             var dodgeRoll = UnityEngine.Random.Range(1, 101);
 
+            var health = currentHitPoints;
 
             if (dodgeRoll < toHit)
             {
@@ -200,9 +218,7 @@ public class Character : MonoBehaviour
                 if (e.PhysicalDamage > armour)
                     TakeDamage(e.PhysicalDamage - armour);
             }
-            beingAttacked = false;
-
-            
+            beingAttacked = false;                          
         }
     }
 
@@ -222,6 +238,7 @@ public class Character : MonoBehaviour
         else
         {
             gameObject.GetComponent<HealthBar>().slider.value = currentHitPoints;
+
         }
     }
 

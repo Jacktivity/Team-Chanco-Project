@@ -56,13 +56,17 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         gridManager.ClearMap();
-        var tiles = character.pathfinder.GetTilesInRange(character.floor, attack.Range, true, true, true);
-        gridManager.ColourTiles(tiles, false);
         if (disabled) {
             attackText.text = attack.Name + "\n" + "No Targets";
         } else {
             attackText.text = attack.Name;
         }
+
+        var tiles = character.pathfinder.GetAttackTiles(character, attack);
+        var allTiles = character.pathfinder.GetTilesInRange(character.floor, attack.Range, true, true, true);
+        gridManager.ColourTiles(allTiles, gridManager.MissTile);
+        gridManager.ColourTiles(tiles, gridManager.AttackTile);
+        attackText.text = attack.Name;
     }
 
     public void OnPointerExit(PointerEventData eventData)
