@@ -293,8 +293,8 @@ public class UIManager : MonoBehaviour
                 ResetArrows();
             }
         } else if (character.CanMove) {
-            MakeMoveButton( new Vector3( 0, 0, 0 ), character );
-            MakeWaitButton( new Vector3( buttonSpace * 2, 0, 0 ), character );
+            MakeMoveButton( new Vector3( (buttonSpace / 2), 0, 0 ), character );
+            MakeWaitButton( new Vector3( buttonSpace + ( buttonSpace / 2), 0, 0 ), character );
         }
     }
 
