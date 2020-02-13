@@ -1447,11 +1447,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4830420569195239889}
     m_Modifications:
-    - target: {fileID: 1623122959029971211, guid: b1ebf67617d599243a4af4dc58257d56,
-        type: 3}
-      propertyPath: m_Name
-      value: PauseCanvas
-      objectReference: {fileID: 0}
     - target: {fileID: 151280165495397517, guid: b1ebf67617d599243a4af4dc58257d56,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1557,6 +1552,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1623122959029971211, guid: b1ebf67617d599243a4af4dc58257d56,
+        type: 3}
+      propertyPath: m_Name
+      value: PauseCanvas
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1ebf67617d599243a4af4dc58257d56, type: 3}
 --- !u!224 &2949982985362069343 stripped
@@ -1572,11 +1572,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4830420569195239889}
     m_Modifications:
-    - target: {fileID: 8340796270077940493, guid: 195497fdef40b4f4aa04d0c47b056391,
-        type: 3}
-      propertyPath: m_Name
-      value: BattleCanvas
-      objectReference: {fileID: 0}
     - target: {fileID: 8340796270077940529, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1682,6 +1677,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8340796270077940493, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_Name
+      value: BattleCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 8340796270077940531, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_UiScaleMode
@@ -1695,17 +1695,22 @@ PrefabInstance:
     - target: {fileID: 1668749549016975985, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1668749549016975985, guid: 195497fdef40b4f4aa04d0c47b056391,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 1668749549016975985, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668749549016975985, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
       propertyPath: m_SizeDelta.x
-      value: 142
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668749549016975985, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 8340796269953908182, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
@@ -2123,11 +2128,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4830420569195239889}
     m_Modifications:
-    - target: {fileID: 5857726301037387485, guid: 26f9079bf2ca6d148a716b585bd43884,
-        type: 3}
-      propertyPath: m_Name
-      value: LoseCanvas
-      objectReference: {fileID: 0}
     - target: {fileID: 8826132353872978212, guid: 26f9079bf2ca6d148a716b585bd43884,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2233,6 +2233,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5857726301037387485, guid: 26f9079bf2ca6d148a716b585bd43884,
+        type: 3}
+      propertyPath: m_Name
+      value: LoseCanvas
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26f9079bf2ca6d148a716b585bd43884, type: 3}
 --- !u!224 &4140392963122728735 stripped
@@ -2248,11 +2253,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4830420569195239889}
     m_Modifications:
-    - target: {fileID: 1100370849367415058, guid: 724620522a4814a41a3e3123a1f34ec4,
-        type: 3}
-      propertyPath: m_Name
-      value: PrepCanvas
-      objectReference: {fileID: 0}
     - target: {fileID: 1100370849367415062, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2357,6 +2357,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100370849367415058, guid: 724620522a4814a41a3e3123a1f34ec4,
+        type: 3}
+      propertyPath: m_Name
+      value: PrepCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 2623512753414959896, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
