@@ -90,45 +90,46 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void SetAttackSprite(Attack atk)
     {
-        switch (atk.Name) {
-            case "Staff Whack":
+        switch (atk.AttackID) {
+            case 0:
                 ActionPanelButtonSpriteSwitch(staffWhackSprite, staffWhackSpriteHL);
                 break;
-            case "Rusty Sword":
+            case 1:
                 ActionPanelButtonSpriteSwitch(rustySwordSprite, rustySwordSpriteHL);
                 break;
-            case "Spectral Sword":
+            case 2:
                 ActionPanelButtonSpriteSwitch(spectralSwordSprite, spectralSwordSpriteHL);
                 break;
-            case "Whack":
+            case 3:
                 ActionPanelButtonSpriteSwitch(whackSprite, whackSpriteHL);
                 break;
-            case "Tesla Stab":
+            case 4:
                 ActionPanelButtonSpriteSwitch(teslaStabSprite, teslaStabSpriteHL);
                 break;
-            case "Tesla Zap":
+            case 5:
                 ActionPanelButtonSpriteSwitch(teslaZapSprite, teslaZapSpriteHL);
                 break;
-            case "Zap":
+            case 6:
                 ActionPanelButtonSpriteSwitch(zapSprite, zapSpriteHL);
                 break;
-            case "Headbutt":
+            case 7:
                 ActionPanelButtonSpriteSwitch(headbuttSprite, headbuttSpriteHL);
                 break;
-            case "Firebolt":
+            case 8:
                 ActionPanelButtonSpriteSwitch(fireboltSprite, fireboltSpriteHL);
                 break;
-            case "Caplock Rifle":
+            case 9:
                 ActionPanelButtonSpriteSwitch(caplockRifleSprite, caplockRifleSpriteHL);
                 break;
-            case "Axe":
+            case 10:
                 ActionPanelButtonSpriteSwitch(axeSprite, axeSpriteHL);
                 break;
-            case "Spear":
+            case 11:
                 ActionPanelButtonSpriteSwitch(spearSprite, spearSpriteHL);
                 break;
             default:
                 ActionPanelButtonSpriteSwitch(axeSprite, axeSpriteHL);
+                Debug.Log("Missing switch case for attack ID " + atk.AttackID);
                 break;
         }
     }
