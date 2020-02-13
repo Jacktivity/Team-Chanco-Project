@@ -9,6 +9,7 @@ public class SkeletonCharacter : Character
     void Start()
     {
         name = "Skeleton";
+        ID = 1;
         cost = 10;
         maxHitPoints = 20;
         accuracy = 90;
