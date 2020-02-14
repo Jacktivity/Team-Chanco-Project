@@ -9,12 +9,13 @@ public class CameraController : MonoBehaviour
     Camera _camera;
     //[SerializeField]BoxCollider _collider;
     [SerializeField] private GameObject boomArm;
-    [SerializeField] private Vector3 speed = new Vector3(25, 1, 25);
+    [SerializeField] private Vector3 movementSpeed = new Vector3(25, 1, 25);
+    [SerializeField] private Vector2 rotationSpeed = new Vector2(0.1f, 1f);
 
     [SerializeField] private float scrollOffset = 4;
     
     private float boomLerp = 0f;
-    private Vector3 posColliderExtents, negColliderExtents, maxBoomLength, minBoomLength;
+    private Vector3 posColliderExtents, negColliderExtents, maxBoomLength, minBoomLength, previousMousePos;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class CameraController : MonoBehaviour
         minBoomLength = transform.localPosition * 0.1f;
         //posColliderExtents = _collider.transform.position + _collider.bounds.extents;
         //negColliderExtents = _collider.transform.position - _collider.bounds.extents;
+        previousMousePos = Input.mousePosition;
     }
 
     private void GenerateCameraBoundary(object sender, BlockScript[] e)
@@ -35,6 +37,9 @@ public class CameraController : MonoBehaviour
 
         posColliderExtents = topLeft.gameObject.transform.position;
         negColliderExtents = bottomRight.gameObject.transform.position;
+
+
+        boomArm.transform.position = mapOrdered.First(t => t.placeable).transform.position;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -48,13 +53,26 @@ public class CameraController : MonoBehaviour
     {
         MoveCamera();
         MoveBoomLength();
+        RotateCameraArm();
     }
 
-    
+    private void RotateCameraArm()
+    {
+        var motion = Input.mousePosition;
+        if (Input.GetMouseButton(1))
+        {
+            var deltaPosition = previousMousePos - motion;
+            //Debug.Log("x:" + deltaPosition.x + " y:" + deltaPosition.y);
+
+            boomArm.transform.Rotate(new Vector3(0, deltaPosition.x * rotationSpeed.x, 0), Space.World);
+        }
+
+        previousMousePos = motion;
+    }
 
     private void MoveBoomLength()
     {
-        var scroll = Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * speed.y + boomLerp;
+        var scroll = Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * movementSpeed.y + boomLerp;
 
         if (scroll < 0)
             scroll = 0;
@@ -67,8 +85,8 @@ public class CameraController : MonoBehaviour
 
     private void MoveCamera()
     {
-        var xInput = (Input.GetAxis("Horizontal") * speed.x * Time.deltaTime) + boomArm.transform.position.x;
-        var yInput = (Input.GetAxis("Vertical") * speed.z * Time.deltaTime) + boomArm.transform.position.z;
+        var xInput = (Input.GetAxis("Horizontal") * movementSpeed.x * Time.deltaTime) + boomArm.transform.position.x;
+        var yInput = (Input.GetAxis("Vertical") * movementSpeed.z * Time.deltaTime) + boomArm.transform.position.z;
 
         if (xInput <= posColliderExtents.x)
             xInput = posColliderExtents.x;
