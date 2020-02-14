@@ -72,7 +72,9 @@ public class GridManager : MonoBehaviour
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
         turnEnded += (s, e) => ClearMap();
         uiManager.PlacementPoint(placementPoints);
-        UIManager.gameStateChange += AIRunCheck;        
+        UIManager.gameStateChange += AIRunCheck;
+
+        mapGenerated?.Invoke(this, Map);
     }
 
     private void AIRunCheck(object sender, UIManager.GameStates e)
