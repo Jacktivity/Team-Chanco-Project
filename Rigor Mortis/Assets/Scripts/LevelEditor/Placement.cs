@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Placement : MonoBehaviour
 {
@@ -19,12 +20,18 @@ public class Placement : MonoBehaviour
     RaycastHit hit;
 
     bool mapGenerated = false;
+    bool deleteMode;
+    [SerializeField] private Color delete;
 
+    BlockScript block;
+    public Button deleteButton;
+   
     // Start is called before the first frame update
     void Start()
     {
         tempBlock = Instantiate(activeBlock, locationBlockPos, locationBlockRot);
         tempBlock.GetComponent<BoxCollider>().enabled = false;
+        tempBlock.active = false;
     }
 
     // Update is called once per frame
@@ -32,29 +39,50 @@ public class Placement : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (mapGenerated && locationBlockTag != "UI")
+            if (mapGenerated && locationBlockTag != "UI" && Physics.Raycast(ray, out hit))
             {
-                var placedBlock = Instantiate(activeBlock, locationBlockPos, locationBlockRot);
-                placedBlock.transform.parent = blockContainer.transform;
-
+                if(!deleteMode)
+                {
+                    var placedBlock = Instantiate(activeBlock, locationBlockPos, tempBlock.transform.rotation);
+                    placedBlock.transform.parent = blockContainer.transform;
+                }
+                else
+                {
+                    Destroy(locationBlock);
+                }
             }
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (mapGenerated && locationBlockTag != "UI")
-            {
-                Destroy(locationBlock);
-            }
+            tempBlock.transform.Rotate(0, 90.0f, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            tempBlock.transform.Rotate(0, -90.0f, 0);
         }
 
         ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit))
         {
+            if(block != null)
+            {
+                block.ChangeColour(block.Normal);
+            }
             locationBlockTag = hit.transform.tag;
             locationBlockPos = hit.transform.position + hit.normal;
             locationBlockRot = hit.transform.rotation;
             locationBlock = hit.transform.gameObject;
-            tempBlock.transform.position = locationBlockPos;
+            block = locationBlock.transform.gameObject.GetComponent<BlockScript>();
+            if (!deleteMode)
+            {
+                tempBlock.transform.position = locationBlockPos;
+            }
+            else
+            {
+                tempBlock.transform.position = new Vector3(-10,-10,-10);
+                block.ChangeColour(delete);
+            }
+
         }
     }
 
@@ -70,5 +98,11 @@ public class Placement : MonoBehaviour
     public void MapGenerated()
     {
         mapGenerated = true;
+        tempBlock.active = true;
+    }
+
+    public void DeletMode()
+    {
+        deleteMode = !deleteMode;
     }
 }

@@ -123,7 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coordinates: {x: 0, y: 0, z: 0}
-  manager: {fileID: 0}
   placeable: 0
   MoveModifier: 1
   normal: {r: 1, g: 1, b: 1, a: 1}
@@ -135,7 +134,7 @@ MonoBehaviour:
   SW: {fileID: 0}
   W: {fileID: 0}
   NW: {fileID: 0}
-  occupier: {fileID: 0}
+  occupier: {fileID: 5840345381922619870}
 --- !u!54 &7437270304425940109
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,7 +160,7 @@ BoxCollider:
   m_GameObject: {fileID: 5840345381922619870}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.3, y: 1.8, z: 1.6220198}
   m_Center: {x: 7.8917636e-17, y: 0.0055533363, z: 0.8110095}
@@ -184,14 +183,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1898343979453030953}
     m_Modifications:
-    - target: {fileID: 100000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
-      propertyPath: m_Name
-      value: Mesh_Placeholder_Malauseum
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
-      propertyPath: m_TagString
-      value: Wall
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -247,6 +238,14 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.500001
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
+      propertyPath: m_Name
+      value: Mesh_Placeholder_Malauseum
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 3300000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
       propertyPath: m_Mesh
