@@ -49,6 +49,7 @@ public class LevelSliders : MonoBehaviour
         generatorCanvas.enabled = false;
         //placementCanvas.GetComponent<Canvas>().enabled = true;
         placement.enabled = true;
+        placement.MapGenerated();
         
     }
 }

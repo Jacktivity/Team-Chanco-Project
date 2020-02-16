@@ -1283,7 +1283,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1053045918}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2be9b39853ecf2340a24d683fbab6b1d, type: 3}
   m_Name: 
@@ -1291,6 +1291,7 @@ MonoBehaviour:
   placementCanvas: {fileID: 848110463}
   activeBlock: {fileID: 5226057197208204854, guid: 6ec685ae8a2349f4babda7fe8186af89,
     type: 3}
+  blockContainer: {fileID: 201541344}
 --- !u!1001 &1213828387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1302,6 +1303,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Grave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645742794849477671, guid: 269d7f95c0acf8948b2e5b2414ef05e5,
+        type: 3}
+      propertyPath: m_TagString
+      value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 5568057566293251891, guid: 269d7f95c0acf8948b2e5b2414ef05e5,
         type: 3}
@@ -1372,6 +1378,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113367742334863555, guid: 269d7f95c0acf8948b2e5b2414ef05e5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 269d7f95c0acf8948b2e5b2414ef05e5, type: 3}
@@ -1482,7 +1493,7 @@ GameObject:
   - component: {fileID: 1397570009}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1547,7 +1558,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1397570010}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1053045923}
+        m_MethodName: ChangeActiveBlock
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5226057197208204854, guid: 6ec685ae8a2349f4babda7fe8186af89,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1397570010
@@ -1598,6 +1621,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226057197208204854, guid: 6ec685ae8a2349f4babda7fe8186af89,
+        type: 3}
+      propertyPath: m_TagString
+      value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 6483338841720571170, guid: 6ec685ae8a2349f4babda7fe8186af89,
         type: 3}
@@ -1668,6 +1696,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7216099697026472658, guid: 6ec685ae8a2349f4babda7fe8186af89,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ec685ae8a2349f4babda7fe8186af89, type: 3}
@@ -1835,7 +1868,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1863902962}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1053045923}
+        m_MethodName: ChangeActiveBlock
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6645742794849477671, guid: 269d7f95c0acf8948b2e5b2414ef05e5,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1863902962
