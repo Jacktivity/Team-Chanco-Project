@@ -11,8 +11,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private GameObject boomArm;
     [SerializeField] private Vector3 movementSpeed = new Vector3(25, 1, 25);
     [SerializeField] private Vector2 rotationSpeed = new Vector2(0.1f, 1f);
-
-    [SerializeField] private float scrollOffset = 4;
+    [SerializeField] private int minXRotation, maxXRotation;
     
     private float boomLerp = 0f;
     private Vector3 posColliderExtents, negColliderExtents, maxBoomLength, minBoomLength, previousMousePos;
@@ -62,12 +61,37 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             var deltaPosition = previousMousePos - motion;
-            //Debug.Log("x:" + deltaPosition.x + " y:" + deltaPosition.y);
 
-            boomArm.transform.Rotate(new Vector3(0, deltaPosition.x * rotationSpeed.x, 0), Space.World);
+            boomArm.transform.Rotate(new Vector3(0, -deltaPosition.x * rotationSpeed.x, 0), Space.World);
+
+            var xRotation = deltaPosition.y * rotationSpeed.y;
+            xRotation = ClampXRotation(xRotation);
+
+            boomArm.transform.Rotate(new Vector3(xRotation, 0, 0), Space.Self);
         }
 
         previousMousePos = motion;
+    }
+
+    private float ClampXRotation(float xRotation)
+    {
+        var currentXRotation = boomArm.transform.rotation.eulerAngles.x;
+
+        var rotation = xRotation + currentXRotation;
+
+        if (rotation > maxXRotation && rotation < minXRotation)
+        {
+            if (rotation <= maxXRotation + ((minXRotation - maxXRotation) / 2))
+            {
+                xRotation = maxXRotation - currentXRotation;
+            }
+            else
+            {
+                xRotation = minXRotation - currentXRotation;
+            }
+        }
+
+        return xRotation;
     }
 
     private void MoveBoomLength()
