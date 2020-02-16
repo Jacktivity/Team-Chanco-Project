@@ -85,8 +85,18 @@ public class CameraController : MonoBehaviour
 
     private void MoveCamera()
     {
-        var xInput = (Input.GetAxis("Horizontal") * movementSpeed.x * Time.deltaTime) + boomArm.transform.position.x;
-        var yInput = (Input.GetAxis("Vertical") * movementSpeed.z * Time.deltaTime) + boomArm.transform.position.z;
+        var x = Input.GetAxis("Horizontal");
+        var y = Input.GetAxis("Vertical");
+
+        //Debug.Log("Sin(" + (int)boomArm.transform.rotation.eulerAngles.y + ")" + Mathf.Sin((int)boomArm.transform.rotation.eulerAngles.y));
+
+
+        var testX = (Mathf.Sin(boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * y) + (Mathf.Cos(-boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * x);
+        var testY = (Mathf.Cos(boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * y) + (Mathf.Sin(-boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * x);
+
+        var xInput = (testX * movementSpeed.x * Time.deltaTime) + boomArm.transform.position.x;
+        var yInput = (testY * movementSpeed.z * Time.deltaTime) + boomArm.transform.position.z;
+       
 
         if (xInput <= posColliderExtents.x)
             xInput = posColliderExtents.x;
