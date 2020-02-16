@@ -41,10 +41,34 @@ public class CameraController : MonoBehaviour
         boomArm.transform.position = mapOrdered.First(t => t.placeable).transform.position;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        //Move boom arm back to point where camera will not clip with other object
-        //collision.
+        //Requires tidyup
+        var collisionLength = collision.collider.transform.position - transform.position;
+        if(collisionLength.z < 0)
+        {
+            var liftCamera = 10f;
+            ClampXRotation(liftCamera);
+
+            if (boomLerp - 0.01f >= 0)
+                boomLerp -= 0.01f;
+            else if (liftCamera > 0)
+            {                
+                boomArm.transform.Rotate(new Vector3(liftCamera, 0, 0), Space.Self);
+            }
+        }
+        else
+        {
+            var liftCamera = 10f;
+            ClampXRotation(liftCamera);
+
+            if (liftCamera > 0)
+                boomArm.transform.Rotate(new Vector3(liftCamera, 0, 0), Space.Self);
+            else if (boomLerp - 0.01f >= 0)
+                boomLerp -= 0.01f;
+
+
+        }
     }
 
     // Update is called once per frame
