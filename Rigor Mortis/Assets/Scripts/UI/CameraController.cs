@@ -1,64 +1,161 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System;
 
 public class CameraController : MonoBehaviour
 {
     Camera _camera;
-    [SerializeField]BoxCollider _collider;
-
-    [SerializeField]private float speed = 25f;
-    [SerializeField]private float scrollSpeed = 50f;
-
-    [SerializeField] private float scrollOffset = 4;
-
-    Vector3 posColliderExtents;
-    Vector3 negColliderExtents;
+    //[SerializeField]BoxCollider _collider;
+    [SerializeField] private GameObject boomArm;
+    [SerializeField] private Vector3 movementSpeed = new Vector3(25, 1, 25);
+    [SerializeField] private Vector2 rotationSpeed = new Vector2(0.1f, 1f);
+    [SerializeField] private int minXRotation, maxXRotation;
+    
+    private float boomLerp = 0f;
+    private Vector3 posColliderExtents, negColliderExtents, maxBoomLength, minBoomLength, previousMousePos;
 
     // Start is called before the first frame update
     void Start()
     {
+        GridManager.mapGenerated += GenerateCameraBoundary;
         _camera = GetComponent<Camera>();
-        posColliderExtents = _collider.transform.position + _collider.bounds.extents;
-        negColliderExtents = _collider.transform.position - _collider.bounds.extents;
+        maxBoomLength = transform.localPosition;
+        minBoomLength = transform.localPosition * 0.1f;
+        //posColliderExtents = _collider.transform.position + _collider.bounds.extents;
+        //negColliderExtents = _collider.transform.position - _collider.bounds.extents;
+        previousMousePos = Input.mousePosition;
+    }
+
+    private void GenerateCameraBoundary(object sender, BlockScript[] e)
+    {
+        var mapOrdered = e.OrderBy(s => new Vector2(s.coordinates.x, s.coordinates.z).magnitude);
+        var topLeft = mapOrdered.First();
+        var bottomRight = mapOrdered.Last();
+
+        posColliderExtents = topLeft.gameObject.transform.position;
+        negColliderExtents = bottomRight.gameObject.transform.position;
+
+
+        boomArm.transform.position = mapOrdered.First(t => t.placeable).transform.position;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        //Requires tidyup
+        var collisionLength = collision.collider.transform.position - transform.position;
+        if(collisionLength.z < 0)
+        {
+            var liftCamera = 10f;
+            ClampXRotation(liftCamera);
+
+            if (boomLerp - 0.01f >= 0)
+                boomLerp -= 0.01f;
+            else if (liftCamera > 0)
+            {                
+                boomArm.transform.Rotate(new Vector3(liftCamera, 0, 0), Space.Self);
+            }
+        }
+        else
+        {
+            var liftCamera = 10f;
+            ClampXRotation(liftCamera);
+
+            if (liftCamera > 0)
+                boomArm.transform.Rotate(new Vector3(liftCamera, 0, 0), Space.Self);
+            else if (boomLerp - 0.01f >= 0)
+                boomLerp -= 0.01f;
+
+
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Camera Movement
-        Vector3 direction = _camera.transform.TransformDirection( Input.GetAxisRaw( "Horizontal" ), 0, Input.GetAxisRaw( "Vertical" ) );
-        Vector3 scroll = _camera.transform.TransformDirection(0, -Input.GetAxis("Mouse ScrollWheel"), 0);
+        MoveCamera();
+        MoveBoomLength();
+        RotateCameraArm();
+    }
 
-        if ((transform.position.x + direction.x) >= posColliderExtents.x || (transform.position.x + direction.x) <= negColliderExtents.x)
+    private void RotateCameraArm()
+    {
+        var motion = Input.mousePosition;
+        if (Input.GetMouseButton(1))
         {
-            direction.x = 0;
+            var deltaPosition = previousMousePos - motion;
+
+            boomArm.transform.Rotate(new Vector3(0, -deltaPosition.x * rotationSpeed.x, 0), Space.World);
+
+            var xRotation = deltaPosition.y * rotationSpeed.y;
+            xRotation = ClampXRotation(xRotation);
+
+            boomArm.transform.Rotate(new Vector3(xRotation, 0, 0), Space.Self);
         }
-        if((transform.position.z + direction.z) >= posColliderExtents.z || (transform.position.z + direction.z) <= negColliderExtents.z)
+
+        previousMousePos = motion;
+    }
+
+    private float ClampXRotation(float xRotation)
+    {
+        var currentXRotation = boomArm.transform.rotation.eulerAngles.x;
+
+        var rotation = xRotation + currentXRotation;
+
+        if (rotation > maxXRotation && rotation < minXRotation)
         {
-            direction.z = 0;
+            if (rotation <= maxXRotation + ((minXRotation - maxXRotation) / 2))
+            {
+                xRotation = maxXRotation - currentXRotation;
+            }
+            else
+            {
+                xRotation = minXRotation - currentXRotation;
+            }
         }
 
-        transform.position += speed * new Vector3( direction.x, 0, direction.z ) * Time.deltaTime;
+        return xRotation;
+    }
 
-        //Zoom Movement
-        if (scroll.y != 0) {
-            scroll.x = -(scroll.x / scrollOffset);
-            scroll.z = -(scroll.z / scrollOffset);
+    private void MoveBoomLength()
+    {
+        var scroll = Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * movementSpeed.y + boomLerp;
 
-            if((transform.position.x + scroll.x) >= posColliderExtents.x || (transform.position.x + scroll.x) <= negColliderExtents.x)
-            {
-                scroll.x = 0;
-            }
-            if ((transform.position.y + scroll.y) >= posColliderExtents.y || (transform.position.y + scroll.y) <= negColliderExtents.y)
-            {
-                scroll.y = 0;
-            }
-            if ((transform.position.z + scroll.z) >= posColliderExtents.z || (transform.position.z + scroll.z) <= negColliderExtents.z)
-            {
-                scroll.z = 0;
-            }
-            transform.position += scrollSpeed * new Vector3(scroll.x, scroll.y, scroll.z) * Time.fixedDeltaTime;
-        }
+        if (scroll < 0)
+            scroll = 0;
+        else if (scroll > 1)
+            scroll = 1;
+
+        boomLerp = scroll;
+        transform.localPosition = Vector3.Lerp(maxBoomLength, minBoomLength, boomLerp);
+    }
+
+    private void MoveCamera()
+    {
+        var x = Input.GetAxis("Horizontal");
+        var y = Input.GetAxis("Vertical");
+
+        //Debug.Log("Sin(" + (int)boomArm.transform.rotation.eulerAngles.y + ")" + Mathf.Sin((int)boomArm.transform.rotation.eulerAngles.y));
+
+
+        var testX = (Mathf.Sin(boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * y) + (Mathf.Cos(-boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * x);
+        var testY = (Mathf.Cos(boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * y) + (Mathf.Sin(-boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * x);
+
+        var xInput = (testX * movementSpeed.x * Time.deltaTime) + boomArm.transform.position.x;
+        var yInput = (testY * movementSpeed.z * Time.deltaTime) + boomArm.transform.position.z;
+       
+
+        if (xInput <= posColliderExtents.x)
+            xInput = posColliderExtents.x;
+        else if (xInput >= negColliderExtents.x)
+            xInput = negColliderExtents.x;
+
+        if (yInput <= posColliderExtents.z)
+            yInput = posColliderExtents.z;
+        else if (yInput >= negColliderExtents.z)
+            yInput = negColliderExtents.z;
+
+        boomArm.transform.position = new Vector3(xInput, boomArm.transform.position.y, yInput);
     }
 }
