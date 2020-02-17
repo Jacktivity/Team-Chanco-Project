@@ -5,22 +5,22 @@ using UnityEngine;
 
 public class AttackLibrary
 {
-    public static Attack StaffWhack => new Attack(1, 1f, "Staff Whack", physicalDmg: new Dice(1, 2));
-    public static Attack RustySword => new Attack(1, 1, "Rusty Sword", physicalDmg: new Dice(2, 2));
-    public static Attack SpectralSword => new Attack(1, 1, "Spectral Sword", magicDmg: new Dice(2, 2));
-    public static Attack Whack => new Attack(1, 0.8f, "Whack", physicalDmg: new Dice(1, 2));
+    public static Attack StaffWhack => new Attack(0, 1, 1f, "Staff Whack", physicalDmg: new Dice(1, 2));
+    public static Attack RustySword => new Attack(1, 1, 1, "Rusty Sword", physicalDmg: new Dice(2, 2));
+    public static Attack SpectralSword => new Attack(2, 1, 1, "Spectral Sword", magicDmg: new Dice(2, 2));
+    public static Attack Whack => new Attack(3, 1, 0.8f, "Whack", physicalDmg: new Dice(1, 2));
 
-    public static Attack TeslaStab => new Attack(1, 1, "Tesla Stab", magicDmg: new Dice(4, 1));
-    public static Attack TeslaZap => new Attack(10, 1.2f, "Tesla Zap", magicDmg: new Dice(4, 1));
-    public static Attack Zap => new Attack(10, 1.2f, "Zap", magicDmg: new Dice(4, 1));
+    public static Attack TeslaStab => new Attack(4, 1, 1, "Tesla Stab", magicDmg: new Dice(4, 1));
+    public static Attack TeslaZap => new Attack(5, 10, 1.2f, "Tesla Zap", magicDmg: new Dice(4, 1));
+    public static Attack Zap => new Attack(6, 10, 1.2f, "Zap", magicDmg: new Dice(4, 1));
 
-    public static Attack Headbutt => new Attack(1, 0.8f, "Headbutt", physicalDmg: new Dice(1,2));
-    public static Attack Firebolt => new Attack(10, 1.2f, "Firebolt", magicDmg: new Dice(10, 1), manaCost:10);
+    public static Attack Headbutt => new Attack(7, 1, 0.8f, "Headbutt", physicalDmg: new Dice(1,2));
+    public static Attack Firebolt => new Attack(8, 10, 1.2f, "Firebolt", magicDmg: new Dice(10, 1), manaCost:10);
 
 
-    public static Attack CaplockRifle => new Attack(10, 0.8f, "Caplock Rifle", physicalDmg: new Dice(2, 2));
-    public static Attack Axe => new Attack(1, 1, "Axe", physicalDmg: new Dice(3, 2));
-    public static Attack Spear => new Attack(2, 1.1f, "Spear", physicalDmg: new Dice(2, 2));
+    public static Attack CaplockRifle => new Attack(9, 10, 0.8f, "Caplock Rifle", physicalDmg: new Dice(2, 2));
+    public static Attack Axe => new Attack(10, 1, 1, "Axe", physicalDmg: new Dice(3, 2));
+    public static Attack Spear => new Attack(11, 2, 1.1f, "Spear", physicalDmg: new Dice(2, 2));
 
 }
 
@@ -34,9 +34,13 @@ public class Attack
     public int Area { get; private set; }
     public bool TargetEmptyTiles { get; private set; }
     public int Mana { get; private set; }
+    public bool Piercing { get; private set; }
+    public bool PassAllies { get; private set; }
+    public int AttackID { get; private set; }
 
-    public Attack(int atkRange, float accuracy, string name, Dice physicalDmg = null, Dice magicDmg = null, int atkArea = 0, bool targetEmptyTiles = false, int manaCost = 0)
+    public Attack(int attackID, int atkRange, float accuracy, string name, Dice physicalDmg = null, Dice magicDmg = null, int atkArea = 0, bool targetEmptyTiles = false, int manaCost = 0, bool piercing = false, bool throughAllies = false)
     {
+        AttackID = attackID;
         PhysicalDamage = physicalDmg;
         MagicalDamage = magicDmg;
         Range = atkRange;
@@ -45,6 +49,8 @@ public class Attack
         Area = atkArea;
         TargetEmptyTiles = targetEmptyTiles;
         Mana = manaCost;
+        Piercing = piercing;
+        PassAllies = throughAllies;
     }
 
     public Damage RollDamage()
@@ -114,4 +120,9 @@ public class Dice
     {
         return (((double)Faces + 1) / 2) * Count;
     }
+}
+
+public enum Area
+{
+    Circle, Line, Cone
 }

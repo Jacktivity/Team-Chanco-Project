@@ -17,14 +17,33 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     public Character character;
     public Attack attack;
     private Button button;
+    private bool disabled;
+    public String previousText;
 
-    public Sprite moveSprite, swordSprite, zapSprite, axeSprite;
+    public Sprite staffWhackSprite, rustySwordSprite, spectralSwordSprite, whackSprite, teslaStabSprite, teslaZapSprite, zapSprite, headbuttSprite, fireboltSprite, caplockRifleSprite, axeSprite, spearSprite;
+    public Sprite staffWhackSpriteHL, rustySwordSpriteHL, spectralSwordSpriteHL, whackSpriteHL, teslaStabSpriteHL, teslaZapSpriteHL, zapSpriteHL, headbuttSpriteHL, fireboltSpriteHL, caplockRifleSpriteHL, axeSpriteHL, spearSpriteHL;
 
     // Start is called before the first frame update
     void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
         button = GetComponent<Button>();
+        attackText.text = previousText;
+
+        var targetsInRange = character.pathfinder.GetAttackTiles(character, attack)
+            .Where(b => b.Occupied ? b.occupier.tag == "Enemy" || b.occupier.tag == "Breakable_Terrain" : false)
+            .Select(t => t.occupier.GetComponent<Character>());
+
+        if(targetsInRange.Count() == 0)
+        {
+            button.interactable = false;
+            disabled = true;
+        } else
+        {
+            disabled = false;
+        }
+
+        SetAttackSprite(attack);
     }
 
     public void ChooseAttack()
@@ -37,8 +56,16 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         gridManager.ClearMap();
-        var tiles = character.pathfinder.GetTilesInRange(character.floor, attack.Range, true, true, true);
-        gridManager.ColourTiles(tiles, false);
+        if (disabled) {
+            attackText.text = attack.Name + "\n" + "No Targets";
+        } else {
+            attackText.text = attack.Name;
+        }
+
+        var tiles = character.pathfinder.GetAttackTiles(character, attack);
+        var allTiles = character.pathfinder.GetTilesInRange(character.floor, attack.Range, true, true, true);
+        gridManager.ColourTiles(allTiles, gridManager.MissTile);
+        gridManager.ColourTiles(tiles, gridManager.AttackTile);
         attackText.text = attack.Name;
     }
 
@@ -46,7 +73,7 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         gridManager.ClearMap();
         pointerExit?.Invoke(this, new EventArgs());
-        attackText.text = "";
+        attackText.text = previousText;
     }    
 
     public class CharacterAttack
@@ -60,12 +87,64 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
             attackChosen = attack;
         }
     }
-    public enum Type
+
+    public void SetAttackSprite(Attack atk)
     {
-        Move, RustySword, SpectralSword, Zap
+        switch (atk.AttackID) {
+            case 0:
+                ActionPanelButtonSpriteSwitch(staffWhackSprite, staffWhackSpriteHL);
+                break;
+            case 1:
+                ActionPanelButtonSpriteSwitch(rustySwordSprite, rustySwordSpriteHL);
+                break;
+            case 2:
+                ActionPanelButtonSpriteSwitch(spectralSwordSprite, spectralSwordSpriteHL);
+                break;
+            case 3:
+                ActionPanelButtonSpriteSwitch(whackSprite, whackSpriteHL);
+                break;
+            case 4:
+                ActionPanelButtonSpriteSwitch(teslaStabSprite, teslaStabSpriteHL);
+                break;
+            case 5:
+                ActionPanelButtonSpriteSwitch(teslaZapSprite, teslaZapSpriteHL);
+                break;
+            case 6:
+                ActionPanelButtonSpriteSwitch(zapSprite, zapSpriteHL);
+                break;
+            case 7:
+                ActionPanelButtonSpriteSwitch(headbuttSprite, headbuttSpriteHL);
+                break;
+            case 8:
+                ActionPanelButtonSpriteSwitch(fireboltSprite, fireboltSpriteHL);
+                break;
+            case 9:
+                ActionPanelButtonSpriteSwitch(caplockRifleSprite, caplockRifleSpriteHL);
+                break;
+            case 10:
+                ActionPanelButtonSpriteSwitch(axeSprite, axeSpriteHL);
+                break;
+            case 11:
+                ActionPanelButtonSpriteSwitch(spearSprite, spearSpriteHL);
+                break;
+            default:
+                ActionPanelButtonSpriteSwitch(axeSprite, axeSpriteHL);
+                Debug.Log("Missing switch case for attack ID " + atk.AttackID);
+                break;
+        }
     }
 
-    public void ActionPanelButtonSpriteSwitch( Sprite sprite ) {
+    public void ActionPanelButtonSpriteSwitch( Sprite sprite, Sprite spriteHL ) {
+        SpriteState st = new SpriteState();
+
+        if(sprite == null) {
+            button.GetComponent<Image>().sprite = axeSprite;
+            st.pressedSprite = axeSpriteHL;
+            st.highlightedSprite = axeSpriteHL;
+        }
+
         button.GetComponent<Image>().sprite = sprite;
+        st.pressedSprite = spriteHL;
+        st.highlightedSprite = spriteHL;
     }
 }
