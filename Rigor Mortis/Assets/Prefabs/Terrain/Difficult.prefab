@@ -607,14 +607,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5647268490002709350}
     m_Modifications:
-    - target: {fileID: 100000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
-      propertyPath: m_Name
-      value: Mesh_Placeholder_DifficultTerrain
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
-      propertyPath: m_TagString
-      value: Wall
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.009325981
@@ -670,6 +662,14 @@ PrefabInstance:
     - target: {fileID: 400000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
+      propertyPath: m_Name
+      value: Mesh_Placeholder_DifficultTerrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: cfb1ed586cfd42342a236acc9c385add, type: 3}
       propertyPath: m_Materials.Array.data[0]

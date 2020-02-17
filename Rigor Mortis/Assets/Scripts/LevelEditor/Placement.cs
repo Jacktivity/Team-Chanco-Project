@@ -42,12 +42,19 @@ public class Placement : MonoBehaviour
         {
             if (mapGenerated && locationBlockTag != "UI" && Physics.Raycast(ray, out hit))
             {
-                if(!deleteMode)
+                var occupier = activeBlock.GetComponent<BlockScript>().occupier;
+                if (!deleteMode && occupier == null && activeBlock.name != "Difficult")
                 {
                     var placedBlock = Instantiate(activeBlock, locationBlockPos, tempBlock.transform.rotation);
                     placedBlock.transform.parent = blockContainer.transform;
                 }
-                else
+                else if(!deleteMode && occupier != null || activeBlock.name == "Difficult")
+                {
+                    var placedBlock = Instantiate(activeBlock, hit.transform.position, tempBlock.transform.rotation);
+                    if(hit.transform.gameObject != tempBlock) Destroy(hit.transform.gameObject);
+                    placedBlock.transform.parent = blockContainer.transform;
+                }
+                else if(deleteMode)
                 {
                     Destroy(locationBlock);
                 }
@@ -61,28 +68,31 @@ public class Placement : MonoBehaviour
         {
             tempBlock.transform.Rotate(0, -90.0f, 0);
         }
-
-
         if (Physics.Raycast(ray, out hit))
         {
             if (block != null)
             {
                 block.SetHighlightColour(block.Normal);
             }
-                locationBlockTag = hit.transform.tag;
-                locationBlockPos = hit.transform.position + hit.normal;
-                locationBlockRot = hit.transform.rotation;
-                locationBlock = hit.transform.gameObject;
-                block = locationBlock.transform.gameObject.GetComponent<BlockScript>();
-                if (!deleteMode)
-                {
-                    tempBlock.transform.position = locationBlockPos;
-                }
-                else
-                {
-                    tempBlock.transform.position = new Vector3(-10, -10, -10);
-                    block.SetHighlightColour(delete);
-                }
+            locationBlockTag = hit.transform.tag;
+            locationBlockPos = hit.transform.position + hit.normal;
+            locationBlockRot = hit.transform.rotation;
+            locationBlock = hit.transform.gameObject;
+            block = locationBlock.transform.gameObject.GetComponent<BlockScript>();
+            var occupier = activeBlock.GetComponent<BlockScript>().occupier;
+            if (!deleteMode && occupier == null && activeBlock.name != "Difficult")
+            {
+                tempBlock.transform.position = locationBlockPos;
+            }
+            else if (!deleteMode && occupier != null || activeBlock.name == "Difficult")
+            {
+                tempBlock.transform.position = hit.transform.position;
+            }
+            else
+            {
+                tempBlock.transform.position = new Vector3(-10, -10, -10);
+                block.SetHighlightColour(delete);
+            }
             
         }
     }
@@ -105,5 +115,10 @@ public class Placement : MonoBehaviour
     public void DeletMode()
     {
         deleteMode = !deleteMode;
+    }
+
+    public void SaveMap()
+    {
+
     }
 }

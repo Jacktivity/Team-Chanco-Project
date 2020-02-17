@@ -235,7 +235,7 @@ MonoBehaviour:
   SW: {fileID: 0}
   W: {fileID: 0}
   NW: {fileID: 0}
-  occupier: {fileID: 0}
+  occupier: {fileID: 5840345381922619870}
 --- !u!1 &941345762684019062
 GameObject:
   m_ObjectHideFlags: 0

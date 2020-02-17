@@ -503,7 +503,7 @@ namespace GridXML
         private byte placementpointsField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("map-line")]
+        [System.Xml.Serialization.XmlElementAttribute("mapline")]
         public levelsLevelMapMapline[] mapline
         {
             get
@@ -581,7 +581,7 @@ namespace GridXML
         private byte layerField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("rotation-line")]
+        [System.Xml.Serialization.XmlElementAttribute("rotationline")]
         public levelsLevelRotationRotationline[] rotationline
         {
             get
