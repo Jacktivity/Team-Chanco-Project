@@ -7,7 +7,7 @@ public class Placement : MonoBehaviour
 {
     public Canvas placementCanvas;
     public GameObject activeBlock;
-    private GameObject tempBlock;
+    public GameObject tempBlock;
 
     public GameObject blockContainer;
 
@@ -37,6 +37,7 @@ public class Placement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {
             if (mapGenerated && locationBlockTag != "UI" && Physics.Raycast(ray, out hit))
@@ -61,28 +62,28 @@ public class Placement : MonoBehaviour
             tempBlock.transform.Rotate(0, -90.0f, 0);
         }
 
-        ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+
         if (Physics.Raycast(ray, out hit))
         {
-            if(block != null)
+            if (block != null)
             {
-                block.ChangeColour(block.Normal);
+                block.SetHighlightColour(block.Normal);
             }
-            locationBlockTag = hit.transform.tag;
-            locationBlockPos = hit.transform.position + hit.normal;
-            locationBlockRot = hit.transform.rotation;
-            locationBlock = hit.transform.gameObject;
-            block = locationBlock.transform.gameObject.GetComponent<BlockScript>();
-            if (!deleteMode)
-            {
-                tempBlock.transform.position = locationBlockPos;
-            }
-            else
-            {
-                tempBlock.transform.position = new Vector3(-10,-10,-10);
-                block.ChangeColour(delete);
-            }
-
+                locationBlockTag = hit.transform.tag;
+                locationBlockPos = hit.transform.position + hit.normal;
+                locationBlockRot = hit.transform.rotation;
+                locationBlock = hit.transform.gameObject;
+                block = locationBlock.transform.gameObject.GetComponent<BlockScript>();
+                if (!deleteMode)
+                {
+                    tempBlock.transform.position = locationBlockPos;
+                }
+                else
+                {
+                    tempBlock.transform.position = new Vector3(-10, -10, -10);
+                    block.SetHighlightColour(delete);
+                }
+            
         }
     }
 

@@ -17,6 +17,7 @@ public class LevelSliders : MonoBehaviour
     public GameObject placementCanvas;
     public GameObject blockContainer;
     public Placement placement;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,8 @@ public class LevelSliders : MonoBehaviour
 
     public void generate()
     {
+        var map = new List<BlockScript>();
+
         int j = 0;
         for(int i = 0; i <= xSlider.value; i++)
         {
@@ -42,6 +45,8 @@ public class LevelSliders : MonoBehaviour
             {
                 var tile = Instantiate(block, new Vector3(i, 0, j), block.transform.rotation);
                 tile.transform.parent = blockContainer.transform;
+
+                map.Add(tile);
                 
             }
         }
@@ -50,6 +55,8 @@ public class LevelSliders : MonoBehaviour
         //placementCanvas.GetComponent<Canvas>().enabled = true;
         placement.enabled = true;
         placement.MapGenerated();
+
+        GridManager.mapGenerated?.Invoke(this, map.ToArray());
         
     }
 }

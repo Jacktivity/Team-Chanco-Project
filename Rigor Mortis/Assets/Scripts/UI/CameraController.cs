@@ -37,8 +37,11 @@ public class CameraController : MonoBehaviour
         posColliderExtents = topLeft.gameObject.transform.position;
         negColliderExtents = bottomRight.gameObject.transform.position;
 
+        if (mapOrdered.Any(s => s.placeable))
+            boomArm.transform.position = mapOrdered.First(t => t.placeable).transform.position;
+        else
+            boomArm.transform.position = mapOrdered.First().transform.position;
 
-        boomArm.transform.position = mapOrdered.First(t => t.placeable).transform.position;
     }
 
     private void OnCollisionStay(Collision collision)
