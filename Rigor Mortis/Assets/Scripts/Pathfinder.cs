@@ -175,7 +175,7 @@ public class Pathfinder : MonoBehaviour
 
             var validColliders = new Collider[] { startCollider, endCollider, startTileCollider, endTileCollider };
 
-            if (data.Any(d => validColliders.Contains(d.collider) == false && tagsToIgnore.Contains(d.collider.gameObject.tag) == false)) // == false
+            if (data.All(d => validColliders.Contains(d.collider) || tagsToIgnore.Contains(d.collider.gameObject.tag))) // == false
             {
                 attackTiles.Add(tile);
             }
