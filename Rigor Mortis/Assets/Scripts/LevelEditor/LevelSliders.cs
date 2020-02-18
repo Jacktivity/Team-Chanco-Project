@@ -45,7 +45,7 @@ public class LevelSliders : MonoBehaviour
             {
                 var tile = Instantiate(block, new Vector3(i, 0, j), block.transform.rotation);
                 tile.transform.parent = blockContainer.transform;
-
+                tile.coordinates = new Vector3(i, 0, j);
                 map.Add(tile);
                 
             }

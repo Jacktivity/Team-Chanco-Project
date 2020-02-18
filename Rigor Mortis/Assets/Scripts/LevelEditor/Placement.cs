@@ -15,6 +15,7 @@ public class Placement : MonoBehaviour
     Quaternion locationBlockRot;
     string locationBlockTag;
     GameObject locationBlock;
+    Vector3 locationBlockNormal;
 
     Ray ray;
     RaycastHit hit;
@@ -47,11 +48,13 @@ public class Placement : MonoBehaviour
                 {
                     var placedBlock = Instantiate(activeBlock, locationBlockPos, tempBlock.transform.rotation);
                     placedBlock.transform.parent = blockContainer.transform;
+                    placedBlock.GetComponent<BlockScript>().coordinates = locationBlock.GetComponent<BlockScript>().coordinates + locationBlockNormal;
                 }
                 else if(!deleteMode && occupier != null || activeBlock.name == "Difficult")
                 {
                     var placedBlock = Instantiate(activeBlock, hit.transform.position, tempBlock.transform.rotation);
-                    if(hit.transform.gameObject != tempBlock) Destroy(hit.transform.gameObject);
+                    placedBlock.GetComponent<BlockScript>().coordinates = locationBlock.GetComponent<BlockScript>().coordinates;
+                    if (hit.transform.gameObject != tempBlock) Destroy(hit.transform.gameObject);
                     placedBlock.transform.parent = blockContainer.transform;
                 }
                 else if(deleteMode)
@@ -75,6 +78,7 @@ public class Placement : MonoBehaviour
                 block.SetHighlightColour(block.Normal);
             }
             locationBlockTag = hit.transform.tag;
+            locationBlockNormal = hit.normal;
             locationBlockPos = hit.transform.position + hit.normal;
             locationBlockRot = hit.transform.rotation;
             locationBlock = hit.transform.gameObject;
