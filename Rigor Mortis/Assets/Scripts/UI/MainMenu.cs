@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     public Canvas mainCanvas;
     public Canvas levelSelectCanvas;
 
+    [SerializeField] private TextAsset level1, level2, level3, level4, level5, level6;
     [SerializeField]private TextAsset loadedScene;
 
     private static EventHandler<MainMenuStates> mainMenuStateChange;
@@ -18,7 +19,7 @@ public class MainMenu : MonoBehaviour
 
     public GameObject levelDetailsImage;
 
-    public Sprite empty, highGroundInfo, bottleneckInfo, threefoldInfo, shootinggalleryInfo, labyrinthInfo, gauntletInfo;
+    public Sprite empty, level1Info, level2Info, level3Info, level4Info, level5Info, level6Info;
 
     private void Start()
     {
@@ -48,24 +49,25 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void LoadLevel(TextAsset level)
+    public void LoadLevel(int level)
     {
-        loadedScene = level;
-        /*switch(level)
+        switch(level)
         {
             case 1:
                 levelDetailsImage.SetActive(true);
-                levelDetailsImage.GetComponent<Image>().sprite = highGroundInfo;
-            break;
+                loadedScene = level1;
+                levelDetailsImage.GetComponent<Image>().sprite = level1Info;
+                break;
 
             case 2:
                 levelDetailsImage.SetActive(false);
+                loadedScene = level2;
                 break;
 
             default:
                 levelDetailsImage.SetActive(false);
             break;
-        }*/
+        }
     }
 
     public void PlayButton()
@@ -78,44 +80,44 @@ public class MainMenu : MonoBehaviour
     private void MainMenuStateChanged(object sender, MainMenuStates state)
     {
         loadedScene = null;
-            switch (state)
-            {
-                case MainMenuStates.mainCanvas:
-                    currentState = MainMenuStates.newGame;
+        switch (state)
+        {
+            case MainMenuStates.mainCanvas:
+                currentState = MainMenuStates.newGame;
 
-                    SetMainCanvas(true);
-                    SetLevelSelectCanvas(false);
-                    break;
+                SetMainCanvas(true);
+                SetLevelSelectCanvas(false);
+                break;
 
-            case MainMenuStates.newGame:
-                    currentState = MainMenuStates.newGame;
+        case MainMenuStates.newGame:
+                currentState = MainMenuStates.newGame;
 
-                    SetMainCanvas(true);
-                    SetLevelSelectCanvas(false);
-                    break;
+                SetMainCanvas(true);
+                SetLevelSelectCanvas(false);
+                break;
 
-                case MainMenuStates.loadGame:
-                    currentState = MainMenuStates.loadGame;
+            case MainMenuStates.loadGame:
+                currentState = MainMenuStates.loadGame;
 
-                    SetMainCanvas(false);
-                    SetLevelSelectCanvas(false);
-                    break;
+                SetMainCanvas(false);
+                SetLevelSelectCanvas(false);
+                break;
 
-                case MainMenuStates.levelSelect:
-                    currentState = MainMenuStates.levelSelect;
+            case MainMenuStates.levelSelect:
+                currentState = MainMenuStates.levelSelect;
 
-                    SetMainCanvas(false);
-                    SetLevelSelectCanvas(true);
-                    break;
+                SetMainCanvas(false);
+                SetLevelSelectCanvas(true);
+                break;
 
-                case MainMenuStates.quit:
-                    currentState = MainMenuStates.quit;
+            case MainMenuStates.quit:
+                currentState = MainMenuStates.quit;
 
-                    SetMainCanvas(false);
-                    SetLevelSelectCanvas(false);
-                    break;
-            }
+                SetMainCanvas(false);
+                SetLevelSelectCanvas(false);
+                break;
         }
+    }
 
     public void SetMainCanvas(bool enabled)
     {
