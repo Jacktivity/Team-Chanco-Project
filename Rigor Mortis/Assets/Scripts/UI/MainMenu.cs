@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
     public Canvas mainCanvas;
     public Canvas levelSelectCanvas;
 
-    [SerializeField]private int loadedScene;
+    [SerializeField]private TextAsset loadedScene;
 
     private static EventHandler<MainMenuStates> mainMenuStateChange;
 
@@ -48,10 +48,10 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void LoadLevel(int level)
+    public void LoadLevel(TextAsset level)
     {
         loadedScene = level;
-        switch(level)
+        /*switch(level)
         {
             case 1:
                 levelDetailsImage.SetActive(true);
@@ -65,18 +65,19 @@ public class MainMenu : MonoBehaviour
             default:
                 levelDetailsImage.SetActive(false);
             break;
-        }
+        }*/
     }
 
     public void PlayButton()
     {
-        if(loadedScene >= 0)
-            SceneManager.LoadScene(loadedScene);
+        PersistantData.level = loadedScene;
+        PersistantData.levelAssigned = true;
+        SceneManager.LoadScene(1);
     }
 
     private void MainMenuStateChanged(object sender, MainMenuStates state)
     {
-        loadedScene = -1;
+        loadedScene = null;
             switch (state)
             {
                 case MainMenuStates.mainCanvas:

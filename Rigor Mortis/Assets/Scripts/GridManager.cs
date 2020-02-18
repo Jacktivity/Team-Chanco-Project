@@ -62,7 +62,12 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
+        if (PersistantData.levelAssigned) {
+            xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(PersistantData.level.bytes);
+        } else {
+            xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
+        }
+
         GenerateLevel();
         PlaceEnemy();
         UnitPlacement();

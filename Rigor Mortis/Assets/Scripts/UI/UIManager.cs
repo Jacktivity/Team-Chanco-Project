@@ -54,8 +54,6 @@ public class UIManager : MonoBehaviour
     public Text scorePointsText;
     public Text placementText;
 
-    private Score score;
-
     [SerializeField]GameObject apRightArrow, apLeftArrow;
 
     public enum GameStates
@@ -71,8 +69,6 @@ public class UIManager : MonoBehaviour
         markers = new List<GameObject>();
         popUpButtons = new List<GameObject>();
         activePopUpButtons = new List<GameObject>();
-
-        score = FindObjectOfType<Score>();
 
         gameStateChange += GameStateChanged;
         gameStateChange?.Invoke(this, GameStates.placementPhase);

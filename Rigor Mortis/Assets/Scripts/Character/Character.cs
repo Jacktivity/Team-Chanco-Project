@@ -49,7 +49,7 @@ public class Character : MonoBehaviour
     private int pathIndex;
     private BlockScript moveToBlock;
 
-    private Score score;
+    //private PersistantData score;
     public GameObject godRay, AP_VFX_Full, AP_VFX_Half, AP_VFX_Empty;
 
     public bool beingAttacked;
@@ -62,7 +62,7 @@ public class Character : MonoBehaviour
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
         playerManager = FindObjectOfType<PlayerManager>();
-        score = FindObjectOfType<Score>();
+        //score = FindObjectOfType<PersistantData>();
         //attackManager = FindObjectOfType<AttackManager>();
         previousForward = transform.forward;
         attackEvent += DamageCheck;
@@ -254,9 +254,9 @@ public class Character : MonoBehaviour
 
         if (tag == "Player") {
             if(name == "Necromancer") {
-                score.RemoveScore(50);
+                PersistantData.RemoveScore(50);
             } else {
-                score.RemoveScore(cost);
+                PersistantData.RemoveScore(cost);
             }
 
             Slider APSlider = GetComponent<ActionPointBar>().slider;
@@ -264,11 +264,11 @@ public class Character : MonoBehaviour
         } else if(tag == "Enemy") {
             if (name == "Necromancer")
             {
-                score.AddScore(50);
+                PersistantData.AddScore(50);
             }
             else
             {
-                score.AddScore(cost);
+                PersistantData.AddScore(cost);
             }
         }
 

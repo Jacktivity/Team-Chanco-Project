@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 52dc6d07014657c449bdbe3916e04984
   - enabled: 1
-    path: Assets/Scenes/The_High_Ground.unity
-    guid: 5d360538d90415843922872c1426c7d3
-  - enabled: 1
-    path: Assets/Scenes/Bottleneck.unity
-    guid: 14ac6dd3e226a68448e57f2d3d1eaecc
+    path: Assets/Scenes/Game_Scene.unity
+    guid: d9a24628f65d6c74798a2a7f279e3720
   m_configObjects: {}
