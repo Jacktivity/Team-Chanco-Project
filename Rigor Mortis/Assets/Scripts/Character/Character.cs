@@ -101,9 +101,9 @@ public class Character : MonoBehaviour
     public void ClearActionPoints()
     {
         ActionPoints = 0;
-        if (tag == "Player") {
-            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-        }
+        //if (tag == "Player") {
+        //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+        //}
     }
 
     public void SetFloor(BlockScript tile)
@@ -118,9 +118,9 @@ public class Character : MonoBehaviour
         {
             ActionPoints -= 3;
             manaPoints -= selectedAttack.Mana;
-            if (tag == "Player" ) {
-                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            }
+            //if (tag == "Player" ) {
+            //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+            //}
             var baseDamage = selectedAttack.RollDamage();
 
             if (baseDamage.Magical > 0)
@@ -147,9 +147,6 @@ public class Character : MonoBehaviour
             counterTime += Time.deltaTime * moveAnimationSpeed;
             moveToBlock = path.ElementAt(pathIndex);
 
-            //float journey = Vector3.Distance(transform.position, (moveToBlock.transform.position + transform.up));
-
-
             transform.position = Vector3.Lerp(
                 new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z),
                 new Vector3(moveToBlock.transform.position.x, moveToBlock.transform.position.y + 1, moveToBlock.transform.position.z),
@@ -159,20 +156,7 @@ public class Character : MonoBehaviour
             var angle = moveToBlock.transform.position - previousBlock.transform.position;
 
             transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.y), counterTime);
-
-            HealthBar healthBar = GetComponent<HealthBar>();
-            Vector3 healthOffset = healthBar.offset;
-            healthBar.slider.transform.position = transform.position + healthOffset;
-
-            if (tag == "Player") {
-                ActionPointBar actionPointBar = gameObject.GetComponent<ActionPointBar>();
-                Vector3 actionPointOffset = actionPointBar.offset;
-                actionPointBar.slider.transform.position = transform.position + actionPointOffset;
-
-                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            }
-
-
+            
             floor.occupier = gameObject;
             if (counterTime >= 1)
             {
@@ -213,20 +197,29 @@ public class Character : MonoBehaviour
             if (dodgeRoll < toHit)
             {
                 if (e.MagicDamage > resistance)
-                    TakeDamage(e.MagicDamage - resistance);
+                    TakeDamage(e.MagicDamage - resistance, true);
 
                 if (e.PhysicalDamage > armour)
                     TakeDamage(e.PhysicalDamage - armour);
+            }
+            else
+            {
+                //Attack missed
+                UIManager.createFloatingText?.Invoke(this, new SpawnFloatingTextEventArgs(this, "Miss", Color.yellow));
             }
             beingAttacked = false;                          
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool magicDamage = false)
     {
         currentHitPoints -= damage;
 
-        if(currentHitPoints <= 0)
+        var textColour = magicDamage ? Color.blue : Color.red;
+
+        UIManager.createFloatingText?.Invoke(this, new SpawnFloatingTextEventArgs(this, (0 - damage).ToString(), textColour));
+
+        if (currentHitPoints <= 0)
         {
             if(name == "Necromancer")
             {

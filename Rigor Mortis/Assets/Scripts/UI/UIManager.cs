@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
 
     private int turnNumber;
 
-    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton, cancelActionBtn, waitButton;
+    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton, cancelActionBtn, waitButton, floatingText;
     [SerializeField]private Vector3 targetCharacterOffset;
     [SerializeField]private Vector3 baseAttackPosition, originalBaseAttackPosition;
     [SerializeField]private GameObject attackPanel;
@@ -34,8 +34,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]Slider healthBar;
     List<Slider> healthBars;
 
-    [SerializeField] Slider APBar;
-    List<Slider> APBars;
+    //[SerializeField] Slider APBar;
+    //List<Slider> APBars;
 
     public BlockScript[] blocksInRange;
     public static EventHandler<GameStates> gameStateChange;
@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
     float buttonSpace;
     private Vector3 buttonSpacing;
 
+
     [SerializeField] Text turnDisplay;
     public Text attackText, hitText, hitStatText, rangeText, rangeStatText, magicText, magicStatText, damageText, damageStatText;
     public Text scorePointsText;
@@ -57,6 +58,8 @@ public class UIManager : MonoBehaviour
     private Score score;
 
     [SerializeField]GameObject apRightArrow, apLeftArrow;
+
+    public static EventHandler<SpawnFloatingTextEventArgs> createFloatingText;
 
     public enum GameStates
     {
@@ -67,7 +70,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         healthBars = new List<Slider>();
-        APBars = new List<Slider>();
+        //APBars = new List<Slider>();
         markers = new List<GameObject>();
         popUpButtons = new List<GameObject>();
         activePopUpButtons = new List<GameObject>();
@@ -87,8 +90,15 @@ public class UIManager : MonoBehaviour
         attackPanelEdges = new Vector2(350, attackPanelOriginalScale.y);
         attackPanalShrinkButtons = false;
         ButtonSpaceUpdate(attackPanalShrinkButtons);
+
+        createFloatingText += CreateFloatingText;
     }
 
+    private void CreateFloatingText(object sender, SpawnFloatingTextEventArgs e)
+    {
+        var floatingTextInstance = Instantiate(floatingText, e.character.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform).GetComponent<FloatingText>();
+        floatingTextInstance.SetUp(e.character, e.message, e.textColour);
+    }
 
     private void Update() {
         if (Input.GetKeyDown( KeyCode.Escape )) {
@@ -525,14 +535,16 @@ public class UIManager : MonoBehaviour
         unit.gameObject.AddComponent<HealthBar>().unit = unit;
         unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
 
-        if(unit.tag == "Player")
-        {
-            Slider apSlider = Instantiate(APBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
-            APBars.Add(apSlider);
-            unit.gameObject.AddComponent<ActionPointBar>().unit = unit;
-            unit.gameObject.GetComponent<ActionPointBar>().slider = apSlider;
-        }
+        //if (unit.tag == "Player")
+        //{
+        //    Slider apSlider = Instantiate(APBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
+        //    APBars.Add(apSlider);
+        //    unit.gameObject.AddComponent<ActionPointBar>().unit = unit;
+        //    unit.gameObject.GetComponent<ActionPointBar>().slider = apSlider;
+        //}
     }
+
+
 
     public void PlacementPoint(int amount)
     {
