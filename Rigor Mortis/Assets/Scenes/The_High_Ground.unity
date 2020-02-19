@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boomArm: {fileID: 1242773722}
-  movementSpeed: {x: 25, y: 1, z: 25}
+  movementSpeed: {x: 10, y: 1, z: 10}
   rotationSpeed: {x: 0.2, y: 0.8}
   minXRotation: 300
   maxXRotation: 30
