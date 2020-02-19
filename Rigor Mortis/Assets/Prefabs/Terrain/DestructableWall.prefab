@@ -475,6 +475,7 @@ MonoBehaviour:
   coordinates: {x: 0, y: 0, z: 0}
   placeable: 0
   MoveModifier: 15
+  blockType: 6
   highlight: {fileID: 8715853120918417988}
   borderNorth: {fileID: 7467063823017683205}
   borderEast: {fileID: 1493100588998792534}
@@ -558,6 +559,10 @@ MonoBehaviour:
   movemenSprint: 0
   manaPoints: 0
   currentHitPoints: 0
+  idleAnim: {fileID: 0}
+  walkAnim: {fileID: 0}
+  attackAnim: {fileID: 0}
+  dmgAnim: {fileID: 0}
   isFlying: 0
   isCaptain: 0
   uiManager: {fileID: 0}

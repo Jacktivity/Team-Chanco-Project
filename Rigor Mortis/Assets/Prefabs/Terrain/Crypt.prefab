@@ -221,6 +221,7 @@ MonoBehaviour:
   coordinates: {x: 0, y: 0, z: 0}
   placeable: 0
   MoveModifier: 1
+  blockType: 4
   highlight: {fileID: 637286021757309658}
   borderNorth: {fileID: 4481538609137722089}
   borderEast: {fileID: 5831638013013119772}
@@ -648,6 +649,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1898343979453030953}
     m_Modifications:
+    - target: {fileID: 100000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
+      propertyPath: m_Name
+      value: Mesh_Placeholder_Malauseum
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -703,14 +712,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.500001
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
-      propertyPath: m_Name
-      value: Mesh_Placeholder_Malauseum
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
-      propertyPath: m_TagString
-      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 3300000, guid: 484c6db07adc74d4db9108affb1013d2, type: 3}
       propertyPath: m_Mesh

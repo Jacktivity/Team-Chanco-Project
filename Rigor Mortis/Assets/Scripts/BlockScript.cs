@@ -17,6 +17,8 @@ public class BlockScript : MonoBehaviour
     public static EventHandler<BlockScript> blockMousedOver;
     public static EventHandler<BlockScript> blockClicked;
 
+    public int blockType;
+
 #pragma warning disable 069
     [SerializeField] private GameObject highlight;
     [SerializeField] private Renderer borderNorth, borderEast, borderSouth, borderWest;

@@ -120,9 +120,4 @@ public class Placement : MonoBehaviour
     {
         deleteMode = !deleteMode;
     }
-
-    public void SaveMap()
-    {
-
-    }
 }
