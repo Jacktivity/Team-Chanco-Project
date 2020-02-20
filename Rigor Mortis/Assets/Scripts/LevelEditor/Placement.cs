@@ -41,7 +41,7 @@ public class Placement : MonoBehaviour
         ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {
-            if (mapGenerated && locationBlockTag != "UI" && Physics.Raycast(ray, out hit))
+            if (mapGenerated && locationBlockTag == "Floor" && Physics.Raycast(ray, out hit))
             {
                 var occupier = activeBlock.GetComponent<BlockScript>().occupier;
                 if (!deleteMode && occupier == null && activeBlock.name != "Difficult")
@@ -54,7 +54,7 @@ public class Placement : MonoBehaviour
                 {
                     var placedBlock = Instantiate(activeBlock, hit.transform.position, tempBlock.transform.rotation);
                     placedBlock.GetComponent<BlockScript>().coordinates = locationBlock.GetComponent<BlockScript>().coordinates;
-                    if (hit.transform.gameObject != tempBlock) Destroy(hit.transform.gameObject);
+                    Destroy(locationBlock);
                     placedBlock.transform.parent = blockContainer.transform;
                 }
                 else if(deleteMode)
@@ -108,6 +108,10 @@ public class Placement : MonoBehaviour
         Destroy(tempBlock);
         tempBlock = Instantiate(activeBlock, locationBlockPos, new Quaternion());
         tempBlock.GetComponent<BoxCollider>().enabled = false;
+        if(tempBlock.GetComponent<BlockScript>().occupier != null)
+        {
+            tempBlock.GetComponent<BlockScript>().occupier.GetComponent<BoxCollider>().enabled = false;
+        }
     }
 
     public void MapGenerated()
