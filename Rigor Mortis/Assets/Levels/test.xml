@@ -3,15 +3,47 @@
   <level>
     <maps>
       <map layer="0" placementpoints="0">
-        <mapline value="0,0,0,0,0,0,0" />
-        <mapline value="0,0,0,0,0" />
-        <mapline value="0,0,0,0,0,0,0" />
-        <mapline value="0,0,0,0,0,0,0" />
-        <mapline value="0,0,0,0,0" />
-        <mapline value="0,0,0,0,0,0,0" />
-        <mapline value="0,0,0,0,0,0,0" />
+        <mapline value="0,0,0,0,0,0,0,0" />
+        <mapline value="0,0,1,1,1,1,0,0" />
+        <mapline value="0,1,0,0,0,0,1,0" />
+        <mapline value="0,1,0,0,0,0,1,0" />
+        <mapline value="0,1,0,0,0,0,1,0" />
+        <mapline value="0,1,0,0,0,0,1,0" />
+        <mapline value="0,0,1,1,1,1,0,0" />
+        <mapline value="0,0,0,0,0,0,0,0" />
+      </map>
+      <map layer="0" placementpoints="0">
+        <mapline value="-1,-1,-1,-1,-1,-1,-1,-1" />
+        <mapline value="-1,3,-1,-1,-1,-1,3,-1" />
+        <mapline value="-1,-1,-1,-1,-1,-1,-1,-1" />
+        <mapline value="-1,-1,-1,-1,-1,-1,-1,-1" />
+        <mapline value="-1,-1,-1,-1,-1,-1,-1,-1" />
+        <mapline value="-1,-1,-1,-1,-1,-1,-1,-1" />
+        <mapline value="-1,3,-1,-1,-1,-1,3,-1" />
+        <mapline value="-1,-1,-1,-1,-1,-1,-1,-1" />
       </map>
     </maps>
-    <rotations />
+    <rotations>
+      <rotation layer="0">
+        <rotationline value="0,0,0,0,0,0,0,0" />
+        <rotationline value="0,0,2,2,2,2,0,0" />
+        <rotationline value="0,1,0,0,0,0,0,0" />
+        <rotationline value="0,1,0,0,0,0,0,0" />
+        <rotationline value="0,1,0,0,0,0,0,0" />
+        <rotationline value="0,1,0,0,0,0,0,0" />
+        <rotationline value="0,0,0,0,0,0,0,0" />
+        <rotationline value="0,0,0,0,0,0,0,0" />
+      </rotation>
+      <rotation layer="0">
+        <rotationline value="0,0,0,0,0,0,0,0" />
+        <rotationline value="0,0,0,0,0,0,2,0" />
+        <rotationline value="0,0,0,0,0,0,0,0" />
+        <rotationline value="0,0,0,0,0,0,0,0" />
+        <rotationline value="0,0,0,0,0,0,0,0" />
+        <rotationline value="0,0,0,0,0,0,0,0" />
+        <rotationline value="0,0,0,0,0,0,1,0" />
+        <rotationline value="0,0,0,0,0,0,0,0" />
+      </rotation>
+    </rotations>
   </level>
 </levels>

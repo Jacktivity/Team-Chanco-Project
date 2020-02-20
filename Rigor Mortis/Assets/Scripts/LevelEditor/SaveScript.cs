@@ -17,36 +17,68 @@ public class SaveScript : MonoBehaviour
     {
         var blockdetailsContainer = blockcontainer.GetComponentsInChildren<BlockScript>();
 
-        var maxY = blockdetailsContainer.Max(b => b.coordinates.y);
-        var maxZ = blockdetailsContainer.Max(b => b.coordinates.z);
+        var maxY = (int)blockdetailsContainer.Max(b => b.coordinates.y) +1;
+        var maxZ = (int)blockdetailsContainer.Max(b => b.coordinates.z) +1;
+        var maxX = (int)blockdetailsContainer.Max(b => b.coordinates.x) +1;
 
         levels.level = level;
-        levels.level.maps = new levelsLevelMap[(int)maxY+1];
-        levels.level.rotations = new levelsLevelRotation[(int)maxY];
+        levels.level.maps = new levelsLevelMap[maxY];
+        levels.level.rotations = new levelsLevelRotation[maxY];
 
         int y = 0;
         int z = 0;
         //needs dealing on yAxis
         //needs to deal with empty spaces
-        while(y <= maxY)
+        while(y < maxY)
         {
             levels.level.maps[y] = new levelsLevelMap();
-            levels.level.maps[y].mapline = new levelsLevelMapMapline[(int)maxZ + 1];
-            while(z <= maxZ)
+            levels.level.maps[y].mapline = new levelsLevelMapMapline[(int)maxZ];
+            levels.level.rotations[y] = new levelsLevelRotation();
+            levels.level.rotations[y].rotationline = new levelsLevelRotationRotationline[(int)maxZ];
+            while (z < maxZ)
             {
+                var pos = new int[maxX];
+                var rot = new int[maxX];
+
                 levels.level.maps[y].mapline[z] = new levelsLevelMapMapline();
+                levels.level.rotations[y].rotationline[z] = new levelsLevelRotationRotationline();
 
                 var row = blockdetailsContainer
                 .Where(b => b.coordinates.z == z && b.coordinates.y == y)
                 .OrderBy(b => b.coordinates.x)
-                .Select(b => b.blockType).ToArray();
+                .Select(b => b).ToArray();
 
-                var rowLength = row.Length;
+                for (int i = 0; i < pos.Length; i++) pos[i] = -1;
+                
+                foreach(var block in row)
+                {
+                    pos[(int)block.coordinates.x] = block.blockType;
 
-                levels.level.maps[y].mapline[z].value = string.Join(",", row.Select(i => i.ToString()).ToArray());
+                    switch ((int)block.transform.eulerAngles.y)
+                    {
+                        case 90:
+                            rot[(int)block.coordinates.x] = 1;
+                            break;
+                        case 180:
+                            rot[(int)block.coordinates.x] = 2;
+                            break;
+                        case -90:
+                            rot[(int)block.coordinates.x] = 3;
+                            break;
+                        case -180:
+                            rot[(int)block.coordinates.x] = 2;
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+                levels.level.maps[y].mapline[z].value = string.Join(",", pos.Select(i => i.ToString()).ToArray());
+                levels.level.rotations[y].rotationline[z].value = string.Join(",", rot.Select(i => i.ToString()).ToArray());
 
                 z++;
             }
+            z = 0;
             y++;
         }
 
