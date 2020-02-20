@@ -301,10 +301,10 @@ public class Character : MonoBehaviour
     {
         if (!uiManager.gameOver) {
             ActionPoints = maxActionPoints;
-            if (tag == "Player")
-            {
-                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            }
+            //if (tag == "Player")
+            //{
+            //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+            //}
         }
     }
 

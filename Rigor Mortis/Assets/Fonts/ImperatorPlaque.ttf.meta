@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 78aa5949e39df2c41946c7d6dc1ab720
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: ImperatorPlaque
+  fontNames:
+  - ImperatorPlaque
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e8315bf0b033d2d49b9b13a0671513f9, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

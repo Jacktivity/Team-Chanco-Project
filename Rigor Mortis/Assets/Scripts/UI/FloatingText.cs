@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class FloatingText : MonoBehaviour
 {
@@ -16,7 +17,12 @@ public class FloatingText : MonoBehaviour
 
         var text = GetComponent<UnityEngine.UI.Text>();
         text.text = message;
-        text.color = messageColor;
+
+        var colourText = GetComponentsInChildren<UnityEngine.UI.Text>().First(c => c.gameObject != text.gameObject);
+        colourText.text = message;
+        colourText.color = messageColor;
+
+        //text.color = messageColor;
 
         lookAtCam = FindObjectOfType<Camera>();
     }
@@ -26,6 +32,7 @@ public class FloatingText : MonoBehaviour
     void Update()
     {
         transform.LookAt(lookAtCam.transform.position);
+        transform.Rotate(0, 180, 0, Space.Self);
         transform.position = spawnCharacter.transform.position + movement * counter;
 
         counter += Time.deltaTime;
