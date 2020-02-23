@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -257,6 +258,7 @@ public class UIManager : MonoBehaviour
                     unit.ClearActionPoints();
                     DeleteCurrentPopupButtons();
                     unit.godRay.SetActive(false);
+                    attackText.text = "";
                 }
             }
         }
@@ -522,6 +524,11 @@ public class UIManager : MonoBehaviour
     {
         gridManager.FinishPlacement();
         gridManager.nextUnit();
+    }
+
+    public void MainMenuReturn() {
+        MainMenu.mainMenuStateChange?.Invoke(this, MainMenu.MainMenuStates.mainCanvas);
+        SceneManager.UnloadSceneAsync(1);
     }
 
     public void GameOverCheck()

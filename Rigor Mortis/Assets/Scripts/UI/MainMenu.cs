@@ -7,15 +7,14 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public Canvas mainCanvas;
-    public Canvas levelSelectCanvas;
+    public Canvas mainCanvas, levelSelectCanvas, backgroundCanvas;
 
     [SerializeField] private TextAsset level1, level2, level3, level4, level5, level6;
     [SerializeField]private TextAsset loadedScene;
 
-    private static EventHandler<MainMenuStates> mainMenuStateChange;
+    public static EventHandler<MainMenuStates> mainMenuStateChange;
 
-    MainMenuStates currentState;
+    public MainMenuStates currentState;
 
     public GameObject levelDetailsImage;
 
@@ -74,7 +73,12 @@ public class MainMenu : MonoBehaviour
     {
         PersistantData.level = loadedScene;
         PersistantData.levelAssigned = true;
-        SceneManager.LoadScene(1);
+
+        if (!SceneManager.GetSceneByBuildIndex(1).isLoaded) {
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        }
+
+        mainMenuStateChange?.Invoke(this, MainMenuStates.quit);
     }
 
     private void MainMenuStateChanged(object sender, MainMenuStates state)
@@ -87,6 +91,7 @@ public class MainMenu : MonoBehaviour
 
                 SetMainCanvas(true);
                 SetLevelSelectCanvas(false);
+                SetBackgroundCanvas(true);
                 break;
 
         case MainMenuStates.newGame:
@@ -94,6 +99,8 @@ public class MainMenu : MonoBehaviour
 
                 SetMainCanvas(true);
                 SetLevelSelectCanvas(false);
+                SetBackgroundCanvas(true);
+
                 break;
 
             case MainMenuStates.loadGame:
@@ -101,6 +108,8 @@ public class MainMenu : MonoBehaviour
 
                 SetMainCanvas(false);
                 SetLevelSelectCanvas(false);
+                SetBackgroundCanvas(true);
+
                 break;
 
             case MainMenuStates.levelSelect:
@@ -108,6 +117,8 @@ public class MainMenu : MonoBehaviour
 
                 SetMainCanvas(false);
                 SetLevelSelectCanvas(true);
+                SetBackgroundCanvas(true);
+
                 break;
 
             case MainMenuStates.quit:
@@ -115,6 +126,8 @@ public class MainMenu : MonoBehaviour
 
                 SetMainCanvas(false);
                 SetLevelSelectCanvas(false);
+                SetBackgroundCanvas(false);
+
                 break;
         }
     }
@@ -142,6 +155,15 @@ public class MainMenu : MonoBehaviour
         if (levelSelectCanvas.enabled != enabled)
         {
             levelSelectCanvas.enabled = enabled;
+        }
+    }
+    public void SetBackgroundCanvas(bool enabled) {
+        if (!backgroundCanvas.gameObject.activeSelf && enabled) {
+            backgroundCanvas.gameObject.SetActive(true);
+        }
+
+        if (backgroundCanvas.enabled != enabled) {
+            backgroundCanvas.enabled = enabled;
         }
     }
 }
