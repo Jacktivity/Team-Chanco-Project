@@ -314,36 +314,13 @@ public class UIManager : MonoBehaviour
             ShrinkButtons();
         }
 
-        if (popUpButtons.Count > maxButtons) { //To-Do: Make cap scale with resolution
-            for (int i = maxButtons; i < popUpButtons.Count(); i++)
-            {
-                GameObject button = popUpButtons[i];
-                button.SetActive(false);
-            }
+        attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2(amountOver * buttonSpace, 0);
+        if (attackPanel.GetComponent<RectTransform>().sizeDelta.x < 350 && attackPanalShrinkButtons)
+            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
 
-            foreach (GameObject button in popUpButtons)
-            {
-                if (button.activeSelf)
-                {
-                    activePopUpButtons.Add(button);
-                }
-            }
-
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2((maxButtons - minButtons) * buttonSpace, 0);
-            apRightArrow.SetActive(true);
-
-            foreach (GameObject button in popUpButtons)
-            {
-                button.transform.position = new Vector3(button.transform.position.x - (((buttonSpace / 2) * (maxButtons - minButtons)) * battleCanvas.scaleFactor), button.transform.position.y, button.transform.position.z);
-            }
-
-        } else {
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2(amountOver * buttonSpace, 0);
-
-            foreach (GameObject button in popUpButtons)
-            {
-                button.transform.position = new Vector3(button.transform.position.x - (((buttonSpace / 2) * amountOver) * battleCanvas.scaleFactor), button.transform.position.y, button.transform.position.z);
-            }
+        foreach (GameObject button in popUpButtons)
+        {
+            button.transform.position = new Vector3(button.transform.position.x - (((buttonSpace / 2) * amountOver) * battleCanvas.scaleFactor), button.transform.position.y, button.transform.position.z);
         }
 
         ResetArrows();
