@@ -133,7 +133,7 @@ public class GridManager : MonoBehaviour
 
             tile.Highlight(true);
             tile.SetHighlightColour(colour, brightEdges);
-        }        
+        }
     }
 
     public void ClearMap()
@@ -156,11 +156,11 @@ public class GridManager : MonoBehaviour
             var costOfUnit = SelectedUnit.cost;
             if ((GetPlacementPoints() - costOfUnit) >= 0)
             {
-                var unitPos = SelectedUnit.GetComponent<Collider>().bounds.center + SelectedUnit.GetComponent<Collider>().bounds.extents;
-                var tilePos = tile.GetComponent<Collider>().bounds.center + tile.GetComponent<Collider>().bounds.extents;
+                var unitPos = SelectedUnit.heightOffset;
+                var tilePos = tile.transform.position;
 
 
-                SpawnUnit(new Vector3(tile.transform.position.x, unitPos.y + tilePos.y, tile.transform.position.z), tile);
+                SpawnUnit(new Vector3(tile.transform.position.x, unitPos + tilePos.y, tile.transform.position.z), tile);
                 ReducePlacementPoints(costOfUnit);
 
                 playerUnits = GameObject.FindGameObjectsWithTag("Player");
@@ -195,13 +195,40 @@ public class GridManager : MonoBehaviour
                 if (pos.Value >= 0)
                 {
                     GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, pos.YPos, pos.ZPos), Quaternion.Euler(new Vector3(tiles[pos.Value].transform.rotation.x, (90 * rot.Value), tiles[pos.Value].transform.rotation.z)), gameObject.transform);
-                    tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);
+                    var blockscript = tile.GetComponent<BlockScript>();
+                    blockscript.coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);
                     tile.name = tile.name.Replace("(Clone)", "");
                     tile.name = tile.name + '(' + pos.XPos + ','+ pos.YPos+ ',' + pos.ZPos + ')';
 
-
-                    tile.GetComponent<MeshRenderer>().material = new Material(Shader.Find("Shader Forge/SH_Environment"));
-                    tile.GetComponent<MeshRenderer>().material.mainTextureOffset = new Vector2(tile.GetComponent<BlockScript>().coordinates.x, tile.GetComponent<BlockScript>().coordinates.z);
+                    var sBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(0, 0, -1));
+                    if (sBlock != null)
+                    {
+                        sBlock.N = tile;
+                        blockscript.S = sBlock.gameObject;
+                    }
+                    var swBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(-1, 0, -1));
+                    if (swBlock != null)
+                    {
+                        swBlock.NE = tile;
+                        blockscript.SW = swBlock.gameObject;
+                    }
+                    var wBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(-1, 0, 0));
+                    if (wBlock != null)
+                    {
+                        wBlock.E = tile;
+                        blockscript.W = wBlock.gameObject;
+                    }
+                    var nwBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(-1, 0, 1));
+                    if (nwBlock != null)
+                    {
+                        nwBlock.SE = tile;
+                        blockscript.NW = nwBlock.gameObject;
+                    }
+                    var below = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(0, -1, 0));
+                    if(below != null)
+                    {
+                        below.occupier = tile;
+                    }
                 }
                 BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
             }
@@ -243,7 +270,7 @@ public class GridManager : MonoBehaviour
             if(hasLinkedUnits)
             {
                 linkedUnits = enemy.linkedUnits.Split(',').Select(v => int.Parse(v)).ToArray();
-            }            
+            }
 
             enemySpawned?.Invoke(this, new EnemySpawn(placedEnemy, (AIStates)enemy.behaviour, enemy.id, linkedUnits));
             playerManager.AddUnit(placedEnemy);
@@ -263,7 +290,7 @@ public class GridManager : MonoBehaviour
 
         foreach(var spawnTile in placeableTiles)
         {
-            spawnTile.placeable = true;            
+            spawnTile.placeable = true;
         }
 
         ColourTiles(Map.Where(t => t.placeable), SpawnColor);
@@ -319,7 +346,7 @@ public class GridManager : MonoBehaviour
 
     public void ReducePlacementPoints(int reduction)
     {
-        Debug.Log(placementPoints + "-" + reduction);
+        //Debug.Log(placementPoints + "-" + reduction);
         placementPoints -= reduction;
         uiManager.PlacementPoint(placementPoints);
 

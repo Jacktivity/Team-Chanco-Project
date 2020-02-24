@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761872241002548050}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9203925283893354904}
@@ -405,6 +405,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf72c5f90ad61654c867fd173e2ee622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heightOffset: 0
+  VFXGameObject: {fileID: 761872241002548050}
+  deselectedVFXscale: {x: 0, y: 0, z: 0}
+  selectedVFXscale: {x: 0, y: 0, z: 0}
+  ID: 0
   cost: 15
   maxHitPoints: 12
   accuracy: 90
@@ -416,10 +421,6 @@ MonoBehaviour:
   movemenSprint: 7
   manaPoints: 50
   currentHitPoints: 12
-  idleAnim: {fileID: 0}
-  walkAnim: {fileID: 0}
-  attackAnim: {fileID: 0}
-  dmgAnim: {fileID: 0}
   isFlying: 1
   isCaptain: 0
   uiManager: {fileID: 0}
@@ -446,7 +447,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1480071
-  m_Center: {x: 0, y: 0.79999995, z: 0.048006073}
+  m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!1 &6702276704454768000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1829,7 +1830,7 @@ Transform:
   m_GameObject: {fileID: 6702276704454768120}
   m_LocalRotation: {x: 0.44099587, y: -0.4429218, z: -0.5511989, w: 0.5527411}
   m_LocalPosition: {x: 0.000000024281709, y: 0.4525419, z: -0.024498798}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 6702276704454404480}
   - {fileID: 6702276704454404558}

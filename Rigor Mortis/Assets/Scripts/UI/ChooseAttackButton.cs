@@ -44,16 +44,7 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
         }
 
         SetAttackSprite(attack);
-    }
-
-    private void OnDestroy()
-    {
-        var attackChosenDelegates = attackChosen.GetInvocationList();
-        foreach (var del in attackChosenDelegates)
-        {
-            attackChosen -= (del as EventHandler<CharacterAttack>);
-        }
-    }
+    }    
 
     public void ChooseAttack()
     {

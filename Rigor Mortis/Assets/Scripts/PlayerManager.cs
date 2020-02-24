@@ -126,10 +126,12 @@ public class PlayerManager : MonoBehaviour
             if (selectedPlayer != null)
             {
                 selectedPlayer.godRay.SetActive(false);
+                selectedPlayer.ScaleVFX(false);
                 gridManager.ClearMap();
             }
 
             selectedPlayer = unit;
+            selectedPlayer.ScaleVFX(true);
             selectedPlayer.godRay.SetActive(true);
             HighlightMovementTiles(unit);
             GetComponent<PlayerCharacterMover>().SetMovement(unit, walkTiles, sprintTiles);

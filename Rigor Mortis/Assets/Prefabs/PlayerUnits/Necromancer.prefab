@@ -1673,6 +1673,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c60e9467860784fa0e0f3295be4a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heightOffset: 0.45
+  VFXGameObject: {fileID: 8814238088388124221}
+  deselectedVFXscale: {x: 0.15, y: 0.15, z: 0.15}
+  selectedVFXscale: {x: 0.25, y: 0.25, z: 0.25}
+  ID: 0
   cost: 0
   maxHitPoints: 0
   accuracy: 5
@@ -1684,10 +1689,6 @@ MonoBehaviour:
   movemenSprint: 7
   manaPoints: 10
   currentHitPoints: 0
-  idleAnim: {fileID: 0}
-  walkAnim: {fileID: 0}
-  attackAnim: {fileID: 0}
-  dmgAnim: {fileID: 0}
   isFlying: 0
   isCaptain: 1
   uiManager: {fileID: 0}
@@ -1970,7 +1971,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8814238088388124221}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.39, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5343469953124516857}
@@ -2222,7 +2223,7 @@ PrefabInstance:
     - target: {fileID: 1614290478563651638, guid: e2d9f99584bdcea4b8357667c09b52f6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1614290478563651638, guid: e2d9f99584bdcea4b8357667c09b52f6,
         type: 3}
@@ -2325,6 +2326,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4796481374885864995}
     m_Modifications:
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_Name
+      value: PS_Selection_Empty
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1653491297711639668, guid: 02bf5b393ede6a5478042e848987946a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2333,7 +2349,7 @@ PrefabInstance:
     - target: {fileID: 1653491297711639668, guid: 02bf5b393ede6a5478042e848987946a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1653491297711639668, guid: 02bf5b393ede6a5478042e848987946a,
         type: 3}
@@ -2395,21 +2411,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.15
       objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_Name
-      value: PS_Selection_Empty
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02bf5b393ede6a5478042e848987946a, type: 3}
 --- !u!1 &8876876858222523491 stripped
@@ -2454,7 +2455,7 @@ PrefabInstance:
     - target: {fileID: 2565604866780981849, guid: e6f70e18440aa7d4e9371748e7b6b134,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2565604866780981849, guid: e6f70e18440aa7d4e9371748e7b6b134,
         type: 3}
