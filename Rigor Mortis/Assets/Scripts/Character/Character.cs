@@ -12,7 +12,7 @@ public class Character : MonoBehaviour
     private Vector3 previousForward;
     //0 = necromancer, 1 = skeleton, 2 = SteamingSkull, 3 = SpectralSkeleton, 4 = TombGuard
     #region statblock
-    public int cost, maxHitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
+    public int ID, cost, maxHitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
     #endregion
 
     [SerializeField] protected int currentHitPoints;
@@ -49,7 +49,7 @@ public class Character : MonoBehaviour
     private int pathIndex;
     private BlockScript moveToBlock;
 
-    private Score score;
+    //private PersistantData score;
     public GameObject godRay, AP_VFX_Full, AP_VFX_Half, AP_VFX_Empty;
 
     public bool beingAttacked;
@@ -62,7 +62,7 @@ public class Character : MonoBehaviour
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
         playerManager = FindObjectOfType<PlayerManager>();
-        score = FindObjectOfType<Score>();
+        //score = FindObjectOfType<PersistantData>();
         //attackManager = FindObjectOfType<AttackManager>();
         previousForward = transform.forward;
         attackEvent += DamageCheck;
@@ -101,9 +101,9 @@ public class Character : MonoBehaviour
     public void ClearActionPoints()
     {
         ActionPoints = 0;
-        if (tag == "Player") {
-            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-        }
+        //if (tag == "Player") {
+        //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+        //}
     }
 
     public void SetFloor(BlockScript tile)
@@ -118,9 +118,9 @@ public class Character : MonoBehaviour
         {
             ActionPoints -= 3;
             manaPoints -= selectedAttack.Mana;
-            if (tag == "Player" ) {
-                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            }
+            //if (tag == "Player" ) {
+            //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+            //}
             var baseDamage = selectedAttack.RollDamage();
 
             if (baseDamage.Magical > 0)
@@ -147,9 +147,6 @@ public class Character : MonoBehaviour
             counterTime += Time.deltaTime * moveAnimationSpeed;
             moveToBlock = path.ElementAt(pathIndex);
 
-            //float journey = Vector3.Distance(transform.position, (moveToBlock.transform.position + transform.up));
-
-
             transform.position = Vector3.Lerp(
                 new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z),
                 new Vector3(moveToBlock.transform.position.x, moveToBlock.transform.position.y + 1, moveToBlock.transform.position.z),
@@ -159,20 +156,7 @@ public class Character : MonoBehaviour
             var angle = moveToBlock.transform.position - previousBlock.transform.position;
 
             transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.y), counterTime);
-
-            HealthBar healthBar = GetComponent<HealthBar>();
-            Vector3 healthOffset = healthBar.offset;
-            healthBar.slider.transform.position = transform.position + healthOffset;
-
-            if (tag == "Player") {
-                ActionPointBar actionPointBar = gameObject.GetComponent<ActionPointBar>();
-                Vector3 actionPointOffset = actionPointBar.offset;
-                actionPointBar.slider.transform.position = transform.position + actionPointOffset;
-
-                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            }
-
-
+            
             floor.occupier = gameObject;
             if (counterTime >= 1)
             {
@@ -213,20 +197,29 @@ public class Character : MonoBehaviour
             if (dodgeRoll < toHit)
             {
                 if (e.MagicDamage > resistance)
-                    TakeDamage(e.MagicDamage - resistance);
+                    TakeDamage(e.MagicDamage - resistance, true);
 
                 if (e.PhysicalDamage > armour)
                     TakeDamage(e.PhysicalDamage - armour);
+            }
+            else
+            {
+                //Attack missed
+                UIManager.createFloatingText?.Invoke(this, new SpawnFloatingTextEventArgs(this, "Miss", Color.yellow));
             }
             beingAttacked = false;                          
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool magicDamage = false)
     {
         currentHitPoints -= damage;
 
-        if(currentHitPoints <= 0)
+        var textColour = magicDamage ? Color.blue : Color.red;
+
+        UIManager.createFloatingText?.Invoke(this, new SpawnFloatingTextEventArgs(this, (0 - damage).ToString(), textColour));
+
+        if (currentHitPoints <= 0)
         {
             if(name == "Necromancer")
             {
@@ -254,9 +247,9 @@ public class Character : MonoBehaviour
 
         if (tag == "Player") {
             if(name == "Necromancer") {
-                score.RemoveScore(50);
+                PersistantData.RemoveScore(50);
             } else {
-                score.RemoveScore(cost);
+                PersistantData.RemoveScore(cost);
             }
 
             Slider APSlider = GetComponent<ActionPointBar>().slider;
@@ -264,11 +257,11 @@ public class Character : MonoBehaviour
         } else if(tag == "Enemy") {
             if (name == "Necromancer")
             {
-                score.AddScore(50);
+                PersistantData.AddScore(50);
             }
             else
             {
-                score.AddScore(cost);
+                PersistantData.AddScore(cost);
             }
         }
 
@@ -308,10 +301,10 @@ public class Character : MonoBehaviour
     {
         if (!uiManager.gameOver) {
             ActionPoints = maxActionPoints;
-            if (tag == "Player")
-            {
-                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            }
+            //if (tag == "Player")
+            //{
+            //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+            //}
         }
     }
 

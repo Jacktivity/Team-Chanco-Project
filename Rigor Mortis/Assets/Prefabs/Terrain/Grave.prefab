@@ -9,7 +9,7 @@ BoxCollider:
   m_GameObject: {fileID: 133873025266092607}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.44983274, y: 0.07842725, z: 0.6492787}
   m_Center: {x: 0, y: -0.0000000829286, z: 0.32463935}
@@ -133,7 +133,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6645742794849477671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 133873025265800735}
@@ -214,6 +214,7 @@ MonoBehaviour:
   coordinates: {x: 0, y: 0, z: 0}
   placeable: 0
   MoveModifier: 10
+  blockType: 3
   highlight: {fileID: 7439979419292774215}
   borderNorth: {fileID: 8293529674101015128}
   borderEast: {fileID: 7613686055045665185}
@@ -620,14 +621,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5568057566293251891}
     m_Modifications:
-    - target: {fileID: 100000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
-      propertyPath: m_Name
-      value: Mesh_Placeholder_Gravestone
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
-      propertyPath: m_TagString
-      value: Wall
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -683,6 +676,14 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
+      propertyPath: m_Name
+      value: Mesh_Placeholder_Gravestone
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 3300000, guid: 03863dea836206540a46b8838eb34df3, type: 3}
       propertyPath: m_Mesh

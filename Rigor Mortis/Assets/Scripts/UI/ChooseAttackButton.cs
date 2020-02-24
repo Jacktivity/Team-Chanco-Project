@@ -129,22 +129,25 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
                 break;
             default:
                 ActionPanelButtonSpriteSwitch(axeSprite, axeSpriteHL);
-                Debug.Log("Missing switch case for attack ID " + atk.AttackID);
+                Debug.LogError("Missing switch case for attack ID " + atk.AttackID);
                 break;
         }
     }
 
     public void ActionPanelButtonSpriteSwitch( Sprite sprite, Sprite spriteHL ) {
         SpriteState st = new SpriteState();
+        st = button.spriteState;
 
-        if(sprite == null) {
-            button.GetComponent<Image>().sprite = axeSprite;
-            st.pressedSprite = axeSpriteHL;
-            st.highlightedSprite = axeSpriteHL;
+        if (sprite == null || spriteHL == null) {
+            sprite = axeSprite;
+            spriteHL = axeSpriteHL;
+
+            Debug.Log("Missing sprite for attack ID " + attack.AttackID + " (" + attack.Name + ")");
         }
 
         button.GetComponent<Image>().sprite = sprite;
         st.pressedSprite = spriteHL;
         st.highlightedSprite = spriteHL;
+        button.spriteState = st;
     }
 }

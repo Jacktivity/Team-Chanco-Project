@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class UIManager : MonoBehaviour
 
     private int turnNumber;
 
-    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton, cancelActionBtn, waitButton;
+    [SerializeField]GameObject attackButton, targetCharacterButton, popupArea, moveButton, cancelActionBtn, waitButton, floatingText;
     [SerializeField]private Vector3 targetCharacterOffset;
     [SerializeField]private Vector3 baseAttackPosition, originalBaseAttackPosition;
     [SerializeField]private GameObject attackPanel;
@@ -34,8 +35,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]Slider healthBar;
     List<Slider> healthBars;
 
-    [SerializeField] Slider APBar;
-    List<Slider> APBars;
+    //[SerializeField] Slider APBar;
+    //List<Slider> APBars;
 
     public BlockScript[] blocksInRange;
     public static EventHandler<GameStates> gameStateChange;
@@ -49,14 +50,15 @@ public class UIManager : MonoBehaviour
     float buttonSpace;
     private Vector3 buttonSpacing;
 
+
     [SerializeField] Text turnDisplay;
     public Text attackText, hitText, hitStatText, rangeText, rangeStatText, magicText, magicStatText, damageText, damageStatText;
     public Text scorePointsText;
     public Text placementText;
 
-    private Score score;
-
     [SerializeField]GameObject apRightArrow, apLeftArrow;
+
+    public static EventHandler<SpawnFloatingTextEventArgs> createFloatingText;
 
     public enum GameStates
     {
@@ -67,12 +69,10 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         healthBars = new List<Slider>();
-        APBars = new List<Slider>();
+        //APBars = new List<Slider>();
         markers = new List<GameObject>();
         popUpButtons = new List<GameObject>();
         activePopUpButtons = new List<GameObject>();
-
-        score = FindObjectOfType<Score>();
 
         gameStateChange += GameStateChanged;
         gameStateChange?.Invoke(this, GameStates.placementPhase);
@@ -87,8 +87,15 @@ public class UIManager : MonoBehaviour
         attackPanelEdges = new Vector2(350, attackPanelOriginalScale.y);
         attackPanalShrinkButtons = false;
         ButtonSpaceUpdate(attackPanalShrinkButtons);
+
+        createFloatingText += CreateFloatingText;
     }
 
+    private void CreateFloatingText(object sender, SpawnFloatingTextEventArgs e)
+    {
+        var floatingTextInstance = Instantiate(floatingText, e.character.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform).GetComponent<FloatingText>();
+        floatingTextInstance.SetUp(e.character, e.message, e.textColour);
+    }
 
     private void Update() {
         if (Input.GetKeyDown( KeyCode.Escape )) {
@@ -261,6 +268,7 @@ public class UIManager : MonoBehaviour
                     unit.ClearActionPoints();
                     DeleteCurrentPopupButtons();
                     unit.godRay.SetActive(false);
+                    attackText.text = "";
                 }
             }
         }
@@ -318,36 +326,13 @@ public class UIManager : MonoBehaviour
             ShrinkButtons();
         }
 
-        if (popUpButtons.Count > maxButtons) { //To-Do: Make cap scale with resolution
-            for (int i = maxButtons; i < popUpButtons.Count(); i++)
-            {
-                GameObject button = popUpButtons[i];
-                button.SetActive(false);
-            }
+        attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2(amountOver * buttonSpace, 0);
+        if (attackPanel.GetComponent<RectTransform>().sizeDelta.x < 350 && attackPanalShrinkButtons)
+            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
 
-            foreach (GameObject button in popUpButtons)
-            {
-                if (button.activeSelf)
-                {
-                    activePopUpButtons.Add(button);
-                }
-            }
-
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2((maxButtons - minButtons) * buttonSpace, 0);
-            apRightArrow.SetActive(true);
-
-            foreach (GameObject button in popUpButtons)
-            {
-                button.transform.position = new Vector3(button.transform.position.x - (((buttonSpace / 2) * (maxButtons - minButtons)) * battleCanvas.scaleFactor), button.transform.position.y, button.transform.position.z);
-            }
-
-        } else {
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2(amountOver * buttonSpace, 0);
-
-            foreach (GameObject button in popUpButtons)
-            {
-                button.transform.position = new Vector3(button.transform.position.x - (((buttonSpace / 2) * amountOver) * battleCanvas.scaleFactor), button.transform.position.y, button.transform.position.z);
-            }
+        foreach (GameObject button in popUpButtons)
+        {
+            button.transform.position = new Vector3(button.transform.position.x - (((buttonSpace / 2) * amountOver) * battleCanvas.scaleFactor), button.transform.position.y, button.transform.position.z);
         }
 
         ResetArrows();
@@ -525,14 +510,16 @@ public class UIManager : MonoBehaviour
         unit.gameObject.AddComponent<HealthBar>().unit = unit;
         unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
 
-        if(unit.tag == "Player")
-        {
-            Slider apSlider = Instantiate(APBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
-            APBars.Add(apSlider);
-            unit.gameObject.AddComponent<ActionPointBar>().unit = unit;
-            unit.gameObject.GetComponent<ActionPointBar>().slider = apSlider;
-        }
+        //if (unit.tag == "Player")
+        //{
+        //    Slider apSlider = Instantiate(APBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
+        //    APBars.Add(apSlider);
+        //    unit.gameObject.AddComponent<ActionPointBar>().unit = unit;
+        //    unit.gameObject.GetComponent<ActionPointBar>().slider = apSlider;
+        //}
     }
+
+
 
     public void PlacementPoint(int amount)
     {
@@ -549,6 +536,11 @@ public class UIManager : MonoBehaviour
     {
         gridManager.FinishPlacement();
         gridManager.nextUnit();
+    }
+
+    public void MainMenuReturn() {
+        MainMenu.mainMenuStateChange?.Invoke(this, MainMenu.MainMenuStates.mainCanvas);
+        SceneManager.UnloadSceneAsync(1);
     }
 
     public void GameOverCheck()

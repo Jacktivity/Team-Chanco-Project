@@ -41,6 +41,12 @@ public class HealthBar : MonoBehaviour
                 offset.y = 1;
                 break;
         }
-        slider.transform.position = unit.transform.position + offset; 
+        slider.transform.position = unit.transform.position + offset;        
+    }
+
+    public void Update()
+    {
+        slider.transform.position = unit.transform.position + offset;
+        slider.transform.LookAt(FindObjectOfType<Camera>().transform);
     }
 }
