@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: eddf9489e306e1943bac2b2c95a2466e
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _SmallBubbles: {fileID: 2800000, guid: 736e7e7ce2dff2248bc7338091d7d84d, type: 3}
+  - _BigBubbles: {fileID: 2800000, guid: 736e7e7ce2dff2248bc7338091d7d84d, type: 3}
+  - _FireMask: {fileID: 2800000, guid: 9a233d55946b5cb4ea3cfa19b485c858, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
