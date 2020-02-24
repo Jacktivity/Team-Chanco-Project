@@ -550,7 +550,7 @@ BoxCollider:
   m_GameObject: {fileID: 6376823529244009597}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -569,6 +569,7 @@ MonoBehaviour:
   coordinates: {x: 0, y: 0, z: 0}
   placeable: 0
   MoveModifier: 15
+  blockType: 1
   highlight: {fileID: 3798973280722096284}
   borderNorth: {fileID: 2823530825888773709}
   borderEast: {fileID: 3510836826283507943}
@@ -636,14 +637,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5260444271772276585}
     m_Modifications:
-    - target: {fileID: 100000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
-      propertyPath: m_Name
-      value: Mesh_Placeholder_Wall
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
-      propertyPath: m_TagString
-      value: Wall
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.004
@@ -699,6 +692,14 @@ PrefabInstance:
     - target: {fileID: 400000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
+      propertyPath: m_Name
+      value: Mesh_Placeholder_Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: a814d84ae4d4a83458160f14aa4e77da, type: 3}
       propertyPath: m_Materials.Array.data[0]

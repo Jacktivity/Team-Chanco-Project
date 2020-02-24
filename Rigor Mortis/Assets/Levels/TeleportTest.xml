@@ -2,12 +2,12 @@
   <level>
     <maps>
       <map layer ="0" placementpoints ="25">
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
       </map>
     </maps>
     <rotations>
       <rotation layer ="0" >
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
       </rotation>      
     </rotations>
     <enemies>

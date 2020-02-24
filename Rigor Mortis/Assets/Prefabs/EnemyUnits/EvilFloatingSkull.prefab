@@ -1584,6 +1584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf72c5f90ad61654c867fd173e2ee622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   cost: 15
   maxHitPoints: 12
   accuracy: 90
@@ -1613,6 +1614,7 @@ MonoBehaviour:
   AP_VFX_Empty: {fileID: 5256131938071856534}
   beingAttacked: 0
   beingAttackedButton: {fileID: 0}
+  type: 3
 --- !u!135 &988862654908569689
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2285,16 +2287,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1344796867676117221}
     m_Modifications:
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_Name
-      value: PS_Selection_Empty
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1653491297711639668, guid: 02bf5b393ede6a5478042e848987946a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2364,6 +2356,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_Name
+      value: PS_Selection_Empty
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02bf5b393ede6a5478042e848987946a, type: 3}
