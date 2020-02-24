@@ -78,6 +78,11 @@ public class Character : MonoBehaviour
         };
     }
 
+    private void OnDestroy()
+    {
+        attackEvent -= DamageCheck;
+    }
+
     private void Start()
     {
         currentHitPoints = maxHitPoints;

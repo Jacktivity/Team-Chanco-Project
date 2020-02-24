@@ -831,7 +831,6 @@ GameObject:
   - component: {fileID: 1487691452683591755}
   - component: {fileID: 6465582545887565981}
   - component: {fileID: 9082595596890077914}
-  - component: {fileID: 1249761370544840288}
   - component: {fileID: 8783567386125526179}
   - component: {fileID: 5905820828933999494}
   m_Layer: 0
@@ -897,19 +896,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1249761370544840288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4191619467113526154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c0f8ee3481e3424e9e2e5f94dc044ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathfinder: {fileID: 0}
 --- !u!114 &8783567386125526179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,6 +908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c60e9467860784fa0e0f3295be4a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   cost: 0
   maxHitPoints: 0
   accuracy: 0
@@ -2416,15 +2403,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797c756041db8d44bb4d73720497abd3, type: 3}
---- !u!4 &2100313014435049939 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4869746215740234838, guid: 797c756041db8d44bb4d73720497abd3,
-    type: 3}
-  m_PrefabInstance: {fileID: 6823270021028392325}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2100313014435049936 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4869746215740234837, guid: 797c756041db8d44bb4d73720497abd3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6823270021028392325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2100313014435049939 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4869746215740234838, guid: 797c756041db8d44bb4d73720497abd3,
     type: 3}
   m_PrefabInstance: {fileID: 6823270021028392325}
   m_PrefabAsset: {fileID: 0}

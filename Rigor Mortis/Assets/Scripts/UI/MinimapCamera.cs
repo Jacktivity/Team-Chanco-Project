@@ -11,6 +11,11 @@ public class MinimapCamera : MonoBehaviour
         GridManager.mapGenerated += SetMinimapPosition;
     }
 
+    private void OnDestroy()
+    {
+        GridManager.mapGenerated -= SetMinimapPosition;
+    }
+
     private void SetMinimapPosition(object sender, BlockScript[] e) {
         Vector3 topLeft = new Vector3();
         Vector3 bottomRight = new Vector3();
