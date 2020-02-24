@@ -10,6 +10,8 @@ public class Character : MonoBehaviour
     private Animator animator;
     private BlockScript previousBlock;
     private Vector3 previousForward;
+    [SerializeField] private float heightOffset = 1f;
+
     //0 = necromancer, 1 = skeleton, 2 = SteamingSkull, 3 = SpectralSkeleton, 4 = TombGuard
     #region statblock
     public int ID, cost, maxHitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
@@ -81,19 +83,6 @@ public class Character : MonoBehaviour
     private void Start()
     {
         currentHitPoints = maxHitPoints;
-
-        //var animator = GetComponent<Animator>();
-
-        //var animOverride = new AnimatorOverrideController(animator.runtimeAnimatorController);
-
-        //Debug.Log(gameObject.name + " animation overrides " + animOverride.overridesCount);
-
-        //animOverride.animationClips[0] = idleAnim==null? idleAnim : animOverride.animationClips[0];
-        //animOverride.animationClips[1] = attackAnim==null? attackAnim : animOverride.animationClips[1];
-        //animOverride.animationClips[2] = dmgAnim==null? dmgAnim : animOverride.animationClips[2];
-        //animOverride.animationClips[3] = attackAnim==null? attackAnim : animOverride.animationClips[3];
-
-        //animator.runtimeAnimatorController = animOverride;
     }
 
     public Attack[] UseableAttacks => attacks.Where(a => a.Mana <= manaPoints).ToArray();
@@ -101,9 +90,6 @@ public class Character : MonoBehaviour
     public void ClearActionPoints()
     {
         ActionPoints = 0;
-        //if (tag == "Player") {
-        //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-        //}
     }
 
     public void SetFloor(BlockScript tile)
@@ -118,9 +104,7 @@ public class Character : MonoBehaviour
         {
             ActionPoints -= 3;
             manaPoints -= selectedAttack.Mana;
-            //if (tag == "Player" ) {
-            //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            //}
+
             var baseDamage = selectedAttack.RollDamage();
 
             if (baseDamage.Magical > 0)
@@ -148,16 +132,17 @@ public class Character : MonoBehaviour
             moveToBlock = path.ElementAt(pathIndex);
 
             transform.position = Vector3.Lerp(
-                new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z),
-                new Vector3(moveToBlock.transform.position.x, moveToBlock.transform.position.y + 1, moveToBlock.transform.position.z),
+                new Vector3(previousBlock.Location().x, transform.position.y, previousBlock.Location().z),
+                new Vector3(moveToBlock.Location().x, moveToBlock.Location().y + heightOffset, moveToBlock.Location().z),
                 counterTime);
 
 
-            var angle = moveToBlock.transform.position - previousBlock.transform.position;
+            var angle = moveToBlock.Location() - previousBlock.Location();
 
             transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.y), counterTime);
             
             floor.occupier = gameObject;
+
             if (counterTime >= 1)
             {
                 counterTime = 0;

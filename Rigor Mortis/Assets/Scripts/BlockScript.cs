@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class BlockScript : MonoBehaviour
 {
-    public Vector3 coordinates;
+    public Vector3 coordinates;   
 
     //public GridManager manager;
     public bool placeable;
@@ -32,8 +32,7 @@ public class BlockScript : MonoBehaviour
     
     // Start is called before the first frame update
     void Start()
-
-    {        
+    {
         //manager = gameObject.transform.parent.GetComponent<GridManager>();        
 
         //if (placeable)
@@ -49,6 +48,17 @@ public class BlockScript : MonoBehaviour
         //}
     }
 
+    public Vector3 Location()
+    {
+        try
+        {
+            return transform.position;
+        }
+        catch (Exception)
+        {
+            return coordinates;
+        }
+    }
     public void Highlight(bool highlighted)
     {
         highlight.SetActive(highlighted);
