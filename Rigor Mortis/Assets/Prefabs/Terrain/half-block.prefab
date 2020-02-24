@@ -307,6 +307,7 @@ MonoBehaviour:
   coordinates: {x: 0, y: 0, z: 0}
   placeable: 0
   MoveModifier: 1
+  blockType: 5
   highlight: {fileID: 8585721303169935095}
   borderNorth: {fileID: 1732398810161991615}
   borderEast: {fileID: 393588102694872458}

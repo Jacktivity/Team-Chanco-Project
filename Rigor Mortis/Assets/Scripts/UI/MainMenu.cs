@@ -7,18 +7,18 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public Canvas mainCanvas;
-    public Canvas levelSelectCanvas;
+    public Canvas mainCanvas, levelSelectCanvas, backgroundCanvas;
 
-    [SerializeField]private int loadedScene;
+    [SerializeField] private TextAsset level1, level2, level3, level4, level5, level6;
+    [SerializeField]private TextAsset loadedScene;
 
-    private static EventHandler<MainMenuStates> mainMenuStateChange;
+    public static EventHandler<MainMenuStates> mainMenuStateChange;
 
-    MainMenuStates currentState;
+    public MainMenuStates currentState;
 
     public GameObject levelDetailsImage;
 
-    public Sprite empty, highGroundInfo, bottleneckInfo, threefoldInfo, shootinggalleryInfo, labyrinthInfo, gauntletInfo;
+    public Sprite empty, level1Info, level2Info, level3Info, level4Info, level5Info, level6Info;
 
     private void Start()
     {
@@ -50,16 +50,17 @@ public class MainMenu : MonoBehaviour
 
     public void LoadLevel(int level)
     {
-        loadedScene = level;
         switch(level)
         {
             case 1:
                 levelDetailsImage.SetActive(true);
-                levelDetailsImage.GetComponent<Image>().sprite = highGroundInfo;
-            break;
+                loadedScene = level1;
+                levelDetailsImage.GetComponent<Image>().sprite = level1Info;
+                break;
 
             case 2:
                 levelDetailsImage.SetActive(false);
+                loadedScene = level2;
                 break;
 
             default:
@@ -70,51 +71,66 @@ public class MainMenu : MonoBehaviour
 
     public void PlayButton()
     {
-        if(loadedScene >= 0)
-            SceneManager.LoadScene(loadedScene);
+        PersistantData.level = loadedScene;
+        PersistantData.levelAssigned = true;
+
+        if (!SceneManager.GetSceneByBuildIndex(1).isLoaded) {
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        }
+
+        mainMenuStateChange?.Invoke(this, MainMenuStates.quit);
     }
 
     private void MainMenuStateChanged(object sender, MainMenuStates state)
     {
-        loadedScene = -1;
-            switch (state)
-            {
-                case MainMenuStates.mainCanvas:
-                    currentState = MainMenuStates.newGame;
+        loadedScene = null;
+        switch (state)
+        {
+            case MainMenuStates.mainCanvas:
+                currentState = MainMenuStates.newGame;
 
-                    SetMainCanvas(true);
-                    SetLevelSelectCanvas(false);
-                    break;
+                SetMainCanvas(true);
+                SetLevelSelectCanvas(false);
+                SetBackgroundCanvas(true);
+                break;
 
-            case MainMenuStates.newGame:
-                    currentState = MainMenuStates.newGame;
+        case MainMenuStates.newGame:
+                currentState = MainMenuStates.newGame;
 
-                    SetMainCanvas(true);
-                    SetLevelSelectCanvas(false);
-                    break;
+                SetMainCanvas(true);
+                SetLevelSelectCanvas(false);
+                SetBackgroundCanvas(true);
 
-                case MainMenuStates.loadGame:
-                    currentState = MainMenuStates.loadGame;
+                break;
 
-                    SetMainCanvas(false);
-                    SetLevelSelectCanvas(false);
-                    break;
+            case MainMenuStates.loadGame:
+                currentState = MainMenuStates.loadGame;
 
-                case MainMenuStates.levelSelect:
-                    currentState = MainMenuStates.levelSelect;
+                SetMainCanvas(false);
+                SetLevelSelectCanvas(false);
+                SetBackgroundCanvas(true);
 
-                    SetMainCanvas(false);
-                    SetLevelSelectCanvas(true);
-                    break;
+                break;
 
-                case MainMenuStates.quit:
-                    currentState = MainMenuStates.quit;
+            case MainMenuStates.levelSelect:
+                currentState = MainMenuStates.levelSelect;
 
-                    SetMainCanvas(false);
-                    SetLevelSelectCanvas(false);
-                    break;
-            }
+                SetMainCanvas(false);
+                SetLevelSelectCanvas(true);
+                SetBackgroundCanvas(true);
+
+                break;
+
+            case MainMenuStates.quit:
+                currentState = MainMenuStates.quit;
+
+                SetMainCanvas(false);
+                SetLevelSelectCanvas(false);
+                SetBackgroundCanvas(false);
+
+                break;
         }
+    }
 
     public void SetMainCanvas(bool enabled)
     {
@@ -139,6 +155,15 @@ public class MainMenu : MonoBehaviour
         if (levelSelectCanvas.enabled != enabled)
         {
             levelSelectCanvas.enabled = enabled;
+        }
+    }
+    public void SetBackgroundCanvas(bool enabled) {
+        if (!backgroundCanvas.gameObject.activeSelf && enabled) {
+            backgroundCanvas.gameObject.SetActive(true);
+        }
+
+        if (backgroundCanvas.enabled != enabled) {
+            backgroundCanvas.enabled = enabled;
         }
     }
 }

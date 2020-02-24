@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class BlockScript : MonoBehaviour
 {
     public Vector3 coordinates;
+
     //public GridManager manager;
     public bool placeable;
     public float MoveModifier = 1;
@@ -15,6 +16,8 @@ public class BlockScript : MonoBehaviour
 
     public static EventHandler<BlockScript> blockMousedOver;
     public static EventHandler<BlockScript> blockClicked;
+
+    public int blockType;
 
 #pragma warning disable 069
     [SerializeField] private GameObject highlight;
@@ -29,6 +32,7 @@ public class BlockScript : MonoBehaviour
     
     // Start is called before the first frame update
     void Start()
+
     {        
         //manager = gameObject.transform.parent.GetComponent<GridManager>();        
 
@@ -84,6 +88,7 @@ public class BlockScript : MonoBehaviour
             {
                 occupier = contact;
                 //occupier.GetComponent<BlockScript>().manager = manager;
+
             }
 
             switch ((int)newCoord.z)

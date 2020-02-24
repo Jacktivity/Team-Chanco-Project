@@ -37,8 +37,7 @@ public class CameraController : MonoBehaviour
 
         posColliderExtents = topLeft.gameObject.transform.position;
         negColliderExtents = bottomRight.gameObject.transform.position;
-        
-        boomArm.transform.position = mapOrdered.First(t => t.placeable).transform.position;
+
 
         foreach (var tile in e)
         {
@@ -55,6 +54,13 @@ public class CameraController : MonoBehaviour
                 yPositionDict.Add(position, tile.transform.position.y);
             }
         }
+
+        if (mapOrdered.Any(s => s.placeable))
+            boomArm.transform.position = mapOrdered.First(t => t.placeable).transform.position;
+        else
+            boomArm.transform.position = mapOrdered.First().transform.position;
+
+
     }
 
     private void OnCollisionStay(Collision collision)
@@ -69,7 +75,7 @@ public class CameraController : MonoBehaviour
             if (boomLerp - 0.01f >= 0)
                 boomLerp -= 0.01f;
             else if (liftCamera > 0)
-            {                
+            {
                 boomArm.transform.Rotate(new Vector3(liftCamera, 0, 0), Space.Self);
             }
         }
@@ -158,7 +164,7 @@ public class CameraController : MonoBehaviour
 
         var xInput = (testX * movementSpeed.x * Time.deltaTime) + boomArm.transform.position.x;
         var yInput = (testY * movementSpeed.z * Time.deltaTime) + boomArm.transform.position.z;
-       
+
 
         if (xInput <= posColliderExtents.x)
             xInput = posColliderExtents.x;
@@ -221,10 +227,10 @@ public class CameraController : MonoBehaviour
                 }
 
                 y = Mathf.Lerp(yPositionDict[currentPosition], yPositionDict[lerpYPosition], 1 - alpha);
-            }            
+            }
         }
 
         boomArm.transform.position = new Vector3(xInput, y, yInput);
-        
+
     }
 }
