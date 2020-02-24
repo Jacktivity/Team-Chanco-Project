@@ -67,10 +67,10 @@ Shader "Shader Forge/SH_GodRay" {
                 float faceSign = ( facing >= 0 ? 1 : -1 );
 ////// Lighting:
 ////// Emissive:
-                float4 node_7018 = _Time;
-                float2 node_2203 = (i.uv0+node_7018.g*float2(0,-0.2));
+                float4 node_9137 = _Time;
+                float2 node_2203 = (i.uv0+node_9137.g*float2(0,-0.2));
                 float4 _node_3837_var = tex2D(_node_3837,TRANSFORM_TEX(node_2203, _node_3837));
-                float2 node_9655 = (i.uv0+node_7018.g*float2(0.2,-0.2));
+                float2 node_9655 = (i.uv0+node_9137.g*float2(0.2,-0.2));
                 float4 _node_2647_var = tex2D(_node_2647,TRANSFORM_TEX(node_9655, _node_2647));
                 float3 node_1638 = ((_node_3837_var.rgb*_Intensity1)+(_Intensity2*_node_2647_var.r));
                 float3 emissive = ((i.vertexColor.rgb*node_1638)*_GlowIntensity);

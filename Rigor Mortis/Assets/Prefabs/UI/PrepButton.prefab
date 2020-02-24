@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3428575637537108059}
   - component: {fileID: 3428575637537108058}
   - component: {fileID: 3428575637537108057}
-  - component: {fileID: 1689322068447614214}
   m_Layer: 5
   m_Name: PrepButton
   m_TagString: Untagged
@@ -130,21 +129,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1689322068447614214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3428575637537108063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67eb0f97cf280e645bd069b1b24d4c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unit: {fileID: 0}
-  manager: {fileID: 0}
-  prepManager: {fileID: 0}
 --- !u!1 &3428575638079161682
 GameObject:
   m_ObjectHideFlags: 0

@@ -75,11 +75,39 @@ public class GridManager : MonoBehaviour
         activeAI = true;
 
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
-        turnEnded += (s, e) => ClearMap();
+        turnEnded += TurnEndedEvent;
         uiManager.PlacementPoint(placementPoints);
         UIManager.gameStateChange += AIRunCheck;
 
         mapGenerated?.Invoke(this, Map);
+    }
+    private void OnDestroy()
+    {
+        UIManager.gameStateChange -= AIRunCheck;
+        turnEnded -= TurnEndedEvent;
+
+        var unitSpawnDelegates = unitSpawned.GetInvocationList();
+        foreach (var del in unitSpawnDelegates)
+        {
+            unitSpawned -= (del as EventHandler<Character>);
+        }
+
+        var enemySpawn = enemySpawned.GetInvocationList();
+        foreach (var del in enemySpawn)
+        {
+            enemySpawned -= (del as EventHandler<EnemySpawn>);
+        }
+
+        var map = mapGenerated.GetInvocationList();
+        foreach (var del in map)
+        {
+            mapGenerated -= (del as EventHandler<BlockScript[]>);
+        }
+    }
+
+    public void TurnEndedEvent(object sender, EventArgs e)
+    {
+        ClearMap();
     }
 
     private void AIRunCheck(object sender, UIManager.GameStates e)

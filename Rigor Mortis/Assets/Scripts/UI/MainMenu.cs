@@ -75,10 +75,17 @@ public class MainMenu : MonoBehaviour
         PersistantData.levelAssigned = true;
 
         if (!SceneManager.GetSceneByBuildIndex(1).isLoaded) {
+            //SceneManager.LoadScene(1, LoadSceneMode.Additive);
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
         }
 
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    }
+
+    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
         mainMenuStateChange?.Invoke(this, MainMenuStates.quit);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(1));
     }
 
     private void MainMenuStateChanged(object sender, MainMenuStates state)

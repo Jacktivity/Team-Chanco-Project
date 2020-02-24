@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour
         unitList = new List<Character>();
         activeEnemyNecromancers = new List<Character>();
         activePlayerNecromancers = new List<Character>();
-
+        
         GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
         GridManager.unitSpawned += (s, e) => { e.moveComplete += (sender, character) => gridManager.CycleTurns(); };
         GridManager.unitSpawned += (s, e) => { e.attackComplete += (sender, character) => gridManager.CycleTurns(); };
@@ -29,6 +29,12 @@ public class PlayerManager : MonoBehaviour
         //BlockScript.blockClicked += (s, e) => BlockClicked(e);
         ChooseAttackButton.pointerExit += ResetMapMovement;
         MoveButton.pointerExit += ResetMapMovement;
+    }
+
+    private void OnDestroy()
+    {
+        ChooseAttackButton.pointerExit -= ResetMapMovement;        
+        MoveButton.pointerExit -= ResetMapMovement;
     }
 
     private void ResetMapMovement(object sender, EventArgs e)

@@ -55,6 +55,7 @@ public class Character : MonoBehaviour
     public bool beingAttacked;
     public EnemySelectButton beingAttackedButton;
 
+    public int type;
 
     private void Awake()
     {
@@ -76,6 +77,11 @@ public class Character : MonoBehaviour
             if (attackEvent.attacker == this)
                 selectedAttack = attackEvent.attackChosen;
         };
+    }
+
+    private void OnDestroy()
+    {
+        attackEvent -= DamageCheck;
     }
 
     private void Start()

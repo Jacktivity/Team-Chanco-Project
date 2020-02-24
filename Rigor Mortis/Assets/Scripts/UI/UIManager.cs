@@ -90,6 +90,11 @@ public class UIManager : MonoBehaviour
 
         createFloatingText += CreateFloatingText;
     }
+    
+    private void OnDestroy()
+    {
+        gameStateChange -= GameStateChanged;
+    }
 
     private void CreateFloatingText(object sender, SpawnFloatingTextEventArgs e)
     {
@@ -230,9 +235,6 @@ public class UIManager : MonoBehaviour
 
             Destroy(btn);
         }
-
-        apRightArrow.SetActive(false);
-        apLeftArrow.SetActive(false);
 
         popUpButtons.Clear();
         popUpButtons = new List<GameObject>();
@@ -539,8 +541,11 @@ public class UIManager : MonoBehaviour
     }
 
     public void MainMenuReturn() {
+        popUpButtons.Clear();
+
         MainMenu.mainMenuStateChange?.Invoke(this, MainMenu.MainMenuStates.mainCanvas);
-        SceneManager.UnloadSceneAsync(1);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
+        SceneManager.UnloadSceneAsync(1, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
     }
 
     public void GameOverCheck()
