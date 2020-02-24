@@ -25,7 +25,7 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private Character SelectedUnit;
 
-    [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile;
+    [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile, attackTile, missTile;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private EnemyAI enemyAIContainer;
@@ -41,6 +41,10 @@ public class GridManager : MonoBehaviour
     public BlockScript[] Map => GetComponentsInChildren<BlockScript>();
 
     public Color SpawnColor => spawnPoint;
+    public Color WalkColour => lowSpeedTile;
+    public Color SprintColour => highSpeedTile;
+    public Color AttackTile => attackTile;
+    public Color MissTile => missTile;
     public static EventHandler<Character> unitSpawned;
     public static EventHandler<EnemySpawn> enemySpawned;
     public static EventHandler<BlockScript[]> mapGenerated;
@@ -58,7 +62,12 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
+        if (PersistantData.levelAssigned) {
+            xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(PersistantData.level.bytes);
+        } else {
+            xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
+        }
+
         GenerateLevel();
         PlaceEnemy();
         UnitPlacement();
@@ -69,6 +78,8 @@ public class GridManager : MonoBehaviour
         turnEnded += (s, e) => ClearMap();
         uiManager.PlacementPoint(placementPoints);
         UIManager.gameStateChange += AIRunCheck;
+
+        mapGenerated?.Invoke(this, Map);
     }
 
     private void AIRunCheck(object sender, UIManager.GameStates e)
@@ -76,21 +87,32 @@ public class GridManager : MonoBehaviour
         activeAI = e != UIManager.GameStates.loseState && e != UIManager.GameStates.winState;
     }
 
-    public void ColourTiles(IEnumerable<BlockScript> tiles, bool walking)
+    public void ColourTiles(IEnumerable<BlockScript> tiles, Color colour)
     {
-        if (walking)
-            foreach (var tile in tiles)
-                tile.ChangeColour(lowSpeedTile);
-        else
-            foreach (var tile in tiles)
-                tile.ChangeColour(highSpeedTile);
+        foreach (var tile in tiles)
+        {
+            var brightEdges = new List<Directions>();
+
+            if (tile.N? tiles.Contains(tile.N.GetComponent<BlockScript>()) == false : true)
+                brightEdges.Add(Directions.North);
+            if (tile.S? tiles.Contains(tile.S.GetComponent<BlockScript>()) == false : true)
+                brightEdges.Add(Directions.South);
+            if (tile.E? tiles.Contains(tile.E.GetComponent<BlockScript>()) == false : true)
+                brightEdges.Add(Directions.East);
+            if (tile.W? tiles.Contains(tile.W.GetComponent<BlockScript>()) == false : true)
+                brightEdges.Add(Directions.West);
+
+
+            tile.Highlight(true);
+            tile.SetHighlightColour(colour, brightEdges);
+        }        
     }
 
     public void ClearMap()
     {
         foreach (var tile in Map)
         {
-            tile.ChangeColour(tile.Normal);
+            tile.Highlight(false);
         }
 
         //if(playerTurn && playerManager.selectedPlayer.movedThisTurn == false)
@@ -205,11 +227,14 @@ public class GridManager : MonoBehaviour
 
         var placeableTiles = placeables.Select(s => map.First(tile => tile.coordinates.x == s.posX && tile.coordinates.y == s.posY && tile.coordinates.z == s.posZ));
 
+        ColourTiles(placeableTiles, SpawnColor);
+
         foreach(var spawnTile in placeableTiles)
         {
-            spawnTile.placeable = true;
-            spawnTile.ChangeColour(spawnPoint);
+            spawnTile.placeable = true;            
         }
+
+        ColourTiles(Map.Where(t => t.placeable), SpawnColor);
     }
 
     public void moveUnitMode()
@@ -276,7 +301,7 @@ public class GridManager : MonoBehaviour
             foreach (var tile in remainingSpawnTiles)
             {
                 tile.placeable = false;
-                tile.ChangeColour(tile.Normal);
+                tile.SetHighlightColour(tile.Normal);
             }
         }
     }
@@ -483,7 +508,7 @@ namespace GridXML
         private byte placementpointsField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("map-line")]
+        [System.Xml.Serialization.XmlElementAttribute("mapline")]
         public levelsLevelMapMapline[] mapline
         {
             get
@@ -561,7 +586,7 @@ namespace GridXML
         private byte layerField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("rotation-line")]
+        [System.Xml.Serialization.XmlElementAttribute("rotationline")]
         public levelsLevelRotationRotationline[] rotationline
         {
             get

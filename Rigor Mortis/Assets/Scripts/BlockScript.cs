@@ -1,14 +1,14 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class BlockScript : MonoBehaviour
 {
     public Vector3 coordinates;
-    public GridManager manager;
+
+    //public GridManager manager;
     public bool placeable;
     public float MoveModifier = 1;
     public bool Traversable { get; private set; }
@@ -17,7 +17,11 @@ public class BlockScript : MonoBehaviour
     public static EventHandler<BlockScript> blockMousedOver;
     public static EventHandler<BlockScript> blockClicked;
 
+    public int blockType;
+
 #pragma warning disable 069
+    [SerializeField] private GameObject highlight;
+    [SerializeField] private Renderer borderNorth, borderEast, borderSouth, borderWest;
     [SerializeField] private Color normal;
 #pragma warning restore 069
 
@@ -25,28 +29,30 @@ public class BlockScript : MonoBehaviour
     public BlockScript[] UnoccupiedAdjacentTiles() => AdjacentTiles().Where(t => t.Occupied == false).ToArray();
     public BlockScript[] AdjacentTiles() => new GameObject[] { N, E, S, W }.Where(s => s != null).Select(go => go.GetComponent<BlockScript>()).ToArray();
     public Color Normal => normal;
-
-
+    
     // Start is called before the first frame update
     void Start()
-    {
-        manager = gameObject.transform.parent.GetComponent<GridManager>();        
 
-        if (placeable)
-        {
-            ChangeColour(manager.SpawnColor);
-            if (manager.GetPlacementPoints() <= 0)
-            {
-                placeable = false;
-                ChangeColour(normal);
-            }
-        }
+    {        
+        //manager = gameObject.transform.parent.GetComponent<GridManager>();        
+
+        //if (placeable)
+        //{
+        //    Highlight(true);
+        //    ChangeColour(manager.SpawnColor);
+        //    if (manager.GetPlacementPoints() <= 0)
+        //    {
+        //        placeable = false;
+        //        Highlight(false);
+        //        ChangeColour(normal);
+        //    }
+        //}
     }
 
-    private void Update()
+    public void Highlight(bool highlighted)
     {
-
-    }
+        highlight.SetActive(highlighted);
+    }    
 
     public static void ResetBlockScriptEvents()
     {
@@ -81,7 +87,8 @@ public class BlockScript : MonoBehaviour
             if(collision.transform.position.y > transform.position.y)
             {
                 occupier = contact;
-                occupier.GetComponent<BlockScript>().manager = manager;
+                //occupier.GetComponent<BlockScript>().manager = manager;
+
             }
 
             switch ((int)newCoord.z)
@@ -212,8 +219,31 @@ public class BlockScript : MonoBehaviour
         }
     }
 
-    public void ChangeColour(Color colour)
+    public void SetHighlightColour(Color colour) => SetHighlightColour(colour, new Directions[0]);
+
+    public void SetHighlightColour(Color colour, IEnumerable<Directions> boldHighlight)
     {
-        gameObject.GetComponent<Renderer>().material.color = colour;
+        highlight.GetComponent<Renderer>().material.color = new Color(colour.r,colour.g, colour.b, colour.a * 0.05f);
+        if (boldHighlight.Contains(Directions.North))
+            borderNorth.material.color = colour;
+        else
+            borderNorth.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
+        if (boldHighlight.Contains(Directions.South))
+            borderSouth.material.color = colour;
+        else
+            borderSouth.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
+        if (boldHighlight.Contains(Directions.East))
+            borderEast.material.color = colour;
+        else
+            borderEast.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
+        if (boldHighlight.Contains(Directions.West))
+            borderWest.material.color = colour;
+        else
+            borderWest.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
     }
+}
+
+public enum Directions
+{
+    North, South, East, West
 }

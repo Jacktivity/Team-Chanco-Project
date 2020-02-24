@@ -16,12 +16,15 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Text attackText;
     private bool hideGridMoveOnExit = true;
     public bool canMove = true;
+    public String previousText;
+
 
     // Start is called before the first frame update
     void Start()
     {
         gridManager = FindObjectOfType<GridManager>();
         uiManager = FindObjectOfType<UIManager>();
+        attackText.text = previousText;
     }
 
     public void SetUpMoveButton(Character unit)
@@ -81,14 +84,14 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         //Update with PLayerCharacterMover link
 
-        gridManager.ColourTiles(sprintTiles, false);
-        gridManager.ColourTiles(walkTiles, true);
+        gridManager.ColourTiles(sprintTiles, gridManager.SprintColour);
+        gridManager.ColourTiles(walkTiles, gridManager.WalkColour);
         attackText.text = "Move";
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         pointerExit?.Invoke(this, new EventArgs());
-        attackText.text = "";
+        attackText.text = previousText;
     }
 }

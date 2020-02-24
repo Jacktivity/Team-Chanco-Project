@@ -73,24 +73,6 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    public BlockScript[] AttackRangeCheck(BlockScript startBlock, int attackRange)
-    {
-        var centrePoint = startBlock.coordinates;
-
-        var rangeBlocks = new HashSet<BlockScript>();
-
-        //Gets all perimiter values
-        for (int x = 0; x < attackRange; x++)
-        {
-            for (int y = attackRange; y > 0; y--)
-            {
-                var north = centrePoint + new Vector3(0, 0, 0);
-            }
-        }
-
-        throw new Exception();
-    }
-
     //Change to A*
     public int GetDistance(BlockScript startBlock, BlockScript endBlock)
     {
@@ -137,11 +119,79 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
+    public BlockScript[] GetAttackTiles(Character attacker, Attack attack)
+    {
+        var allTiles = GetTilesInRange(attacker.floor, attack.Range, true, true, true);
+
+        var attackTiles = new List<BlockScript>();
+
+        var tagsToIgnore = new List<string>();
+
+        if(attack.PassAllies)
+        {
+            tagsToIgnore.Add(attacker.gameObject.tag);
+        }
+
+        if(attack.Piercing)
+        {
+            tagsToIgnore.Add(attacker.gameObject.tag == "Enemy" ? "Player" : "Enemy");
+        }
+
+        foreach (var tile in allTiles)
+        {       
+            Vector3 origin, destination;
+            Collider startCollider, endCollider;
+
+            var startTileCollider = attacker.GetComponent<Collider>();
+            var endTileCollider = tile.GetComponent<Collider>();
+
+            if (attacker.floor.Occupied)
+            {
+                startCollider = attacker.floor.occupier.GetComponent<Collider>();
+                origin = startCollider.bounds.center;// + new Vector3(0, startCollider.bounds.extents.y, 0);
+            }
+            else
+            {
+                startCollider = startTileCollider;
+                origin = startCollider.bounds.center + new Vector3(0, startCollider.bounds.extents.y * 0.75f, 0);
+            }
+
+            if(tile.Occupied)
+            {
+                endCollider = tile.occupier.GetComponent<Collider>();
+                destination = endCollider.bounds.center;// + new Vector3(0, endCollider.bounds.extents.y, 0);
+            }
+            else
+            {
+                endCollider = endTileCollider;
+                destination = endCollider.bounds.center + new Vector3(0, endCollider.bounds.extents.y * 0.75f, 0);
+            }
+
+            var ray = new Ray(origin, destination - origin);
+
+            var data = Physics.RaycastAll(ray, (destination - origin).magnitude);
+
+            Debug.DrawRay(origin, destination - origin, Color.red, 10f);
+
+            var validColliders = new Collider[] { startCollider, endCollider, startTileCollider, endTileCollider };
+
+            if (data.All(d => validColliders.Contains(d.collider) || tagsToIgnore.Contains(d.collider.gameObject.tag))) // == false
+            {
+                attackTiles.Add(tile);
+            }
+
+            //Debug.Log(tile.gameObject.name + ":" + string.Join(",", data.Select(s => s.collider.gameObject.name)));
+        }
+
+        return attackTiles.ToArray();
+    }
+
     public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool canSearchOccupied = true, bool flying = false)
     {
         return flying ? GetFlyingTilesInRange(start, range, canSearchOccupied) : GetWalkingTiles(start, range, ignoreMoveModifier, canSearchOccupied, flying);
     }
 
+    //Needs to not be able to bypass impassable walls
     private BlockScript[] GetFlyingTilesInRange(BlockScript start, float range, bool canSearchOccupied)
     {
         var allowedBlocks = new HashSet<Vector2>();

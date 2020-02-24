@@ -9,6 +9,7 @@ public class SkeletonCharacterSpear : Character
     void Start()
     {
         name = "Skeleton_Spear";
+        ID = 3;
         cost = 15;
         maxHitPoints = 20;
         accuracy = 90;

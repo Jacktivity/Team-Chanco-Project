@@ -149,8 +149,8 @@ public class PlayerManager : MonoBehaviour
             walkTiles = sprintTiles = new BlockScript[0];
         }
 
-        gridManager.ColourTiles(sprintTiles, false);
-        gridManager.ColourTiles(walkTiles, true);
+        gridManager.ColourTiles(sprintTiles, gridManager.SprintColour);
+        gridManager.ColourTiles(walkTiles, gridManager.WalkColour);
     }
 
     public void EnemyUnitChosen(Character unit)

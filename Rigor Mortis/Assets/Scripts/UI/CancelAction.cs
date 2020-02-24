@@ -11,10 +11,13 @@ public class CancelAction : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private Character character;
     public static EventHandler<BlockScript> cancelActions;
     public Text attackText;
+    public String previousText;
+    public UIManager uiManager;
 
     public void Start()
     {
         playerManager = FindObjectOfType<PlayerManager>();
+        attackText.text = previousText;
     }
 
     public void SetActions(Character character/*, IEnumerable<MoveButton> moveButtons*/)
@@ -26,6 +29,7 @@ public class CancelAction : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         playerManager.PlayerUnitChosen(character);
         attackText.text = "";
+        uiManager.DisableAPText();
         //FindObjectOfType<PlayerCharacterMover>().ResetMovement();
     }
     public void OnPointerEnter(PointerEventData eventData)
@@ -35,6 +39,6 @@ public class CancelAction : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        attackText.text = "";
+        attackText.text = previousText;
     }
 }

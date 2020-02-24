@@ -10,6 +10,7 @@ public class NecromancerCharacter : Character
     void Start()
     {
         name = "Necromancer";
+        ID = 0;
         cost = 0;
         maxHitPoints = 40;
         accuracy = 90;

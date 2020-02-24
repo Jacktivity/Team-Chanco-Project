@@ -9,6 +9,7 @@ public class SkeletonCharacterRifle : Character
     void Start()
     {
         name = "Skeleton_Rifle";
+        ID = 5;
         cost = 15;
         maxHitPoints = 20;
         accuracy = 90;

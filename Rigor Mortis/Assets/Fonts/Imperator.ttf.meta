@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 841b682a7c50b194c89c16d999bcd614
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Imperator
+  fontNames:
+  - Imperator
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 562be5e4be9e1ef47b1bfd71c957c4f5, type: 3}
+  - {fileID: 12800000, guid: 590d49e5c9c94514787dc5c64fdf4bef, type: 3}
+  - {fileID: 12800000, guid: 0088cbf81ba977e4da50e0de445ffd4b, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

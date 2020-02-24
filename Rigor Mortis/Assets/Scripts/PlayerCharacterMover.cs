@@ -40,14 +40,15 @@ public class PlayerCharacterMover : MonoBehaviour
     {
         if(playerUnitToMove != null)
         {
-            if((walkTiles.Contains(e) || sprintTiles.Contains(e)) && playerUnitToMove.CanMove)
+            if ((walkTiles.Contains(e) || sprintTiles.Contains(e)) && playerUnitToMove.CanMove)
             {
                 playerUnitToMove.MoveUnit(playerUnitToMove.pathfinder.GetPath(playerUnitToMove.floor, e, playerUnitToMove.isFlying, playerUnitToMove.isFlying));
                 playerUnitToMove = null;
                 walkTiles = sprintTiles = new BlockScript[0];
                 gridManager.ClearMap();
                 uiManager.DeleteCurrentPopupButtons();
-            }            
+                uiManager.attackText.text = "";
+            }
         }
     }
 }

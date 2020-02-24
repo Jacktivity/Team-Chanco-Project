@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 37a1ac10628dd764c8f33f2f8b376230
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: ImperatorBronzeSmallCaps
+  fontNames:
+  - ImperatorBronzeSmallCaps
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 21598acacaab2a44aba1a342260c5610, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
