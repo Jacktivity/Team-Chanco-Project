@@ -29461,75 +29461,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1 &1829326776
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1829326778}
-  - component: {fileID: 1829326777}
-  m_Layer: 0
-  m_Name: Point Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!108 &1829326777
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1829326776}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 20
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
---- !u!4 &1829326778
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1829326776}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -115.6, y: 2.29, z: -118.96}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 22
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1880345663
 GameObject:
   m_ObjectHideFlags: 0
@@ -34605,7 +34536,7 @@ PrefabInstance:
     - target: {fileID: 3772355093592987839, guid: f7af3bf0cf314914cb14cd05543445a5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -105.12
+      value: -100.03
       objectReference: {fileID: 0}
     - target: {fileID: 3772355093592987839, guid: f7af3bf0cf314914cb14cd05543445a5,
         type: 3}
@@ -34615,7 +34546,7 @@ PrefabInstance:
     - target: {fileID: 3772355093592987839, guid: f7af3bf0cf314914cb14cd05543445a5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -100.72
+      value: -109.34
       objectReference: {fileID: 0}
     - target: {fileID: 3772355093592987839, guid: f7af3bf0cf314914cb14cd05543445a5,
         type: 3}
@@ -34660,17 +34591,17 @@ PrefabInstance:
     - target: {fileID: 2840610388678988448, guid: f7af3bf0cf314914cb14cd05543445a5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.161
+      value: 0.453
       objectReference: {fileID: 0}
     - target: {fileID: 2840610388678988448, guid: f7af3bf0cf314914cb14cd05543445a5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2840610388678988448, guid: f7af3bf0cf314914cb14cd05543445a5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1919
+      value: -0.001
       objectReference: {fileID: 0}
     - target: {fileID: 7859135105455150284, guid: f7af3bf0cf314914cb14cd05543445a5,
         type: 3}
@@ -34686,6 +34617,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_DrawHalo
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 906368624537296970, guid: f7af3bf0cf314914cb14cd05543445a5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.004
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7af3bf0cf314914cb14cd05543445a5, type: 3}
@@ -34843,7 +34779,7 @@ PrefabInstance:
     - target: {fileID: 8531623768061405951, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
         type: 3}
       propertyPath: m_RenderingPath
-      value: 3
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06ebf4c9bcd26894ba4cbe55566cc41b, type: 3}
