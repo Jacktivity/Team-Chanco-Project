@@ -55,6 +55,7 @@ public class Character : MonoBehaviour
     public bool beingAttacked;
     public EnemySelectButton beingAttackedButton;
 
+    public int type;
 
     private void Awake()
     {
