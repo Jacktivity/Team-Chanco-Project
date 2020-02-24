@@ -11,11 +11,15 @@ public class SaveScript : MonoBehaviour
 {
     levels levels = new levels();
     levelsLevel level = new levelsLevel();
-
-    public GameObject blockcontainer;
+    public Slider placementPoints;
+    public Text levelName;
+    public GameObject blockcontainer, enemycontainer;
     public void SaveMap()
     {
+        var placementPointsValue = placementPoints.value;
         var blockdetailsContainer = blockcontainer.GetComponentsInChildren<BlockScript>();
+        var enemycontainerdetails = enemycontainer.GetComponentsInChildren<Character>();
+        var placeableDetails = blockcontainer.GetComponentsInChildren<BlockScript>().Where(b => b.placeable).ToArray();
 
         var maxY = (int)blockdetailsContainer.Max(b => b.coordinates.y) +1;
         var maxZ = (int)blockdetailsContainer.Max(b => b.coordinates.z) +1;
@@ -24,14 +28,17 @@ public class SaveScript : MonoBehaviour
         levels.level = level;
         levels.level.maps = new levelsLevelMap[maxY];
         levels.level.rotations = new levelsLevelRotation[maxY];
+        levels.level.enemies = new levelsLevelEnemy[enemycontainerdetails.Length];
+        levels.level.placeables = new levelsLevelPlaceable[placeableDetails.Length];
 
         int y = 0;
         int z = 0;
-        //needs dealing on yAxis
-        //needs to deal with empty spaces
+        int p = 0;
+
         while(y < maxY)
         {
             levels.level.maps[y] = new levelsLevelMap();
+            levels.level.maps[y].layer = (byte)y;
             levels.level.maps[y].mapline = new levelsLevelMapMapline[(int)maxZ];
             levels.level.rotations[y] = new levelsLevelRotation();
             levels.level.rotations[y].rotationline = new levelsLevelRotationRotationline[(int)maxZ];
@@ -62,7 +69,7 @@ public class SaveScript : MonoBehaviour
                         case 180:
                             rot[(int)block.coordinates.x] = 2;
                             break;
-                        case -90:
+                        case 270:
                             rot[(int)block.coordinates.x] = 3;
                             break;
                         case -180:
@@ -72,7 +79,19 @@ public class SaveScript : MonoBehaviour
                             break;
                     }
 
+                    if (block.placeable)
+                    {
+                        var placeable = new levelsLevelPlaceable();
+                        placeable.posX = (byte)block.coordinates.x;
+                        placeable.posY = (byte)block.coordinates.y;
+                        placeable.posZ = (byte)block.coordinates.z;
+                        levels.level.placeables[p] = placeable;
+                        p++;
+
+                    }
+
                 }
+
                 levels.level.maps[y].mapline[z].value = string.Join(",", pos.Select(i => i.ToString()).ToArray());
                 levels.level.rotations[y].rotationline[z].value = string.Join(",", rot.Select(i => i.ToString()).ToArray());
 
@@ -81,67 +100,25 @@ public class SaveScript : MonoBehaviour
             z = 0;
             y++;
         }
+        levels.level.maps[0].placementpoints = (byte)placementPointsValue;
+        for (int i = 0; i < enemycontainerdetails.Length; i++)
+        {
+            var enemy = new levelsLevelEnemy();
+            var enemyDetails = enemycontainerdetails[i];
 
-
-
-
-        //foreach (BlockScript block in bContainerOrdered)
-        //{
-
-        //   if(block.coordinates.z > z )
-        //    {
-        //        levels.level.maps[y].mapline[z].value = string.Join(", ", tempblocks.Select(i => i.ToString()).ToArray());
-        //        levels.level.rotations[y].rotationline[z].value = string.Join(", ", tempblocksrotations.Select(i => i.ToString()).ToArray());
-
-        //        z++;
-        //        levels.level.maps[y].mapline[z] = new levelsLevelMapMapline();
-        //        levels.level.rotations[y].rotationline[z] = new levelsLevelRotationRotationline();
-
-        //        tempblocks = new int[x];
-        //        tempblocksrotations = new int[x];
-        //        for (int i = 0; i < tempblocks.Length; i++) tempblocks[i] = -1;
-        //    }
-        //    if (block.coordinates.y > y)
-        //    {
-        //        levels.level.maps[y].mapline[z].value = string.Join(", ", tempblocks.Select(i => i.ToString()).ToArray());
-        //        levels.level.rotations[y].rotationline[z].value = string.Join(", ", tempblocksrotations.Select(i => i.ToString()).ToArray());
-
-        //        y++;
-
-        //        levels.level.maps[y] = new levelsLevelMap();
-        //        levels.level.maps[y].mapline = maplines;
-
-        //        levels.level.rotations[y] = new levelsLevelRotation();
-        //        levels.level.rotations[y].rotationline = rotationlines;
-
-        //        tempblocks = new int[x];
-        //        tempblocksrotations = new int[x];
-        //        for (int i = 0; i < tempblocks.Length; i++) tempblocks[i] = -1;
-        //    }
-
-        //    tempblocks[(int)block.coordinates.x] = block.blockType;
-        //    switch ((int)block.transform.eulerAngles.y)
-        //    {
-        //        case 90:
-        //            tempblocksrotations[(int)block.coordinates.x] = 1;
-        //            break;
-        //        case 180:
-        //            tempblocksrotations[(int)block.coordinates.x] = 2;
-        //            break;
-        //        case -90:
-        //            tempblocksrotations[(int)block.coordinates.x] = 3;
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
-
-        //levels.level.maps[y].mapline[z].value = string.Join(", ", tempblocks.Select(i => i.ToString()).ToArray());
-        //levels.level.rotations[y].rotationline[z].value = string.Join(", ", tempblocksrotations.Select(i => i.ToString()).ToArray());
-
+            enemy.id = (byte)i;
+            enemy.name = enemyDetails.name;
+            enemy.type = (byte)enemyDetails.type;
+            enemy.posX = (byte)enemyDetails.floor.coordinates.x;
+            enemy.posY = (byte)(enemyDetails.floor.coordinates.y);
+            enemy.posZ = (byte)enemyDetails.floor.coordinates.z;
+            enemy.behaviour = (byte)0;
+            enemy.linkedUnits = "";
+            levels.level.enemies[i] = enemy;
+        }
 
         var serializer = new XmlSerializer(typeof(levels));
-        var stream = new FileStream("./Assets/Levels/test.xml", FileMode.Create);
+        var stream = new FileStream("./Assets/Levels/" + levelName.text + ".xml", FileMode.Create);
         serializer.Serialize(stream, levels);
         stream.Close();
     }
