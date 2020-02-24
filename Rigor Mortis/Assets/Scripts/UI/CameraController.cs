@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector3 movementSpeed = new Vector3(25, 1, 25);
     [SerializeField] private Vector2 rotationSpeed = new Vector2(0.1f, 1f);
     [SerializeField] private int minXRotation, maxXRotation;
-    
+    public Dictionary<Vector2, float> yPositionDict;
     private float boomLerp = 0f;
     private Vector3 posColliderExtents, negColliderExtents, maxBoomLength, minBoomLength, previousMousePos;
 
@@ -20,6 +20,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         GridManager.mapGenerated += GenerateCameraBoundary;
+        yPositionDict = new Dictionary<Vector2, float>();
         _camera = GetComponent<Camera>();
         maxBoomLength = transform.localPosition;
         minBoomLength = transform.localPosition * 0.1f;
@@ -37,10 +38,28 @@ public class CameraController : MonoBehaviour
         posColliderExtents = topLeft.gameObject.transform.position;
         negColliderExtents = bottomRight.gameObject.transform.position;
 
+
+        foreach (var tile in e)
+        {
+            var position = new Vector2(tile.coordinates.x, tile.coordinates.z);
+
+            if(yPositionDict.ContainsKey(position))
+            {
+                var current = yPositionDict[position];
+                if (tile.transform.position.y > current)
+                    yPositionDict[position] = tile.transform.position.y;
+            }
+            else
+            {
+                yPositionDict.Add(position, tile.transform.position.y);
+            }
+        }
+
         if (mapOrdered.Any(s => s.placeable))
             boomArm.transform.position = mapOrdered.First(t => t.placeable).transform.position;
         else
             boomArm.transform.position = mapOrdered.First().transform.position;
+
 
     }
 
@@ -56,7 +75,7 @@ public class CameraController : MonoBehaviour
             if (boomLerp - 0.01f >= 0)
                 boomLerp -= 0.01f;
             else if (liftCamera > 0)
-            {                
+            {
                 boomArm.transform.Rotate(new Vector3(liftCamera, 0, 0), Space.Self);
             }
         }
@@ -69,8 +88,6 @@ public class CameraController : MonoBehaviour
                 boomArm.transform.Rotate(new Vector3(liftCamera, 0, 0), Space.Self);
             else if (boomLerp - 0.01f >= 0)
                 boomLerp -= 0.01f;
-
-
         }
     }
 
@@ -137,17 +154,17 @@ public class CameraController : MonoBehaviour
     private void MoveCamera()
     {
         var x = Input.GetAxis("Horizontal");
-        var y = Input.GetAxis("Vertical");
+        var z = Input.GetAxis("Vertical");
 
         //Debug.Log("Sin(" + (int)boomArm.transform.rotation.eulerAngles.y + ")" + Mathf.Sin((int)boomArm.transform.rotation.eulerAngles.y));
 
 
-        var testX = (Mathf.Sin(boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * y) + (Mathf.Cos(-boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * x);
-        var testY = (Mathf.Cos(boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * y) + (Mathf.Sin(-boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * x);
+        var testX = (Mathf.Sin(boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * z) + (Mathf.Cos(-boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * x);
+        var testY = (Mathf.Cos(boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * z) + (Mathf.Sin(-boomArm.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * x);
 
         var xInput = (testX * movementSpeed.x * Time.deltaTime) + boomArm.transform.position.x;
         var yInput = (testY * movementSpeed.z * Time.deltaTime) + boomArm.transform.position.z;
-       
+
 
         if (xInput <= posColliderExtents.x)
             xInput = posColliderExtents.x;
@@ -159,6 +176,61 @@ public class CameraController : MonoBehaviour
         else if (yInput >= negColliderExtents.z)
             yInput = negColliderExtents.z;
 
-        boomArm.transform.position = new Vector3(xInput, boomArm.transform.position.y, yInput);
+        var y = boomArm.transform.position.y;
+
+        var rawPosition = new Vector2(boomArm.transform.position.x, boomArm.transform.position.z);
+        var currentPosition = new Vector2((int)rawPosition.x, (int)rawPosition.y);
+
+        if (yPositionDict.ContainsKey(currentPosition))
+        {
+            y = yPositionDict[currentPosition];
+            Vector2 lerpYPosition = currentPosition;
+
+            //Edit the value of the lerpYPosition to a connecting block
+            if (currentPosition.x > boomArm.transform.position.x)
+                lerpYPosition.x++;
+            else if (currentPosition.x < boomArm.transform.position.x)
+                lerpYPosition.x--;
+
+            if (currentPosition.y > boomArm.transform.position.z)
+                lerpYPosition.y++;
+            else if (currentPosition.y < boomArm.transform.position.z)
+                lerpYPosition.y--;
+
+
+            //Ensures that a lerpYPosition is a valid key
+            if (yPositionDict.ContainsKey(lerpYPosition) == false)
+            {
+                if (yPositionDict.ContainsKey(new Vector2(lerpYPosition.x, currentPosition.y)))
+                {
+                    lerpYPosition = new Vector2(lerpYPosition.x, currentPosition.y);
+                }
+                else if (yPositionDict.ContainsKey(new Vector2(currentPosition.x, lerpYPosition.y)))
+                {
+                    lerpYPosition = new Vector2(currentPosition.x, lerpYPosition.y);
+                }
+                else
+                    lerpYPosition = currentPosition;
+            }
+
+            if(currentPosition != lerpYPosition)
+            {
+                float alpha;
+
+                if (currentPosition.magnitude > lerpYPosition.magnitude)
+                {
+                    alpha = (currentPosition - rawPosition).magnitude / ((currentPosition - lerpYPosition).magnitude);
+                }
+                else
+                {
+                    alpha = (lerpYPosition - rawPosition).magnitude / ((currentPosition - lerpYPosition).magnitude);
+                }
+
+                y = Mathf.Lerp(yPositionDict[currentPosition], yPositionDict[lerpYPosition], 1 - alpha);
+            }
+        }
+
+        boomArm.transform.position = new Vector3(xInput, y, yInput);
+
     }
 }

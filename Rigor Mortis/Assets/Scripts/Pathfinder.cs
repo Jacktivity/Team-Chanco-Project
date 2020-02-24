@@ -180,7 +180,7 @@ public class Pathfinder : MonoBehaviour
                 attackTiles.Add(tile);
             }
 
-            Debug.Log(tile.gameObject.name + ":" + string.Join(",", data.Select(s => s.collider.gameObject.name)));
+            //Debug.Log(tile.gameObject.name + ":" + string.Join(",", data.Select(s => s.collider.gameObject.name)));
         }
 
         return attackTiles.ToArray();
