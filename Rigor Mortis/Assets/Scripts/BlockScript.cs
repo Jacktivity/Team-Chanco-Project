@@ -231,11 +231,6 @@ public class BlockScript : MonoBehaviour
         else
             borderWest.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
     }
-
-    public void Update()
-    {
-
-    }
 }
 
 public enum Directions

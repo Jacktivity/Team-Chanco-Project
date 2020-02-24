@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
     {
         boomArm = transform.parent;
         GridManager.mapGenerated += GenerateCameraBoundary;
+
         yPositionDict = new Dictionary<Vector2, float>();
         _camera = GetComponent<Camera>();
         maxBoomLength = transform.localPosition;

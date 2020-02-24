@@ -98,7 +98,7 @@ public class GridManager : MonoBehaviour
             enemySpawned -= (del as EventHandler<EnemySpawn>);
         }
 
-        var map = mapGenerated.GetInvocationList();
+        var map = mapGenerated?.GetInvocationList() ?? new Delegate[0]; //TODO Look into why this throws an error on ocassion when unloading level
         foreach (var del in map)
         {
             mapGenerated -= (del as EventHandler<BlockScript[]>);

@@ -585,6 +585,8 @@ public class UIManager : MonoBehaviour
                 case GameStates.playerTurn:
                     currentState = GameStates.playerTurn;
 
+                    AudioController.audioEventHandler?.Invoke(this, new AudioEvent(audioTransition: true, transitionTime: 5f));
+
                     SetPrepCanvas( false );
                     SetBattleCanvas( true );
                     SetFixedCanvas( true );
