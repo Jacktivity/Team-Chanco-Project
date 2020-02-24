@@ -29,6 +29,8 @@ public class BlockScript : MonoBehaviour
     public BlockScript[] UnoccupiedAdjacentTiles() => AdjacentTiles().Where(t => t.Occupied == false).ToArray();
     public BlockScript[] AdjacentTiles() => new GameObject[] { N, E, S, W }.Where(s => s != null).Select(go => go.GetComponent<BlockScript>()).ToArray();
     public Color Normal => normal;
+
+    public GameObject[] blockPrefabs = new GameObject[5];
     
     // Start is called before the first frame update
     void Start()
@@ -73,6 +75,8 @@ public class BlockScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        var blockMeshes = blockPrefabs.Select(b => b.GetComponent<MeshRenderer>()).ToArray(); ;
+
         GameObject contact = collision.gameObject;
 
         if (contact.transform.position.y == gameObject.transform.position.y + 1 && 
@@ -149,7 +153,55 @@ public class BlockScript : MonoBehaviour
                 default:
                     break;
             }
-           
+
+            
+            foreach(var item in blockMeshes) { item.enabled = false;};
+
+            if(N && E && W && S)
+            {
+                blockMeshes[0].enabled = true;
+            }
+            else if(S && W && N)
+            {
+                blockMeshes[3].enabled = true;
+                blockMeshes[3].transform.eulerAngles = new Vector3(0, 90, 0);
+            }
+            else if (S && E && N)
+            {
+                blockMeshes[3].enabled = true;
+                blockMeshes[3].transform.eulerAngles = new Vector3(0, 270, 0);
+            }
+            else if (S && E && W)
+            {
+                blockMeshes[3].enabled = true;
+            }
+            else if (N && E && W)
+            {
+                blockMeshes[3].enabled = true;
+                blockMeshes[3].transform.eulerAngles = new Vector3(0, 180, 0);
+            }
+            else if(S && E)
+            {
+                blockMeshes[1].enabled = true;
+                blockMeshes[1].transform.eulerAngles = new Vector3(0, 270, 0);
+            }
+            else if (S && W)
+            {
+                blockMeshes[1].enabled = true;
+            }
+            else if(N && E)
+            {
+                blockMeshes[2].enabled = true;
+                blockMeshes[2].transform.eulerAngles = new Vector3(0, 270, 0);
+            }
+            else if(N && W)
+            {
+                blockMeshes[2].enabled = true;
+                blockMeshes[2].transform.eulerAngles = new Vector3(0, 180, 0);
+            } else
+            {
+                blockMeshes[4].enabled = true;
+            }
         }
 
         if (gameObject.tag == "Floor-Transition" && (contact.tag == "Floor" || contact.tag == "Floor-Transition"))
@@ -240,6 +292,11 @@ public class BlockScript : MonoBehaviour
             borderWest.material.color = colour;
         else
             borderWest.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
+    }
+
+    public void Update()
+    {
+       
     }
 }
 

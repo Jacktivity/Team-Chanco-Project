@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Alpha:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 9074eaa2a45a9594e8d42d789b6e95be, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -42,7 +46,7 @@ Material:
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 3c80981eef29454469ee944546953ca6, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: 1, y: 1}
     - _MetalRoughAO:
         m_Texture: {fileID: 2800000, guid: 14a0b63ffb774ba438a42a4c51e68670, type: 3}
         m_Scale: {x: 1, y: 1}

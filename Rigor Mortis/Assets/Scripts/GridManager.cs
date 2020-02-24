@@ -170,6 +170,10 @@ public class GridManager : MonoBehaviour
                     tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);
                     tile.name = tile.name.Replace("(Clone)", "");
                     tile.name = tile.name + '(' + pos.XPos + ','+ pos.YPos+ ',' + pos.ZPos + ')';
+
+
+                    tile.GetComponent<MeshRenderer>().material = new Material(Shader.Find("Shader Forge/SH_Environment"));
+                    tile.GetComponent<MeshRenderer>().material.mainTextureOffset = new Vector2(tile.GetComponent<BlockScript>().coordinates.x, tile.GetComponent<BlockScript>().coordinates.z);
                 }
                 BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
             }
