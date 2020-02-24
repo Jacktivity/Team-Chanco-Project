@@ -94,6 +94,11 @@ public class UIManager : MonoBehaviour
     private void OnDestroy()
     {
         gameStateChange -= GameStateChanged;
+        var atkBtnDel = ChooseAttackButton.attackChosen.GetInvocationList();
+        foreach (var del in atkBtnDel)
+        {
+            ChooseAttackButton.attackChosen -= (del as EventHandler<ChooseAttackButton.CharacterAttack>);
+        }
     }
 
     private void CreateFloatingText(object sender, SpawnFloatingTextEventArgs e)
