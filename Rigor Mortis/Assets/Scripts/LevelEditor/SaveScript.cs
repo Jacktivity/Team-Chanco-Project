@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class SaveScript : MonoBehaviour
 {
     levels levels = new levels();
-    levelsLevel level = new levelsLevel();
     public Slider placementPoints;
     public Text levelName;
     public GameObject blockcontainer, enemycontainer;
@@ -25,11 +24,12 @@ public class SaveScript : MonoBehaviour
         var maxZ = (int)blockdetailsContainer.Max(b => b.coordinates.z) +1;
         var maxX = (int)blockdetailsContainer.Max(b => b.coordinates.x) +1;
 
-        levels.level = level;
-        levels.level.maps = new levelsLevelMap[maxY];
-        levels.level.rotations = new levelsLevelRotation[maxY];
-        levels.level.enemies = new levelsLevelEnemy[enemycontainerdetails.Length];
-        levels.level.placeables = new levelsLevelPlaceable[placeableDetails.Length];
+        levels.maps = new levelsMaps();
+        levels.maps.map = new levelsMapsMap[maxY];
+        levels.rotations = new levelsRotation[maxY];
+        levels.enemies = new levelsEnemy[enemycontainerdetails.Length];
+        levels.placeables = new levelsPlaceable[placeableDetails.Length];
+        levels.maps.placementpoints = (byte)placementPointsValue;
 
         int y = 0;
         int z = 0;
@@ -37,18 +37,18 @@ public class SaveScript : MonoBehaviour
 
         while(y < maxY)
         {
-            levels.level.maps[y] = new levelsLevelMap();
-            levels.level.maps[y].layer = (byte)y;
-            levels.level.maps[y].mapline = new levelsLevelMapMapline[(int)maxZ];
-            levels.level.rotations[y] = new levelsLevelRotation();
-            levels.level.rotations[y].rotationline = new levelsLevelRotationRotationline[(int)maxZ];
+            levels.maps.map[y] = new levelsMapsMap();
+            levels.maps.map[y].layer = (byte)y;
+            levels.maps.map[y].mapline = new levelsMapsMapMapline[(int)maxZ];
+            levels.rotations[y] = new levelsRotation();
+            levels.rotations[y].rotationline = new levelsRotationRotationline[(int)maxZ];
             while (z < maxZ)
             {
                 var pos = new int[maxX];
                 var rot = new int[maxX];
 
-                levels.level.maps[y].mapline[z] = new levelsLevelMapMapline();
-                levels.level.rotations[y].rotationline[z] = new levelsLevelRotationRotationline();
+                levels.maps.map[y].mapline[z] = new levelsMapsMapMapline();
+                levels.rotations[y].rotationline[z] = new levelsRotationRotationline();
 
                 var row = blockdetailsContainer
                 .Where(b => b.coordinates.z == z && b.coordinates.y == y)
@@ -81,29 +81,28 @@ public class SaveScript : MonoBehaviour
 
                     if (block.placeable)
                     {
-                        var placeable = new levelsLevelPlaceable();
+                        var placeable = new levelsPlaceable();
                         placeable.posX = (byte)block.coordinates.x;
                         placeable.posY = (byte)block.coordinates.y;
                         placeable.posZ = (byte)block.coordinates.z;
-                        levels.level.placeables[p] = placeable;
+                        levels.placeables[p] = placeable;
                         p++;
 
                     }
 
                 }
 
-                levels.level.maps[y].mapline[z].value = string.Join(",", pos.Select(i => i.ToString()).ToArray());
-                levels.level.rotations[y].rotationline[z].value = string.Join(",", rot.Select(i => i.ToString()).ToArray());
+                levels.maps.map[y].mapline[z].value = string.Join(",", pos.Select(i => i.ToString()).ToArray());
+                levels.rotations[y].rotationline[z].value = string.Join(",", rot.Select(i => i.ToString()).ToArray());
 
                 z++;
             }
             z = 0;
             y++;
         }
-        levels.level.maps[0].placementpoints = (byte)placementPointsValue;
         for (int i = 0; i < enemycontainerdetails.Length; i++)
         {
-            var enemy = new levelsLevelEnemy();
+            var enemy = new levelsEnemy();
             var enemyDetails = enemycontainerdetails[i];
 
             enemy.id = (byte)i;
@@ -114,7 +113,7 @@ public class SaveScript : MonoBehaviour
             enemy.posZ = (byte)enemyDetails.floor.coordinates.z;
             enemy.behaviour = (byte)0;
             enemy.linkedUnits = "";
-            levels.level.enemies[i] = enemy;
+            levels.enemies[i] = enemy;
         }
 
         var serializer = new XmlSerializer(typeof(levels));
