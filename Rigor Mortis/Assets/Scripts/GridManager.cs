@@ -200,6 +200,7 @@ public class GridManager : MonoBehaviour
                     tile.name = tile.name.Replace("(Clone)", "");
                     tile.name = tile.name + '(' + pos.XPos + ','+ pos.YPos+ ',' + pos.ZPos + ')';
 
+
                     var sBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(0, 0, -1));
                     if (sBlock != null)
                     {
@@ -233,6 +234,11 @@ public class GridManager : MonoBehaviour
                 BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
             }
         }
+
+        //foreach (var ramp in Map.Where(t => t.tag == "Floor-Transition"))
+        //{
+
+        //}
     }
 
     public void nextUnit()

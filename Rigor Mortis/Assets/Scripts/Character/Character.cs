@@ -154,7 +154,7 @@ public class Character : MonoBehaviour
                 counterTime);
 
 
-            var angle = previousBlock.Location() - moveToBlock.Location();
+            var angle = moveToBlock.Location() - previousBlock.Location();
 
             transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.z), counterTime);
             
