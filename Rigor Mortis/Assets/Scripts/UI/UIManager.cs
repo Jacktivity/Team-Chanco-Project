@@ -56,8 +56,6 @@ public class UIManager : MonoBehaviour
     public Text scorePointsText;
     public Text placementText;
 
-    [SerializeField]GameObject apRightArrow, apLeftArrow;
-
     public static EventHandler<SpawnFloatingTextEventArgs> createFloatingText;
 
     public enum GameStates
@@ -93,6 +91,7 @@ public class UIManager : MonoBehaviour
     
     private void OnDestroy()
     {
+        createFloatingText -= CreateFloatingText;
         gameStateChange -= GameStateChanged;
         var atkBtnDel = ChooseAttackButton.attackChosen.GetInvocationList();
         foreach (var del in atkBtnDel)
@@ -192,7 +191,6 @@ public class UIManager : MonoBehaviour
         } else {
             ResetPanelSize();
             ShrinkButtons();
-            ResetArrows();
         }
     }
 
@@ -305,7 +303,6 @@ public class UIManager : MonoBehaviour
                 ExpandPanel();
             } else {
                 ResetPanelSize();
-                ResetArrows();
             }
         } else if (character.CanMove) {
             MakeMoveButton( new Vector3( (buttonSpace / 2), 0, 0 ), character );
@@ -341,14 +338,6 @@ public class UIManager : MonoBehaviour
         {
             button.transform.position = new Vector3(button.transform.position.x - (((buttonSpace / 2) * amountOver) * battleCanvas.scaleFactor), button.transform.position.y, button.transform.position.z);
         }
-
-        ResetArrows();
-    }
-
-    void ResetArrows()
-    {
-        apLeftArrow.transform.localPosition = new Vector3(-attackPanel.GetComponent<RectTransform>().rect.width * 0.45f, apLeftArrow.transform.localPosition.y, apLeftArrow.transform.localPosition.z);
-        apRightArrow.transform.localPosition = new Vector3(attackPanel.GetComponent<RectTransform>().rect.width * 0.45f, apRightArrow.transform.localPosition.y, apRightArrow.transform.localPosition.z);
     }
 
     public void ResetAPButtons(bool increment) {
@@ -363,64 +352,6 @@ public class UIManager : MonoBehaviour
             } else {
                 button.SetActive(true);
             }
-        }
-    }
-
-    public void IncrementAPButtons() {
-        if (popUpButtons.Count() > 0 && activePopUpButtons[activePopUpButtons.Count-1] != popUpButtons[popUpButtons.Count-1]) {
-            int i = 0;
-            for(int j = 1; j < popUpButtons.Count() + 1; j++) {
-                if (activePopUpButtons.Contains( popUpButtons[j - 1] )) {
-                    activePopUpButtons.Remove( popUpButtons[j - 1] );
-                    i = j;
-                }
-            }
-            if (i < popUpButtons.Count() && i != 0 || activePopUpButtons.Count < maxButtons) {
-                i -= maxButtons;
-                for (int k = 0; k < maxButtons; k++) {
-                    i++;
-                    if (i < popUpButtons.Count) {
-                        activePopUpButtons.Add( popUpButtons[i] );
-                    }
-                }
-                ResetAPButtons(true);
-            }
-        }
-
-        if(activePopUpButtons[0] != popUpButtons[0]) {
-            apLeftArrow.SetActive( true );
-        }
-        if(activePopUpButtons[activePopUpButtons.Count - 1] == popUpButtons[popUpButtons.Count - 1]) {
-            apRightArrow.SetActive(false);
-        }
-    }
-
-    public void DecrementAPButtons() {
-        if (popUpButtons.Count() > 0 && activePopUpButtons[0] != popUpButtons[0]) {
-            int i = 0;
-            for (int j = 1; j < popUpButtons.Count() + 1; j++) {
-                if (activePopUpButtons.Contains( popUpButtons[j - 1] )) {
-                    activePopUpButtons.Remove( popUpButtons[j - 1] );
-                    i = j;
-                }
-            }
-            if (i < popUpButtons.Count() && i != 0 || activePopUpButtons.Count < maxButtons) {
-                i -= maxButtons+2;
-                for (int k = 0; k < maxButtons; k++) {
-                    i++;
-                    if (i < popUpButtons.Count) {
-                        activePopUpButtons.Add( popUpButtons[i] );
-                    }
-                }
-                ResetAPButtons( false );
-            }
-        }
-
-        if(activePopUpButtons[0] == popUpButtons[0]) {
-            apLeftArrow.SetActive( false );
-        }
-        if (activePopUpButtons[activePopUpButtons.Count - 1] != popUpButtons[popUpButtons.Count - 1]) {
-            apRightArrow.SetActive( true );
         }
     }
 

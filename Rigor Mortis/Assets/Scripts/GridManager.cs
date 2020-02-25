@@ -103,6 +103,12 @@ public class GridManager : MonoBehaviour
         {
             mapGenerated -= (del as EventHandler<BlockScript[]>);
         }
+
+        var atkEvtDel = Character.attackEvent.GetInvocationList();
+        foreach (var del in atkEvtDel)
+        {
+            Character.attackEvent -= (del as EventHandler<AttackEventArgs>);
+        }
     }
 
     public void TurnEndedEvent(object sender, EventArgs e)
