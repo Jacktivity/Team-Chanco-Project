@@ -1,5 +1,5 @@
 <levels>
-    <maps placementpoints ="70" objective = "">
+    <maps placementpoints="70" objective="">
       <map layer ="0">
         <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>

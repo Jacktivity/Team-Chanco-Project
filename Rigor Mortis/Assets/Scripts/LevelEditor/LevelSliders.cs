@@ -32,7 +32,7 @@ public class LevelSliders : MonoBehaviour
     {
         xText.text = "X: " + xSlider.value.ToString();
         zText.text = "Z: " + zSlider.value.ToString();
-        pText.text = "Placement Points: " + pSlider.value.ToString();
+        pText.text = "Player Points: " + (pSlider.value * 5).ToString();
 
     }
 
