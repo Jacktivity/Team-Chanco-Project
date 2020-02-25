@@ -40,15 +40,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emissive:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 178c77524d36a7f4ab7b83baff6a70da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d81bfe79a0bd0f5438aa0fb777d844f2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 178c77524d36a7f4ab7b83baff6a70da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetalRoughAO:
-        m_Texture: {fileID: 2800000, guid: c5775f42773fbd14d8ee66d3ffedfb6a, type: 3}
+        m_Texture: {fileID: 2800000, guid: b401fe4b5ca13694ca2a13cd1bf7905f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
