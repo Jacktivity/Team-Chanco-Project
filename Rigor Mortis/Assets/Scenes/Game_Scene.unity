@@ -1283,13 +1283,6 @@ MonoBehaviour:
   sprintTiles: []
   gridManager: {fileID: 1469572276}
   uiManager: {fileID: 109319797}
-  attackSFX:
-  - {fileID: 8300000, guid: 52bfc91e24af4724ab7eabd8eca86dae, type: 3}
-  - {fileID: 8300000, guid: 9e1e130f791d78c4f8fb6b30f2b7ba33, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   unitList: []
   activeEnemyNecromancers: []
   activePlayerNecromancers: []
