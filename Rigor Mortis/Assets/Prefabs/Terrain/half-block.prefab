@@ -323,6 +323,12 @@ MonoBehaviour:
   W: {fileID: 0}
   NW: {fileID: 0}
   occupier: {fileID: 0}
+  blockPrefabs:
+  - {fileID: 5226057197208204854}
+  - {fileID: 5226057197208204854}
+  - {fileID: 5226057197208204854}
+  - {fileID: 5226057197208204854}
+  - {fileID: 5226057197208204854}
 --- !u!1 &5261434320455237496
 GameObject:
   m_ObjectHideFlags: 0
