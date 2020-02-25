@@ -142,71 +142,71 @@ public class BlockScript : MonoBehaviour
             }
         }
 
-        //if (gameObject.tag == "Floor-Transition" && (contact.tag == "Floor" || contact.tag == "Floor-Transition"))
-        //{
-        //    Vector3 newCoord = coordinates - contact.GetComponent<BlockScript>().coordinates;
-        //    var contactBlock = contact.GetComponent<BlockScript>();
-        //    var direction = gameObject.transform.eulerAngles.y / 90;
+        if (gameObject.tag == "Floor-Transition" && (contact.tag == "Floor" || contact.tag == "Floor-Transition"))
+        {
+            Vector3 newCoord = coordinates - contact.GetComponent<BlockScript>().coordinates;
+            var contactBlock = contact.GetComponent<BlockScript>();
+            var direction = gameObject.transform.eulerAngles.y / 90;
 
-        //    switch ((int)newCoord.z)
-        //    {
-        //        case 0:
-        //            switch ((int)newCoord.x)
-        //            {
-        //                case -1:
-        //                    if ((direction == 3 && (contact.transform.position.y == gameObject.transform.position.y || contact.transform.position.y == gameObject.transform.position.y +1) ||
-        //                        direction == 1 && contact.transform.position.y == gameObject.transform.position.y - 1) && E == null)
-        //                    {
-        //                        E = contact;
-        //                        contactBlock.W = gameObject;
-        //                    }
-        //                    break;
-        //                case 1:
-        //                    if ((direction == 1 && (contact.transform.position.y == gameObject.transform.position.y || contact.transform.position.y == gameObject.transform.position.y + 1) ||
-        //                        direction == 3 && contact.transform.position.y == gameObject.transform.position.y - 1) && W == null)
-        //                    {
-        //                        W = contact;
-        //                        contactBlock.E = gameObject;
-        //                    }
-        //                    break;
-        //                default:
-        //                    break;
-        //            }
-        //            break;
-        //        case -1:
-        //            switch ((int)newCoord.x)
-        //            {
-        //                case 0:
-        //                    if ((direction == 2 && (contact.transform.position.y == gameObject.transform.position.y || contact.transform.position.y == gameObject.transform.position.y + 1) ||
-        //                        direction == 0 && contact.transform.position.y == gameObject.transform.position.y -1) && N == null)
-        //                    {
-        //                        N = contact;
-        //                        contactBlock.S = gameObject;
-        //                    }
-        //                    break;
-        //                default:
-        //                    break;
-        //            }
-        //            break;
-        //        case 1:
-        //            switch ((int)newCoord.x)
-        //            {
-        //                case 0:
-        //                    if ((direction == 0 && (contact.transform.position.y == gameObject.transform.position.y || contact.transform.position.y == gameObject.transform.position.y + 1) ||
-        //                        direction == 2 && contact.transform.position.y == gameObject.transform.position.y - 1) && S == null)
-        //                    {
-        //                        S = contact;
-        //                        contactBlock.N = gameObject;
-        //                    }
-        //                    break;
-        //                default:
-        //                    break;
-        //            }
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
+            switch ((int)newCoord.z)
+            {
+                case 0:
+                    switch ((int)newCoord.x)
+                    {
+                        case -1:
+                            if ((direction == 3 && (contact.transform.position.y == gameObject.transform.position.y || contact.transform.position.y == gameObject.transform.position.y + 1) ||
+                                direction == 1 && contact.transform.position.y == gameObject.transform.position.y - 1) && E == null)
+                            {
+                                E = contact;
+                                contactBlock.W = gameObject;
+                            }
+                            break;
+                        case 1:
+                            if ((direction == 1 && (contact.transform.position.y == gameObject.transform.position.y || contact.transform.position.y == gameObject.transform.position.y + 1) ||
+                                direction == 3 && contact.transform.position.y == gameObject.transform.position.y - 1) && W == null)
+                            {
+                                W = contact;
+                                contactBlock.E = gameObject;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case -1:
+                    switch ((int)newCoord.x)
+                    {
+                        case 0:
+                            if ((direction == 2 && (contact.transform.position.y == gameObject.transform.position.y || contact.transform.position.y == gameObject.transform.position.y + 1) ||
+                                direction == 0 && contact.transform.position.y == gameObject.transform.position.y - 1) && N == null)
+                            {
+                                N = contact;
+                                contactBlock.S = gameObject;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch ((int)newCoord.x)
+                    {
+                        case 0:
+                            if ((direction == 0 && (contact.transform.position.y == gameObject.transform.position.y || contact.transform.position.y == gameObject.transform.position.y + 1) ||
+                                direction == 2 && contact.transform.position.y == gameObject.transform.position.y - 1) && S == null)
+                            {
+                                S = contact;
+                                contactBlock.N = gameObject;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void SetHighlightColour(Color colour) => SetHighlightColour(colour, new Directions[0]);

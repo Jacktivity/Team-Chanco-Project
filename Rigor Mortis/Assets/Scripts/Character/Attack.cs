@@ -37,8 +37,9 @@ public class Attack
     public bool Piercing { get; private set; }
     public bool PassAllies { get; private set; }
     public int AttackID { get; private set; }
+    public int SFX { get; private set; }
 
-    public Attack(int attackID, int atkRange, float accuracy, string name, Dice physicalDmg = null, Dice magicDmg = null, int atkArea = 0, bool targetEmptyTiles = false, int manaCost = 0, bool piercing = false, bool throughAllies = false)
+    public Attack(int attackID, int atkRange, float accuracy, string name, Dice physicalDmg = null, Dice magicDmg = null, int atkArea = 0, bool targetEmptyTiles = false, int manaCost = 0, bool piercing = false, bool throughAllies = false, int sfx = 0)
     {
         AttackID = attackID;
         PhysicalDamage = physicalDmg;
@@ -51,6 +52,7 @@ public class Attack
         Mana = manaCost;
         Piercing = piercing;
         PassAllies = throughAllies;
+        SFX = sfx;
     }
 
     public Damage RollDamage()
