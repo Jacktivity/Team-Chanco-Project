@@ -3,17 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class UnitSliders : MonoBehaviour
 {
     public Character unit;
-    public Slider slider;
+    public Slider healthSlider;
+    public Slider manaSlider;
     public Vector3 offset;
+
+    bool manaEnabled = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        slider.maxValue = unit.GetHealth;
-        slider.value = unit.GetHealth;
+        healthSlider.maxValue = unit.GetHealth;
+        healthSlider.value = unit.GetHealth;
+
+        if(unit.maxManaPoints <= 0)
+        {
+            manaSlider.gameObject.SetActive(false);
+            manaEnabled = false;
+        } else
+        {
+            manaEnabled = true;
+            manaSlider.maxValue = unit.maxManaPoints;
+            manaSlider.value = unit.manaPoints;
+        }
+
         Offset();
     }
 
@@ -41,12 +56,12 @@ public class HealthBar : MonoBehaviour
                 offset.y = 1;
                 break;
         }
-        slider.transform.position = unit.transform.position + offset;        
+        healthSlider.transform.position = unit.transform.position + offset;
     }
 
     public void Update()
     {
-        slider.transform.position = unit.transform.position + offset;
-        slider.transform.LookAt(FindObjectOfType<Camera>().transform);
+        healthSlider.transform.position = unit.transform.position + offset;
+        healthSlider.transform.LookAt(FindObjectOfType<Camera>().transform);
     }
 }

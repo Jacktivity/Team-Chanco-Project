@@ -43,6 +43,20 @@ public class MainMenu : MonoBehaviour
         mainMenuStateChange?.Invoke(this, MainMenuStates.levelSelect);
     }
 
+    public void LevelEditorCanvasButton()
+    {
+        PersistantData.level = loadedScene;
+        PersistantData.levelAssigned = true;
+
+        if (!SceneManager.GetSceneByBuildIndex(1).isLoaded)
+        {
+            //SceneManager.LoadScene(1, LoadSceneMode.Additive);
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        }
+
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -74,9 +88,8 @@ public class MainMenu : MonoBehaviour
         PersistantData.level = loadedScene;
         PersistantData.levelAssigned = true;
 
-        if (!SceneManager.GetSceneByBuildIndex(1).isLoaded) {
-            //SceneManager.LoadScene(1, LoadSceneMode.Additive);
-            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        if (!SceneManager.GetSceneByBuildIndex(2).isLoaded) {
+            SceneManager.LoadScene(2, LoadSceneMode.Additive);
         }
 
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
@@ -85,7 +98,7 @@ public class MainMenu : MonoBehaviour
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
         mainMenuStateChange?.Invoke(this, MainMenuStates.quit);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(1));
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene.name));
     }
 
     private void MainMenuStateChanged(object sender, MainMenuStates state)
