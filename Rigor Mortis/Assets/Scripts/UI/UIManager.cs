@@ -551,7 +551,7 @@ public class UIManager : MonoBehaviour
 
         MainMenu.mainMenuStateChange?.Invoke(this, MainMenu.MainMenuStates.mainCanvas);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
-        SceneManager.UnloadSceneAsync(2, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+        SceneManager.UnloadSceneAsync(1, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
     }
 
     public void GameOverCheck()
