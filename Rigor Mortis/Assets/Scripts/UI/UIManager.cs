@@ -53,6 +53,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Text turnDisplay;
     public Text attackText, hitText, hitStatText, rangeText, rangeStatText, magicText, magicStatText, damageText, damageStatText;
+    public Text objectiveText;
     public Text scorePointsText;
     public Text placementText;
 
@@ -194,6 +195,17 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void SetObjectiveText()
+    {
+        if (gridManager.GetObjective() == 0) {
+            objectiveText.text = "Defeat All Enemies";
+        } else if(gridManager.GetObjective() == 1) {
+            objectiveText.text = "Defeat Enemy Commander";
+        } else if(gridManager.GetObjective() == 2) {
+            objectiveText.text = "Get To The Exit";
+        }
+    }
+
     private void EnableAPText(Attack atk)
     {
         hitText.enabled = true;
@@ -266,7 +278,7 @@ public class UIManager : MonoBehaviour
     public void EndTurn()
     {
         if (currentState == GameStates.playerTurn) {
-            foreach (Character unit in playerManager.unitList)
+            foreach (Character unit in playerManager.globalUnitList)
             {
                 if (unit.tag == "Player")
                 {
@@ -332,7 +344,7 @@ public class UIManager : MonoBehaviour
 
         attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2(amountOver * buttonSpace, 0);
         if (attackPanel.GetComponent<RectTransform>().sizeDelta.x < 350 && attackPanalShrinkButtons)
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
+            attackPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(attackPanelOriginalScale.x + 150, attackPanelOriginalScale.y);
 
         foreach (GameObject button in popUpButtons)
         {
@@ -483,22 +495,44 @@ public class UIManager : MonoBehaviour
         MainMenu.mainMenuStateChange?.Invoke(this, MainMenu.MainMenuStates.mainCanvas);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
         SceneManager.UnloadSceneAsync(2, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+
+        turnNumber = 0;
     }
 
     public void GameOverCheck()
     {
-        if (playerManager.activeEnemyNecromancers.Count <= 0)
-        {
-            //scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
-            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
-            gameOver = true;
+        if (gridManager.GetObjective() == 0) {
+            if (playerManager.activeEnemies.Count <= 0)
+            {
+                //scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
+                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
+                gameOver = true;
+            }
+            else if (playerManager.activePlayers.Count <= 0)
+            {
+                //scorePointsText.text = "Score: " + score.EndTurnLose();
+                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
+                gameOver = true;
+            }
+        } else if (gridManager.GetObjective() == 1) {
+            if (playerManager.activeEnemyNecromancers.Count <= 0)
+            {
+                //scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
+                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
+                gameOver = true;
+            }
+            else if (playerManager.activePlayerNecromancers.Count <= 0)
+            {
+                //scorePointsText.text = "Score: " + score.EndTurnLose();
+                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
+                gameOver = true;
+            }
+        } else if(gridManager.GetObjective() == 2) {
+
         }
-        else if (playerManager.activePlayerNecromancers.Count <= 0)
-        {
-            //scorePointsText.text = "Score: " + score.EndTurnLose();
-            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
-            gameOver = true;
-        }
+
+        if (gameOver)
+            turnNumber = 0;
     }
 
     //Set Canvas'

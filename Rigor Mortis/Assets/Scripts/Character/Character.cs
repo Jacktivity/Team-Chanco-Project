@@ -222,6 +222,10 @@ public class Character : MonoBehaviour
             {
                 playerManager.RemoveNecromancer(this);
                 uiManager.GameOverCheck();
+            } else
+            {
+                playerManager.RemoveUnit(this);
+                uiManager.GameOverCheck();
             }
             DestroyUnit();
         }

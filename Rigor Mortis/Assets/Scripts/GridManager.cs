@@ -80,6 +80,7 @@ public class GridManager : MonoBehaviour
         UIManager.gameStateChange += AIRunCheck;
 
         mapGenerated?.Invoke(this, Map);
+        SetObjective();
     }
     private void OnDestroy()
     {
@@ -429,6 +430,17 @@ public class GridManager : MonoBehaviour
         enemyAIContainer.MoveUnit(enemy.GetComponent<Character>());
 
         yield return new WaitForSeconds(1);
+    }
+
+    public void SetObjective()
+    {
+        uiManager.SetObjectiveText();
+    }
+
+    public int GetObjective()
+    {
+        string obj = xmlData.maps.objective;
+        return int.Parse(obj);
     }
 
     public int GetTurnNumber()
