@@ -53,10 +53,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Text turnDisplay;
     public Text attackText, hitText, hitStatText, rangeText, rangeStatText, magicText, magicStatText, damageText, damageStatText;
+    public Text objectiveText;
     public Text scorePointsText;
     public Text placementText;
-
-    [SerializeField]GameObject apRightArrow, apLeftArrow;
 
     public static EventHandler<SpawnFloatingTextEventArgs> createFloatingText;
 
@@ -90,9 +89,10 @@ public class UIManager : MonoBehaviour
 
         createFloatingText += CreateFloatingText;
     }
-    
+
     private void OnDestroy()
     {
+        createFloatingText -= CreateFloatingText;
         gameStateChange -= GameStateChanged;
         var atkBtnDel = ChooseAttackButton.attackChosen.GetInvocationList();
         foreach (var del in atkBtnDel)
@@ -192,7 +192,17 @@ public class UIManager : MonoBehaviour
         } else {
             ResetPanelSize();
             ShrinkButtons();
-            ResetArrows();
+        }
+    }
+
+    public void SetObjectiveText()
+    {
+        if (gridManager.GetObjective() == 0) {
+            objectiveText.text = "Defeat All Enemies";
+        } else if(gridManager.GetObjective() == 1) {
+            objectiveText.text = "Defeat Enemy Commander";
+        } else if(gridManager.GetObjective() == 2) {
+            objectiveText.text = "Get To The Exit";
         }
     }
 
@@ -268,7 +278,7 @@ public class UIManager : MonoBehaviour
     public void EndTurn()
     {
         if (currentState == GameStates.playerTurn) {
-            foreach (Character unit in playerManager.unitList)
+            foreach (Character unit in playerManager.globalUnitList)
             {
                 if (unit.tag == "Player")
                 {
@@ -305,7 +315,6 @@ public class UIManager : MonoBehaviour
                 ExpandPanel();
             } else {
                 ResetPanelSize();
-                ResetArrows();
             }
         } else if (character.CanMove) {
             MakeMoveButton( new Vector3( (buttonSpace / 2), 0, 0 ), character );
@@ -335,20 +344,12 @@ public class UIManager : MonoBehaviour
 
         attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2(amountOver * buttonSpace, 0);
         if (attackPanel.GetComponent<RectTransform>().sizeDelta.x < 350 && attackPanalShrinkButtons)
-            attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelOriginalScale;
+            attackPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(attackPanelOriginalScale.x + 150, attackPanelOriginalScale.y);
 
         foreach (GameObject button in popUpButtons)
         {
             button.transform.position = new Vector3(button.transform.position.x - (((buttonSpace / 2) * amountOver) * battleCanvas.scaleFactor), button.transform.position.y, button.transform.position.z);
         }
-
-        ResetArrows();
-    }
-
-    void ResetArrows()
-    {
-        apLeftArrow.transform.localPosition = new Vector3(-attackPanel.GetComponent<RectTransform>().rect.width * 0.45f, apLeftArrow.transform.localPosition.y, apLeftArrow.transform.localPosition.z);
-        apRightArrow.transform.localPosition = new Vector3(attackPanel.GetComponent<RectTransform>().rect.width * 0.45f, apRightArrow.transform.localPosition.y, apRightArrow.transform.localPosition.z);
     }
 
     public void ResetAPButtons(bool increment) {
@@ -363,64 +364,6 @@ public class UIManager : MonoBehaviour
             } else {
                 button.SetActive(true);
             }
-        }
-    }
-
-    public void IncrementAPButtons() {
-        if (popUpButtons.Count() > 0 && activePopUpButtons[activePopUpButtons.Count-1] != popUpButtons[popUpButtons.Count-1]) {
-            int i = 0;
-            for(int j = 1; j < popUpButtons.Count() + 1; j++) {
-                if (activePopUpButtons.Contains( popUpButtons[j - 1] )) {
-                    activePopUpButtons.Remove( popUpButtons[j - 1] );
-                    i = j;
-                }
-            }
-            if (i < popUpButtons.Count() && i != 0 || activePopUpButtons.Count < maxButtons) {
-                i -= maxButtons;
-                for (int k = 0; k < maxButtons; k++) {
-                    i++;
-                    if (i < popUpButtons.Count) {
-                        activePopUpButtons.Add( popUpButtons[i] );
-                    }
-                }
-                ResetAPButtons(true);
-            }
-        }
-
-        if(activePopUpButtons[0] != popUpButtons[0]) {
-            apLeftArrow.SetActive( true );
-        }
-        if(activePopUpButtons[activePopUpButtons.Count - 1] == popUpButtons[popUpButtons.Count - 1]) {
-            apRightArrow.SetActive(false);
-        }
-    }
-
-    public void DecrementAPButtons() {
-        if (popUpButtons.Count() > 0 && activePopUpButtons[0] != popUpButtons[0]) {
-            int i = 0;
-            for (int j = 1; j < popUpButtons.Count() + 1; j++) {
-                if (activePopUpButtons.Contains( popUpButtons[j - 1] )) {
-                    activePopUpButtons.Remove( popUpButtons[j - 1] );
-                    i = j;
-                }
-            }
-            if (i < popUpButtons.Count() && i != 0 || activePopUpButtons.Count < maxButtons) {
-                i -= maxButtons+2;
-                for (int k = 0; k < maxButtons; k++) {
-                    i++;
-                    if (i < popUpButtons.Count) {
-                        activePopUpButtons.Add( popUpButtons[i] );
-                    }
-                }
-                ResetAPButtons( false );
-            }
-        }
-
-        if(activePopUpButtons[0] == popUpButtons[0]) {
-            apLeftArrow.SetActive( false );
-        }
-        if (activePopUpButtons[activePopUpButtons.Count - 1] != popUpButtons[popUpButtons.Count - 1]) {
-            apRightArrow.SetActive( true );
         }
     }
 
@@ -551,23 +494,45 @@ public class UIManager : MonoBehaviour
 
         MainMenu.mainMenuStateChange?.Invoke(this, MainMenu.MainMenuStates.mainCanvas);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
-        SceneManager.UnloadSceneAsync(1, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+        SceneManager.UnloadSceneAsync(2, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+
+        turnNumber = 0;
     }
 
     public void GameOverCheck()
     {
-        if (playerManager.activeEnemyNecromancers.Count <= 0)
-        {
-            //scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
-            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
-            gameOver = true;
+        if (gridManager.GetObjective() == 0) {
+            if (playerManager.activeEnemies.Count <= 0)
+            {
+                //scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
+                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
+                gameOver = true;
+            }
+            else if (playerManager.activePlayers.Count <= 0)
+            {
+                //scorePointsText.text = "Score: " + score.EndTurnLose();
+                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
+                gameOver = true;
+            }
+        } else if (gridManager.GetObjective() == 1) {
+            if (playerManager.activeEnemyNecromancers.Count <= 0)
+            {
+                //scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
+                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
+                gameOver = true;
+            }
+            else if (playerManager.activePlayerNecromancers.Count <= 0)
+            {
+                //scorePointsText.text = "Score: " + score.EndTurnLose();
+                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
+                gameOver = true;
+            }
+        } else if(gridManager.GetObjective() == 2) {
+
         }
-        else if (playerManager.activePlayerNecromancers.Count <= 0)
-        {
-            //scorePointsText.text = "Score: " + score.EndTurnLose();
-            UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
-            gameOver = true;
-        }
+
+        if (gameOver)
+            turnNumber = 0;
     }
 
     //Set Canvas'
