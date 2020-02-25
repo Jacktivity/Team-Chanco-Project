@@ -16,7 +16,7 @@ public class Character : MonoBehaviour
 
     //0 = necromancer, 1 = skeleton, 2 = SteamingSkull, 3 = SpectralSkeleton, 4 = TombGuard
     #region statblock
-    public int ID, cost, maxHitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
+    public int ID, cost, maxHitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, maxManaPoints, manaPoints;
     #endregion
 
     [SerializeField] protected int currentHitPoints;
@@ -87,6 +87,7 @@ public class Character : MonoBehaviour
     private void Start()
     {
         currentHitPoints = maxHitPoints;
+        manaPoints = maxManaPoints;
     }
 
     public Attack[] UseableAttacks => attacks.Where(a => a.Mana <= manaPoints).ToArray();
@@ -229,7 +230,7 @@ public class Character : MonoBehaviour
         }
         else
         {
-            gameObject.GetComponent<HealthBar>().slider.value = currentHitPoints;
+            gameObject.GetComponent<UnitSliders>().healthSlider.value = currentHitPoints;
 
         }
     }
@@ -239,8 +240,8 @@ public class Character : MonoBehaviour
         floor.occupier = null;
         if(gameObject.tag != "Breakable_Terrain")
         {
-            gameObject.GetComponent<HealthBar>().slider.gameObject.SetActive(false);
-            Slider healthSlider = GetComponent<HealthBar>().slider;
+            gameObject.GetComponent<UnitSliders>().healthSlider.gameObject.SetActive(false);
+            Slider healthSlider = GetComponent<UnitSliders>().healthSlider;
             healthSlider.gameObject.SetActive(false);
         }
 

@@ -16,13 +16,14 @@ public class NecromancerCharacter : Character
         accuracy = 90;
         armour = 2;
         evade = 20;
-        manaPoints = 50;
+        maxManaPoints = 50;
         power = 8;
         resistance = 5;
         movementSpeed = 3;
         movemenSprint = 3;
 
         currentHitPoints = maxHitPoints;
+        manaPoints = maxManaPoints;
 
         attacks = new Attack[] {
             AttackLibrary.StaffWhack,

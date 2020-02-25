@@ -514,8 +514,9 @@ public class UIManager : MonoBehaviour
     public void InstantiateUIBars(Character unit) {
         Slider newSlider = Instantiate(healthBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
         healthBars.Add(newSlider);
-        unit.gameObject.AddComponent<HealthBar>().unit = unit;
-        unit.gameObject.GetComponent<HealthBar>().slider = newSlider;
+        unit.gameObject.AddComponent<UnitSliders>().unit = unit;
+        unit.gameObject.GetComponent<UnitSliders>().healthSlider = newSlider.GetComponent<Slider>();
+        unit.gameObject.GetComponent<UnitSliders>().manaSlider = newSlider.GetComponentsInChildren<Slider>()[1];
 
         //if (unit.tag == "Player")
         //{
