@@ -152,11 +152,10 @@ public class GridManager : MonoBehaviour
      * */
     void GenerateLevel()
     {
-        var level = xmlData.level;
-
-        foreach(var map in level.maps)
+        var level = xmlData;
+        placementPoints = xmlData.maps.placementpoints;
+        foreach(var map in level.maps.map)
         {
-            placementPoints += map.placementpoints;
             var rotationlines = level.rotations.ElementAt(map.layer).rotationline.SelectMany((r, x) => r.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
             var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, YPos = map.layer,XPos = x })).ToArray();
             var mythingy = rotationlines.Length;
@@ -196,7 +195,7 @@ public class GridManager : MonoBehaviour
 
     void PlaceEnemy()
     {
-        var enemies = xmlData.level.enemies;
+        var enemies = xmlData.enemies;
 
         foreach(var enemy in enemies)
         {
@@ -225,7 +224,7 @@ public class GridManager : MonoBehaviour
 
     void UnitPlacement()
     {
-        var placeables = xmlData.level.placeables;
+        var placeables = xmlData.placeables;
 
         var map = gameObject.GetComponentsInChildren<BlockScript>();
 
@@ -400,7 +399,6 @@ public class GridManager : MonoBehaviour
 }
 namespace GridXML
 {
-
     // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
     /// <remarks/>
     [System.SerializableAttribute()]
@@ -410,40 +408,20 @@ namespace GridXML
     public partial class levels
     {
 
-        private levelsLevel levelField;
+        private levelsMaps mapsField;
+
+        private levelsRotation[] rotationsField;
+
+        private levelsEnemy[] enemiesField;
+
+        private levelsPlaceable[] placeablesField;
+
+        private levelsExitzone[] exitzonesField;
+
+        private levelsTriggerzone[] triggerzonesField;
 
         /// <remarks/>
-        public levelsLevel level
-        {
-            get
-            {
-                return this.levelField;
-            }
-            set
-            {
-                this.levelField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevel
-    {
-
-        private levelsLevelMap[] mapsField;
-
-        private levelsLevelRotation[] rotationsField;
-
-        private levelsLevelEnemy[] enemiesField;
-
-        private levelsLevelPlaceable[] placeablesField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("map", IsNullable = false)]
-        public levelsLevelMap[] maps
+        public levelsMaps maps
         {
             get
             {
@@ -457,7 +435,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("rotation", IsNullable = false)]
-        public levelsLevelRotation[] rotations
+        public levelsRotation[] rotations
         {
             get
             {
@@ -471,7 +449,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("enemy", IsNullable = false)]
-        public levelsLevelEnemy[] enemies
+        public levelsEnemy[] enemies
         {
             get
             {
@@ -485,7 +463,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("placeable", IsNullable = false)]
-        public levelsLevelPlaceable[] placeables
+        public levelsPlaceable[] placeables
         {
             get
             {
@@ -496,24 +474,106 @@ namespace GridXML
                 this.placeablesField = value;
             }
         }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("exitzone", IsNullable = false)]
+        public levelsExitzone[] exitzones
+        {
+            get
+            {
+                return this.exitzonesField;
+            }
+            set
+            {
+                this.exitzonesField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("triggerzone", IsNullable = false)]
+        public levelsTriggerzone[] triggerzones
+        {
+            get
+            {
+                return this.triggerzonesField;
+            }
+            set
+            {
+                this.triggerzonesField = value;
+            }
+        }
     }
 
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelMap
+    public partial class levelsMaps
     {
 
-        private levelsLevelMapMapline[] maplineField;
-
-        private byte layerField;
+        private levelsMapsMap[] mapField;
 
         private byte placementpointsField;
 
+        private string objectiveField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("map")]
+        public levelsMapsMap[] map
+        {
+            get
+            {
+                return this.mapField;
+            }
+            set
+            {
+                this.mapField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte placementpoints
+        {
+            get
+            {
+                return this.placementpointsField;
+            }
+            set
+            {
+                this.placementpointsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string objective
+        {
+            get
+            {
+                return this.objectiveField;
+            }
+            set
+            {
+                this.objectiveField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsMapsMap
+    {
+
+        private levelsMapsMapMapline[] maplineField;
+
+        private byte layerField;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("mapline")]
-        public levelsLevelMapMapline[] mapline
+        public levelsMapsMapMapline[] mapline
         {
             get
             {
@@ -538,27 +598,13 @@ namespace GridXML
                 this.layerField = value;
             }
         }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte placementpoints
-        {
-            get
-            {
-                return this.placementpointsField;
-            }
-            set
-            {
-                this.placementpointsField = value;
-            }
-        }
     }
 
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelMapMapline
+    public partial class levelsMapsMapMapline
     {
 
         private string valueField;
@@ -582,16 +628,16 @@ namespace GridXML
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelRotation
+    public partial class levelsRotation
     {
 
-        private levelsLevelRotationRotationline[] rotationlineField;
+        private levelsRotationRotationline[] rotationlineField;
 
         private byte layerField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("rotationline")]
-        public levelsLevelRotationRotationline[] rotationline
+        public levelsRotationRotationline[] rotationline
         {
             get
             {
@@ -622,7 +668,7 @@ namespace GridXML
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelRotationRotationline
+    public partial class levelsRotationRotationline
     {
 
         private string valueField;
@@ -646,7 +692,7 @@ namespace GridXML
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelEnemy
+    public partial class levelsEnemy
     {
 
         private byte idField;
@@ -664,6 +710,14 @@ namespace GridXML
         private byte behaviourField;
 
         private string linkedUnitsField;
+
+        private byte captainField;
+
+        private byte delayField;
+
+        private string triggerzoneidField;
+
+        private string repeatField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -776,13 +830,69 @@ namespace GridXML
                 this.linkedUnitsField = value;
             }
         }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte captain
+        {
+            get
+            {
+                return this.captainField;
+            }
+            set
+            {
+                this.captainField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte delay
+        {
+            get
+            {
+                return this.delayField;
+            }
+            set
+            {
+                this.delayField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string triggerzoneid
+        {
+            get
+            {
+                return this.triggerzoneidField;
+            }
+            set
+            {
+                this.triggerzoneidField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string repeat
+        {
+            get
+            {
+                return this.repeatField;
+            }
+            set
+            {
+                this.repeatField = value;
+            }
+        }
     }
 
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelPlaceable
+    public partial class levelsPlaceable
     {
 
         private byte posXField;
@@ -834,5 +944,132 @@ namespace GridXML
         }
     }
 
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsExitzone
+    {
+
+        private byte posXField;
+
+        private byte posYField;
+
+        private byte posZField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posX
+        {
+            get
+            {
+                return this.posXField;
+            }
+            set
+            {
+                this.posXField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posY
+        {
+            get
+            {
+                return this.posYField;
+            }
+            set
+            {
+                this.posYField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posZ
+        {
+            get
+            {
+                return this.posZField;
+            }
+            set
+            {
+                this.posZField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsTriggerzone
+    {
+
+        private byte idField;
+
+        private byte posXField;
+
+        private byte posYField;
+
+        private byte posZField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posX
+        {
+            get
+            {
+                return this.posXField;
+            }
+            set
+            {
+                this.posXField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posY
+        {
+            get
+            {
+                return this.posYField;
+            }
+            set
+            {
+                this.posYField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posZ
+        {
+            get
+            {
+                return this.posZField;
+            }
+            set
+            {
+                this.posZField = value;
+            }
+        }
+    }
 
 }

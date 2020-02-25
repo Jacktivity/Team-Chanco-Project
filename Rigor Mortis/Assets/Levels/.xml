@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<levels xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <level>
+    <maps>
+      <map layer="0" placementpoints="142">
+        <mapline value="0,-1" />
+        <mapline value="0,-1" />
+        <mapline value="0,0" />
+        <mapline value="0,-1" />
+        <mapline value="0,-1" />
+        <mapline value="0,-1" />
+        <mapline value="0,-1" />
+        <mapline value="0,-1" />
+        <mapline value="0,-1" />
+        <mapline value="0,-1" />
+        <mapline value="0,-1" />
+      </map>
+    </maps>
+    <rotations>
+      <rotation layer="0">
+        <rotationline value="0,0" />
+        <rotationline value="0,0" />
+        <rotationline value="0,0" />
+        <rotationline value="0,0" />
+        <rotationline value="0,0" />
+        <rotationline value="0,0" />
+        <rotationline value="0,0" />
+        <rotationline value="0,0" />
+        <rotationline value="0,0" />
+        <rotationline value="0,0" />
+        <rotationline value="0,0" />
+      </rotation>
+    </rotations>
+    <enemies />
+    <placeables />
+  </level>
+</levels>

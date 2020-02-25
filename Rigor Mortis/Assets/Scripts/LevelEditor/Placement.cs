@@ -101,11 +101,17 @@ public class Placement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            tempBlock.transform.Rotate(0, 90.0f, 0);
+            if(tempBlock.GetComponent<BlockScript>().occupier)
+            {
+                tempBlock.GetComponent<BlockScript>().occupier.transform.Rotate(0, 90.0f, 0);
+            }
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            tempBlock.transform.Rotate(0, -90.0f, 0);
+            if (tempBlock.GetComponent<BlockScript>().occupier)
+            {
+                tempBlock.GetComponent<BlockScript>().occupier.transform.Rotate(0, -90.0f, 0);
+            }
         }
         if (Physics.Raycast(ray, out hit))
         {
