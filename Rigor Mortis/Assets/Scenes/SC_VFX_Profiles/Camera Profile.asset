@@ -11,13 +11,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
   m_Name: Camera Profile
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   settings:
   - {fileID: 114113686734934072}
   - {fileID: 114459942467409064}
   - {fileID: 114290858463110136}
   - {fileID: 114008243228045508}
   - {fileID: 114231696964568438}
+  - {fileID: 114925866644459954}
 --- !u!114 &114008243228045508
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -29,7 +30,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d65e486e4de6e5448a8fbb43dc8756a0, type: 3}
   m_Name: Grain
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   active: 1
   enabled:
     overrideState: 1
@@ -57,7 +58,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
   m_Name: Vignette
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   active: 1
   enabled:
     overrideState: 1
@@ -101,7 +102,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adb84e30e02715445aeb9959894e3b4d, type: 3}
   m_Name: ColorGrading
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   active: 1
   enabled:
     overrideState: 1
@@ -1412,7 +1413,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
   m_Name: DepthOfField
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   active: 1
   enabled:
     overrideState: 1
@@ -1440,7 +1441,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   active: 1
   enabled:
     overrideState: 1
@@ -1487,7 +1488,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
   m_Name: AmbientOcclusion
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   active: 1
   enabled:
     overrideState: 1
@@ -1525,3 +1526,50 @@ MonoBehaviour:
   quality:
     overrideState: 0
     value: 2
+--- !u!114 &114925866644459954
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 0.6
+  threshold:
+    overrideState: 1
+    value: 1
+  softKnee:
+    overrideState: 0
+    value: 0.5
+  clamp:
+    overrideState: 0
+    value: 65472
+  diffusion:
+    overrideState: 0
+    value: 7
+  anamorphicRatio:
+    overrideState: 0
+    value: 0
+  color:
+    overrideState: 0
+    value: {r: 1, g: 1, b: 1, a: 1}
+  fastMode:
+    overrideState: 0
+    value: 0
+  dirtTexture:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  dirtIntensity:
+    overrideState: 0
+    value: 0
