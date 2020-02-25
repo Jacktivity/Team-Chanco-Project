@@ -447,7 +447,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8e3c7688e62c46d409629e18e735ed7b, type: 2}
+  - {fileID: 2100000, guid: e08b66f14f91cc44583a853f563c8904, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -631,14 +631,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5482613377463776719}
     m_Modifications:
-    - target: {fileID: 100000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
-      propertyPath: m_Name
-      value: Terrain_Rock_Mid2
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -683,6 +675,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
+      propertyPath: m_Name
+      value: Terrain_Rock_Mid2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
 --- !u!1 &410940653020792989 stripped
@@ -704,14 +704,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5482613377463776719}
     m_Modifications:
-    - target: {fileID: 100000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
-      propertyPath: m_Name
-      value: Terrain_Rock_Mid1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -756,6 +748,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
+      propertyPath: m_Name
+      value: Terrain_Rock_Mid1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
 --- !u!1 &676796264901337017 stripped
@@ -777,14 +777,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5482613377463776719}
     m_Modifications:
-    - target: {fileID: 100002, guid: b56f28c1d0295644aa3ca1d3712e4f24, type: 3}
-      propertyPath: m_Name
-      value: Tree01
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: b56f28c1d0295644aa3ca1d3712e4f24, type: 3}
-      propertyPath: m_TagString
-      value: Wall
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: b56f28c1d0295644aa3ca1d3712e4f24, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -828,6 +820,14 @@ PrefabInstance:
     - target: {fileID: 400002, guid: b56f28c1d0295644aa3ca1d3712e4f24, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: b56f28c1d0295644aa3ca1d3712e4f24, type: 3}
+      propertyPath: m_Name
+      value: Tree01
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: b56f28c1d0295644aa3ca1d3712e4f24, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b56f28c1d0295644aa3ca1d3712e4f24, type: 3}
@@ -923,14 +923,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5482613377463776719}
     m_Modifications:
-    - target: {fileID: 100000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
-      propertyPath: m_Name
-      value: Terrain_Rock_EndR
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -974,6 +966,14 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
+      propertyPath: m_Name
+      value: Terrain_Rock_EndR
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}

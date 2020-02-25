@@ -32,13 +32,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Curve: 0.101
+    - _Curve: 0
     - _Cutoff: 0.5
     - _Slider: 0.8
-    - _Soft: 0.381
+    - _Soft: 0.139
     - _node_4249: 1
     - _node_8045: 0
     - _node_9412: 0
     - _node_9692: 1
     m_Colors:
-    - _Colour: {r: 1, g: 0.7960785, b: 0, a: 1}
+    - _Colour: {r: 0, g: 1, b: 1, a: 1}

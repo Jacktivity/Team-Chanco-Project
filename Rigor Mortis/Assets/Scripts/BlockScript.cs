@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class BlockScript : MonoBehaviour
-{
+{    
     public Vector3 coordinates;
 
     //public GridManager manager;
@@ -75,8 +75,7 @@ public class BlockScript : MonoBehaviour
     {
         var blockMeshes = blockPrefabs.Select(b => b.GetComponent<MeshRenderer>()).ToArray(); ;
 
-        GameObject contact = collision.gameObject;
-
+        GameObject contact = collision.gameObject;        
         //if (contact.transform.position.y == gameObject.transform.position.y + 1 &&
         //    contact.transform.position.x == gameObject.transform.position.x &&
         //    contact.transform.position.z == gameObject.transform.position.z )
@@ -212,24 +211,31 @@ public class BlockScript : MonoBehaviour
     public void SetHighlightColour(Color colour) => SetHighlightColour(colour, new Directions[0]);
 
     public void SetHighlightColour(Color colour, IEnumerable<Directions> boldHighlight)
-    {
+    {        
         highlight.GetComponent<Renderer>().material.color = new Color(colour.r,colour.g, colour.b, colour.a * 0.05f);
+        
         if (boldHighlight.Contains(Directions.North))
-            borderNorth.material.color = colour;
+        {
+            borderNorth.material.SetColor("_Colour", colour);
+            borderNorth.material.SetFloat("_Soft", 0.1f);
+        }            
         else
-            borderNorth.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
+        {
+            borderNorth.material.SetColor("_Colour", new Color(colour.r, colour.g, colour.b, colour.a * 0.1f));
+            borderNorth.material.SetFloat("_Soft", 0.3f);
+        }            
         if (boldHighlight.Contains(Directions.South))
-            borderSouth.material.color = colour;
+            borderSouth.material.SetColor("_Colour", colour);
         else
-            borderSouth.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
+            borderSouth.material.SetColor("_Colour", new Color(colour.r, colour.g, colour.b, colour.a * 0.1f));
         if (boldHighlight.Contains(Directions.East))
-            borderEast.material.color = colour;
+            borderEast.material.SetColor("_Colour", colour);
         else
-            borderEast.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
+            borderEast.material.SetColor("_Colour", new Color(colour.r, colour.g, colour.b, colour.a * 0.1f));
         if (boldHighlight.Contains(Directions.West))
-            borderWest.material.color = colour;
+            borderWest.material.SetColor("_Colour", colour);
         else
-            borderWest.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
+            borderWest.material.SetColor("_Colour", new Color(colour.r, colour.g, colour.b, colour.a * 0.1f));
     }
 }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.09974587, g: 0.12758411, b: 0.1577883, a: 1}
+  m_IndirectSpecularColor: {r: 0.011671254, g: 0.007058608, b: 0.006496083, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1415,8 +1415,8 @@ MonoBehaviour:
   levelMap: {fileID: 4900000, guid: 7a924b8441da4ad47bec18d730df8be0, type: 3}
   SelectedUnit: {fileID: 0}
   spawnPoint: {r: 1, g: 1, b: 0, a: 1}
-  lowSpeedTile: {r: 0, g: 1, b: 1, a: 1}
-  highSpeedTile: {r: 1, g: 0.48650533, b: 0, a: 1}
+  lowSpeedTile: {r: 0, g: 1, b: 0.1335733, a: 1}
+  highSpeedTile: {r: 0, g: 0.3962264, b: 0.08345025, a: 1}
   attackTile: {r: 1, g: 0, b: 0, a: 1}
   missTile: {r: 0.5660378, g: 0, b: 0, a: 0.6862745}
   uiManager: {fileID: 109319797}
@@ -1798,6 +1798,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4354832251882218201, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5463513274057616110, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -1837,11 +1842,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354832251882218201, guid: d4f7be2378446da4da1286725ab7e00e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4059976857235886716, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
