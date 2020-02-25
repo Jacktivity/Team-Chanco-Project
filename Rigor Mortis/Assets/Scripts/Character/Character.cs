@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     private BlockScript previousBlock;
     private Vector3 previousForward;
     public float heightOffset;
+    [SerializeField] protected AudioSource[] characterAudio;
     [SerializeField] private GameObject VFXGameObject;
     [SerializeField] private Vector3 deselectedVFXscale, selectedVFXscale;
 
@@ -59,6 +60,8 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
+        //characterAudio?[0]?.Play();
+        //characterAudio?[1]?.PlayDelayed(characterAudio[1].clip.length/2);
         pathfinder = FindObjectOfType<Pathfinder>();
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
