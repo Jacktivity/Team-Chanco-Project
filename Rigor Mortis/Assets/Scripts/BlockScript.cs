@@ -77,12 +77,12 @@ public class BlockScript : MonoBehaviour
 
         GameObject contact = collision.gameObject;
 
-        if (contact.transform.position.y == gameObject.transform.position.y + 1 &&
-            contact.transform.position.x == gameObject.transform.position.x &&
-            contact.transform.position.z == gameObject.transform.position.z )
-        {
-            occupier = contact;
-        }
+        //if (contact.transform.position.y == gameObject.transform.position.y + 1 &&
+        //    contact.transform.position.x == gameObject.transform.position.x &&
+        //    contact.transform.position.z == gameObject.transform.position.z )
+        //{
+        //    occupier = contact;
+        //}
         if (gameObject.tag == "Floor" && contact.tag == "Floor" && contact.transform.position.y == gameObject.transform.position.y)
         {
             Vector3 newCoord = coordinates - contact.GetComponent<BlockScript>().coordinates;
@@ -92,66 +92,6 @@ public class BlockScript : MonoBehaviour
                 //occupier.GetComponent<BlockScript>().manager = manager;
 
             }
-
-            switch ((int)newCoord.z)
-            {
-                case 0:
-                    switch ((int)newCoord.x)
-                    {
-                        case -1:
-                            if(E==null)
-                            E = contact;
-                            break;
-                        case 1:
-                            if (W == null)
-                                W = contact;
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case -1:
-                    switch ((int)newCoord.x)
-                    {
-                        case -1:
-                            if (NE == null)
-                                NE = contact;
-                            break;
-                        case 1:
-                            if (NW == null)
-                                NW = contact;
-                            break;
-                        case 0:
-                            if (N == null)
-                                N = contact;
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch ((int)newCoord.x)
-                    {
-                        case -1:
-                            if (SE == null)
-                                SE = contact;
-                            break;
-                        case 1:
-                            if (SW == null)
-                                SW = contact;
-                            break;
-                        case 0:
-                            if (S == null)
-                                S = contact;
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                default:
-                    break;
-            }
-
 
             foreach(var item in blockMeshes) { item.enabled = false;};
 
@@ -290,11 +230,6 @@ public class BlockScript : MonoBehaviour
             borderWest.material.color = colour;
         else
             borderWest.material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.1f);
-    }
-
-    public void Update()
-    {
-
     }
 }
 

@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     private BlockScript previousBlock;
     private Vector3 previousForward;
     public float heightOffset;
+    [SerializeField] protected AudioSource[] characterAudio;
     [SerializeField] private GameObject VFXGameObject;
     [SerializeField] private Vector3 deselectedVFXscale, selectedVFXscale;
 
@@ -62,6 +63,8 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
+        //characterAudio?[0]?.Play();
+        //characterAudio?[1]?.PlayDelayed(characterAudio[1].clip.length/2);
         pathfinder = FindObjectOfType<Pathfinder>();
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
@@ -82,10 +85,7 @@ public class Character : MonoBehaviour
         };
     }
 
-    private void OnDestroy()
-    {
-        attackEvent -= DamageCheck;
-    }
+    
 
     private void Start()
     {
@@ -155,7 +155,7 @@ public class Character : MonoBehaviour
                 counterTime);
 
 
-            var angle = previousBlock.Location() - moveToBlock.Location();
+            var angle = moveToBlock.Location() - previousBlock.Location();
 
             transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.z), counterTime);
             
@@ -227,6 +227,10 @@ public class Character : MonoBehaviour
             if(name == "Necromancer")
             {
                 playerManager.RemoveNecromancer(this);
+                uiManager.GameOverCheck();
+            } else
+            {
+                playerManager.RemoveUnit(this);
                 uiManager.GameOverCheck();
             }
             DestroyUnit();

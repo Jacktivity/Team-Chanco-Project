@@ -80,6 +80,7 @@ public class GridManager : MonoBehaviour
         UIManager.gameStateChange += AIRunCheck;
 
         mapGenerated?.Invoke(this, Map);
+        SetObjective();
     }
     private void OnDestroy()
     {
@@ -98,10 +99,16 @@ public class GridManager : MonoBehaviour
             enemySpawned -= (del as EventHandler<EnemySpawn>);
         }
 
-        var map = mapGenerated.GetInvocationList();
+        var map = mapGenerated?.GetInvocationList() ?? new Delegate[0]; //TODO Look into why this throws an error on ocassion when unloading level
         foreach (var del in map)
         {
             mapGenerated -= (del as EventHandler<BlockScript[]>);
+        }
+
+        var atkEvtDel = Character.attackEvent.GetInvocationList();
+        foreach (var del in atkEvtDel)
+        {
+            Character.attackEvent -= (del as EventHandler<AttackEventArgs>);
         }
     }
 
@@ -199,6 +206,7 @@ public class GridManager : MonoBehaviour
                     tile.name = tile.name.Replace("(Clone)", "");
                     tile.name = tile.name + '(' + pos.XPos + ','+ pos.YPos+ ',' + pos.ZPos + ')';
 
+
                     var sBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(0, 0, -1));
                     if (sBlock != null)
                     {
@@ -232,6 +240,11 @@ public class GridManager : MonoBehaviour
                 BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
             }
         }
+
+        //foreach (var ramp in Map.Where(t => t.tag == "Floor-Transition"))
+        //{
+
+        //}
     }
 
     public void nextUnit()
@@ -423,6 +436,17 @@ public class GridManager : MonoBehaviour
         enemyAIContainer.MoveUnit(enemy.GetComponent<Character>());
 
         yield return new WaitForSeconds(1);
+    }
+
+    public void SetObjective()
+    {
+        uiManager.SetObjectiveText();
+    }
+
+    public int GetObjective()
+    {
+        string obj = xmlData.maps.objective;
+        return int.Parse(obj);
     }
 
     public int GetTurnNumber()
