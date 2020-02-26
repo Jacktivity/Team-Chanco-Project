@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 using UnityEngine.UI;
 
 public class Placement : MonoBehaviour
@@ -72,6 +73,7 @@ public class Placement : MonoBehaviour
                     var placedBlock = Instantiate(activeBlock, locationBlockPos, tempBlock.transform.rotation);
                     placedBlock.transform.parent = blockContainer.transform;
                     placedBlock.GetComponent<BlockScript>().coordinates = block.coordinates + locationBlockNormal;
+                    placedBlock.gameObject.AddComponent<BlockDetect>();
                 }
                 else if((occupier != null || activeBlock.name == "Difficult") && activeBlock.tag != "Enemy")
                 {
@@ -79,6 +81,8 @@ public class Placement : MonoBehaviour
                     placedBlock.GetComponent<BlockScript>().coordinates = block.coordinates;
                     Destroy(locationBlock);
                     placedBlock.transform.parent = blockContainer.transform;
+                    placedBlock.gameObject.AddComponent<BlockDetect>();
+
                 }
                 if(activeBlock.tag == "Enemy")
                 {
@@ -163,8 +167,6 @@ public class Placement : MonoBehaviour
             if(deleteMode)
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
-                block.Highlight(true);
-                block.SetHighlightColour(delete);
             }
             if (aiEditMode)
             {

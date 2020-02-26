@@ -50,6 +50,7 @@ public class LevelSliders : MonoBehaviour
                 tile.transform.parent = blockContainer.transform;
                 tile.coordinates = new Vector3(j, 0, i);
                 map.Add(tile);
+                tile.gameObject.AddComponent<BlockDetect>();
 
             }
         }
