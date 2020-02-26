@@ -96,6 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 016dfae2cee0b5e4486a1fc8381a94f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heightOffset: 0.47
+  VFXGameObject: {fileID: 9157349250919035960}
+  deselectedVFXscale: {x: 0, y: 0, z: 0}
+  selectedVFXscale: {x: 0, y: 0, z: 0}
+  ID: 0
   cost: 15
   maxHitPoints: 0
   accuracy: 0
@@ -107,10 +112,6 @@ MonoBehaviour:
   movemenSprint: 0
   manaPoints: 0
   currentHitPoints: 0
-  idleAnim: {fileID: 0}
-  walkAnim: {fileID: 0}
-  attackAnim: {fileID: 0}
-  dmgAnim: {fileID: 0}
   isFlying: 0
   isCaptain: 0
   uiManager: {fileID: 0}
@@ -149,7 +150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9157349250919035960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 2974652156917152430}

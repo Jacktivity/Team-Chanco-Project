@@ -44,7 +44,7 @@ public class ChooseAttackButton : MonoBehaviour, IPointerEnterHandler, IPointerE
         }
 
         SetAttackSprite(attack);
-    }
+    }    
 
     public void ChooseAttack()
     {

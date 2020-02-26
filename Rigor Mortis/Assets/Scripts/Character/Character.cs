@@ -10,16 +10,17 @@ public class Character : MonoBehaviour
     private Animator animator;
     private BlockScript previousBlock;
     private Vector3 previousForward;
+    public float heightOffset;
+    [SerializeField] protected AudioSource[] characterAudio;
+    [SerializeField] private GameObject VFXGameObject;
+    [SerializeField] private Vector3 deselectedVFXscale, selectedVFXscale;
+
     //0 = necromancer, 1 = skeleton, 2 = SteamingSkull, 3 = SpectralSkeleton, 4 = TombGuard
     #region statblock
-    public int ID, cost, maxHitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
+    public int ID, cost, maxHitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, maxManaPoints, manaPoints;
     #endregion
 
     [SerializeField] protected int currentHitPoints;
-
-    #region animations
-    [SerializeField] protected AnimationClip idleAnim, walkAnim, attackAnim, dmgAnim;
-    #endregion
 
     public bool isFlying;
     public bool isCaptain;
@@ -59,6 +60,8 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
+        //characterAudio?[0]?.Play();
+        //characterAudio?[1]?.PlayDelayed(characterAudio[1].clip.length/2);
         pathfinder = FindObjectOfType<Pathfinder>();
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
@@ -79,22 +82,12 @@ public class Character : MonoBehaviour
         };
     }
 
+    
+
     private void Start()
     {
         currentHitPoints = maxHitPoints;
-
-        //var animator = GetComponent<Animator>();
-
-        //var animOverride = new AnimatorOverrideController(animator.runtimeAnimatorController);
-
-        //Debug.Log(gameObject.name + " animation overrides " + animOverride.overridesCount);
-
-        //animOverride.animationClips[0] = idleAnim==null? idleAnim : animOverride.animationClips[0];
-        //animOverride.animationClips[1] = attackAnim==null? attackAnim : animOverride.animationClips[1];
-        //animOverride.animationClips[2] = dmgAnim==null? dmgAnim : animOverride.animationClips[2];
-        //animOverride.animationClips[3] = attackAnim==null? attackAnim : animOverride.animationClips[3];
-
-        //animator.runtimeAnimatorController = animOverride;
+        manaPoints = maxManaPoints;
     }
 
     public Attack[] UseableAttacks => attacks.Where(a => a.Mana <= manaPoints).ToArray();
@@ -102,9 +95,6 @@ public class Character : MonoBehaviour
     public void ClearActionPoints()
     {
         ActionPoints = 0;
-        //if (tag == "Player") {
-        //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-        //}
     }
 
     public void SetFloor(BlockScript tile)
@@ -119,9 +109,7 @@ public class Character : MonoBehaviour
         {
             ActionPoints -= 3;
             manaPoints -= selectedAttack.Mana;
-            //if (tag == "Player" ) {
-            //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            //}
+
             var baseDamage = selectedAttack.RollDamage();
 
             if (baseDamage.Magical > 0)
@@ -139,6 +127,16 @@ public class Character : MonoBehaviour
         godRay.SetActive(false);
     }
 
+    public void ScaleVFX(bool unitSelected)
+    {
+        var scale = unitSelected ? selectedVFXscale : deselectedVFXscale;
+
+        foreach (var vfxTransform in VFXGameObject.GetComponentsInChildren<Transform>())
+        {
+            vfxTransform.localScale = scale;
+        }
+    }
+
     public void SpendAP(int actionPoints) => ActionPoints -= actionPoints;
 
     private void Movement()
@@ -149,16 +147,17 @@ public class Character : MonoBehaviour
             moveToBlock = path.ElementAt(pathIndex);
 
             transform.position = Vector3.Lerp(
-                new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z),
-                new Vector3(moveToBlock.transform.position.x, moveToBlock.transform.position.y + 1, moveToBlock.transform.position.z),
+                new Vector3(previousBlock.Location().x, previousBlock.Location().y + heightOffset, previousBlock.Location().z),
+                new Vector3(moveToBlock.Location().x, moveToBlock.Location().y + heightOffset, moveToBlock.Location().z),
                 counterTime);
 
 
-            var angle = moveToBlock.transform.position - previousBlock.transform.position;
+            var angle = moveToBlock.Location() - previousBlock.Location();
 
-            transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.y), counterTime);
+            transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.z), counterTime);
             
             floor.occupier = gameObject;
+
             if (counterTime >= 1)
             {
                 counterTime = 0;
@@ -226,12 +225,16 @@ public class Character : MonoBehaviour
             {
                 playerManager.RemoveNecromancer(this);
                 uiManager.GameOverCheck();
+            } else
+            {
+                playerManager.RemoveUnit(this);
+                uiManager.GameOverCheck();
             }
             DestroyUnit();
         }
         else
         {
-            gameObject.GetComponent<HealthBar>().slider.value = currentHitPoints;
+            gameObject.GetComponent<UnitSliders>().healthSlider.value = currentHitPoints;
 
         }
     }
@@ -241,8 +244,8 @@ public class Character : MonoBehaviour
         floor.occupier = null;
         if(gameObject.tag != "Breakable_Terrain")
         {
-            gameObject.GetComponent<HealthBar>().slider.gameObject.SetActive(false);
-            Slider healthSlider = GetComponent<HealthBar>().slider;
+            gameObject.GetComponent<UnitSliders>().healthSlider.gameObject.SetActive(false);
+            Slider healthSlider = GetComponent<UnitSliders>().healthSlider;
             healthSlider.gameObject.SetActive(false);
         }
 
@@ -278,7 +281,7 @@ public class Character : MonoBehaviour
             if (moveTo.Count() > movementSpeed + 1)
                 ActionPoints -= 2;
 
-            Debug.Log(this.tag + " " + this.name + " Action Points: " + ActionPoints);
+            //Debug.Log(this.tag + " " + this.name + " Action Points: " + ActionPoints);
             path = moveTo;
             pathIndex = 0;
             moving = true;

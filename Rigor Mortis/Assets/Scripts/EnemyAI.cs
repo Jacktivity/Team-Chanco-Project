@@ -19,6 +19,11 @@ public class EnemyAI : MonoBehaviour
         GridManager.enemySpawned += EnemySpawnEvent;
     }
 
+    private void OnDestroy()
+    {
+        GridManager.enemySpawned -= EnemySpawnEvent;
+    }
+
     private void EnemySpawnEvent(object sender, EnemySpawn spawn)
     {
         enemyMood.Add(spawn.unit, spawn.defaultState);

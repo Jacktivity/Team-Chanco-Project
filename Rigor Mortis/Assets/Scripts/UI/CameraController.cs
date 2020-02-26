@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
 {
     Camera _camera;
     //[SerializeField]BoxCollider _collider;
-    [SerializeField] private GameObject boomArm;
+    [SerializeField] private Transform boomArm;
     [SerializeField] private Vector3 movementSpeed = new Vector3(25, 1, 25);
     [SerializeField] private Vector2 rotationSpeed = new Vector2(0.1f, 1f);
     [SerializeField] private int minXRotation, maxXRotation;
@@ -19,7 +19,9 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        boomArm = transform.parent;
         GridManager.mapGenerated += GenerateCameraBoundary;
+
         yPositionDict = new Dictionary<Vector2, float>();
         _camera = GetComponent<Camera>();
         maxBoomLength = transform.localPosition;
@@ -29,7 +31,12 @@ public class CameraController : MonoBehaviour
         previousMousePos = Input.mousePosition;
     }
 
-    private void GenerateCameraBoundary(object sender, BlockScript[] e)
+    private void OnDestroy()
+    {
+        GridManager.mapGenerated -= GenerateCameraBoundary;
+    }
+
+    public void GenerateCameraBoundary(object sender, BlockScript[] e)
     {
         var mapOrdered = e.OrderBy(s => new Vector2(s.coordinates.x, s.coordinates.z).magnitude);
         var topLeft = mapOrdered.First();
@@ -38,6 +45,7 @@ public class CameraController : MonoBehaviour
         posColliderExtents = topLeft.gameObject.transform.position;
         negColliderExtents = bottomRight.gameObject.transform.position;
 
+        boomArm = transform.parent;
 
         foreach (var tile in e)
         {
