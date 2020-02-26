@@ -504,26 +504,26 @@ public class UIManager : MonoBehaviour
         if (gridManager.GetObjective() == 0) {
             if (playerManager.activeEnemies.Count <= 0)
             {
-                //scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
+                scorePointsText.text = "Score: " + PersistantData.EndTurnWin(turnNumber, gridManager.GetPar());
                 UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
                 gameOver = true;
             }
             else if (playerManager.activePlayers.Count <= 0)
             {
-                //scorePointsText.text = "Score: " + score.EndTurnLose();
+                scorePointsText.text = "Score: " + PersistantData.EndTurnLose();
                 UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
                 gameOver = true;
             }
         } else if (gridManager.GetObjective() == 1) {
             if (playerManager.activeEnemyNecromancers.Count <= 0)
             {
-                //scorePointsText.text = "Score: " + score.EndTurnWin(/*gridManager.levelID, turnNumber*/);
+                scorePointsText.text = "Score: " + PersistantData.EndTurnWin(turnNumber, gridManager.GetPar());
                 UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
                 gameOver = true;
             }
             else if (playerManager.activePlayerNecromancers.Count <= 0)
             {
-                //scorePointsText.text = "Score: " + score.EndTurnLose();
+                scorePointsText.text = "Score: " + PersistantData.EndTurnLose();
                 UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
                 gameOver = true;
             }
