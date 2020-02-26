@@ -5,6 +5,7 @@ ShaderImporter:
   defaultTextures:
   - _MainTex: {fileID: 2800000, guid: aaa785701d5ee814aa5495afe7878d52, type: 3}
   - _MetalRoughAO: {fileID: 2800000, guid: c5775f42773fbd14d8ee66d3ffedfb6a, type: 3}
+  - _Emissive: {fileID: 2800000, guid: aaa785701d5ee814aa5495afe7878d52, type: 3}
   nonModifiableTextures: []
   userData: 
   assetBundleName: 

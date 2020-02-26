@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _SequenceTex:
-        m_Texture: {fileID: 2800000, guid: 3196496d97c68544ab55106f3f5d811f, type: 3}
+        m_Texture: {fileID: 2800000, guid: cef2ad1c86f4d84479673df7f389aa86, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _node_1684:
@@ -39,12 +39,16 @@ Material:
     - _1: 4
     - _2: 4
     - _3: 0.2
+    - _FrameTest: 1
     - _Glow: 1.2
+    - _node_2094: 0
     - _node_3289: 4
     - _node_4268: 0
     - _node_4341: 0
     - _node_5450: 4
+    - _node_5539: 4
+    - _node_7167: 4
     - _node_8654: 4
     - _node_9268: 0
     m_Colors:
-    - _SeqSettings: {r: 1, g: 1, b: 0, a: 0}
+    - _SeqSettings: {r: 2, g: 2, b: 1, a: 0}

@@ -26,6 +26,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Character SelectedUnit;
 
     [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile, attackTile, missTile;
+    [SerializeField] private Vector2 highlightCurve, highlightSoft;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private EnemyAI enemyAIContainer;
@@ -139,7 +140,7 @@ public class GridManager : MonoBehaviour
 
 
             tile.Highlight(true);
-            tile.SetHighlightColour(colour, brightEdges);
+            tile.SetHighlightColour(colour, brightEdges, highlightSoft, highlightCurve);
         }
     }
 
@@ -241,10 +242,60 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        //foreach (var ramp in Map.Where(t => t.tag == "Floor-Transition"))
-        //{
+        foreach (var ramp in Map.Where(t => t.tag == "Floor-Transition"))
+        {
+            ramp.N = ramp.NE = ramp.E = ramp.SE = ramp.S = ramp.SW = ramp.W = ramp.NW = null;
 
-        //}
+            var rotation = ((int)ramp.transform.rotation.eulerAngles.y / 90);
+
+            Vector3 upperStep, lowerStep;            
+
+            switch (rotation % 2)
+            {
+                //North - South step
+                case 0:
+                    Debug.Log(ramp.name + ":" + ramp.coordinates.ToString() + ":" + (rotation).ToString());
+                    upperStep = new Vector3(0, 0, 1);
+                    lowerStep = new Vector3(0, -1, -1);
+                    ramp.N = Map.FirstOrDefault(t => t.coordinates == ramp.coordinates + upperStep)?.gameObject ?? null;
+
+                    if (ramp.N == null)
+                    {
+                        upperStep = new Vector3(0, 0, -1);
+                        lowerStep = new Vector3(0, -1, 1);
+
+                        ramp.S = Map.First(t => t.coordinates == ramp.coordinates + upperStep).gameObject;
+                        ramp.N = Map.First(t => t.coordinates == ramp.coordinates + lowerStep).gameObject;
+                    }
+                    else
+                    {
+                        ramp.S = Map.First(t => t.coordinates == ramp.coordinates + lowerStep).gameObject;
+                    }
+                    break;
+                //East - West Step
+                case 1:
+                    Debug.Log(ramp.name + ":" + ramp.coordinates.ToString() + ":" + (rotation).ToString());
+                    upperStep = new Vector3(-1, 0, 0);
+                    lowerStep = new Vector3(1, -1, 0);
+                    ramp.W = Map.FirstOrDefault(t => t.coordinates == ramp.coordinates + upperStep)?.gameObject ?? null;
+
+                    if (ramp.W == null)
+                    {
+                        upperStep = new Vector3(1, 0, 0);
+                        lowerStep = new Vector3(-1, -1, 0);
+
+                        ramp.E = Map.First(t => t.coordinates == ramp.coordinates + upperStep).gameObject;
+                        ramp.W = Map.First(t => t.coordinates == ramp.coordinates + lowerStep).gameObject;
+                    }
+                    else
+                    {
+                        ramp.E = Map.First(t => t.coordinates == ramp.coordinates + lowerStep).gameObject;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void nextUnit()
