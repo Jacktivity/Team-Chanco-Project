@@ -263,13 +263,21 @@ public class GridManager : MonoBehaviour
                     {
                         upperStep = new Vector3(0, 0, -1);
                         lowerStep = new Vector3(0, -1, 1);
+                        var south = Map.First(t => t.coordinates == ramp.coordinates + upperStep);
+                        ramp.S = south.gameObject;
+                        south.N = ramp.gameObject;
 
-                        ramp.S = Map.First(t => t.coordinates == ramp.coordinates + upperStep).gameObject;
-                        ramp.N = Map.First(t => t.coordinates == ramp.coordinates + lowerStep).gameObject;
+                        var north = Map.First(t => t.coordinates == ramp.coordinates + lowerStep);
+                        ramp.N = north.gameObject;
+                        north.S = ramp.gameObject;
                     }
                     else
                     {
-                        ramp.S = Map.First(t => t.coordinates == ramp.coordinates + lowerStep).gameObject;
+                        ramp.N.GetComponent<BlockScript>().S = ramp.gameObject;
+
+                        var south = Map.First(t => t.coordinates == ramp.coordinates + lowerStep);
+                        ramp.S = south.gameObject;
+                        south.N = ramp.gameObject;
                     }
                     break;
                 //East - West Step
@@ -284,8 +292,14 @@ public class GridManager : MonoBehaviour
                         upperStep = new Vector3(1, 0, 0);
                         lowerStep = new Vector3(-1, -1, 0);
 
-                        ramp.E = Map.First(t => t.coordinates == ramp.coordinates + upperStep).gameObject;
-                        ramp.W = Map.First(t => t.coordinates == ramp.coordinates + lowerStep).gameObject;
+                        var east = Map.First(t => t.coordinates == ramp.coordinates + upperStep);
+
+                        ramp.E = east.gameObject;
+                        east.W = ramp.gameObject;
+
+                        var west = Map.First(t => t.coordinates == ramp.coordinates + lowerStep);
+                        ramp.W = west.gameObject;
+                        west.E = ramp.gameObject;
                     }
                     else
                     {
