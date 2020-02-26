@@ -190,6 +190,7 @@ public class GridManager : MonoBehaviour
     {
         var level = xmlData;
         placementPoints = xmlData.maps.placementpoints;
+        
         foreach(var map in level.maps.map)
         {
             var rotationlines = level.rotations.ElementAt(map.layer).rotationline.SelectMany((r, x) => r.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
@@ -241,6 +242,28 @@ public class GridManager : MonoBehaviour
                 BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
             }
         }
+
+        var triggerzones = xmlData.triggerzones;
+
+        var sortingMap = gameObject.GetComponentsInChildren<BlockScript>();
+        var triggerzonesTiles = triggerzones.Select(s => sortingMap.First(tile => tile.coordinates.x == s.posX && tile.coordinates.y == s.posY && tile.coordinates.z == s.posZ));
+        int triggerIndex = 0;
+        foreach (var triggerTile in triggerzonesTiles)
+        {
+            triggerTile.trigger = true;
+            triggerTile.triggerId = triggerzones[triggerIndex].id;
+            triggerIndex++;
+        }
+
+
+        var exitzones = xmlData.exitzones;
+
+        var exitTiles = exitzones.Select(s => sortingMap.First(tile => tile.coordinates.x == s.posX && tile.coordinates.y == s.posY && tile.coordinates.z == s.posZ));
+        foreach (var exitTile in exitTiles)
+        {
+            exitTile.exit = true;
+        }
+
 
         foreach (var ramp in Map.Where(t => t.tag == "Floor-Transition"))
         {
@@ -324,6 +347,11 @@ public class GridManager : MonoBehaviour
             placedEnemy.name = enemy.name;
             placedEnemy.SetFloor(tile);
             placedEnemy.tag = "Enemy";
+            placedEnemy.isCaptain = enemy.captain;
+            placedEnemy.delaySpawn = enemy.delay;
+            placedEnemy.onTrigger = enemy.onTrigger;
+            placedEnemy.triggerId = enemy.triggerId;
+            placedEnemy.repeatSpawn = enemy.repeat;
             tile.occupier = placedEnemy.gameObject;
 
             var linkedUnits = new int[0];
