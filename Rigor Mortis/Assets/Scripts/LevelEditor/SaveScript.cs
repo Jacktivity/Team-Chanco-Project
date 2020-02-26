@@ -31,7 +31,7 @@ public class SaveScript : MonoBehaviour
         levels.enemies = new levelsEnemy[enemycontainerdetails.Length];
         levels.placeables = new levelsPlaceable[placeableDetails.Length];
         levels.maps.placementpoints = (byte)placementPointsValue;
-        levels.maps.objective = objective.value.ToString();
+        levels.maps.objective = objective.value;
 
         int y = 0;
         int z = 0;
