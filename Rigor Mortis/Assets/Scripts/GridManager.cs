@@ -26,6 +26,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Character SelectedUnit;
 
     [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile, attackTile, missTile;
+    [SerializeField] private Vector2 highlightCurve, highlightSoft;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private EnemyAI enemyAIContainer;
@@ -139,7 +140,7 @@ public class GridManager : MonoBehaviour
 
 
             tile.Highlight(true);
-            tile.SetHighlightColour(colour, brightEdges);
+            tile.SetHighlightColour(colour, brightEdges, highlightSoft, highlightCurve);
         }
     }
 

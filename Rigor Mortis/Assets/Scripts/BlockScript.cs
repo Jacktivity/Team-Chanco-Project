@@ -208,34 +208,60 @@ public class BlockScript : MonoBehaviour
         //}
     }
 
-    public void SetHighlightColour(Color colour) => SetHighlightColour(colour, new Directions[0]);
+    public void SetHighlightColour(Color colour) => SetHighlightColour(colour, new Directions[0], new Vector2(colour.a, 1-colour.a), new Vector2(colour.a, 1-colour.a));
 
-    public void SetHighlightColour(Color colour, IEnumerable<Directions> boldHighlight)
+    public void SetHighlightColour(Color colour, IEnumerable<Directions> boldHighlight, Vector2 soft, Vector2 curve)
     {        
-        highlight.GetComponent<Renderer>().material.color = new Color(colour.r,colour.g, colour.b, colour.a * 0.05f);
-        
+        highlight.GetComponent<Renderer>().material.color = new Color(colour.r,colour.g, colour.b, colour.a * 0.05f);        
+
+        borderNorth.material.SetColor("_Colour", colour);
         if (boldHighlight.Contains(Directions.North))
-        {
-            borderNorth.material.SetColor("_Colour", colour);
-            borderNorth.material.SetFloat("_Soft", 0.1f);
+        {            
+            borderNorth.material.SetFloat("_Soft", soft.x);
+            borderNorth.material.SetFloat("_Curve", curve.x);
         }            
         else
         {
-            borderNorth.material.SetColor("_Colour", new Color(colour.r, colour.g, colour.b, colour.a * 0.1f));
-            borderNorth.material.SetFloat("_Soft", 0.3f);
-        }            
+            borderNorth.material.SetFloat("_Soft", soft.y);
+            borderNorth.material.SetFloat("_Curve", curve.y);
+        }
+
+        borderSouth.material.SetColor("_Colour", colour);
         if (boldHighlight.Contains(Directions.South))
-            borderSouth.material.SetColor("_Colour", colour);
+        {
+            borderSouth.material.SetFloat("_Soft", soft.x);
+            borderSouth.material.SetFloat("_Curve", curve.x);
+        }
         else
-            borderSouth.material.SetColor("_Colour", new Color(colour.r, colour.g, colour.b, colour.a * 0.1f));
+        {
+            borderSouth.material.SetFloat("_Soft", soft.y);
+            borderSouth.material.SetFloat("_Curve", curve.y);
+        }
+
+
+        borderEast.material.SetColor("_Colour", colour);
         if (boldHighlight.Contains(Directions.East))
-            borderEast.material.SetColor("_Colour", colour);
+        {
+            borderEast.material.SetFloat("_Soft", soft.x);
+            borderEast.material.SetFloat("_Curve", curve.x);
+        }
         else
-            borderEast.material.SetColor("_Colour", new Color(colour.r, colour.g, colour.b, colour.a * 0.1f));
+        {
+            borderEast.material.SetFloat("_Soft", soft.y);
+            borderEast.material.SetFloat("_Curve", curve.y);
+        }
+
+        borderWest.material.SetColor("_Colour", colour);
         if (boldHighlight.Contains(Directions.West))
-            borderWest.material.SetColor("_Colour", colour);
+        {
+            borderWest.material.SetFloat("_Soft", soft.x);
+            borderWest.material.SetFloat("_Curve", curve.x);
+        }
         else
-            borderWest.material.SetColor("_Colour", new Color(colour.r, colour.g, colour.b, colour.a * 0.1f));
+        {
+            borderWest.material.SetFloat("_Soft", soft.y);
+            borderWest.material.SetFloat("_Curve", curve.y);
+        }
     }
 }
 
