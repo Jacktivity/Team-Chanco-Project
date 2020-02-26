@@ -13,9 +13,10 @@ public class SaveScript : MonoBehaviour
     public Slider placementPoints;
     public Text levelName;
     public GameObject blockcontainer, enemycontainer;
+    public Dropdown objective;
     public void SaveMap()
     {
-        var placementPointsValue = placementPoints.value;
+        var placementPointsValue = placementPoints.value * 5;
         var blockdetailsContainer = blockcontainer.GetComponentsInChildren<BlockScript>();
         var enemycontainerdetails = enemycontainer.GetComponentsInChildren<Character>();
         var placeableDetails = blockcontainer.GetComponentsInChildren<BlockScript>().Where(b => b.placeable).ToArray();
@@ -30,6 +31,7 @@ public class SaveScript : MonoBehaviour
         levels.enemies = new levelsEnemy[enemycontainerdetails.Length];
         levels.placeables = new levelsPlaceable[placeableDetails.Length];
         levels.maps.placementpoints = (byte)placementPointsValue;
+        levels.maps.objective = objective.value;
 
         int y = 0;
         int z = 0;
@@ -113,6 +115,9 @@ public class SaveScript : MonoBehaviour
             enemy.posZ = (byte)enemyDetails.floor.coordinates.z;
             enemy.behaviour = (byte)0;
             enemy.linkedUnits = "";
+            enemy.delay = (byte)enemyDetails.delaySpawn;
+            enemy.captain = enemyDetails.isCaptain;
+            enemy.repeat = enemyDetails.repeatSpawn;
             levels.enemies[i] = enemy;
         }
 

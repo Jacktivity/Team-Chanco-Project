@@ -26,9 +26,17 @@ public class Placement : MonoBehaviour
     Color delete = Color.red;
 
     BlockScript block;
-    public Button deleteButton;
+    public Toggle deleteToggle, placementToggle, aiEditToggle;
     GameObject occupier;
-    bool placementMode;
+    bool placementMode, aiEditMode;
+
+    public GameObject terrainOptions, enemyOptions, enemyDetails;
+
+    Character selectedEnemy;
+
+    public Text enemyName, delayText;
+    public Text captainToggle, repeatSpawn;
+    public Slider delay;
 
     Color highlight = Color.yellow;
     // Start is called before the first frame update
@@ -53,7 +61,7 @@ public class Placement : MonoBehaviour
             {
                 block = locationBlock.GetComponent<BlockScript>();
             }
-            if (mapGenerated && locationBlockTag == "Floor" && Physics.Raycast(ray, out hit) && !deleteMode && !placementMode)
+            if (mapGenerated && locationBlockTag == "Floor" && Physics.Raycast(ray, out hit) && !deleteMode && !placementMode && !aiEditMode)
             {
                 if (activeBlock.GetComponent<BlockScript>())
                 {
@@ -84,34 +92,50 @@ public class Placement : MonoBehaviour
             {
                 Destroy(locationBlock);
             }
-            if(placementMode && block.occupier == null)
+            if(aiEditMode)
             {
-                block.placeable = !block.placeable;
-                block.Highlight(true);
-                if (block.placeable)
-                { 
-                    block.SetHighlightColour(highlight);
-                } else
+                if (hit.transform.gameObject.tag == "Enemy")
                 {
-                    block.SetHighlightColour(block.Normal);
+                    if (selectedEnemy)
+                    {
+                        selectedEnemy.godRay.SetActive(false);
+                    }
+                    selectedEnemy = hit.transform.gameObject.GetComponent<Character>();
+                    enemyName.text = selectedEnemy.name;
+                    captainToggle.text = "Is Captain: " + selectedEnemy.isCaptain;
+                    repeatSpawn.text = "Repeat Spawn: " + selectedEnemy.repeatSpawn;
+                    delay.value = selectedEnemy.delaySpawn;
+                    selectedEnemy.godRay.SetActive(true);
+                    delayText.text = "Delay: " + delay.value;
                 }
-
             }
+            if(block != null)
+            {
+                if (placementMode && block.occupier == null)
+                {
+                    block.placeable = !block.placeable;
+                    block.Highlight(true);
+                    if (block.placeable)
+                    {
+                        block.SetHighlightColour(highlight);
+                    }
+                    else
+                    {
+                        block.SetHighlightColour(block.Normal);
+                    }
 
+                }
+            }
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if(tempBlock.GetComponent<BlockScript>().occupier)
-            {
-                tempBlock.GetComponent<BlockScript>().occupier.transform.Rotate(0, 90.0f, 0);
-            }
+            tempBlock.transform.Rotate(0, 90.0f, 0);
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (tempBlock.GetComponent<BlockScript>().occupier)
-            {
-                tempBlock.GetComponent<BlockScript>().occupier.transform.Rotate(0, -90.0f, 0);
-            }
+
+            tempBlock.transform.Rotate(0, -90.0f, 0);
+
         }
         if (Physics.Raycast(ray, out hit))
         {
@@ -145,19 +169,23 @@ public class Placement : MonoBehaviour
             {
                 tempBlock.transform.position = hit.transform.position;
             }
-            else if(deleteMode)
+            if(deleteMode)
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
                 block.Highlight(true);
                 block.SetHighlightColour(delete);
             }
-            else if (placementMode)
+           if (placementMode)
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
                 block.Highlight(true);
                 block.SetHighlightColour(highlight);
             }
-            
+            if (aiEditMode)
+            {
+                tempBlock.transform.position = new Vector3(-10, -10, -10);
+            }
+
         }
     }
 
@@ -185,17 +213,79 @@ public class Placement : MonoBehaviour
         tempBlock.SetActive(true);
     }
 
-    public void DeletMode()
+    public void DeleteMode()
     {
         deleteMode = !deleteMode;
         placementMode = false;
         tempBlock.SetActive(deleteMode);
+        placementToggle.isOn = false;
+        deleteToggle.isOn = deleteMode;
+        aiEditMode = false;
+        if (selectedEnemy)
+        {
+            selectedEnemy.godRay.SetActive(false);
+        }
     }
 
     public void PlaceableMode()
     {
         placementMode = !placementMode;
         deleteMode = false;
-        tempBlock.SetActive(!placementMode);
+        tempBlock.SetActive(placementMode);
+        deleteToggle.isOn = false;
+        placementToggle.isOn = placementMode;
+        aiEditMode = false;
+        if (selectedEnemy)
+        {
+            selectedEnemy.godRay.SetActive(false);
+        }
+    }
+    public void EditAiMode()
+    {
+        aiEditMode = !aiEditMode;
+        deleteMode = false;
+        placementMode = false;
+        tempBlock.SetActive(aiEditMode);
+        deleteToggle.isOn = false;
+        deleteToggle.isOn = false;
+        aiEditToggle.isOn = aiEditMode;
+
+        selectedEnemy = null;
+        enemyDetails.SetActive(true);
+        enemyOptions.SetActive(false);
+        terrainOptions.SetActive(false);
+
+        if (selectedEnemy)
+        {
+            selectedEnemy.godRay.SetActive(false);
+        }
+    }
+
+    public void TerrainOptions()
+    {
+        terrainOptions.SetActive(true);
+        enemyOptions.SetActive(false);
+        enemyDetails.SetActive(false);
+    }
+    public void EnemyOptions()
+    {
+        terrainOptions.SetActive(false);
+        enemyOptions.SetActive(true);
+        enemyDetails.SetActive(false);
+    }
+    public void ToggleCaptain()
+    {
+        selectedEnemy.isCaptain = !selectedEnemy.isCaptain;
+        captainToggle.text = "Is Captain: " + selectedEnemy.isCaptain;
+    }
+    public void toggleRepeatSpawn()
+    {
+        selectedEnemy.repeatSpawn = !selectedEnemy.repeatSpawn;
+        repeatSpawn.text = "Repeat Spawn: " + selectedEnemy.repeatSpawn;
+    }
+    public void EditSpawnDelay()
+    {
+        selectedEnemy.delaySpawn = (int)delay.value;
+        delayText.text = "Delay: " + delay.value;
     }
 }
