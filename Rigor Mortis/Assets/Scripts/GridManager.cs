@@ -790,13 +790,13 @@ namespace GridXML
 
         private string linkedUnitsField;
 
-        private byte captainField;
+        private bool captainField;
 
         private byte delayField;
 
         private string triggerzoneidField;
 
-        private string repeatField;
+        private bool repeatField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -912,7 +912,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte captain
+        public bool captain
         {
             get
             {
@@ -954,7 +954,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string repeat
+        public bool repeat
         {
             get
             {

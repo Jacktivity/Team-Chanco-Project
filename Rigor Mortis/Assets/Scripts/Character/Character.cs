@@ -58,6 +58,9 @@ public class Character : MonoBehaviour
 
     public int type;
 
+    public bool repeatSpawn;
+    public int delaySpawn;
+
     private void Awake()
     {
         //characterAudio?[0]?.Play();
