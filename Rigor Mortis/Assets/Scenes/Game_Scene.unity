@@ -1278,8 +1278,8 @@ MonoBehaviour:
   gridManager: {fileID: 1469572276}
   uiManager: {fileID: 109319797}
   globalUnitList: []
-  activeEnemyNecromancers: []
-  activePlayerNecromancers: []
+  activeEnemyCaptains: []
+  activePlayerCaptains: []
   activeEnemies: []
   activePlayers: []
 --- !u!4 &1353577216
@@ -1785,6 +1785,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830420568599889408, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 198.55
       objectReference: {fileID: 0}
     - target: {fileID: 8520779004703754558, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}

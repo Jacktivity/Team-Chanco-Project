@@ -392,10 +392,9 @@ public class GridManager : MonoBehaviour
         unitSpawned?.Invoke(this, unit);
         unit.SetFloor(tile);
         tile.occupier = unit.gameObject;
+
+
         playerManager.AddUnit(unit);
-
-
-       // eventSystem.AddUnit(SelectedUnit);
     }
     public Character GetSelectedUnit()
     {
@@ -424,7 +423,7 @@ public class GridManager : MonoBehaviour
         placementPoints -= reduction;
         uiManager.PlacementPoint(placementPoints);
 
-        if (placementPoints <= 0 && (playerManager.activePlayerNecromancers.Count() > 0 || reduction == 0 ))
+        if (placementPoints <= 0 && (playerManager.activePlayerCaptains.Count() > 0 || reduction == 0 ))
         {
             CycleTurns();
 

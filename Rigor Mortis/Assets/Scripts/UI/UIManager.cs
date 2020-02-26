@@ -486,7 +486,7 @@ public class UIManager : MonoBehaviour
     // Unit Assignment
     public void FinishPlacement()
     {
-        if (playerManager.activePlayerNecromancers.Count() > 0)
+        if (playerManager.activePlayerCaptains.Count() > 0)
         {
             gridManager.FinishPlacement();
             gridManager.nextUnit();
@@ -519,13 +519,13 @@ public class UIManager : MonoBehaviour
                 gameOver = true;
             }
         } else if (gridManager.GetObjective() == 1) {
-            if (playerManager.activeEnemyNecromancers.Count <= 0)
+            if (playerManager.activeEnemyCaptains.Count <= 0)
             {
                 scorePointsText.text = "Score: " + PersistantData.EndTurnWin(turnNumber, gridManager.GetPar());
                 UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
                 gameOver = true;
             }
-            else if (playerManager.activePlayerNecromancers.Count <= 0)
+            else if (playerManager.activePlayerCaptains.Count <= 0)
             {
                 scorePointsText.text = "Score: " + PersistantData.EndTurnLose();
                 UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);

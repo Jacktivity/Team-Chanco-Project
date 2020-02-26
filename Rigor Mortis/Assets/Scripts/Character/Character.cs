@@ -225,13 +225,12 @@ public class Character : MonoBehaviour
 
         if (currentHitPoints <= 0)
         {
-            if(name == "Necromancer")
+            playerManager.RemoveUnit(this);
+
+            if (isCaptain)
             {
-                playerManager.RemoveNecromancer(this);
-            } else
-            {
-                playerManager.RemoveUnit(this);
-            }
+                playerManager.RemoveCaptain(this);
+            } 
             DestroyUnit();
         }
         else
