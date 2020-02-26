@@ -20,7 +20,7 @@ public class BlockScript : MonoBehaviour
     public int blockType, triggerId;
 
 #pragma warning disable 069
-    [SerializeField] private GameObject highlight;
+    [SerializeField] private GameObject highlight, mouseOverHighlight;
     [SerializeField] private Renderer borderNorth, borderEast, borderSouth, borderWest;
     [SerializeField] private Color normal;
 #pragma warning restore 069
@@ -67,9 +67,20 @@ public class BlockScript : MonoBehaviour
         }
     }
 
-    void OnMouseOver()
+    //void OnMouseOver()
+    //{
+    //    blockMousedOver?.Invoke(this, this);
+    //}
+
+
+    private void OnMouseEnter()
     {
-        blockMousedOver?.Invoke(this, this);
+        mouseOverHighlight.SetActive(true);
+    }
+
+    private void OnMouseExit()
+    {
+        mouseOverHighlight.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -213,7 +224,8 @@ public class BlockScript : MonoBehaviour
 
     public void SetHighlightColour(Color colour, IEnumerable<Directions> boldHighlight, Vector2 soft, Vector2 curve)
     {        
-        highlight.GetComponent<Renderer>().material.color = new Color(colour.r,colour.g, colour.b, colour.a * 0.05f);        
+        highlight.GetComponent<Renderer>().material.color = new Color(colour.r,colour.g, colour.b, colour.a * 0.05f);
+        mouseOverHighlight.GetComponent<Renderer>().material.color = new Color(colour.r, colour.g, colour.b, colour.a * 0.3f);
 
         borderNorth.material.SetColor("_Colour", colour);
         if (boldHighlight.Contains(Directions.North))

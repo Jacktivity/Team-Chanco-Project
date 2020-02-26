@@ -149,6 +149,7 @@ public class GridManager : MonoBehaviour
         foreach (var tile in Map)
         {
             tile.Highlight(false);
+            tile.SetHighlightColour(Color.grey);
         }
 
         //if(playerTurn && playerManager.selectedPlayer.movedThisTurn == false)
@@ -203,7 +204,8 @@ public class GridManager : MonoBehaviour
                 {
                     GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, pos.YPos, pos.ZPos), Quaternion.Euler(new Vector3(tiles[pos.Value].transform.rotation.x, (90 * rot.Value), tiles[pos.Value].transform.rotation.z)), gameObject.transform);
                     var blockscript = tile.GetComponent<BlockScript>();
-                    blockscript.coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);
+                    blockscript.coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);                    
+                    
                     tile.name = tile.name.Replace("(Clone)", "");
                     tile.name = tile.name + '(' + pos.XPos + ','+ pos.YPos+ ',' + pos.ZPos + ')';
 
@@ -357,6 +359,8 @@ public class GridManager : MonoBehaviour
 
     void UnitPlacement()
     {
+        ClearMap();
+
         var placeables = xmlData.placeables;
 
         var map = gameObject.GetComponentsInChildren<BlockScript>();
