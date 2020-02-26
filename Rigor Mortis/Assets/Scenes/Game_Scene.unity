@@ -1416,11 +1416,11 @@ MonoBehaviour:
   - {fileID: 6376823529244009597, guid: fa71f44038955fb419aea3e275f07e35, type: 3}
   levelMap: {fileID: 4900000, guid: 7a924b8441da4ad47bec18d730df8be0, type: 3}
   SelectedUnit: {fileID: 0}
-  spawnPoint: {r: 1, g: 1, b: 0, a: 1}
-  lowSpeedTile: {r: 0, g: 1, b: 0.1335733, a: 1}
-  highSpeedTile: {r: 0, g: 0.3962264, b: 0.08345025, a: 1}
+  spawnPoint: {r: 0.33565524, g: 0.764151, b: 0.28475437, a: 1}
+  lowSpeedTile: {r: 0, g: 0.4020718, b: 0.7169812, a: 1}
+  highSpeedTile: {r: 0.754717, g: 0.29547882, b: 0.7226771, a: 1}
   attackTile: {r: 1, g: 0, b: 0, a: 1}
-  missTile: {r: 0.5660378, g: 0, b: 0, a: 0.6862745}
+  missTile: {r: 1, g: 0.6213611, b: 0, a: 1}
   highlightCurve: {x: 0, y: 0}
   highlightSoft: {x: 0.4, y: 0.8}
   uiManager: {fileID: 109319797}
