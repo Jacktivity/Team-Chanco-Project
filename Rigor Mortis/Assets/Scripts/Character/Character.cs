@@ -24,6 +24,7 @@ public class Character : MonoBehaviour
 
     public bool isFlying;
     public bool isCaptain;
+    public bool onTrigger;
 
     public IEnumerable<Attack> attacks;
 
@@ -59,7 +60,7 @@ public class Character : MonoBehaviour
     public int type;
 
     public bool repeatSpawn;
-    public int delaySpawn;
+    public int delaySpawn, triggerId;
 
     private void Awake()
     {

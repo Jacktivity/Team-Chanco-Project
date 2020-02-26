@@ -9,7 +9,7 @@ public class BlockScript : MonoBehaviour
     public Vector3 coordinates;
 
     //public GridManager manager;
-    public bool placeable;
+    public bool placeable, exit, trigger;
     public float MoveModifier = 1;
     public bool Traversable { get; private set; }
     public bool Occupied => occupier != null;
@@ -17,7 +17,7 @@ public class BlockScript : MonoBehaviour
     public static EventHandler<BlockScript> blockMousedOver;
     public static EventHandler<BlockScript> blockClicked;
 
-    public int blockType;
+    public int blockType, triggerId;
 
 #pragma warning disable 069
     [SerializeField] private GameObject highlight;
@@ -31,6 +31,7 @@ public class BlockScript : MonoBehaviour
     public Color Normal => normal;
 
     public GameObject[] blockPrefabs = new GameObject[5];
+
 
     // Start is called before the first frame update
     void Start()

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class LevelSliders : MonoBehaviour
 {
@@ -49,7 +50,49 @@ public class LevelSliders : MonoBehaviour
                 tile.transform.parent = blockContainer.transform;
                 tile.coordinates = new Vector3(j, 0, i);
                 map.Add(tile);
+
             }
+        }
+        for (int i = 0; i < map.Count; i++)
+        {
+            var tile = map[i];
+            var pos = tile.coordinates;
+
+                var blockscript = tile.GetComponent<BlockScript>();
+                blockscript.coordinates = new Vector3(pos.x, pos.y, pos.z);
+                tile.name = tile.name.Replace("(Clone)", "");
+                tile.name = tile.name + '(' + pos.x + ',' + pos.y + ',' + pos.z + ')';
+
+
+                var sBlock = map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(0, 0, -1));
+                if (sBlock != null)
+                {
+                    sBlock.N = tile.gameObject;
+                    blockscript.S = sBlock.gameObject;
+                }
+                var swBlock = map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(-1, 0, -1));
+                if (swBlock != null)
+                {
+                    swBlock.NE = tile.gameObject;
+                    blockscript.SW = swBlock.gameObject;
+                }
+                var wBlock = map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(-1, 0, 0));
+                if (wBlock != null)
+                {
+                    wBlock.E = tile.gameObject;
+                    blockscript.W = wBlock.gameObject;
+                }
+                var nwBlock = map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(-1, 0, 1));
+                if (nwBlock != null)
+                {
+                    nwBlock.SE = tile.gameObject;
+                    blockscript.NW = nwBlock.gameObject;
+                }
+                var below = map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(0, -1, 0));
+                if (below != null)
+                {
+                    below.occupier = tile.gameObject;
+                }
         }
 
         generatorCanvas.enabled = false;
