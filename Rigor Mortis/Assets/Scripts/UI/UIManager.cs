@@ -178,11 +178,11 @@ public class UIManager : MonoBehaviour
                 button.transform.localPosition = baseAttackPosition + moveOffset;
                 //button.GetComponentInChildren<Text>().text = targetsInRange.ElementAt(i).name;
                 var enemySelect = button.GetComponent<EnemySelectButton>();
-                enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i));
+                enemySelect.AssignData(e.attacker, targetsInRange.ElementAt(i), e.attackChosen);
                 enemySelect.attackText = attackText;
                 enemySelect.previousText = attackText.text;
                 enemySelect.uiManager = this;
-                EnableAPText(e.attackChosen);
+                EnableAPText(e.attackChosen, e.attacker);
             }
         }
 
@@ -206,24 +206,25 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void EnableAPText(Attack atk)
+    private void EnableAPText(Attack atk, Character unit)
     {
         hitText.enabled = true;
         hitStatText.enabled = true;
-        hitStatText.text = atk.Accuracy + "%";
+        hitStatText.text = Mathf.Clamp((atk.Accuracy*100),0, 100) + "%";
         rangeText.enabled = true;
         rangeStatText.enabled = true;
         rangeStatText.text = atk.Range + "";
         magicText.enabled = true;
         magicStatText.enabled = true;
-        /*if (atk.MagicalDamage != null) {
-            magicStatText.text = atk.MagicalDamage.ToString() + " MP";
-        } else {*/
-            magicStatText.text = "0 MP";
-        //}
+        if (unit.maxManaPoints > 0) {
+            magicStatText.text = atk.Mana + "";
+        } else {
+            magicText.enabled = false;
+            magicStatText.enabled = false;
+        }
         damageText.enabled = true;
         damageStatText.enabled = true;
-        damageStatText.text = atk.AverageDamage + "";
+        damageStatText.text = atk.MinDamage + " - " + atk.MaxDamage;
     }
 
     public void DisableAPText()
@@ -485,8 +486,11 @@ public class UIManager : MonoBehaviour
     // Unit Assignment
     public void FinishPlacement()
     {
-        gridManager.FinishPlacement();
-        gridManager.nextUnit();
+        if (playerManager.activePlayerNecromancers.Count() > 0)
+        {
+            gridManager.FinishPlacement();
+            gridManager.nextUnit();
+        }
     }
 
     public void MainMenuReturn() {

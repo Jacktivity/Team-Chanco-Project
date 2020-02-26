@@ -12,8 +12,10 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public Text attackText;
     public GridManager gridManager;
     public Character character, target;
+    public Attack attackChosen;
     public UIManager uiManager;
     public String previousText;
+    public String hitStatPreviousText;
     public Button button;
 
     public Sprite necromancerSprite, skeletonSprite, floatingSkullSprite, rifleSkeletonSprite, axeSkeletonSprite, spearSkeletonSprite;
@@ -23,10 +25,11 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         button = GetComponent<Button>();
     }
 
-    public void AssignData(Character attacker, Character target)
+    public void AssignData(Character attacker, Character target, Attack attack)
     {
         character = attacker;
         this.target = target;
+        attackChosen = attack;
         gridManager = FindObjectOfType<GridManager>();
 
         target.beingAttacked = true;
@@ -46,13 +49,13 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         attackText.text = "";
     }
 
-
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         //Highlight enemy
         target.godRay.SetActive(true);
         attackText.text = target.name;
+        hitStatPreviousText = uiManager.hitStatText.text;
+        uiManager.hitStatText.text = Mathf.Clamp(Mathf.RoundToInt((character.accuracy * attackChosen.Accuracy) - (target.evade)), 0, 100) + "%";
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -60,6 +63,7 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         //Unhighlight enemy
         target.godRay.SetActive(false);
         attackText.text = previousText;
+        uiManager.hitStatText.text = hitStatPreviousText;
     }
 
     public void SetTargetSprite(Character target) {
