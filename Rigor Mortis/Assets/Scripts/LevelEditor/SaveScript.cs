@@ -20,6 +20,8 @@ public class SaveScript : MonoBehaviour
         var blockdetailsContainer = blockcontainer.GetComponentsInChildren<BlockScript>();
         var enemycontainerdetails = enemycontainer.GetComponentsInChildren<Character>();
         var placeableDetails = blockcontainer.GetComponentsInChildren<BlockScript>().Where(b => b.placeable).ToArray();
+        var exitDetails = blockcontainer.GetComponentsInChildren<BlockScript>().Where(b => b.exit).ToArray();
+        var triggerDetails = blockcontainer.GetComponentsInChildren<BlockScript>().Where(b => b.trigger).ToArray();
 
         var maxY = (int)blockdetailsContainer.Max(b => b.coordinates.y) +1;
         var maxZ = (int)blockdetailsContainer.Max(b => b.coordinates.z) +1;
@@ -30,12 +32,16 @@ public class SaveScript : MonoBehaviour
         levels.rotations = new levelsRotation[maxY];
         levels.enemies = new levelsEnemy[enemycontainerdetails.Length];
         levels.placeables = new levelsPlaceable[placeableDetails.Length];
+        levels.exitzones = new levelsExitzone[exitDetails.Length];
+        levels.triggerzones = new levelsTriggerzone[triggerDetails.Length];
         levels.maps.placementpoints = (byte)placementPointsValue;
-        levels.maps.objective = objective.value;
+        levels.maps.objective = (byte)objective.value;
 
         int y = 0;
         int z = 0;
         int p = 0;
+        int e = 0;
+        int t = 0;
 
         while(y < maxY)
         {
@@ -91,6 +97,27 @@ public class SaveScript : MonoBehaviour
                         p++;
 
                     }
+                    if (block.trigger)
+                    {
+                        var trigger = new levelsTriggerzone();
+                        trigger.posX = (byte)block.coordinates.x;
+                        trigger.posY = (byte)block.coordinates.y;
+                        trigger.posZ = (byte)block.coordinates.z;
+                        trigger.id = (byte)block.triggerId;
+                        levels.triggerzones[t] = trigger;
+                        t++;
+
+                    }
+                    if (block.exit)
+                    {
+                        var exit = new levelsExitzone();
+                        exit.posX = (byte)block.coordinates.x;
+                        exit.posY = (byte)block.coordinates.y;
+                        exit.posZ = (byte)block.coordinates.z;
+                        levels.exitzones[e] = exit;
+                        e++;
+
+                    }
 
                 }
 
@@ -118,6 +145,9 @@ public class SaveScript : MonoBehaviour
             enemy.delay = (byte)enemyDetails.delaySpawn;
             enemy.captain = enemyDetails.isCaptain;
             enemy.repeat = enemyDetails.repeatSpawn;
+            enemy.triggerId = (byte)enemyDetails.triggerId;
+            enemy.onTrigger = enemyDetails.onTrigger;
+
             levels.enemies[i] = enemy;
         }
 

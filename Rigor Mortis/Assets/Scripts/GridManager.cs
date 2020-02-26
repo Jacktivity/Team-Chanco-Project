@@ -482,6 +482,7 @@ public class GridManager : MonoBehaviour
 }
 namespace GridXML
 {
+
     // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
     /// <remarks/>
     [System.SerializableAttribute()]
@@ -596,11 +597,11 @@ namespace GridXML
 
         private levelsMapsMap[] mapField;
 
-        private int placementpointsField;
+        private byte placementpointsField;
 
-        private int objectiveField;
+        private byte objectiveField;
 
-        private int parField;
+        private byte parField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("map")]
@@ -618,7 +619,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int placementpoints
+        public byte placementpoints
         {
             get
             {
@@ -632,7 +633,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int objective
+        public byte objective
         {
             get
             {
@@ -646,7 +647,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int par
+        public byte par
         {
             get
             {
@@ -814,9 +815,11 @@ namespace GridXML
 
         private byte delayField;
 
-        private string triggerzoneidField;
-
         private bool repeatField;
+
+        private bool onTriggerField;
+
+        private byte triggerIdField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -960,20 +963,6 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string triggerzoneid
-        {
-            get
-            {
-                return this.triggerzoneidField;
-            }
-            set
-            {
-                this.triggerzoneidField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
         public bool repeat
         {
             get
@@ -983,6 +972,34 @@ namespace GridXML
             set
             {
                 this.repeatField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool onTrigger
+        {
+            get
+            {
+                return this.onTriggerField;
+            }
+            set
+            {
+                this.onTriggerField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte triggerId
+        {
+            get
+            {
+                return this.triggerIdField;
+            }
+            set
+            {
+                this.triggerIdField = value;
             }
         }
     }
@@ -1171,4 +1188,7 @@ namespace GridXML
         }
     }
 
+
 }
+
+

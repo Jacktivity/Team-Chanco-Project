@@ -85,17 +85,8 @@
     </rotations>
     <enemies>
 
-      <enemy id="0" name="Necromancer" type="1" posX="1" posY ="1" posZ="5" behaviour="0" linkedUnits="" captain ="1" delay ="0" triggerzoneid ="" repeat ="False"/>
-      <enemy id="1" name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="5" behaviour="0" linkedUnits=""  captain ="0" delay ="0" triggerzoneid ="" repeat ="False"/>
-      <enemy id="2" name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="7" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="False"/>
-      <enemy id="3" name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="3" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="False"/>
-
-      <enemy id="4" name="Skeleton" type="5" posX="4" posY ="1" posZ="0" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="False"/>
-      <enemy id="5" name="Skeleton" type="0" posX="5" posY ="1" posZ="0" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="False"/>
-      <enemy id="6" name="Skeleton" type="0" posX="9" posY ="1" posZ="10" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="False"/>
-      <enemy id="7" name="Skeleton" type="0" posX="7" posY ="1" posZ="9" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="False"/>
-      <enemy id="8" name="Skeleton" type="0" posX="6" posY ="0" posZ="3" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="False"/>
-      <enemy id="9" name="Skeleton" type="0" posX="6" posY ="0" posZ="7" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="False"/>
+      <enemy id="0" name="Necromancer" type="1" posX="1" posY ="1" posZ="5" behaviour="0" linkedUnits="" captain ="1" delay ="0" repeat ="false" onTrigger ="false" triggerId="0"/>
+      <enemy id="1" name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="5" behaviour="0" linkedUnits=""  captain ="0" delay ="0" repeat ="false" onTrigger ="false" triggerId="0"/>
 
     </enemies>
     <placeables>
