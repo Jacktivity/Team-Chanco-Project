@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
     private Vector3 previousForward;
     public float heightOffset;
     [SerializeField] protected AudioSource[] characterAudio;
+    [SerializeField] protected AudioClip[] damaged;
     [SerializeField] private GameObject VFXGameObject;
     [SerializeField] private Vector3 deselectedVFXscale, selectedVFXscale;
 
@@ -125,6 +126,11 @@ public class Character : MonoBehaviour
             var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
 
             attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
+
+            animator.SetTrigger("Attack");
+            characterAudio[2].clip = playerManager.GetAttackSFX(selectedAttack.SFX);
+            characterAudio[2].Play();
+
             attackComplete?.Invoke(this, this);
 
         }
@@ -147,6 +153,12 @@ public class Character : MonoBehaviour
     {
         if (moving)
         {
+            if (characterAudio[0].isPlaying == false)
+            {
+                characterAudio[0].Play();
+                //characterAudio[1].PlayDelayed(characterAudio[1].clip.length / 2);
+            }
+
             counterTime += Time.deltaTime * moveAnimationSpeed;
             moveToBlock = path.ElementAt(pathIndex);
 
@@ -178,6 +190,7 @@ public class Character : MonoBehaviour
                         animator.SetBool("Moving", moving);
                     pathIndex = 0;
                     moveComplete?.Invoke(this, this);
+                    characterAudio[0].Stop();
                 }
                 else
                 {
@@ -205,6 +218,12 @@ public class Character : MonoBehaviour
 
                 if (e.PhysicalDamage > armour)
                     TakeDamage(e.PhysicalDamage - armour);
+
+                if (health < currentHitPoints)
+                {
+                    characterAudio[2].clip = damaged[UnityEngine.Random.Range(0, damaged.Length - 1)];
+                    characterAudio[2].Play();
+                }
             }
             else
             {

@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public BlockScript[] walkTiles, sprintTiles;
     [SerializeField] private GridManager gridManager;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private AudioClip[] attackSFX;
 
     public List<Character> globalUnitList;
     public List<Character> activeEnemyNecromancers;
@@ -34,6 +35,8 @@ public class PlayerManager : MonoBehaviour
         ChooseAttackButton.pointerExit += ResetMapMovement;
         MoveButton.pointerExit += ResetMapMovement;
     }
+
+    public AudioClip GetAttackSFX(int sfxIndex) => attackSFX[sfxIndex];
 
     private void OnDestroy()
     {
