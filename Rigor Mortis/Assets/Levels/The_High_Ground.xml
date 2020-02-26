@@ -1,5 +1,5 @@
 <levels>
-    <maps placementpoints ="70" objective = "1">
+    <maps placementpoints ="70" objective = "1" par ="8">
       <map layer ="0">
         <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
         <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
@@ -35,7 +35,7 @@
         <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
         <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
         <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,5,0,0"/>
+        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1, 5,0,0"/>
         <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
         <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
         <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>

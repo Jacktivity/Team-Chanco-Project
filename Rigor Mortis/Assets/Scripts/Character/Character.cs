@@ -224,11 +224,9 @@ public class Character : MonoBehaviour
             if(name == "Necromancer")
             {
                 playerManager.RemoveNecromancer(this);
-                uiManager.GameOverCheck();
             } else
             {
                 playerManager.RemoveUnit(this);
-                uiManager.GameOverCheck();
             }
             DestroyUnit();
         }
@@ -255,9 +253,6 @@ public class Character : MonoBehaviour
             } else {
                 PersistantData.RemoveScore(cost);
             }
-
-            Slider APSlider = GetComponent<ActionPointBar>().slider;
-            APSlider.gameObject.SetActive(false);
         } else if(tag == "Enemy") {
             if (name == "Necromancer")
             {
@@ -270,6 +265,7 @@ public class Character : MonoBehaviour
         }
 
         this.gameObject.SetActive(false);
+        uiManager.GameOverCheck();
     }
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)

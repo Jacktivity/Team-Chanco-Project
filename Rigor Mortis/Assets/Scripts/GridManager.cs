@@ -445,8 +445,12 @@ public class GridManager : MonoBehaviour
 
     public int GetObjective()
     {
-        string obj = xmlData.maps.objective;
-        return int.Parse(obj);
+        return xmlData.maps.objective;
+    }
+
+    public int GetPar()
+    {
+        return xmlData.maps.par;
     }
 
     public int GetTurnNumber()
@@ -592,9 +596,11 @@ namespace GridXML
 
         private levelsMapsMap[] mapField;
 
-        private byte placementpointsField;
+        private int placementpointsField;
 
-        private string objectiveField;
+        private int objectiveField;
+
+        private int parField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("map")]
@@ -612,7 +618,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte placementpoints
+        public int placementpoints
         {
             get
             {
@@ -626,7 +632,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string objective
+        public int objective
         {
             get
             {
@@ -635,6 +641,20 @@ namespace GridXML
             set
             {
                 this.objectiveField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int par
+        {
+            get
+            {
+                return this.parField;
+            }
+            set
+            {
+                this.parField = value;
             }
         }
     }
