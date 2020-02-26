@@ -34,8 +34,9 @@ public class Placement : MonoBehaviour
 
     Character selectedEnemy;
 
-    public Text enemyName;
-    public Toggle captainToggle, repeatSpawn;
+    public Text enemyName, delayText;
+    public Text captainToggle, repeatSpawn;
+    public Slider delay;
 
     Color highlight = Color.yellow;
     // Start is called before the first frame update
@@ -93,17 +94,19 @@ public class Placement : MonoBehaviour
             }
             if(aiEditMode)
             {
-                if (selectedEnemy == null && hit.transform.gameObject.tag == "Enemy")
+                if (hit.transform.gameObject.tag == "Enemy")
                 {
+                    if (selectedEnemy)
+                    {
+                        selectedEnemy.godRay.SetActive(false);
+                    }
                     selectedEnemy = hit.transform.gameObject.GetComponent<Character>();
-                    captainToggle.isOn = selectedEnemy.isCaptain;
-                    repeatSpawn.isOn = selectedEnemy.repeatSpawn;
-
-
-                }
-                else if (selectedEnemy == hit.transform.gameObject.GetComponent<Character>())
-                {
-                    selectedEnemy = null;
+                    enemyName.text = selectedEnemy.name;
+                    captainToggle.text = "Is Captain: " + selectedEnemy.isCaptain;
+                    repeatSpawn.text = "Repeat Spawn: " + selectedEnemy.repeatSpawn;
+                    delay.value = selectedEnemy.delaySpawn;
+                    selectedEnemy.godRay.SetActive(true);
+                    delayText.text = "Delay: " + delay.value;
                 }
             }
             if(block != null)
@@ -166,19 +169,19 @@ public class Placement : MonoBehaviour
             {
                 tempBlock.transform.position = hit.transform.position;
             }
-            else if(deleteMode)
+            if(deleteMode)
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
                 block.Highlight(true);
                 block.SetHighlightColour(delete);
             }
-            else if (placementMode)
+           if (placementMode)
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
                 block.Highlight(true);
                 block.SetHighlightColour(highlight);
             }
-            else if (aiEditMode)
+            if (aiEditMode)
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
             }
@@ -218,6 +221,10 @@ public class Placement : MonoBehaviour
         placementToggle.isOn = false;
         deleteToggle.isOn = deleteMode;
         aiEditMode = false;
+        if (selectedEnemy)
+        {
+            selectedEnemy.godRay.SetActive(false);
+        }
     }
 
     public void PlaceableMode()
@@ -228,6 +235,10 @@ public class Placement : MonoBehaviour
         deleteToggle.isOn = false;
         placementToggle.isOn = placementMode;
         aiEditMode = false;
+        if (selectedEnemy)
+        {
+            selectedEnemy.godRay.SetActive(false);
+        }
     }
     public void EditAiMode()
     {
@@ -243,6 +254,11 @@ public class Placement : MonoBehaviour
         enemyDetails.SetActive(true);
         enemyOptions.SetActive(false);
         terrainOptions.SetActive(false);
+
+        if (selectedEnemy)
+        {
+            selectedEnemy.godRay.SetActive(false);
+        }
     }
 
     public void TerrainOptions()
@@ -257,9 +273,19 @@ public class Placement : MonoBehaviour
         enemyOptions.SetActive(true);
         enemyDetails.SetActive(false);
     }
-    public void toggleCaptain()
+    public void ToggleCaptain()
     {
         selectedEnemy.isCaptain = !selectedEnemy.isCaptain;
-        captainToggle.isOn = selectedEnemy.isCaptain;
+        captainToggle.text = "Is Captain: " + selectedEnemy.isCaptain;
+    }
+    public void toggleRepeatSpawn()
+    {
+        selectedEnemy.repeatSpawn = !selectedEnemy.repeatSpawn;
+        repeatSpawn.text = "Repeat Spawn: " + selectedEnemy.repeatSpawn;
+    }
+    public void EditSpawnDelay()
+    {
+        selectedEnemy.delaySpawn = (int)delay.value;
+        delayText.text = "Delay: " + delay.value;
     }
 }

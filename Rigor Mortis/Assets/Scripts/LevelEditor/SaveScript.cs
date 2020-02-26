@@ -115,6 +115,9 @@ public class SaveScript : MonoBehaviour
             enemy.posZ = (byte)enemyDetails.floor.coordinates.z;
             enemy.behaviour = (byte)0;
             enemy.linkedUnits = "";
+            enemy.delay = (byte)enemyDetails.delaySpawn;
+            enemy.captain = enemyDetails.isCaptain;
+            enemy.repeat = enemyDetails.repeatSpawn;
             levels.enemies[i] = enemy;
         }
 
