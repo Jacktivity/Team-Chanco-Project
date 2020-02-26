@@ -326,6 +326,7 @@ public class Character : MonoBehaviour
         if(beingAttacked)
         {
             godRay.SetActive(true);
+            uiManager.HitStatTextActive(this);
         }
     }
 
@@ -334,6 +335,7 @@ public class Character : MonoBehaviour
         if (beingAttacked)
         {
             godRay.SetActive(false);
+            uiManager.HitStatTextDeactivate();
         }
 
     }
