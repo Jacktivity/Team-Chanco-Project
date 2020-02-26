@@ -82,10 +82,7 @@ public class Character : MonoBehaviour
         };
     }
 
-    private void OnDestroy()
-    {
-        attackEvent -= DamageCheck;
-    }
+    
 
     private void Start()
     {
@@ -227,6 +224,10 @@ public class Character : MonoBehaviour
             if(name == "Necromancer")
             {
                 playerManager.RemoveNecromancer(this);
+                uiManager.GameOverCheck();
+            } else
+            {
+                playerManager.RemoveUnit(this);
                 uiManager.GameOverCheck();
             }
             DestroyUnit();
