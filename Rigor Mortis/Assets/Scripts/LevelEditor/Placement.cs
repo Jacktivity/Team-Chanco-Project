@@ -26,17 +26,18 @@ public class Placement : MonoBehaviour
     Color delete = Color.red;
 
     BlockScript block;
-    public Toggle deleteToggle, placementToggle, aiEditToggle;
+    public Toggle deleteToggle, aiEditToggle;
     GameObject occupier;
-    bool placementMode, aiEditMode;
+    bool aiEditMode;
 
-    public GameObject terrainOptions, enemyOptions, enemyDetails;
+    public GameObject terrainOptions, enemyOptions, enemyDetails, blockDetails;
 
     Character selectedEnemy;
+    BlockScript selectedBlock;
 
-    public Text enemyName, delayText;
-    public Text captainToggle, repeatSpawn;
-    public Slider delay;
+    public Text enemyName, delayText, blockPos, triggerId, enemyOnTrigger;
+    public Text captainToggle, repeatSpawn, exitToggle, triggerToggle, placementText, enemyTriggerId;
+    public Slider delay, trigger, enemyTrigger;
 
     Color highlight = Color.yellow;
     // Start is called before the first frame update
@@ -46,7 +47,6 @@ public class Placement : MonoBehaviour
         tempBlock.GetComponent<BoxCollider>().enabled = false;
         tempBlock.active = false;
 
-        placementMode = false;
         deleteMode = false;
 
     }
@@ -61,7 +61,7 @@ public class Placement : MonoBehaviour
             {
                 block = locationBlock.GetComponent<BlockScript>();
             }
-            if (mapGenerated && locationBlockTag == "Floor" && Physics.Raycast(ray, out hit) && !deleteMode && !placementMode && !aiEditMode)
+            if (mapGenerated && locationBlockTag == "Floor" && Physics.Raycast(ray, out hit) && !deleteMode && !aiEditMode)
             {
                 if (activeBlock.GetComponent<BlockScript>())
                 {
@@ -107,23 +107,23 @@ public class Placement : MonoBehaviour
                     delay.value = selectedEnemy.delaySpawn;
                     selectedEnemy.godRay.SetActive(true);
                     delayText.text = "Delay: " + delay.value;
-                }
-            }
-            if(block != null)
-            {
-                if (placementMode && block.occupier == null)
-                {
-                    block.placeable = !block.placeable;
-                    block.Highlight(true);
-                    if (block.placeable)
-                    {
-                        block.SetHighlightColour(highlight);
-                    }
-                    else
-                    {
-                        block.SetHighlightColour(block.Normal);
-                    }
 
+                    enemyDetails.SetActive(true);
+                    blockDetails.SetActive(false);
+                }
+                if (hit.transform.gameObject.tag == "Floor")
+                {
+                    selectedBlock = hit.transform.gameObject.GetComponent<BlockScript>();
+                    blockPos.text = "Block Pos: " + selectedBlock.coordinates.x + ", " + selectedBlock.coordinates.y + ", " + selectedBlock.coordinates.z;
+                    exitToggle.text = "Is Exit: " + selectedBlock.exit;
+                    triggerToggle.text = "Trigger: " + selectedBlock.trigger;
+                    placementText.text = "Spawn Point: " + selectedBlock.placeable;
+                    trigger.value = selectedBlock.triggerId;
+                    triggerId.text = "Trigger ID: " + delay.value;
+
+                    enemyDetails.SetActive(false);
+                    blockDetails.SetActive(true);
+                    
                 }
             }
         }
@@ -139,15 +139,6 @@ public class Placement : MonoBehaviour
         }
         if (Physics.Raycast(ray, out hit))
         {
-            
-            if (block != null)
-            {
-                if(!block.placeable)
-                {
-                    block.Highlight(false);
-                    block.SetHighlightColour(block.Normal);
-                }
-            }
             locationBlockTag = hit.transform.tag;
             locationBlockNormal = hit.normal;
             locationBlockPos = hit.transform.position + hit.normal;
@@ -175,12 +166,6 @@ public class Placement : MonoBehaviour
                 block.Highlight(true);
                 block.SetHighlightColour(delete);
             }
-           if (placementMode)
-            {
-                tempBlock.transform.position = new Vector3(-10, -10, -10);
-                block.Highlight(true);
-                block.SetHighlightColour(highlight);
-            }
             if (aiEditMode)
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
@@ -191,7 +176,7 @@ public class Placement : MonoBehaviour
 
     public void ChangeActiveBlock(GameObject newBlock)
     {
-        if (!placementMode && !deleteMode)
+        if (!deleteMode)
         {
             activeBlock = newBlock;
             Destroy(tempBlock);
@@ -216,9 +201,7 @@ public class Placement : MonoBehaviour
     public void DeleteMode()
     {
         deleteMode = !deleteMode;
-        placementMode = false;
         tempBlock.SetActive(deleteMode);
-        placementToggle.isOn = false;
         deleteToggle.isOn = deleteMode;
         aiEditMode = false;
         if (selectedEnemy)
@@ -227,37 +210,49 @@ public class Placement : MonoBehaviour
         }
     }
 
-    public void PlaceableMode()
+    public void TogglePlaceable()
     {
-        placementMode = !placementMode;
-        deleteMode = false;
-        tempBlock.SetActive(placementMode);
-        deleteToggle.isOn = false;
-        placementToggle.isOn = placementMode;
-        aiEditMode = false;
-        if (selectedEnemy)
-        {
-            selectedEnemy.godRay.SetActive(false);
-        }
+        selectedBlock.placeable = !selectedBlock.placeable;
+        placementText.text = "Is Placeable: " + selectedBlock.placeable;
+        selectedBlock.Highlight(selectedBlock.placeable);
+        selectedBlock.SetHighlightColour(highlight);
+    }
+    public void ToggleExit()
+    {
+        selectedBlock.exit = !selectedBlock.exit;
+        exitToggle.text = "Is Exit: " + selectedBlock.exit;
+        selectedBlock.Highlight(selectedBlock.exit);
+        selectedBlock.SetHighlightColour(Color.blue);
+    }
+    public void ToggleTrigger()
+    {
+        selectedBlock.trigger = !selectedBlock.trigger;
+        triggerToggle.text = "Is Trigger: " + selectedBlock.trigger;
+        selectedBlock.Highlight(selectedBlock.trigger);
+        selectedBlock.SetHighlightColour(Color.magenta);
     }
     public void EditAiMode()
     {
         aiEditMode = !aiEditMode;
         deleteMode = false;
-        placementMode = false;
         tempBlock.SetActive(aiEditMode);
         deleteToggle.isOn = false;
         deleteToggle.isOn = false;
         aiEditToggle.isOn = aiEditMode;
 
         selectedEnemy = null;
-        enemyDetails.SetActive(true);
+        enemyDetails.SetActive(false);
+        blockDetails.SetActive(false);
         enemyOptions.SetActive(false);
         terrainOptions.SetActive(false);
 
         if (selectedEnemy)
         {
             selectedEnemy.godRay.SetActive(false);
+        }
+        if(selectedBlock)
+        {
+            selectedBlock.Highlight(true);
         }
     }
 
@@ -287,5 +282,20 @@ public class Placement : MonoBehaviour
     {
         selectedEnemy.delaySpawn = (int)delay.value;
         delayText.text = "Delay: " + delay.value;
+    }
+    public void EditTrigger()
+    {
+        selectedBlock.triggerId = (int)trigger.value;
+        triggerId.text = "Trigger ID: " + trigger.value;
+    }
+    public void EditEnemyTriggerID()
+    {
+        selectedEnemy.triggerId = (int)enemyTrigger.value;
+        enemyTriggerId.text = "Trigger ID: " + enemyTrigger.value;
+    }
+    public void ToggleEnemyTrigger()
+    {
+        selectedEnemy.onTrigger = !selectedEnemy.onTrigger;
+        enemyOnTrigger.text = "On Trigger: " + selectedEnemy.onTrigger;
     }
 }
