@@ -59,12 +59,12 @@ public class UnitSliders : MonoBehaviour
                 offset.y = 1;
                 break;
         }
-        healthSlider.transform.position = unit.transform.position + offset;
+        healthSlider.transform.position = Camera.main.WorldToScreenPoint(unit.transform.position + offset);
     }
 
     public void Update()
     {
-        healthSlider.transform.position = unit.transform.position + offset;
-        healthSlider.transform.LookAt(FindObjectOfType<Camera>().transform);
+        healthSlider.transform.position = Camera.main.WorldToScreenPoint(unit.transform.position + offset);
+        //healthSlider.transform.LookAt(FindObjectOfType<Camera>().transform);
     }
 }
