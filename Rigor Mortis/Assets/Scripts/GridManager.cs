@@ -256,7 +256,6 @@ public class GridManager : MonoBehaviour
             {
                 //North - South step
                 case 0:
-                    Debug.Log(ramp.name + ":" + ramp.coordinates.ToString() + ":" + (rotation).ToString());
                     upperStep = new Vector3(0, 0, 1);
                     lowerStep = new Vector3(0, -1, -1);
                     ramp.N = Map.FirstOrDefault(t => t.coordinates == ramp.coordinates + upperStep)?.gameObject ?? null;
@@ -284,7 +283,6 @@ public class GridManager : MonoBehaviour
                     break;
                 //East - West Step
                 case 1:
-                    Debug.Log(ramp.name + ":" + ramp.coordinates.ToString() + ":" + (rotation).ToString());
                     upperStep = new Vector3(-1, 0, 0);
                     lowerStep = new Vector3(1, -1, 0);
                     ramp.W = Map.FirstOrDefault(t => t.coordinates == ramp.coordinates + upperStep)?.gameObject ?? null;

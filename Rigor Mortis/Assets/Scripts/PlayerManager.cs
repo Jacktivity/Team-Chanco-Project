@@ -39,7 +39,6 @@ public class PlayerManager : MonoBehaviour
 
     private void PlayerSelectedByBlock(object sender, BlockScript e)
     {
-        Debug.Log("PSBB: " + e.coordinates.ToString());
         if(e.Occupied? e.occupier.tag == "Player" : false)
         {
             var unit = e.occupier.GetComponent<Character>();
