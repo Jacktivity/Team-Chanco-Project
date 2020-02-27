@@ -314,8 +314,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coordinates: {x: 0, y: 0, z: 0}
   placeable: 0
+  exit: 0
+  trigger: 0
   MoveModifier: 1
   blockType: 0
+  triggerId: 0
   highlight: {fileID: 108959390408376049}
   borderNorth: {fileID: 4452193077028098396}
   borderEast: {fileID: 5710048426116262405}
@@ -617,6 +620,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6483338841720571170}
     m_Modifications:
+    - target: {fileID: 100000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
+      propertyPath: m_Name
+      value: Terrain_Rock_Mid2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -661,14 +672,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
-      propertyPath: m_Name
-      value: Terrain_Rock_Mid2
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 7ef07a8d1e545c244b2a68eef9443887, type: 3}
       propertyPath: m_LightProbeUsage
       value: 0
@@ -706,6 +709,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6483338841720571170}
     m_Modifications:
+    - target: {fileID: 100000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
+      propertyPath: m_Name
+      value: Terrain_Rock_Mid1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -749,14 +760,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
-      propertyPath: m_Name
-      value: Terrain_Rock_Mid1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 59e9f3cebe8257944bee4a31a63c92cd, type: 3}
       propertyPath: m_LightProbeUsage
@@ -884,6 +887,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6483338841720571170}
     m_Modifications:
+    - target: {fileID: 100000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
+      propertyPath: m_Name
+      value: Terrain_Rock_EndR
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -927,14 +938,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
-      propertyPath: m_Name
-      value: Terrain_Rock_EndR
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 91419ad8ea2db3441bf0f57656964756, type: 3}
       propertyPath: m_LightProbeUsage
