@@ -121,12 +121,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void MenuButtonPress()
-    {
-        resumeState = currentState;
-        gameStateChange?.Invoke(this, GameStates.paused);
-    }
-
     public void Resume() {
         isPaused = false;
         gameStateChange?.Invoke( this, resumeState );
