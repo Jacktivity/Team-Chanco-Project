@@ -38,19 +38,22 @@ public class SaveScript : MonoBehaviour
         levels.maps.objective = (byte)objective.value;
 
         int y = 0;
-        int z = 0;
+        int z = maxZ - 1;
         int p = 0;
         int e = 0;
         int t = 0;
 
         while(y < maxY)
         {
+            
             levels.maps.map[y] = new levelsMapsMap();
             levels.maps.map[y].layer = (byte)y;
             levels.maps.map[y].mapline = new levelsMapsMapMapline[(int)maxZ];
             levels.rotations[y] = new levelsRotation();
             levels.rotations[y].rotationline = new levelsRotationRotationline[(int)maxZ];
-            while (z < maxZ)
+            maxZ = levels.maps.map[y].mapline.Length;
+
+            while (z > 0)
             {
                 var pos = new int[maxX];
                 var rot = new int[maxX];
@@ -60,7 +63,7 @@ public class SaveScript : MonoBehaviour
 
                 var row = blockdetailsContainer
                 .Where(b => b.coordinates.z == z && b.coordinates.y == y)
-                .OrderBy(b => b.coordinates.y).OrderBy(b => b.coordinates.z).OrderBy(b => b.coordinates.x)
+                .OrderBy(b => b.coordinates.y).OrderByDescending(b => b.coordinates.z).OrderBy(b => b.coordinates.x)
                 .Select(b => b).ToArray();
 
                 for (int i = 0; i < pos.Length; i++) pos[i] = -1;
@@ -92,7 +95,6 @@ public class SaveScript : MonoBehaviour
                             break;
                         case 270:
                             rot[(int)block.coordinates.x] = 2;
-                            break;
                             break;
                         default:
                             break;
@@ -135,9 +137,9 @@ public class SaveScript : MonoBehaviour
                 levels.maps.map[y].mapline[z].value = string.Join(",", pos.Select(i => i.ToString()).ToArray());
                 levels.rotations[y].rotationline[z].value = string.Join(",", rot.Select(i => i.ToString()).ToArray());
 
-                z++;
+                z--;
             }
-            z = 0;
+            z = 
             y++;
         }
         for (int i = 0; i < enemycontainerdetails.Length; i++)

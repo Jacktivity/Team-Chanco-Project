@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class Placement : MonoBehaviour
 {
     public Canvas placementCanvas;
@@ -301,5 +301,12 @@ public class Placement : MonoBehaviour
     {
         selectedEnemy.onTrigger = !selectedEnemy.onTrigger;
         enemyOnTrigger.text = "On Trigger: " + selectedEnemy.onTrigger;
+    }
+
+    public void MainMenuReturn()
+    {
+        MainMenu.mainMenuStateChange?.Invoke(this, MainMenu.MainMenuStates.mainCanvas);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
+        SceneManager.UnloadSceneAsync(1, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
     }
 }
