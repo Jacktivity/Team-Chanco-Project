@@ -86,7 +86,7 @@ public class Placement : MonoBehaviour
                 }
                 if(activeBlock.tag == "Enemy")
                 {
-                    var placedEnemy = Instantiate(activeBlock, locationBlockPos - locationBlockNormal, tempBlock.transform.rotation);
+                    var placedEnemy = Instantiate(activeBlock, locationBlockPos - locationBlockNormal/2, tempBlock.transform.rotation);
                     placedEnemy.GetComponent<Character>().floor = block;
                     placedEnemy.transform.parent = enemyContainer.transform;
                     block.occupier = activeBlock;
