@@ -152,7 +152,7 @@ public class SaveScript : MonoBehaviour
         }
 
         var serializer = new XmlSerializer(typeof(levels));
-        var stream = new FileStream("./Assets/Levels/" + levelName.text + ".xml", FileMode.Create);
+        var stream = new FileStream("./Assets/Resources/CustomLevels/" + levelName.text + ".xml", FileMode.Create);
         serializer.Serialize(stream, levels);
         stream.Close();
     }
