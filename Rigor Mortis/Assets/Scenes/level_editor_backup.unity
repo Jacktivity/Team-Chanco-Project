@@ -4529,6 +4529,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b1a6b04cb76bb7479c41f9ec4d01744, type: 3}
+--- !u!20 &854556472 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5512977453624733002, guid: 8b1a6b04cb76bb7479c41f9ec4d01744,
+    type: 3}
+  m_PrefabInstance: {fileID: 854556471}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &862138398
 GameObject:
   m_ObjectHideFlags: 0
@@ -5268,6 +5274,7 @@ MonoBehaviour:
   delay: {fileID: 734205207}
   trigger: {fileID: 1203664892}
   enemyTrigger: {fileID: 1791250053}
+  levelEditorCamera: {fileID: 854556472}
 --- !u!114 &1053045924
 MonoBehaviour:
   m_ObjectHideFlags: 0

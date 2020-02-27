@@ -60,7 +60,7 @@ public class SaveScript : MonoBehaviour
 
                 var row = blockdetailsContainer
                 .Where(b => b.coordinates.z == z && b.coordinates.y == y)
-                .OrderBy(b => b.coordinates.y).OrderBy(b => b.coordinates.x).OrderBy(b => b.coordinates.z)
+                .OrderBy(b => b.coordinates.y).OrderBy(b => b.coordinates.z).OrderBy(b => b.coordinates.x)
                 .Select(b => b).ToArray();
 
                 for (int i = 0; i < pos.Length; i++) pos[i] = -1;
