@@ -40,6 +40,8 @@ public class Placement : MonoBehaviour
     public Text captainToggle, repeatSpawn, exitToggle, triggerToggle, placementText, enemyTriggerId;
     public Slider delay, trigger, enemyTrigger;
 
+    public Camera levelEditorCamera;
+
     Color highlight = Color.yellow;
     // Start is called before the first frame update
     void Start()
@@ -55,7 +57,7 @@ public class Placement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+        ray = levelEditorCamera.ScreenPointToRay(Input.mousePosition);
         if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             if(locationBlock != null)
