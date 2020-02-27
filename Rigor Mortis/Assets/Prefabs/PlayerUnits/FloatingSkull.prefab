@@ -703,8 +703,8 @@ MonoBehaviour:
   damaged:
   - {fileID: 8300000, guid: 85b3b4cdb9123ef4fb86ff35371640b0, type: 3}
   VFXGameObject: {fileID: 761872241002548050}
-  deselectedVFXscale: {x: 0, y: 0, z: 0}
-  selectedVFXscale: {x: 0, y: 0, z: 0}
+  deselectedVFXscale: {x: 0.15, y: 0.15, z: 0.15}
+  selectedVFXscale: {x: 0.25, y: 0.25, z: 0.25}
   ID: 0
   cost: 15
   maxHitPoints: 12
