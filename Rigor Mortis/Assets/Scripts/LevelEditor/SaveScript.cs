@@ -42,59 +42,61 @@ public class SaveScript : MonoBehaviour
         int p = 0;
         int e = 0;
         int t = 0;
+        int x = maxX - 1;
 
-        while(y < maxY)
+
+        while (y < maxY)
         {
             
             levels.maps.map[y] = new levelsMapsMap();
             levels.maps.map[y].layer = (byte)y;
-            levels.maps.map[y].mapline = new levelsMapsMapMapline[(int)maxZ];
+            levels.maps.map[y].mapline = new levelsMapsMapMapline[(int)maxX];
             levels.rotations[y] = new levelsRotation();
-            levels.rotations[y].rotationline = new levelsRotationRotationline[(int)maxZ];
-            maxZ = levels.maps.map[y].mapline.Length;
+            levels.rotations[y].rotationline = new levelsRotationRotationline[(int)maxX];
+            maxX = levels.maps.map[y].mapline.Length;
 
-            while (z > 0)
+            while (x >= 0)
             {
-                var pos = new int[maxX];
-                var rot = new int[maxX];
+                var pos = new int[maxZ];
+                var rot = new int[maxZ];
 
-                levels.maps.map[y].mapline[z] = new levelsMapsMapMapline();
-                levels.rotations[y].rotationline[z] = new levelsRotationRotationline();
+                levels.maps.map[y].mapline[x] = new levelsMapsMapMapline();
+                levels.rotations[y].rotationline[x] = new levelsRotationRotationline();
 
                 var row = blockdetailsContainer
-                .Where(b => b.coordinates.z == z && b.coordinates.y == y)
-                .OrderBy(b => b.coordinates.y).OrderByDescending(b => b.coordinates.z).OrderBy(b => b.coordinates.x)
+                .Where(b => b.coordinates.x == x && b.coordinates.y == y)
+                .OrderBy(b => b.coordinates.y).OrderBy(b => b.coordinates.z).OrderBy(b => b.coordinates.x)
                 .Select(b => b).ToArray();
 
                 for (int i = 0; i < pos.Length; i++) pos[i] = -1;
                 
                 foreach(var block in row)
                 {
-                    pos[(int)block.coordinates.x] = block.blockType;
+                    pos[(int)block.coordinates.z] = block.blockType;
 
                     switch ((int)block.transform.eulerAngles.y)
                     {
                         case 0:
-                            rot[(int)block.coordinates.x] = 0;
+                            rot[(int)block.coordinates.z] = 0;
                             if(block.tag == "Floor-Transition")
                             {
                                 rot[(int)block.coordinates.x] = 1;
                             }
                             break;
                         case 90:
-                            rot[(int)block.coordinates.x] = 0;
+                            rot[(int)block.coordinates.z] = 0;
                             break;
                         case -90:
-                            rot[(int)block.coordinates.x] = 2;
+                            rot[(int)block.coordinates.z] = 2;
                             break;
                         case -180:
-                            rot[(int)block.coordinates.x] = 2;
+                            rot[(int)block.coordinates.z] = 2;
                             break;
                         case 180:
-                            rot[(int)block.coordinates.x] = 3;
+                            rot[(int)block.coordinates.z] = 3;
                             break;
                         case 270:
-                            rot[(int)block.coordinates.x] = 2;
+                            rot[(int)block.coordinates.z] = 2;
                             break;
                         default:
                             break;
@@ -134,12 +136,12 @@ public class SaveScript : MonoBehaviour
 
                 }
 
-                levels.maps.map[y].mapline[z].value = string.Join(",", pos.Select(i => i.ToString()).ToArray());
-                levels.rotations[y].rotationline[z].value = string.Join(",", rot.Select(i => i.ToString()).ToArray());
+                levels.maps.map[y].mapline[x].value = string.Join(",", pos.Select(i => i.ToString()).ToArray());
+                levels.rotations[y].rotationline[x].value = string.Join(",", rot.Select(i => i.ToString()).ToArray());
 
-                z--;
+                x--;
             }
-            z = 
+            x = maxX - 1;
             y++;
         }
         for (int i = 0; i < enemycontainerdetails.Length; i++)
