@@ -20,6 +20,7 @@ public class AttackLibrary
 
     public static Attack CaplockRifle => new Attack(9, 10, 0.8f, "Caplock Rifle", physicalDmg: new Dice(2, 2));
     public static Attack Axe => new Attack(10, 1, 1, "Axe", physicalDmg: new Dice(3, 2));
+    public static Attack Mace => new Attack(1, 1, 1, "Mace", physicalDmg: new Dice(2, 2));
     public static Attack Spear => new Attack(11, 2, 1.1f, "Spear", physicalDmg: new Dice(2, 2));
 
 }

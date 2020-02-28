@@ -154,6 +154,7 @@ public class Character : MonoBehaviour
     {
         if (moving)
         {
+
             if (characterAudio[0].isPlaying == false)
             {
                 characterAudio[0].Play();
