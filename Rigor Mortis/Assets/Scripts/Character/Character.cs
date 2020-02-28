@@ -113,6 +113,7 @@ public class Character : MonoBehaviour
         {
             ActionPoints -= 3;
             manaPoints -= selectedAttack.Mana;
+            gameObject.GetComponent<UnitSliders>().manaSlider.value = manaPoints;
 
             var baseDamage = selectedAttack.RollDamage();
 
