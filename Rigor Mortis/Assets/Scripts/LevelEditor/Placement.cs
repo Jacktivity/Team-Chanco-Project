@@ -113,6 +113,7 @@ public class Placement : MonoBehaviour
                     delay.value = selectedEnemy.delaySpawn;
                     selectedEnemy.godRay.SetActive(true);
                     delayText.text = "Delay: " + delay.value;
+                    enemyOnTrigger.text = "On Trigger: " + selectedEnemy.onTrigger;
 
                     enemyDetails.SetActive(true);
                     blockDetails.SetActive(false);
@@ -162,7 +163,7 @@ public class Placement : MonoBehaviour
             {
                 tempBlock.transform.position = locationBlockPos;
             }
-            else if (!deleteMode && occupier != null || activeBlock.name == "Difficult")
+            else if (!deleteMode && occupier != null || activeBlock.name == "Difficult" && tempBlock != null)
             {
                 tempBlock.transform.position = hit.transform.position;
             }

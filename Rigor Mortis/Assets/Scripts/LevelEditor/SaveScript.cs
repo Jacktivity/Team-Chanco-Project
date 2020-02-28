@@ -84,19 +84,19 @@ public class SaveScript : MonoBehaviour
                             }
                             break;
                         case 90:
-                            rot[(int)block.coordinates.z] = 0;
+                            rot[(int)block.coordinates.z] = 1;
                             break;
                         case -90:
-                            rot[(int)block.coordinates.z] = 2;
+                            rot[(int)block.coordinates.z] = 3;
                             break;
                         case -180:
                             rot[(int)block.coordinates.z] = 2;
                             break;
                         case 180:
-                            rot[(int)block.coordinates.z] = 3;
+                            rot[(int)block.coordinates.z] = 2;
                             break;
                         case 270:
-                            rot[(int)block.coordinates.z] = 2;
+                            rot[(int)block.coordinates.z] = 3;
                             break;
                         default:
                             break;
