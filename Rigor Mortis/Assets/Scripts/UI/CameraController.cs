@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector2 rotationSpeed = new Vector2(0.1f, 1f);
     [SerializeField] private int minXRotation, maxXRotation;
     public Dictionary<Vector2, float> yPositionDict;
-    private float boomLerp = 0f;
+    public float boomLerp = 0f;
     private Vector3 posColliderExtents, negColliderExtents, maxBoomLength, minBoomLength, previousMousePos;
 
     // Start is called before the first frame update

@@ -515,6 +515,7 @@ public class GridManager : MonoBehaviour
     {
         if (!CheckPlayerTurn())
         {
+            uiManager.GameOverCheck();
             UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.enemyTurn);
             turnEnded?.Invoke(this, new EventArgs());
             StartCoroutine(MoveEnemies());

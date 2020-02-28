@@ -37,6 +37,9 @@ public class UIManager : MonoBehaviour
 
     //[SerializeField] Slider APBar;
     //List<Slider> APBars;
+    private Character attacker;
+    private Attack currentAttack;
+
 
     public BlockScript[] blocksInRange;
     public static EventHandler<GameStates> gameStateChange;
@@ -118,12 +121,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void MenuButtonPress()
-    {
-        resumeState = currentState;
-        gameStateChange?.Invoke(this, GameStates.paused);
-    }
-
     public void Resume() {
         isPaused = false;
         gameStateChange?.Invoke( this, resumeState );
@@ -152,6 +149,9 @@ public class UIManager : MonoBehaviour
         DeleteCurrentPopupButtons();
         attackPanalShrinkButtons = true;
         ButtonSpaceUpdate(attackPanalShrinkButtons);
+
+        attacker = e.attacker;
+        currentAttack = e.attackChosen;
 
         var targetsInRange = e.attacker.pathfinder.GetAttackTiles(e.attacker, e.attackChosen)
             .Where(b => b.Occupied ? b.occupier.tag == "Enemy" || b.occupier.tag == "Breakable_Terrain" : false)
@@ -225,6 +225,16 @@ public class UIManager : MonoBehaviour
         damageText.enabled = true;
         damageStatText.enabled = true;
         damageStatText.text = atk.MinDamage + " - " + atk.MaxDamage;
+    }
+
+    public void HitStatTextActive(Character target)
+    {
+        hitStatText.text = Mathf.Clamp(Mathf.RoundToInt((attacker.accuracy * currentAttack.Accuracy) - (target.evade)), 0, 100) + "%";
+    }
+
+    public void HitStatTextDeactivate()
+    {
+        hitStatText.text = Mathf.Clamp((currentAttack.Accuracy * 100), 0, 100) + "%";
     }
 
     public void DisableAPText()
@@ -505,33 +515,44 @@ public class UIManager : MonoBehaviour
 
     public void GameOverCheck()
     {
-        if (gridManager.GetObjective() == 0) {
-            if (playerManager.activeEnemies.Count <= 0)
-            {
-                scorePointsText.text = "Score: " + PersistantData.EndTurnWin(turnNumber, gridManager.GetPar());
-                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
-                gameOver = true;
-            }
-            else if (playerManager.activePlayers.Count <= 0)
-            {
-                scorePointsText.text = "Score: " + PersistantData.EndTurnLose();
-                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
-                gameOver = true;
-            }
-        } else if (gridManager.GetObjective() == 1) {
-            if (playerManager.activeEnemyCaptains.Count <= 0)
-            {
-                scorePointsText.text = "Score: " + PersistantData.EndTurnWin(turnNumber, gridManager.GetPar());
-                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
-                gameOver = true;
-            }
-            else if (playerManager.activePlayerCaptains.Count <= 0)
-            {
-                scorePointsText.text = "Score: " + PersistantData.EndTurnLose();
-                UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
-                gameOver = true;
-            }
-        } else if(gridManager.GetObjective() == 2) {
+        switch (gridManager.GetObjective()) {
+            case 0:
+                if (playerManager.activeEnemies.Count <= 0) {
+                    scorePointsText.text = "Score: " + PersistantData.EndTurnWin(turnNumber, gridManager.GetPar());
+                    UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
+                    gameOver = true;
+                } else if (playerManager.activePlayers.Count <= 0) {
+                    scorePointsText.text = "Score: " + PersistantData.EndTurnLose();
+                    UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
+                    gameOver = true;
+                }
+                break;
+
+            case 1:
+                if (playerManager.activeEnemyCaptains.Count <= 0) {
+                    scorePointsText.text = "Score: " + PersistantData.EndTurnWin(turnNumber, gridManager.GetPar());
+                    UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
+                    gameOver = true;
+                } else if (playerManager.activePlayerCaptains.Count <= 0) {
+                    scorePointsText.text = "Score: " + PersistantData.EndTurnLose();
+                    UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.loseState);
+                    gameOver = true;
+                }
+                break;
+
+            case 2:
+                foreach (Character unit in playerManager.activePlayerCaptains) {
+                    if (unit.floor.exit) {
+                        scorePointsText.text = "Score: " + PersistantData.EndTurnWin(turnNumber, gridManager.GetPar());
+                        UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.winState);
+                        gameOver = true;
+                    }
+                }
+                break;
+
+            default:
+                Debug.LogError("Objective not found in XML file");
+                break;
 
         }
 

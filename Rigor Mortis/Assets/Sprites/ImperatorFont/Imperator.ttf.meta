@@ -11,7 +11,10 @@ TrueTypeFontImporter:
   fontName: Imperator
   fontNames:
   - Imperator
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 562be5e4be9e1ef47b1bfd71c957c4f5, type: 3}
+  - {fileID: 12800000, guid: 590d49e5c9c94514787dc5c64fdf4bef, type: 3}
+  - {fileID: 12800000, guid: 841b682a7c50b194c89c16d999bcd614, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

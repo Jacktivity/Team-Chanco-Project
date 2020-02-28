@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UnitSliders : MonoBehaviour
@@ -9,12 +10,14 @@ public class UnitSliders : MonoBehaviour
     public Slider healthSlider;
     public Slider manaSlider;
     public Vector3 offset;
+    public Scene activeScene;
 
     bool manaEnabled = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        activeScene = SceneManager.GetActiveScene();
         healthSlider.maxValue = unit.GetHealth;
         healthSlider.value = unit.GetHealth;
 
@@ -56,12 +59,12 @@ public class UnitSliders : MonoBehaviour
                 offset.y = 1;
                 break;
         }
-        healthSlider.transform.position = unit.transform.position + offset;
+        healthSlider.transform.position = Camera.main.WorldToScreenPoint(unit.transform.position + offset);
     }
 
     public void Update()
     {
-        healthSlider.transform.position = unit.transform.position + offset;
-        healthSlider.transform.LookAt(FindObjectOfType<Camera>().transform);
+        healthSlider.transform.position = Camera.main.WorldToScreenPoint(unit.transform.position + offset);
+        //healthSlider.transform.LookAt(FindObjectOfType<Camera>().transform);
     }
 }
