@@ -17,6 +17,7 @@ public class PlayerManager : MonoBehaviour
     public List<Character> activePlayerCaptains;
     public List<Character> activeEnemies;
     public List<Character> activePlayers;
+    public List<Character> activePlayersInTurn;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,7 @@ public class PlayerManager : MonoBehaviour
         activePlayerCaptains = new List<Character>();
         activeEnemies = new List<Character>();
         activePlayers = new List<Character>();
+        activePlayersInTurn = new List<Character>();
 
         GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
         GridManager.unitSpawned += (s, e) => { e.moveComplete += (sender, character) => gridManager.CycleTurns(); };
