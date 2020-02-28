@@ -13,8 +13,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private AudioClip[] attackSFX;
 
     public List<Character> globalUnitList;
-    public List<Character> activeEnemyNecromancers;
-    public List<Character> activePlayerNecromancers;
+    public List<Character> activeEnemyCaptains;
+    public List<Character> activePlayerCaptains;
     public List<Character> activeEnemies;
     public List<Character> activePlayers;
 
@@ -22,8 +22,8 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         globalUnitList = new List<Character>();
-        activeEnemyNecromancers = new List<Character>();
-        activePlayerNecromancers = new List<Character>();
+        activeEnemyCaptains = new List<Character>();
+        activePlayerCaptains = new List<Character>();
         activeEnemies = new List<Character>();
         activePlayers = new List<Character>();
 
@@ -75,6 +75,11 @@ public class PlayerManager : MonoBehaviour
         } else if(unit.tag == "Enemy") {
             activeEnemies.Add(unit);
         }
+
+        if (unit.isCaptain)
+        {
+            AddCaptain(unit);
+        }
     }
 
     public void RemoveUnit(Character unit)
@@ -86,22 +91,22 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void AddNecromancer(Character unit)
+    public void AddCaptain(Character unit)
     {
         if (unit.tag == "Enemy") {
-            activeEnemyNecromancers.Add(unit);
+            activeEnemyCaptains.Add(unit);
         } else if(unit.tag == "Player") {
-            activePlayerNecromancers.Add(unit);
+            activePlayerCaptains.Add(unit);
         }
     }
 
-    public void RemoveNecromancer(Character unit)
+    public void RemoveCaptain(Character unit)
     {
         if (unit.tag == "Enemy")
         {
-            activeEnemyNecromancers.Remove(unit);
+            activeEnemyCaptains.Remove(unit);
         } else if (unit.tag == "Player") {
-            activePlayerNecromancers.Remove(unit);
+            activePlayerCaptains.Remove(unit);
         }
     }
 

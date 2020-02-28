@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 using UnityEngine.UI;
 
 public class Placement : MonoBehaviour
@@ -39,6 +40,8 @@ public class Placement : MonoBehaviour
     public Text captainToggle, repeatSpawn, exitToggle, triggerToggle, placementText, enemyTriggerId;
     public Slider delay, trigger, enemyTrigger;
 
+    public Camera levelEditorCamera;
+
     Color highlight = Color.yellow;
     // Start is called before the first frame update
     void Start()
@@ -54,7 +57,7 @@ public class Placement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+        ray = levelEditorCamera.ScreenPointToRay(Input.mousePosition);
         if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             if(locationBlock != null)
@@ -72,6 +75,7 @@ public class Placement : MonoBehaviour
                     var placedBlock = Instantiate(activeBlock, locationBlockPos, tempBlock.transform.rotation);
                     placedBlock.transform.parent = blockContainer.transform;
                     placedBlock.GetComponent<BlockScript>().coordinates = block.coordinates + locationBlockNormal;
+                    placedBlock.gameObject.AddComponent<BlockDetect>();
                 }
                 else if((occupier != null || activeBlock.name == "Difficult") && activeBlock.tag != "Enemy")
                 {
@@ -79,10 +83,12 @@ public class Placement : MonoBehaviour
                     placedBlock.GetComponent<BlockScript>().coordinates = block.coordinates;
                     Destroy(locationBlock);
                     placedBlock.transform.parent = blockContainer.transform;
+                    placedBlock.gameObject.AddComponent<BlockDetect>();
+
                 }
                 if(activeBlock.tag == "Enemy")
                 {
-                    var placedEnemy = Instantiate(activeBlock, locationBlockPos - locationBlockNormal, tempBlock.transform.rotation);
+                    var placedEnemy = Instantiate(activeBlock, locationBlockPos - locationBlockNormal/2, tempBlock.transform.rotation);
                     placedEnemy.GetComponent<Character>().floor = block;
                     placedEnemy.transform.parent = enemyContainer.transform;
                     block.occupier = activeBlock;
@@ -163,8 +169,6 @@ public class Placement : MonoBehaviour
             if(deleteMode)
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
-                block.Highlight(true);
-                block.SetHighlightColour(delete);
             }
             if (aiEditMode)
             {

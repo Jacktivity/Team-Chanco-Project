@@ -60,7 +60,7 @@ public class SaveScript : MonoBehaviour
 
                 var row = blockdetailsContainer
                 .Where(b => b.coordinates.z == z && b.coordinates.y == y)
-                .OrderBy(b => b.coordinates.x)
+                .OrderBy(b => b.coordinates.y).OrderBy(b => b.coordinates.z).OrderBy(b => b.coordinates.x)
                 .Select(b => b).ToArray();
 
                 for (int i = 0; i < pos.Length; i++) pos[i] = -1;
@@ -71,17 +71,28 @@ public class SaveScript : MonoBehaviour
 
                     switch ((int)block.transform.eulerAngles.y)
                     {
+                        case 0:
+                            rot[(int)block.coordinates.x] = 0;
+                            if(block.tag == "Floor-Transition")
+                            {
+                                rot[(int)block.coordinates.x] = 1;
+                            }
+                            break;
                         case 90:
-                            rot[(int)block.coordinates.x] = 1;
+                            rot[(int)block.coordinates.x] = 0;
                             break;
-                        case 180:
+                        case -90:
                             rot[(int)block.coordinates.x] = 2;
-                            break;
-                        case 270:
-                            rot[(int)block.coordinates.x] = 3;
                             break;
                         case -180:
                             rot[(int)block.coordinates.x] = 2;
+                            break;
+                        case 180:
+                            rot[(int)block.coordinates.x] = 3;
+                            break;
+                        case 270:
+                            rot[(int)block.coordinates.x] = 2;
+                            break;
                             break;
                         default:
                             break;
@@ -152,7 +163,7 @@ public class SaveScript : MonoBehaviour
         }
 
         var serializer = new XmlSerializer(typeof(levels));
-        var stream = new FileStream("./Assets/Levels/" + levelName.text + ".xml", FileMode.Create);
+        var stream = new FileStream("./Assets/Resources/CustomLevels/" + levelName.text + ".xml", FileMode.Create);
         serializer.Serialize(stream, levels);
         stream.Close();
     }

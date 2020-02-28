@@ -42,14 +42,15 @@ public class LevelSliders : MonoBehaviour
         var map = new List<BlockScript>();
 
         int j = 0;
-        for(int i = 0; i < xSlider.value; i++)
+        for(int i = 0; i < zSlider.value; i++)
         {
-            for (j = 0; j < zSlider.value; j++)
+            for (j = 0; j < xSlider.value; j++)
             {
                 var tile = Instantiate(block, new Vector3(j, 0, i), block.transform.rotation);
                 tile.transform.parent = blockContainer.transform;
                 tile.coordinates = new Vector3(j, 0, i);
                 map.Add(tile);
+                tile.gameObject.AddComponent<BlockDetect>();
 
             }
         }

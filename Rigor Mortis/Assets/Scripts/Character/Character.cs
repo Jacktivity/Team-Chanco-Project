@@ -114,6 +114,7 @@ public class Character : MonoBehaviour
         {
             ActionPoints -= 3;
             manaPoints -= selectedAttack.Mana;
+            gameObject.GetComponent<UnitSliders>().manaSlider.value = manaPoints;
 
             var baseDamage = selectedAttack.RollDamage();
 
@@ -244,13 +245,12 @@ public class Character : MonoBehaviour
 
         if (currentHitPoints <= 0)
         {
-            if(name == "Necromancer")
+            playerManager.RemoveUnit(this);
+
+            if (isCaptain)
             {
-                playerManager.RemoveNecromancer(this);
-            } else
-            {
-                playerManager.RemoveUnit(this);
-            }
+                playerManager.RemoveCaptain(this);
+            } 
             DestroyUnit();
         }
         else
@@ -346,6 +346,7 @@ public class Character : MonoBehaviour
         if(beingAttacked)
         {
             godRay.SetActive(true);
+            uiManager.HitStatTextActive(this);
         }
     }
 
@@ -354,6 +355,7 @@ public class Character : MonoBehaviour
         if (beingAttacked)
         {
             godRay.SetActive(false);
+            uiManager.HitStatTextDeactivate();
         }
 
     }

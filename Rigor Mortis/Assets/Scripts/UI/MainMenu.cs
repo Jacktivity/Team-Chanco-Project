@@ -16,9 +16,11 @@ public class MainMenu : MonoBehaviour
 
     public MainMenuStates currentState;
 
-    public GameObject levelDetailsImage;
+    public GameObject levelDetailsImage, levelContainer, customLevelContainer;
 
     public Sprite empty, level1Info, level2Info, level3Info, level4Info, level5Info, level6Info;
+
+    public Button baseLevelSelectButton;
 
     private void Start()
     {
@@ -83,6 +85,12 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    public void CustomLoadLevel(TextAsset level)
+    {
+        levelDetailsImage.SetActive(false);
+        loadedScene = level;
+    }
+
     public void PlayButton()
     {
         PersistantData.level = loadedScene;
@@ -99,6 +107,20 @@ public class MainMenu : MonoBehaviour
     {
         mainMenuStateChange?.Invoke(this, MainMenuStates.quit);
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene.name));
+    }
+
+    void BuildCustomLevelList()
+    {
+        int i = 0;
+        foreach(TextAsset level in Resources.LoadAll<TextAsset>("CustomLevels/"))
+        {
+            Vector3 pos = new Vector3(customLevelContainer.transform.position.x, customLevelContainer.transform.position.y + i, customLevelContainer.transform.position.z);
+            i -= 36;
+
+            Button newButton = Instantiate(baseLevelSelectButton, pos, customLevelContainer.transform.rotation, customLevelContainer.transform );
+            newButton.GetComponentInChildren<Text>().text = level.name;
+            newButton.onClick.AddListener(delegate { CustomLoadLevel(level); });
+        }
     }
 
     private void MainMenuStateChanged(object sender, MainMenuStates state)
@@ -138,6 +160,8 @@ public class MainMenu : MonoBehaviour
                 SetMainCanvas(false);
                 SetLevelSelectCanvas(true);
                 SetBackgroundCanvas(true);
+
+                BuildCustomLevelList();
 
                 break;
 

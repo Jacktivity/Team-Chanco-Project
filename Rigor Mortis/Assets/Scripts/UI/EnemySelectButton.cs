@@ -54,8 +54,7 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         //Highlight enemy
         target.godRay.SetActive(true);
         attackText.text = target.name;
-        hitStatPreviousText = uiManager.hitStatText.text;
-        uiManager.hitStatText.text = Mathf.Clamp(Mathf.RoundToInt((character.accuracy * attackChosen.Accuracy) - (target.evade)), 0, 100) + "%";
+        uiManager.HitStatTextActive(target);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -63,7 +62,7 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         //Unhighlight enemy
         target.godRay.SetActive(false);
         attackText.text = previousText;
-        uiManager.hitStatText.text = hitStatPreviousText;
+        uiManager.HitStatTextDeactivate();
     }
 
     public void SetTargetSprite(Character target) {
