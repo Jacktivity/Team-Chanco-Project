@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: RockFloor_Grass02
   m_Shader: {fileID: 4800000, guid: 110866c1c577e5f4db0bffa255529f2c, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -22,6 +22,10 @@ Material:
     - _Alpha:
         m_Texture: {fileID: 2800000, guid: 3c09f7d67590cf04aacbabc635637149, type: 3}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BTex:
+        m_Texture: {fileID: 2800000, guid: acea371903dcc2d4c82477f5fbacac52, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 9074eaa2a45a9594e8d42d789b6e95be, type: 3}
@@ -43,8 +47,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _GTex:
+        m_Texture: {fileID: 2800000, guid: 1c85e760efafe854cad631be6bea9873, type: 3}
+        m_Scale: {x: 0.2, y: 0.2}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3c80981eef29454469ee944546953ca6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1c85e760efafe854cad631be6bea9873, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetalRoughAO:
@@ -62,6 +70,10 @@ Material:
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RTex:
+        m_Texture: {fileID: 2800000, guid: 1c85e760efafe854cad631be6bea9873, type: 3}
+        m_Scale: {x: 0.5, y: 0.5}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1

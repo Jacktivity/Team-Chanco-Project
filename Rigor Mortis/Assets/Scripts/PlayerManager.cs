@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public BlockScript[] walkTiles, sprintTiles;
     [SerializeField] private GridManager gridManager;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private AudioClip[] attackSFX;
 
     public List<Character> globalUnitList;
     public List<Character> activeEnemyCaptains;
@@ -32,10 +33,23 @@ public class PlayerManager : MonoBehaviour
         GridManager.unitSpawned += (s, e) => { e.moveComplete += (sender, character) => gridManager.CycleTurns(); };
         GridManager.unitSpawned += (s, e) => { e.attackComplete += (sender, character) => gridManager.CycleTurns(); };
         GridManager.enemySpawned += (s, e) => { e.unit.characterClicked += (sender, character) => EnemyUnitChosen(e.unit); };
+        BlockScript.blockClicked += PlayerSelectedByBlock;
         //BlockScript.blockClicked += (s, e) => BlockClicked(e);
         ChooseAttackButton.pointerExit += ResetMapMovement;
         MoveButton.pointerExit += ResetMapMovement;
     }
+
+    private void PlayerSelectedByBlock(object sender, BlockScript e)
+    {
+        if(e.Occupied? e.occupier.tag == "Player" : false)
+        {
+            var unit = e.occupier.GetComponent<Character>();
+            if (unit != null)
+                PlayerUnitChosen(unit);
+        }
+    }
+
+    public AudioClip GetAttackSFX(int sfxIndex) => attackSFX[sfxIndex];
 
     private void OnDestroy()
     {
@@ -122,11 +136,10 @@ public class PlayerManager : MonoBehaviour
     }
 
     public void PlayerUnitChosen(Character unit)
-    {
-        
+    {        
         if (gridManager.playerTurn && unit.ActionPoints >= 0)
         {
-            uiManager.CreateActionButtons( unit.attacks, unit);            
+            uiManager.CreateActionButtons(unit.attacks, unit);            
 
             if (selectedPlayer != null)
             {

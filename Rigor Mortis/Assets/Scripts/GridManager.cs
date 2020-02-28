@@ -149,6 +149,7 @@ public class GridManager : MonoBehaviour
         foreach (var tile in Map)
         {
             tile.Highlight(false);
+            tile.SetHighlightColour(Color.grey);
         }
 
         //if(playerTurn && playerManager.selectedPlayer.movedThisTurn == false)
@@ -190,7 +191,7 @@ public class GridManager : MonoBehaviour
     {
         var level = xmlData;
         placementPoints = xmlData.maps.placementpoints;
-        
+
         foreach(var map in level.maps.map)
         {
             var rotationlines = level.rotations.ElementAt(map.layer).rotationline.SelectMany((r, x) => r.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
@@ -205,6 +206,7 @@ public class GridManager : MonoBehaviour
                     GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, pos.YPos, pos.ZPos), Quaternion.Euler(new Vector3(tiles[pos.Value].transform.rotation.x, (90 * rot.Value), tiles[pos.Value].transform.rotation.z)), gameObject.transform);
                     var blockscript = tile.GetComponent<BlockScript>();
                     blockscript.coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);
+
                     tile.name = tile.name.Replace("(Clone)", "");
                     tile.name = tile.name + '(' + pos.XPos + ','+ pos.YPos+ ',' + pos.ZPos + ')';
 
@@ -271,13 +273,12 @@ public class GridManager : MonoBehaviour
 
             var rotation = ((int)ramp.transform.rotation.eulerAngles.y / 90);
 
-            Vector3 upperStep, lowerStep;            
+            Vector3 upperStep, lowerStep;
 
             switch (rotation % 2)
             {
                 //North - South step
                 case 0:
-                    Debug.Log(ramp.name + ":" + ramp.coordinates.ToString() + ":" + (rotation).ToString());
                     upperStep = new Vector3(0, 0, 1);
                     lowerStep = new Vector3(0, -1, -1);
                     ramp.N = Map.FirstOrDefault(t => t.coordinates == ramp.coordinates + upperStep)?.gameObject ?? null;
@@ -305,7 +306,6 @@ public class GridManager : MonoBehaviour
                     break;
                 //East - West Step
                 case 1:
-                    Debug.Log(ramp.name + ":" + ramp.coordinates.ToString() + ":" + (rotation).ToString());
                     upperStep = new Vector3(-1, 0, 0);
                     lowerStep = new Vector3(1, -1, 0);
                     ramp.W = Map.FirstOrDefault(t => t.coordinates == ramp.coordinates + upperStep)?.gameObject ?? null;
@@ -389,6 +389,8 @@ public class GridManager : MonoBehaviour
 
     void UnitPlacement()
     {
+        ClearMap();
+
         var placeables = xmlData.placeables;
 
         var map = gameObject.GetComponentsInChildren<BlockScript>();
@@ -1322,5 +1324,3 @@ namespace GridXML
 
 
 }
-
-
