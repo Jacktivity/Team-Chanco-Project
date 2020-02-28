@@ -96,6 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf21a36926af2b9479f31db3a07d7a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heightOffset: 0
+  characterAudio: []
+  VFXGameObject: {fileID: 0}
+  deselectedVFXscale: {x: 0, y: 0, z: 0}
+  selectedVFXscale: {x: 0, y: 0, z: 0}
   ID: 0
   cost: 0
   maxHitPoints: 0
@@ -106,14 +111,12 @@ MonoBehaviour:
   resistance: 0
   movementSpeed: 0
   movemenSprint: 0
+  maxManaPoints: 0
   manaPoints: 0
   currentHitPoints: 0
-  idleAnim: {fileID: 0}
-  walkAnim: {fileID: 0}
-  attackAnim: {fileID: 0}
-  dmgAnim: {fileID: 0}
   isFlying: 0
   isCaptain: 0
+  onTrigger: 0
   uiManager: {fileID: 0}
   pathfinder: {fileID: 0}
   playerManager: {fileID: 0}
@@ -127,6 +130,9 @@ MonoBehaviour:
   beingAttacked: 0
   beingAttackedButton: {fileID: 0}
   type: 2
+  repeatSpawn: 0
+  delaySpawn: 0
+  triggerId: 0
 --- !u!1 &9157349250919035960
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,6 +680,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 97706452928999987}
     m_Modifications:
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_Name
+      value: PS_Selection_Empty
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1653491297711639668, guid: 02bf5b393ede6a5478042e848987946a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -743,16 +759,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_Name
-      value: PS_Selection_Empty
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02bf5b393ede6a5478042e848987946a, type: 3}

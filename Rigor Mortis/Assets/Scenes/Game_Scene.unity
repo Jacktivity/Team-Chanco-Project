@@ -634,6 +634,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: MainCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 8531623768061405951, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 311
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531623768061405951, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8531623768061405948, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -688,16 +698,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8531623768061405951, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 311
-      objectReference: {fileID: 0}
-    - target: {fileID: 8531623768061405951, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
-        type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8531623768061405949, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
         type: 3}
@@ -1200,7 +1200,7 @@ MonoBehaviour:
   - {fileID: 3016538343580090639, guid: 2b6a8461a8022d14b825d75d4ce7ad63, type: 3}
   tiles:
   - {fileID: 5226057197208204854, guid: 75cb49f44b725af4398945db31fcbf61, type: 3}
-  - {fileID: 6376823529244009597, guid: fef1ea99826d654429888df56395427b, type: 3}
+  - {fileID: 8117288275047926160, guid: bd1128a299159b141aebbb55a4ff9ae1, type: 3}
   - {fileID: 6854757643019782258, guid: e7d6bee70cf76b9409cca67989100ef5, type: 3}
   - {fileID: 5893488342899485305, guid: 466f9ff7940007146bd17f101c946965, type: 3}
   - {fileID: 8721357899967480193, guid: 0c02696a7098c904b8b34575f116ac28, type: 3}
@@ -1211,6 +1211,8 @@ MonoBehaviour:
   - {fileID: 5243664415239934354, guid: f790a505cec2caf499ee9ef3aa25ff8d, type: 3}
   - {fileID: 7614428733992264286, guid: 8987ab5c83fb8a54481480a18e0e3469, type: 3}
   - {fileID: 8174443283290662613, guid: 0a7899153c1588642ac30b920aa833b1, type: 3}
+  - {fileID: 3157568469769349605, guid: 9a78730040dea7345bbffdad49e8931c, type: 3}
+  - {fileID: 2520142018473600123, guid: c5580dd5518404b43b1dae430f30939c, type: 3}
   levelMap: {fileID: 4900000, guid: 4e47ded232c8d4f43b4c001f370e25d3, type: 3}
   SelectedUnit: {fileID: 0}
   spawnPoint: {r: 0.33565524, g: 0.764151, b: 0.28475437, a: 1}
