@@ -106,7 +106,7 @@ public class UIManager : MonoBehaviour
 
     private void CreateFloatingText(object sender, SpawnFloatingTextEventArgs e)
     {
-        var floatingTextInstance = Instantiate(floatingText, e.character.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform).GetComponent<FloatingText>();
+        var floatingTextInstance = Instantiate(floatingText, Camera.main.WorldToScreenPoint(e.character.transform.position), floatingText.transform.rotation, fixedCanvas.transform).GetComponent<FloatingText>();
         floatingTextInstance.SetUp(e.character, e.message, e.textColour);
     }
 
@@ -286,22 +286,25 @@ public class UIManager : MonoBehaviour
         unit.ClearActionPoints();
         DeleteCurrentPopupButtons();
         attackText.text = "";
-        gridManager.CycleTurns();
-        gridManager.nextUnit();
+        playerManager.activePlayersInTurn.Remove(unit);
+
+        if (playerManager.activePlayersInTurn.Count() > 0) {
+            gridManager.nextUnit();
+        } else if (playerManager.activePlayersInTurn.Count() <= 0) {
+            gridManager.CycleTurns();
+        }
     }
 
     public void EndTurn()
     {
         if (currentState == GameStates.playerTurn) {
-            foreach (Character unit in playerManager.globalUnitList)
+            foreach (Character unit in playerManager.activePlayersInTurn.ToList<Character>())
             {
-                if (unit.tag == "Player")
-                {
-                    unit.ClearActionPoints();
-                    DeleteCurrentPopupButtons();
-                    unit.godRay.SetActive(false);
-                    attackText.text = "";
-                }
+                playerManager.activePlayersInTurn.Remove(unit);
+                unit.ClearActionPoints();
+                DeleteCurrentPopupButtons();
+                unit.godRay.SetActive(false);
+                attackText.text = "";
             }
         }
         gridManager.CycleTurns();
@@ -475,14 +478,6 @@ public class UIManager : MonoBehaviour
         unit.gameObject.AddComponent<UnitSliders>().unit = unit;
         unit.gameObject.GetComponent<UnitSliders>().healthSlider = newSlider.GetComponent<Slider>();
         unit.gameObject.GetComponent<UnitSliders>().manaSlider = newSlider.GetComponentsInChildren<Slider>()[1];
-
-        //if (unit.tag == "Player")
-        //{
-        //    Slider apSlider = Instantiate(APBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
-        //    APBars.Add(apSlider);
-        //    unit.gameObject.AddComponent<ActionPointBar>().unit = unit;
-        //    unit.gameObject.GetComponent<ActionPointBar>().slider = apSlider;
-        //}
     }
 
 
@@ -579,6 +574,11 @@ public class UIManager : MonoBehaviour
 
                 case GameStates.playerTurn:
                     currentState = GameStates.playerTurn;
+
+                    foreach (Character unit in playerManager.activePlayers)
+                    {
+                        playerManager.activePlayersInTurn.Add(unit);
+                    }
 
                     AudioController.audioEventHandler?.Invoke(this, new AudioEvent(audioTransition: true, transitionTime: 5f));
 
