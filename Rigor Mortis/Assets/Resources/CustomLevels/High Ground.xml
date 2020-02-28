@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<levels xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <maps placementpoints="70" objective="1" par="0">
+    <map layer="0">
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,0" />
+      <mapline value="0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,3,0,3,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+    </map>
+    <map layer="1">
+      <mapline value="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,5,0,0,0,0,12,0" />
+      <mapline value="-1,-1,-1,-1,-1,-1,-1,-1,-1,12,1,1,1,12,0,0,1,0" />
+      <mapline value="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,13,12" />
+      <mapline value="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0" />
+      <mapline value="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0" />
+      <mapline value="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0" />
+      <mapline value="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0" />
+      <mapline value="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0" />
+      <mapline value="-1,-1,-1,5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0" />
+      <mapline value="-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,13,12" />
+      <mapline value="-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0" />
+    </map>
+  </maps>
+  <rotations>
+    <rotation layer="0">
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0" />
+      <rotationline value="0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+    </rotation>
+    <rotation layer="0">
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,2,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,1,1,1,1,3,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+    </rotation>
+  </rotations>
+  <enemies>
+    <enemy id="0" name="Skeleton" type="0" posX="0" posY="1" posZ="12" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+    <enemy id="1" name="Skeleton_Spear" type="5" posX="0" posY="1" posZ="13" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+    <enemy id="2" name="Skeleton" type="0" posX="10" posY="1" posZ="8" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+    <enemy id="3" name="Skeleton" type="0" posX="9" posY="1" posZ="10" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+    <enemy id="4" name="Skeleton" type="0" posX="3" posY="0" posZ="11" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+    <enemy id="5" name="Skeleton" type="0" posX="7" posY="0" posZ="11" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+    <enemy id="6" name="Skeleton_Rifle" type="4" posX="5" posY="1" posZ="14" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+    <enemy id="7" name="Skeleton_Rifle" type="4" posX="3" posY="1" posZ="14" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+    <enemy id="8" name="Skeleton_Rifle" type="4" posX="7" posY="1" posZ="14" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+  </enemies>
+  <placeables>
+    <placeable posX="6" posY="0" posZ="0" />
+    <placeable posX="6" posY="0" posZ="1" />
+    <placeable posX="6" posY="0" posZ="2" />
+    <placeable posX="5" posY="0" posZ="0" />
+    <placeable posX="5" posY="0" posZ="1" />
+    <placeable posX="5" posY="0" posZ="2" />
+    <placeable posX="4" posY="0" posZ="0" />
+    <placeable posX="4" posY="0" posZ="1" />
+    <placeable posX="4" posY="0" posZ="2" />
+    <placeable posX="3" posY="0" posZ="0" />
+    <placeable posX="3" posY="0" posZ="1" />
+    <placeable posX="3" posY="0" posZ="2" />
+  </placeables>
+  <exitzones />
+  <triggerzones />
+</levels>

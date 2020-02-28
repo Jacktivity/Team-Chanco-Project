@@ -47,7 +47,7 @@ public class Placement : MonoBehaviour
     void Start()
     {
         tempBlock = Instantiate(activeBlock, locationBlockPos, locationBlockRot);
-        tempBlock.GetComponent<BoxCollider>().enabled = false;
+        tempBlock.GetComponent<Collider>().enabled = false;
         tempBlock.active = false;
 
         deleteMode = false;
@@ -114,6 +114,9 @@ public class Placement : MonoBehaviour
                     selectedEnemy.godRay.SetActive(true);
                     delayText.text = "Delay: " + delay.value;
                     enemyOnTrigger.text = "On Trigger: " + selectedEnemy.onTrigger;
+                    enemyTrigger.value = selectedEnemy.triggerId;
+                    enemyTriggerId.text = "Trigger ID: " + enemyTrigger.value;
+
 
                     enemyDetails.SetActive(true);
                     blockDetails.SetActive(false);
@@ -163,11 +166,11 @@ public class Placement : MonoBehaviour
             {
                 tempBlock.transform.position = locationBlockPos;
             }
-            else if (!deleteMode && occupier != null || activeBlock.name == "Difficult" && tempBlock != null)
+            else if (!deleteMode && occupier != null || activeBlock.name == "Difficult")
             {
                 tempBlock.transform.position = hit.transform.position;
             }
-            if(deleteMode)
+            if (deleteMode)
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
             }
@@ -175,7 +178,6 @@ public class Placement : MonoBehaviour
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
             }
-
         }
     }
 
@@ -186,12 +188,12 @@ public class Placement : MonoBehaviour
             activeBlock = newBlock;
             Destroy(tempBlock);
             tempBlock = Instantiate(activeBlock, locationBlockPos, new Quaternion());
-            tempBlock.GetComponent<BoxCollider>().enabled = false;
+            tempBlock.GetComponent<Collider>().enabled = false;
             if (tempBlock.GetComponent<BlockScript>() != null)
             {
                 if (tempBlock.GetComponent<BlockScript>().occupier != null)
                 {
-                    tempBlock.GetComponent<BlockScript>().occupier.GetComponent<BoxCollider>().enabled = false;
+                    tempBlock.GetComponent<BlockScript>().occupier.GetComponent<Collider>().enabled = false;
                 }
             }
         }
@@ -266,12 +268,20 @@ public class Placement : MonoBehaviour
         terrainOptions.SetActive(true);
         enemyOptions.SetActive(false);
         enemyDetails.SetActive(false);
+        blockDetails.SetActive(false);
+        aiEditMode = false;
+        aiEditToggle.isOn = aiEditMode;
+        
+
     }
     public void EnemyOptions()
     {
         terrainOptions.SetActive(false);
         enemyOptions.SetActive(true);
         enemyDetails.SetActive(false);
+        blockDetails.SetActive(false);
+        aiEditMode = false;
+        aiEditToggle.isOn = aiEditMode;
     }
     public void ToggleCaptain()
     {

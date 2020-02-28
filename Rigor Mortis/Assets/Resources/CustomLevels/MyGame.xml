@@ -3,43 +3,30 @@
   <maps placementpoints="15" objective="0" par="0">
     <map layer="0">
       <mapline value="0,0,0,0,0,0,0,0" />
-      <mapline value="0,0,0,0,0,0,0,0" />
-      <mapline value="0,0,0,0,0,0,0,0" />
-      <mapline value="0,0,0,0,0,0,0,0" />
-      <mapline value="0,0,0,0,0,0,0,0" />
-      <mapline value="0,0,0,0,0,0,0,0" />
-      <mapline value="0,0,0,0,0,0,0,0" />
-      <mapline value="0,0,0,0,0,0,0,0" />
-      <mapline value="0,0,0,0,0,0,0,0" />
-      <mapline value="0,0,0,0,0,0,0,0" />
+      <mapline value="12,1,1,1,1,1,13,0" />
+      <mapline value="0,11,0,0,0,11,1,0" />
+      <mapline value="0,0,0,0,0,9,1,0" />
+      <mapline value="0,0,0,0,9,9,1,0" />
+      <mapline value="0,0,0,0,9,7,1,0" />
+      <mapline value="0,0,0,0,4,0,1,0" />
+      <mapline value="0,11,0,0,0,0,1,0" />
+      <mapline value="12,1,1,1,1,1,13,0" />
     </map>
   </maps>
   <rotations>
     <rotation layer="0">
       <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="1,1,1,1,1,1,1,0" />
       <rotationline value="0,0,0,0,0,0,0,0" />
       <rotationline value="0,0,0,0,0,0,0,0" />
       <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,2,0,0" />
+      <rotationline value="0,0,0,0,2,0,0,0" />
       <rotationline value="0,0,0,0,0,0,0,0" />
-      <rotationline value="0,0,0,0,0,0,0,0" />
-      <rotationline value="0,0,0,0,0,0,0,0" />
-      <rotationline value="0,0,0,0,0,0,0,0" />
-      <rotationline value="0,0,0,0,0,0,0,0" />
-      <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="1,1,1,1,1,1,2,0" />
     </rotation>
   </rotations>
-  <enemies>
-    <enemy id="0" name="Skeleton_Axe" type="2" posX="3" posY="0" posZ="6" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="1" name="Skeleton_Axe" type="2" posX="7" posY="0" posZ="4" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="2" name="Skeleton_Axe" type="2" posX="6" posY="0" posZ="3" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="3" name="Skeleton_Axe" type="2" posX="1" posY="0" posZ="4" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="4" name="Skeleton_Axe" type="2" posX="3" posY="0" posZ="3" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="5" name="Skeleton_Axe" type="2" posX="4" posY="0" posZ="2" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="6" name="Skeleton_Axe" type="2" posX="6" posY="0" posZ="4" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="true" onTrigger="false" triggerId="0" />
-    <enemy id="7" name="Skeleton_Axe" type="2" posX="4" posY="0" posZ="4" behaviour="0" linkedUnits="" captain="true" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="8" name="Skeleton_Axe" type="2" posX="1" posY="0" posZ="2" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="9" name="Skeleton_Axe" type="2" posX="1" posY="0" posZ="2" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="true" triggerId="0" />
-  </enemies>
+  <enemies />
   <placeables />
   <exitzones />
   <triggerzones />
