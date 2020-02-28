@@ -298,7 +298,7 @@ public class UIManager : MonoBehaviour
     public void EndTurn()
     {
         if (currentState == GameStates.playerTurn) {
-            foreach (Character unit in playerManager.activePlayersInTurn)
+            foreach (Character unit in playerManager.activePlayersInTurn.ToList<Character>())
             {
                 playerManager.activePlayersInTurn.Remove(unit);
                 unit.ClearActionPoints();
