@@ -416,7 +416,7 @@ public class GridManager : MonoBehaviour
             var tile = Map.First(t => t.coordinates.x == enemy.posX && t.coordinates.y == enemy.posY && t.coordinates.z == enemy.posZ);
             var unitPos = enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.center + enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.extents;
 
-            if ((enemy.onTrigger && trigger.triggerId == enemy.triggerId) && !trigger.Occupied)
+            if ((enemy.onTrigger && trigger.triggerId == enemy.triggerId) && !tile.Occupied)
             {
                 Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, unitPos.y + tile.transform.position.y, enemy.posZ), new Quaternion(), enemyContainter.transform);
                 placedEnemy.name = enemy.name;
