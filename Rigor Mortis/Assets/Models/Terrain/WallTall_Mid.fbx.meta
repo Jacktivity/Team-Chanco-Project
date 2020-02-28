@@ -4,10 +4,14 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Wall_Mid
     400000: //RootNode
+    400002: Wall_Mid
     2100000: lambert3
     2300000: //RootNode
+    2300002: Wall_Mid
     3300000: //RootNode
+    3300002: Wall_Mid
     4300000: Wall_Mid
     9500000: //RootNode
   externalObjects:
@@ -67,7 +71,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.012999999
+    previousCalculatedGlobalScale: 0.01
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

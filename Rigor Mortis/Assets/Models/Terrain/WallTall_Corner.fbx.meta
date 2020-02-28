@@ -5,13 +5,17 @@ ModelImporter:
   fileIDToRecycleName:
     100000: Wall_Corner2
     100002: //RootNode
+    100004: Wall_Corner
     400000: Wall_Corner2
     400002: //RootNode
+    400004: Wall_Corner
     2100000: lambert3
     2300000: Wall_Corner2
     2300002: //RootNode
+    2300004: Wall_Corner
     3300000: Wall_Corner2
     3300002: //RootNode
+    3300004: Wall_Corner
     4300000: Wall_Corner
     4300002: Wall_Corner2
   externalObjects:
