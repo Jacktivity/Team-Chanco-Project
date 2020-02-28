@@ -21,19 +21,14 @@ public class FloatingText : MonoBehaviour
         var colourText = GetComponentsInChildren<UnityEngine.UI.Text>().First(c => c.gameObject != text.gameObject);
         colourText.text = message;
         colourText.color = messageColor;
-
-        //text.color = messageColor;
-
-        lookAtCam = FindObjectOfType<Camera>();
+        transform.Rotate(0, 180, 0, Space.Self);
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(lookAtCam.transform.position);
-        transform.Rotate(0, 180, 0, Space.Self);
-        transform.position = spawnCharacter.transform.position + movement * counter;
+        transform.position = Camera.main.WorldToScreenPoint(spawnCharacter.transform.position) + movement * counter;
 
         counter += Time.deltaTime;
 

@@ -118,7 +118,5 @@
       <exitzone posX="17" posY ="0" posZ="3"/>
     </exitzones>
     <triggerzones>
-      <triggerzone id="0" posX="17" posY ="0" posZ="3"/>
-      <triggerzone id="0" posX="15" posY ="0" posZ="3"/>
     </triggerzones>
 </levels>

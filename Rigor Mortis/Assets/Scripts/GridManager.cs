@@ -357,28 +357,32 @@ public class GridManager : MonoBehaviour
         {
             var tile = Map.First(t => t.coordinates.x == enemy.posX && t.coordinates.y == enemy.posY && t.coordinates.z == enemy.posZ);
             var unitPos = enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.center + enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.extents;
-            Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, unitPos.y + tile.transform.position.y, enemy.posZ), new Quaternion(), enemyContainter.transform);
-            placedEnemy.name = enemy.name;
-            placedEnemy.SetFloor(tile);
-            placedEnemy.tag = "Enemy";
-            placedEnemy.isCaptain = enemy.captain;
-            placedEnemy.delaySpawn = enemy.delay;
-            placedEnemy.onTrigger = enemy.onTrigger;
-            placedEnemy.triggerId = enemy.triggerId;
-            placedEnemy.repeatSpawn = enemy.repeat;
-            tile.occupier = placedEnemy.gameObject;
 
-            var linkedUnits = new int[0];
-
-            bool hasLinkedUnits = enemy.linkedUnits != "";
-
-            if(hasLinkedUnits)
+            if (!enemy.onTrigger)
             {
-                linkedUnits = enemy.linkedUnits.Split(',').Select(v => int.Parse(v)).ToArray();
-            }
+                Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, unitPos.y + tile.transform.position.y, enemy.posZ), new Quaternion(), enemyContainter.transform);
+                placedEnemy.name = enemy.name;
+                placedEnemy.SetFloor(tile);
+                placedEnemy.tag = "Enemy";
+                placedEnemy.isCaptain = enemy.captain;
+                placedEnemy.delaySpawn = enemy.delay;
+                placedEnemy.onTrigger = enemy.onTrigger;
+                placedEnemy.triggerId = enemy.triggerId;
+                placedEnemy.repeatSpawn = enemy.repeat;
+                tile.occupier = placedEnemy.gameObject;
 
-            enemySpawned?.Invoke(this, new EnemySpawn(placedEnemy, (AIStates)enemy.behaviour, enemy.id, linkedUnits));
-            playerManager.AddUnit(placedEnemy);
+                var linkedUnits = new int[0];
+
+                bool hasLinkedUnits = enemy.linkedUnits != "";
+
+                if (hasLinkedUnits)
+                {
+                    linkedUnits = enemy.linkedUnits.Split(',').Select(v => int.Parse(v)).ToArray();
+                }
+
+                enemySpawned?.Invoke(this, new EnemySpawn(placedEnemy, (AIStates)enemy.behaviour, enemy.id, linkedUnits));
+                playerManager.AddUnit(placedEnemy);
+            }
           // eventSystem.AddUnit(placedEnemy);
         }
     }
@@ -399,6 +403,42 @@ public class GridManager : MonoBehaviour
         }
 
         ColourTiles(Map.Where(t => t.placeable), SpawnColor);
+    }
+
+    void DynamicallySpawnUnit(BlockScript tile)
+    {
+        var enemies = xmlData.enemies;
+
+        foreach (var enemy in enemies)
+        {
+            var unitPos = enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.center + enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.extents;
+
+            if (enemy.onTrigger)
+            {
+                Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, unitPos.y + tile.transform.position.y, enemy.posZ), new Quaternion(), enemyContainter.transform);
+                placedEnemy.name = enemy.name;
+                placedEnemy.SetFloor(tile);
+                placedEnemy.tag = "Enemy";
+                placedEnemy.isCaptain = enemy.captain;
+                placedEnemy.delaySpawn = enemy.delay;
+                placedEnemy.onTrigger = enemy.onTrigger;
+                placedEnemy.triggerId = enemy.triggerId;
+                placedEnemy.repeatSpawn = enemy.repeat;
+                tile.occupier = placedEnemy.gameObject;
+
+                var linkedUnits = new int[0];
+
+                bool hasLinkedUnits = enemy.linkedUnits != "";
+
+                if (hasLinkedUnits)
+                {
+                    linkedUnits = enemy.linkedUnits.Split(',').Select(v => int.Parse(v)).ToArray();
+                }
+
+                enemySpawned?.Invoke(this, new EnemySpawn(placedEnemy, (AIStates)enemy.behaviour, enemy.id, linkedUnits));
+                playerManager.AddUnit(placedEnemy);
+            }
+        }
     }
 
     public void moveUnitMode()
@@ -497,13 +537,15 @@ public class GridManager : MonoBehaviour
 
     public void ResetPlayerTurn()
     {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players)
+        foreach(Character player in playerManager.activePlayers)
         {
-            var playerScript = player.GetComponent<Character>();
-            playerScript.APReset();
-
-            player.GetComponent<Character>().godRay.SetActive(false);
+            if (player.floor.trigger)
+            {
+                DynamicallySpawnUnit(player.floor);
+                player.floor.trigger = false;
+            }
+            player.APReset();
+            player.godRay.SetActive(false);
         }
         playerTurn = true;
         nextUnit();

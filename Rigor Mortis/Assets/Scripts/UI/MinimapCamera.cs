@@ -32,8 +32,6 @@ public class MinimapCamera : MonoBehaviour
         transform.position = new Vector3(topLeft.x + (bottomRight.x/2), transform.position.y, topLeft.z + (bottomRight.z/2));
 
         ScaleMinimap(topLeft.x + (bottomRight.x / 2), topLeft.z + (bottomRight.z / 2));
-
-        Debug.Log(topLeft.x + (bottomRight.x / 2));
     }
 
     private void ScaleMinimap(float x, float y) {
