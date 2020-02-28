@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Text turnDisplay;
     public Text attackText, hitText, hitStatText, rangeText, rangeStatText, magicText, magicStatText, damageText, damageStatText;
-    public Text objectiveText;
+    public Text objectiveBattleText, objectivePrepText;
     public Text scorePointsText;
     public Text placementText;
 
@@ -197,13 +197,17 @@ public class UIManager : MonoBehaviour
 
     public void SetObjectiveText()
     {
+        String objective = "";
         if (gridManager.GetObjective() == 0) {
-            objectiveText.text = "Defeat All Enemies";
+            objective = "Defeat All Enemies";
         } else if(gridManager.GetObjective() == 1) {
-            objectiveText.text = "Defeat Enemy Commander";
+            objective = "Defeat Enemy Commander";
         } else if(gridManager.GetObjective() == 2) {
-            objectiveText.text = "Get To The Exit";
+            objective = "Get To The Exit";
         }
+
+        objectiveBattleText.text = objective;
+        objectivePrepText.text = objective;
     }
 
     private void EnableAPText(Attack atk, Character unit)

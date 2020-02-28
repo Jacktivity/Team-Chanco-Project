@@ -114,7 +114,7 @@ public class MainMenu : MonoBehaviour
         int i = 0;
         foreach(TextAsset level in Resources.LoadAll<TextAsset>("CustomLevels/"))
         {
-            Vector3 pos = new Vector3(customLevelContainer.transform.position.x, customLevelContainer.transform.position.y + i, customLevelContainer.transform.position.z);
+            Vector3 pos = new Vector3(customLevelContainer.transform.position.x, customLevelContainer.transform.position.y + (i * levelSelectCanvas.scaleFactor), customLevelContainer.transform.position.z);
             i -= 36;
 
             Button newButton = Instantiate(baseLevelSelectButton, pos, customLevelContainer.transform.rotation, customLevelContainer.transform );
