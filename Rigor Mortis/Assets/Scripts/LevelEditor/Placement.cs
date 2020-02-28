@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class Placement : MonoBehaviour
 {
     public Canvas placementCanvas;
@@ -113,6 +113,7 @@ public class Placement : MonoBehaviour
                     delay.value = selectedEnemy.delaySpawn;
                     selectedEnemy.godRay.SetActive(true);
                     delayText.text = "Delay: " + delay.value;
+                    enemyOnTrigger.text = "On Trigger: " + selectedEnemy.onTrigger;
 
                     enemyDetails.SetActive(true);
                     blockDetails.SetActive(false);
@@ -162,7 +163,7 @@ public class Placement : MonoBehaviour
             {
                 tempBlock.transform.position = locationBlockPos;
             }
-            else if (!deleteMode && occupier != null || activeBlock.name == "Difficult")
+            else if (!deleteMode && occupier != null || activeBlock.name == "Difficult" && tempBlock != null)
             {
                 tempBlock.transform.position = hit.transform.position;
             }
@@ -301,5 +302,12 @@ public class Placement : MonoBehaviour
     {
         selectedEnemy.onTrigger = !selectedEnemy.onTrigger;
         enemyOnTrigger.text = "On Trigger: " + selectedEnemy.onTrigger;
+    }
+
+    public void MainMenuReturn()
+    {
+        MainMenu.mainMenuStateChange?.Invoke(this, MainMenu.MainMenuStates.mainCanvas);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
+        SceneManager.UnloadSceneAsync(1, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
     }
 }

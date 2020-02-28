@@ -1,28 +1,43 @@
 fileFormatVersion: 2
-guid: 347fd0f07ea41dc46a3b7ab629ea4c1e
+guid: d605b470110ab9144b7ec79f074c841d
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Wall_Corner2
+    100000: GateMetal
     100002: //RootNode
-    100004: Wall_Corner
-    400000: Wall_Corner2
+    100004: Mausoleum3
+    100006: Tree02
+    400000: GateMetal
     400002: //RootNode
-    400004: Wall_Corner
-    2100000: lambert3
-    2300000: Wall_Corner2
-    2300002: //RootNode
-    2300004: Wall_Corner
-    3300000: Wall_Corner2
-    3300002: //RootNode
-    3300004: Wall_Corner
-    4300000: Wall_Corner
-    4300002: Wall_Corner2
+    400004: Mausoleum3
+    400006: Tree02
+    2100000: Gate
+    2100002: Tree
+    2100004: Walls
+    2300000: GateMetal
+    2300002: Mausoleum3
+    2300004: Tree02
+    3300000: GateMetal
+    3300002: Mausoleum3
+    3300004: Tree02
+    4300000: GateMetal
+    4300002: Tree02
+    4300004: Mausoleum3
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert3
+      name: Gate
+    second: {fileID: 2100000, guid: d995367029e717b4682c4c5a69710422, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree
+    second: {fileID: 2100000, guid: 53041f240b050bc43b2d184e8a5dfa33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Walls
     second: {fileID: 2100000, guid: 4c081b6ae8dd5564ab130fa77f95ccf9, type: 2}
   materials:
     importMaterials: 1

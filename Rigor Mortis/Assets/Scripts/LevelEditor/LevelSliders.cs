@@ -60,7 +60,7 @@ public class LevelSliders : MonoBehaviour
             var pos = tile.coordinates;
 
                 var blockscript = tile.GetComponent<BlockScript>();
-                blockscript.coordinates = new Vector3(pos.x, pos.y, pos.z);
+               // blockscript.coordinates = new Vector3(pos.x, pos.y, pos.z);
                 tile.name = tile.name.Replace("(Clone)", "");
                 tile.name = tile.name + '(' + pos.x + ',' + pos.y + ',' + pos.z + ')';
 
