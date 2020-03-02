@@ -1028,8 +1028,6 @@ MonoBehaviour:
   max: {x: 0, y: 0, z: 0}
   dioramaPieces:
   - {fileID: 1172592866842159177, guid: 6030c92bb779ea2488843422df9c75c6, type: 3}
-  - {fileID: 3777137948661026678, guid: d84867f1dfc8b8e4fa1a3bb8e1413331, type: 3}
-  - {fileID: 4811340704356373424, guid: e4008845f094014458bafdee0a1e45a2, type: 3}
   dioramaParent: {fileID: 1205521408}
 --- !u!1 &1242773722
 GameObject:
