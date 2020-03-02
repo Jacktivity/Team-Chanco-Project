@@ -689,6 +689,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8531623768061405826, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531623768061405949, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8531623768061405951, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -718,16 +728,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AllowMSAA
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8531623768061405949, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8531623768061405826, guid: 06ebf4c9bcd26894ba4cbe55566cc41b,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06ebf4c9bcd26894ba4cbe55566cc41b, type: 3}
@@ -1269,6 +1269,7 @@ MonoBehaviour:
   - {fileID: 5437170623818917974, guid: 1bd8765f6d8113b4181e20a80e57ed88, type: 3}
   - {fileID: 604618472522472802, guid: d6d9abbd5da3b5145b50fdeb884b94ba, type: 3}
   - {fileID: 6563042350926334587, guid: 62866be09bb83224c95c587655ef0e64, type: 3}
+  - {fileID: 5934191211423966388, guid: 0fc4d02b60f23bb42af8b5837f0303a0, type: 3}
   playerContainter: {fileID: 1353577214}
   playerPrefabs:
   - {fileID: 6690734147878028020, guid: 06a4e42e2058baa4181da3d1b0fe7d24, type: 3}
