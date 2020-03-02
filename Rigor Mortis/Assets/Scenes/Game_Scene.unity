@@ -2094,7 +2094,7 @@ PrefabInstance:
     - target: {fileID: 1316118594518560998, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3740409195469354754, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
@@ -2121,15 +2121,30 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4813677616402331522, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6174514304631159947, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174514304631159947, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986498952071175564, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2986498952071175564, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4830420569950147205, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
@@ -2169,6 +2184,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: b5f48c736362c5149a7dcb8f48412077,
         type: 3}
+    - target: {fileID: 2949982985362069343, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9219464259938266224, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354832251882218201, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7955002071881458128, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -2278,6 +2308,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5614238919142104396, guid: d4f7be2378446da4da1286725ab7e00e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1100370849456026869, guid: d4f7be2378446da4da1286725ab7e00e,
         type: 3}
