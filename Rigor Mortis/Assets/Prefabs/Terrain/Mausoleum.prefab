@@ -473,6 +473,7 @@ GameObject:
   - component: {fileID: 6172869284658490725}
   - component: {fileID: 3625527974283058873}
   - component: {fileID: 1164501648040443037}
+  - component: {fileID: 134612582352345522}
   m_Layer: 0
   m_Name: Mausoleum
   m_TagString: Floor
@@ -616,6 +617,18 @@ MonoBehaviour:
   - {fileID: 6797485980471387808}
   - {fileID: 3244263566929975523}
   - {fileID: 2437135981477449671}
+--- !u!114 &134612582352345522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8721357899967480193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a6b0e90a7b4eb47b5033e595f40b71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9179642482617871098
 GameObject:
   m_ObjectHideFlags: 0

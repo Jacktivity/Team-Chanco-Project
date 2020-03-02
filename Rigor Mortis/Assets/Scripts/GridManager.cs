@@ -407,7 +407,7 @@ public class GridManager : MonoBehaviour
         ColourTiles(Map.Where(t => t.placeable), SpawnColor);
     }
 
-    void DynamicallySpawnUnit(BlockScript tile)
+    void DynamicallySpawnUnit(BlockScript trigger)
     {
         var enemies = xmlData.enemies;
 
@@ -415,7 +415,7 @@ public class GridManager : MonoBehaviour
         {
             var unitPos = enemyPrefabs[enemy.type].heightOffset;
 
-            if (enemy.onTrigger)
+            if ((enemy.onTrigger && trigger.triggerId == enemy.triggerId) && !tile.Occupied)
             {
                 Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, unitPos + tile.transform.position.y, enemy.posZ), new Quaternion(), enemyContainter.transform);
                 placedEnemy.name = enemy.name;
