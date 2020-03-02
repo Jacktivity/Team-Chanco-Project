@@ -414,7 +414,8 @@ public class GridManager : MonoBehaviour
         foreach (var enemy in enemies)
         {
             var unitPos = enemyPrefabs[enemy.type].heightOffset;
-
+            var position = new Vector3(enemy.posX, enemy.posY, enemy.posZ);
+            var tile = Map.First(t => t.coordinates == position);
             if ((enemy.onTrigger && trigger.triggerId == enemy.triggerId) && !tile.Occupied)
             {
                 Character placedEnemy = Instantiate(enemyPrefabs[enemy.type], new Vector3(enemy.posX, unitPos + tile.transform.position.y, enemy.posZ), new Quaternion(), enemyContainter.transform);
