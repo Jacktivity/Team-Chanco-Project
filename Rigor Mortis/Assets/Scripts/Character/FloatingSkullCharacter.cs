@@ -18,8 +18,8 @@ public class FloatingSkullCharacter : Character
         manaPoints = 50;
         power = 1;
         resistance = 1;
-        movementSpeed = 5;
-        movemenSprint = 7;
+        movementSpeed = 4;
+        movemenSprint = 2;
 
         currentHitPoints = maxHitPoints;
 

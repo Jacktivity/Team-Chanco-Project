@@ -110,7 +110,7 @@ public class Character : MonoBehaviour
 
     public void Attack()
     {
-        if(selectedAttack != null)
+        if(selectedAttack != null && CanAttack)
         {
             ActionPoints -= 3;
             manaPoints -= selectedAttack.Mana;
