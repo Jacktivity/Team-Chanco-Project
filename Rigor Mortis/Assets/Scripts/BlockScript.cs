@@ -33,12 +33,6 @@ public class BlockScript : MonoBehaviour
     public GameObject[] blockPrefabs = new GameObject[5];
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     public Vector3 Location()
     {
         try

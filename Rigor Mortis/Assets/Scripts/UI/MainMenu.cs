@@ -23,13 +23,10 @@ public class MainMenu : MonoBehaviour
 
     public Button baseLevelSelectButton;
 
-    public List<Button> customLevels;
-
     private void Start()
     {
         mainMenuStateChange += MainMenuStateChanged;
         mainMenuStateChange?.Invoke(this, MainMenuStates.mainCanvas);
-        customLevels = new List<Button>();
 
         levelDetailsImage.SetActive(false);
     }
@@ -118,17 +115,10 @@ public class MainMenu : MonoBehaviour
         foreach (var kid in customLevelContainer.GetComponentsInChildren<Button>())
         {
             Destroy(kid.gameObject);
-        }
-        //foreach (var btn in customLevels)
-        //{
-        //    Destroy(btn);
-        //}
-
-        //customLevels = new List<Button>();
+        }        
 
         int i = 0;
         var levels = Directory.GetFiles(Application.dataPath + "/Resources/CustomLevels", "*.xml", SearchOption.AllDirectories);
-
 
         foreach (var level in levels)
         {
@@ -138,7 +128,7 @@ public class MainMenu : MonoBehaviour
             i -= 36;
 
             Button newButton = Instantiate(baseLevelSelectButton, pos, customLevelContainer.transform.rotation, customLevelContainer.transform);
-            customLevels.Add(newButton);
+            
             newButton.GetComponentInChildren<Text>().text = Path.GetFileName(level).TrimEnd(".xml".ToCharArray());
             newButton.onClick.AddListener(delegate { CustomLoadLevel(lv); });
             
