@@ -181,6 +181,7 @@ public class Character : MonoBehaviour
                 counterTime = 0;
                 floor.occupier = null;
                 floor = moveToBlock;
+                //Debug.Log(moveToBlock?.gameObject? moveToBlock.gameObject.name : "Null");
                 moveToBlock.occupier = gameObject;
                 previousBlock = moveToBlock;
 

@@ -61,9 +61,9 @@ public class Pathfinder : MonoBehaviour
                 }
             }
 
-            current = CompleteMap.First(t => t.coordinates.x == nextCords.x && t.coordinates.z == nextCords.z);
+            current = CompleteMap.FirstOrDefault(t => t.coordinates.x == nextCords.x && t.coordinates.z == nextCords.z && t.coordinates.y == nextCords.y);
 
-            if(current.Occupied)
+            if(current == null? true : current.Occupied)
             {
                 //var transform = current.transform;
                 current = new BlockScript();
