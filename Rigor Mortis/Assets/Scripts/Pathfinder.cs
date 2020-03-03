@@ -182,9 +182,10 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    public BlockScript[] GetAttackTiles(Character attacker, Attack attack)
+    public BlockScript[] GetAttackTiles(Character attacker, Attack attack, BlockScript altAttackBlock = null)
     {
-        var allTiles = GetTilesInRange(attacker.floor, attack.Range, true, true, true);
+        var attackBlock = attacker?.floor ?? altAttackBlock;
+        var allTiles = GetTilesInRange(attackBlock, attack.Range, true, true, true);
 
         var attackTiles = new List<BlockScript>();
 
@@ -201,52 +202,62 @@ public class Pathfinder : MonoBehaviour
         }
 
         foreach (var tile in allTiles)
-        {       
-            Vector3 origin, destination;
-            Collider startCollider, endCollider;
-
-            var startTileCollider = attacker.GetComponent<Collider>();
-            var endTileCollider = tile.GetComponent<Collider>();
-
-            if (attacker.floor.Occupied)
-            {
-                startCollider = attacker.floor.occupier.GetComponent<Collider>();
-                origin = startCollider.bounds.center;// + new Vector3(0, startCollider.bounds.extents.y, 0);
-            }
-            else
-            {
-                startCollider = startTileCollider;
-                origin = startCollider.bounds.center + new Vector3(0, startCollider.bounds.extents.y * 0.75f, 0);
-            }
-
-            if(tile.Occupied)
-            {
-                endCollider = tile.occupier.GetComponent<Collider>();
-                destination = endCollider.bounds.center;// + new Vector3(0, endCollider.bounds.extents.y, 0);
-            }
-            else
-            {
-                endCollider = endTileCollider;
-                destination = endCollider.bounds.center + new Vector3(0, endCollider.bounds.extents.y * 0.75f, 0);
-            }
-
-            var ray = new Ray(origin, destination - origin);
-
-            var data = Physics.RaycastAll(ray, (destination - origin).magnitude);
-
-            Debug.DrawRay(origin, destination - origin, Color.red, 10f);
-
-            var validColliders = new Collider[] { startCollider, endCollider, startTileCollider, endTileCollider };
-
-            if (data.All(d => validColliders.Contains(d.collider) || tagsToIgnore.Contains(d.collider.gameObject.tag))) // == false
-            {
+        {
+            if (AttackTileValid(attacker, attackBlock, tile, tagsToIgnore))
                 attackTiles.Add(tile);
-            }
 
             //Debug.Log(tile.gameObject.name + ":" + string.Join(",", data.Select(s => s.collider.gameObject.name)));
         }
 
         return attackTiles.ToArray();
+    }
+
+    private static bool AttackTileValid(Character attacker, BlockScript attackFrom, BlockScript tile, List<string> tagsToIgnore = null)
+    {
+        Vector3 origin, destination;
+        Collider startCollider, endCollider;
+
+        var startTileCollider = attacker.GetComponent<Collider>();
+        var endTileCollider = tile.GetComponent<Collider>();
+
+        if (attackFrom.Occupied)
+        {
+            startCollider = attackFrom.occupier.GetComponent<Collider>();
+            origin = startCollider.bounds.center;// + new Vector3(0, startCollider.bounds.extents.y, 0);
+        }
+        else
+        {
+            startCollider = attackFrom.GetComponent<Collider>();
+            origin = startCollider.bounds.center + new Vector3(0, startTileCollider.bounds.extents.y, 0);
+        }
+
+        if (tile.Occupied)
+        {
+            endCollider = tile.occupier.GetComponent<Collider>();
+            destination = endCollider.bounds.center;// + new Vector3(0, endCollider.bounds.extents.y, 0);
+        }
+        else
+        {
+            endCollider = endTileCollider;
+            destination = endCollider.bounds.center + new Vector3(0, endCollider.bounds.extents.y * 0.75f, 0);
+        }
+
+        var ray = new Ray(origin, destination - origin);
+
+        var data = Physics.RaycastAll(ray, (destination - origin).magnitude);
+
+        Debug.DrawRay(origin, destination - origin, Color.red, 10f);
+
+        var validColliders = new Collider[] { startCollider, endCollider, startTileCollider, endTileCollider };
+
+        if (data.All(d => validColliders.Contains(d.collider) || tagsToIgnore.Contains(d.collider.gameObject.tag)))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public BlockScript[] GetTilesInRange(BlockScript start, float range, bool ignoreMoveModifier, bool canSearchOccupied = true, bool flying = false)
@@ -367,6 +378,19 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
+    public BlockScript[] EnemyAttackCheck(Character unit, BlockScript attackSource, Attack selectedAttack)
+    {
+        var blocksInRange = new List<BlockScript>();
+
+        var playerUnitPositions = CompleteMap.Where(t => t.Occupied ? t.occupier.tag == "Player" : false);
+
+        foreach (var tile in playerUnitPositions)
+        {
+
+        }
+
+        return blocksInRange.ToArray();
+    }
 
     private static BlockScript[] PathFromDictionary(Dictionary<BlockScript, BlockScript> pathDictionary, ref BlockScript targetTile)
     {
