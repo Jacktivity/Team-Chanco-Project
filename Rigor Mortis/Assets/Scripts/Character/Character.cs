@@ -126,6 +126,9 @@ public class Character : MonoBehaviour
             var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, selectedAttack.Area, true);
             var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
 
+            //TODO Rotate to atk source block
+            transform.forward = new Vector3(attackSourceBlock.coordinates.x - floor.coordinates.x, 0, attackSourceBlock.coordinates.z - floor.coordinates.z);
+
             attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
 
             animator.SetTrigger("Attack");
