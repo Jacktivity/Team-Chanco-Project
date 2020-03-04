@@ -1136,6 +1136,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  attackVFX:
+  - {fileID: 7788176836595031592, guid: 4e494214933b1004cb77a9df55946721, type: 3}
+  - {fileID: 6600302267615107858, guid: 5bceeab527259384795306884286df13, type: 3}
   globalUnitList: []
   activeEnemyCaptains: []
   activePlayerCaptains: []
