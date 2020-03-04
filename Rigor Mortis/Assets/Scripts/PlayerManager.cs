@@ -49,7 +49,7 @@ public class PlayerManager : MonoBehaviour
             {
                 var vfx = Instantiate(attackVFX[(int)e.AttackUsed.VFX], hit.transform, false);
                 vfx.GetComponent<ParticleSystem>().Play();
-                //vfx.GetComponent<ParticleSystem>().
+                vfx.name = e.AttackUsed.Name + " attack VFX";
             }
         }
     }
