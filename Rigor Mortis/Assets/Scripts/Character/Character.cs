@@ -368,21 +368,24 @@ public class Character : MonoBehaviour
         {
             if (MaxAP)
             {
-                AP_VFX_Full.SetActive(true);
-                AP_VFX_Half.SetActive(false);
-                AP_VFX_Empty.SetActive(false);
+                AP_VFX_Full.GetComponent<ParticleSystemRenderer>().material.SetFloat("_GlowIntensity",2f);
+                //AP_VFX_Full.SetActive(true);
+                //AP_VFX_Half.SetActive(false);
+                //AP_VFX_Empty.SetActive(false);
             }
             else if (CanMove)
             {
-                AP_VFX_Full.SetActive(false);
-                AP_VFX_Half.SetActive(true);
-                AP_VFX_Empty.SetActive(false);
+                AP_VFX_Full.GetComponent<ParticleSystemRenderer>().material.SetFloat("_GlowIntensity", .5f);
+                //AP_VFX_Full.SetActive(false);
+                //AP_VFX_Half.SetActive(true);
+                //AP_VFX_Empty.SetActive(false);
             }
             else
             {
-                AP_VFX_Full.SetActive(false);
-                AP_VFX_Half.SetActive(false);
-                AP_VFX_Empty.SetActive(true);
+                AP_VFX_Full.GetComponent<ParticleSystemRenderer>().material.SetFloat("_GlowIntensity", 0.1f);
+                //AP_VFX_Full.SetActive(false);
+                //AP_VFX_Half.SetActive(false);
+                //AP_VFX_Empty.SetActive(true);
             }
         }
         Movement();
