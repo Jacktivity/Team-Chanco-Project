@@ -129,7 +129,7 @@ public class Character : MonoBehaviour
             //TODO Rotate to atk source block
             transform.forward = new Vector3(attackSourceBlock.coordinates.x - floor.coordinates.x, 0, attackSourceBlock.coordinates.z - floor.coordinates.z);
 
-            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
+            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy, selectedAttack));
 
             animator.SetTrigger("Attack");
             characterAudio[2].clip = playerManager.GetAttackSFX(selectedAttack.SFX);
@@ -245,7 +245,7 @@ public class Character : MonoBehaviour
         currentHitPoints -= damage;
 
         var textColour = magicDamage ? Color.blue : Color.red;
-
+        animator.SetTrigger("TakenDamage");
         UIManager.createFloatingText?.Invoke(this, new SpawnFloatingTextEventArgs(this, (0 - damage).ToString(), textColour));
 
         if (currentHitPoints <= 0)
@@ -401,12 +401,14 @@ public struct AttackEventArgs
     public int MagicDamage;
     public int PhysicalDamage;
     public float Accuracy;
+    public Attack AttackUsed;
 
-    public AttackEventArgs(IEnumerable<Character> attackedCharaters, int magicDmg, int physDmg, float accuracy)
+    public AttackEventArgs(IEnumerable<Character> attackedCharaters, int magicDmg, int physDmg, float accuracy, Attack attackUsed)
     {
         AttackedCharacters = attackedCharaters.ToArray();
         MagicDamage = magicDmg;
         PhysicalDamage = physDmg;
         Accuracy = accuracy;
+        AttackUsed = attackUsed;
     }
 }

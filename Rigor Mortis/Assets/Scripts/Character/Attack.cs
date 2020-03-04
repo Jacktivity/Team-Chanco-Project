@@ -11,11 +11,11 @@ public class AttackLibrary
     public static Attack Whack => new Attack(3, 1, 0.8f, "Whack", physicalDmg: new Dice(1, 2));
 
     public static Attack TeslaStab => new Attack(4, 1, 1, "Tesla Stab", magicDmg: new Dice(4, 1), manaCost: 5);
-    public static Attack TeslaZap => new Attack(5, 10, 1.2f, "Tesla Zap", magicDmg: new Dice(4, 1), manaCost: 10);
+    public static Attack TeslaZap => new Attack(5, 10, 1.2f, "Tesla Zap", magicDmg: new Dice(4, 1), manaCost: 10, vfx: 0);
     //public static Attack Zap => new Attack(6, 10, 1.2f, "Zap", magicDmg: new Dice(4, 1));
 
     public static Attack Headbutt => new Attack(7, 1, 0.8f, "Headbutt", physicalDmg: new Dice(1,2));
-    public static Attack Firebolt => new Attack(8, 10, 1.2f, "Firebolt", magicDmg: new Dice(10, 1), manaCost:10);
+    public static Attack Firebolt => new Attack(8, 10, 1.2f, "Firebolt", magicDmg: new Dice(10, 1), manaCost:10, vfx: 0);
 
 
     public static Attack CaplockRifle => new Attack(9, 10, 0.8f, "Caplock Rifle", physicalDmg: new Dice(2, 2));
@@ -39,9 +39,10 @@ public class Attack
     public bool PassAllies { get; private set; }
     public int AttackID { get; private set; }
     public int SFX { get; private set; }
+    public int? VFX { get; private set; }
 
 
-    public Attack(int attackID, int atkRange, float accuracy, string name, Dice physicalDmg = null, Dice magicDmg = null, int atkArea = 0, bool targetEmptyTiles = false, int manaCost = 0, bool piercing = false, bool throughAllies = false, int sfx = 0)
+    public Attack(int attackID, int atkRange, float accuracy, string name, Dice physicalDmg = null, Dice magicDmg = null, int atkArea = 0, bool targetEmptyTiles = false, int manaCost = 0, bool piercing = false, bool throughAllies = false, int sfx = 0, int? vfx = null)
     {
         AttackID = attackID;
         PhysicalDamage = physicalDmg;
@@ -55,6 +56,7 @@ public class Attack
         Piercing = piercing;
         PassAllies = throughAllies;
         SFX = sfx;
+        VFX = vfx;
     }
 
     public Damage RollDamage()
