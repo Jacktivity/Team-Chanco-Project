@@ -1165,7 +1165,7 @@ MonoBehaviour:
   AP_VFX_Empty: {fileID: 3810456108085425162}
   beingAttacked: 0
   beingAttackedButton: {fileID: 0}
-  type: 0
+  type: 6
   repeatSpawn: 0
   delaySpawn: 0
   triggerId: 0
@@ -2935,6 +2935,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1234926684928068001}
     m_Modifications:
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_Name
+      value: PS_Selection_Empty
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1653491297711639668, guid: 02bf5b393ede6a5478042e848987946a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3005,21 +3020,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.15
       objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_Name
-      value: PS_Selection_Empty
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02bf5b393ede6a5478042e848987946a, type: 3}
 --- !u!1 &3810456108085425162 stripped
@@ -3050,6 +3050,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614290478563651637, guid: e2d9f99584bdcea4b8357667c09b52f6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1614290478563651638, guid: e2d9f99584bdcea4b8357667c09b52f6,
         type: 3}
@@ -3263,6 +3268,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2016954299386550918}
     m_Modifications:
+    - target: {fileID: 100000, guid: d2f1e7cf0177a4f4ab27eecbc8d1de8e, type: 3}
+      propertyPath: m_Name
+      value: Mesh_Mace
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d2f1e7cf0177a4f4ab27eecbc8d1de8e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.03748844
@@ -3319,10 +3328,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 0.6666683
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: d2f1e7cf0177a4f4ab27eecbc8d1de8e, type: 3}
-      propertyPath: m_Name
-      value: Mesh_Mace
-      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: d2f1e7cf0177a4f4ab27eecbc8d1de8e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3342,6 +3347,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3362691275201477905}
     m_Modifications:
+    - target: {fileID: 100002, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
+      propertyPath: m_Name
+      value: HeavySkeleton_Shield
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.05
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.5
@@ -3397,22 +3418,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
-      propertyPath: m_Name
-      value: HeavySkeleton_Shield
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -104,22 +104,42 @@ public class EnemyAI : MonoBehaviour
 
             case AIStates.Aggressive:                
                 attackToUse = unit.UseableAttacks.OrderByDescending(a => a.Range).First();
-            
-                path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, attackToUse.Range, true, true, true).Any(t => t.Occupied? t.occupier.CompareTag("Player") : false), unit.isFlying == false);                
 
-                var walkPath = path.Take(unit.movementSpeed);
+                //Estimate maximum move + attack area, more accurate on flying units
+                //var moveTiles = pathfinder.GetTilesInRange(unit.floor, unit.movementSpeed + attackToUse.Range, unit.isFlying, false, unit.isFlying);
+                
+                //var tile = moveTiles.FirstOrDefault(t => t.Occupied ? t.occupier.CompareTag("Player") : false);
+                //if (tile == null)
+                //{
+                //    //No enemy unit found in range, generate path to sprint towards
 
-                bool walked = true;
+                //}
+                //else
+                //{
+                //    //
+                    
+                //}
 
-                if (walkPath.Last() != path.Last())
+                path = pathfinder.GetPath(unit.floor, (s) => pathfinder.GetTilesInRange(s, attackToUse.Range, true, true, true).Any(t => t.Occupied? t.occupier.CompareTag("Player") : false), unit.isFlying);
+                bool canAttack = true;
+
+                if(path.Length > 0)
                 {
-                    walked = false;
-                    walkPath = path.Take(unit.movemenSprint + unit.movementSpeed);
+                    var walkPath = path.Take(unit.movementSpeed);
+
+
+
+                    if (walkPath.Last() != path.Last())
+                    {
+                        canAttack = false;
+                        walkPath = path.Take(unit.movemenSprint + unit.movementSpeed);
+                    }
+
+                    unit.MoveUnit(walkPath);
                 }
+                
 
-                unit.MoveUnit(walkPath);
-
-                if (walked)
+                if (canAttack)
                 {
                     unit.moveComplete += AIAttackCheck;
                 }

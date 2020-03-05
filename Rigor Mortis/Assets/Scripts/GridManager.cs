@@ -64,7 +64,7 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         if (PersistantData.levelAssigned) {
-            xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(PersistantData.level.bytes);
+            xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(PersistantData.level);
         } else {
             xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
         }

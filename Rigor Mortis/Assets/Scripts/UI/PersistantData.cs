@@ -5,7 +5,7 @@ using UnityEngine;
 public static class PersistantData
 {
     public static float score;
-    public static TextAsset level;
+    public static byte[] level;
     public static bool levelAssigned = false;
 
     public static void RemoveScore(int amount)

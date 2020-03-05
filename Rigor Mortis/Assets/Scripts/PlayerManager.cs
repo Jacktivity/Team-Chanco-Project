@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GridManager gridManager;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private AudioClip[] attackSFX;
+    [SerializeField] private GameObject[] attackVFX;
 
     public List<Character> globalUnitList;
     public List<Character> activeEnemyCaptains;
@@ -37,6 +38,21 @@ public class PlayerManager : MonoBehaviour
         //BlockScript.blockClicked += (s, e) => BlockClicked(e);
         ChooseAttackButton.pointerExit += ResetMapMovement;
         MoveButton.pointerExit += ResetMapMovement;
+        Character.attackEvent += SpawnAttackVFX;
+    }
+
+    private void SpawnAttackVFX(object sender, AttackEventArgs e)
+    {
+        if(e.AttackUsed.VFX != null)
+        {
+            foreach (var hit in e.AttackedCharacters)
+            {
+                var vfx = Instantiate(attackVFX[(int)e.AttackUsed.VFX], transform, false);
+                vfx.transform.position = hit.transform.position + new Vector3(0, vfx.transform.position.y,0);
+                vfx.GetComponent<ParticleSystem>().Play();
+                vfx.name = e.AttackUsed.Name + " attack VFX";
+            }
+        }
     }
 
     private void PlayerSelectedByBlock(object sender, BlockScript e)
