@@ -166,6 +166,11 @@ public class SaveScript : MonoBehaviour
 
             levels.enemies[i] = enemy;
         }
+        if(!Directory.Exists(Application.dataPath + "/Resources/CustomLevels/"))
+        {
+            Directory.CreateDirectory(Application.dataPath + "/Resources/CustomLevels/");
+        }
+
         using (var streamWriter = new StreamWriter(Application.dataPath + "/Resources/CustomLevels/" + levelName.text + ".xml"))
         {
             var serializer = new XmlSerializer(typeof(levels));
