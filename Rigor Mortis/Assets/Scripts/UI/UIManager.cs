@@ -106,7 +106,7 @@ public class UIManager : MonoBehaviour
 
     private void CreateFloatingText(object sender, SpawnFloatingTextEventArgs e)
     {
-        var floatingTextInstance = Instantiate(floatingText, Camera.main.WorldToScreenPoint(e.character.transform.position), floatingText.transform.rotation, fixedCanvas.transform).GetComponent<FloatingText>();
+        var floatingTextInstance = Instantiate(floatingText, e.character.transform.position, floatingText.transform.rotation, fixedCanvas.transform).GetComponent<FloatingText>();
         floatingTextInstance.SetUp(e.character, e.message, e.textColour);
     }
 
