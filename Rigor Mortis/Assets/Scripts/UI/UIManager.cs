@@ -361,8 +361,8 @@ public class UIManager : MonoBehaviour
         }
 
         attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2(amountOver * buttonSpace, 0);
-        if (attackPanel.GetComponent<RectTransform>().sizeDelta.x < 350 && attackPanalShrinkButtons)
-            attackPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(attackPanelOriginalScale.x + 150, attackPanelOriginalScale.y);
+        if (attackPanel.GetComponent<RectTransform>().sizeDelta.x < 400 && attackPanalShrinkButtons)
+            attackPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(attackPanelOriginalScale.x, attackPanelOriginalScale.y);
 
         foreach (GameObject button in popUpButtons)
         {
