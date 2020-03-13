@@ -1127,7 +1127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f74cc2b11d80b441bf281e3e22647a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightOffset: 0.47
+  heightOffset: 0.5
   characterAudio:
   - {fileID: 5278009728843366967}
   - {fileID: 7721581754127247146}
@@ -3142,6 +3142,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1234926684928068001}
     m_Modifications:
+    - target: {fileID: 4869746215740234837, guid: 797c756041db8d44bb4d73720497abd3,
+        type: 3}
+      propertyPath: m_Name
+      value: Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 4869746215740234837, guid: 797c756041db8d44bb4d73720497abd3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4869746215740234838, guid: 797c756041db8d44bb4d73720497abd3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3212,16 +3222,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.25000012
       objectReference: {fileID: 0}
-    - target: {fileID: 4869746215740234837, guid: 797c756041db8d44bb4d73720497abd3,
-        type: 3}
-      propertyPath: m_Name
-      value: Particle System
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869746215740234837, guid: 797c756041db8d44bb4d73720497abd3,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4869746215660338419, guid: 797c756041db8d44bb4d73720497abd3,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -3263,6 +3263,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2016954299386550918}
     m_Modifications:
+    - target: {fileID: 100000, guid: d2f1e7cf0177a4f4ab27eecbc8d1de8e, type: 3}
+      propertyPath: m_Name
+      value: Mesh_Mace
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d2f1e7cf0177a4f4ab27eecbc8d1de8e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.03748844
@@ -3319,10 +3323,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 0.6666683
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: d2f1e7cf0177a4f4ab27eecbc8d1de8e, type: 3}
-      propertyPath: m_Name
-      value: Mesh_Mace
-      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: d2f1e7cf0177a4f4ab27eecbc8d1de8e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3342,6 +3342,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3362691275201477905}
     m_Modifications:
+    - target: {fileID: 100002, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
+      propertyPath: m_Name
+      value: HeavySkeleton_Shield
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.5
@@ -3397,10 +3401,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
-      propertyPath: m_Name
-      value: HeavySkeleton_Shield
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
       propertyPath: m_LocalScale.x

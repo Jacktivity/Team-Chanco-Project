@@ -1010,11 +1010,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114e74ef53d3df94e9f5083a004adfc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: {x: 0, y: 0, z: 0}
-  max: {x: 0, y: 0, z: 0}
   dioramaPieces:
-  - {fileID: 1172592866842159177, guid: 6030c92bb779ea2488843422df9c75c6, type: 3}
+  - {fileID: 3403095246271655744, guid: 6030c92bb779ea2488843422df9c75c6, type: 3}
+  - {fileID: 4590548217751086883, guid: e4008845f094014458bafdee0a1e45a2, type: 3}
+  - {fileID: 1654588812018235045, guid: d84867f1dfc8b8e4fa1a3bb8e1413331, type: 3}
   dioramaParent: {fileID: 1205521408}
+  dioramaSize: {x: 100, y: 0, z: 100}
+  averageDioramaSize: {x: 0, y: 0}
 --- !u!1 &1242773722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,6 +1138,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  attackVFX: []
   globalUnitList: []
   activeEnemyCaptains: []
   activePlayerCaptains: []
@@ -1225,7 +1228,6 @@ GameObject:
   - component: {fileID: 1469572278}
   - component: {fileID: 1469572276}
   - component: {fileID: 1469572277}
-  - component: {fileID: 1469572279}
   m_Layer: 0
   m_Name: GridGenerator
   m_TagString: Untagged
@@ -1319,25 +1321,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1469572279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1469572275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 114e74ef53d3df94e9f5083a004adfc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  min: {x: 0, y: 0, z: 0}
-  max: {x: 0, y: 0, z: 0}
-  dioramaPieces:
-  - {fileID: 4811340704356373424, guid: e4008845f094014458bafdee0a1e45a2, type: 3}
-  - {fileID: 3777137948661026678, guid: d84867f1dfc8b8e4fa1a3bb8e1413331, type: 3}
-  - {fileID: 1172592866842159177, guid: 6030c92bb779ea2488843422df9c75c6, type: 3}
-  dioramaParent: {fileID: 1205521408}
 --- !u!1001 &1925686444
 PrefabInstance:
   m_ObjectHideFlags: 0
