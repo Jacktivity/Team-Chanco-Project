@@ -163,6 +163,7 @@ public class SaveScript : MonoBehaviour
             enemy.repeat = enemyDetails.repeatSpawn;
             enemy.triggerId = (byte)enemyDetails.triggerId;
             enemy.onTrigger = enemyDetails.onTrigger;
+            enemy.rotation = enemyDetails.transform.eulerAngles.y;
 
             levels.enemies[i] = enemy;
         }

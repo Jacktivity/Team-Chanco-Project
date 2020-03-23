@@ -114,6 +114,9 @@ public class Placement : MonoBehaviour
                     selectedEnemy.godRay.SetActive(true);
                     delayText.text = "Delay: " + delay.value;
                     enemyOnTrigger.text = "On Trigger: " + selectedEnemy.onTrigger;
+                    enemyTrigger.value = selectedEnemy.triggerId;
+                    enemyTriggerId.text = "Trigger ID: " + enemyTrigger.value;
+
 
                     enemyDetails.SetActive(true);
                     blockDetails.SetActive(false);
@@ -163,11 +166,11 @@ public class Placement : MonoBehaviour
             {
                 tempBlock.transform.position = locationBlockPos;
             }
-            else if (!deleteMode && occupier != null || activeBlock.name == "Difficult" && tempBlock != null)
+            else if (!deleteMode && occupier != null || activeBlock.name == "Difficult")
             {
                 tempBlock.transform.position = hit.transform.position;
             }
-            if(deleteMode)
+            if (deleteMode)
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
             }
@@ -175,7 +178,6 @@ public class Placement : MonoBehaviour
             {
                 tempBlock.transform.position = new Vector3(-10, -10, -10);
             }
-
         }
     }
 
@@ -266,12 +268,20 @@ public class Placement : MonoBehaviour
         terrainOptions.SetActive(true);
         enemyOptions.SetActive(false);
         enemyDetails.SetActive(false);
+        blockDetails.SetActive(false);
+        aiEditMode = false;
+        aiEditToggle.isOn = aiEditMode;
+        
+
     }
     public void EnemyOptions()
     {
         terrainOptions.SetActive(false);
         enemyOptions.SetActive(true);
         enemyDetails.SetActive(false);
+        blockDetails.SetActive(false);
+        aiEditMode = false;
+        aiEditToggle.isOn = aiEditMode;
     }
     public void ToggleCaptain()
     {
