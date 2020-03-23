@@ -1,33 +1,83 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <levels xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <maps placementpoints="15" objective="0" par="0">
     <map layer="0">
-      <mapline value="0,0,0,0,0,0,0,0" />
-      <mapline value="12,1,1,1,1,1,13,0" />
-      <mapline value="0,11,0,0,0,11,1,0" />
-      <mapline value="0,0,0,0,0,9,1,0" />
-      <mapline value="0,0,0,0,9,9,1,0" />
-      <mapline value="0,0,0,0,9,7,1,0" />
-      <mapline value="0,0,0,0,4,0,1,0" />
-      <mapline value="0,11,0,0,0,0,1,0" />
-      <mapline value="12,1,1,1,1,1,13,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
     </map>
   </maps>
   <rotations>
     <rotation layer="0">
-      <rotationline value="0,0,0,0,0,0,0,0" />
-      <rotationline value="1,1,1,1,1,1,1,0" />
-      <rotationline value="0,0,0,0,0,0,0,0" />
-      <rotationline value="0,0,0,0,0,0,0,0" />
-      <rotationline value="0,0,0,0,0,0,0,0" />
-      <rotationline value="0,0,0,0,0,2,0,0" />
-      <rotationline value="0,0,0,0,2,0,0,0" />
-      <rotationline value="0,0,0,0,0,0,0,0" />
-      <rotationline value="1,1,1,1,1,1,2,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0,0,0,0,0,0" />
     </rotation>
   </rotations>
-  <enemies />
-  <placeables />
+  <enemies>
+    <enemy id="0" name="Necromancer" type="1" posX="2" posY="0" posZ="6" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="1" name="Skeleton_Rifle" type="4" posX="3" posY="0" posZ="3" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="2" name="Skeleton_Rifle" type="4" posX="3" posY="0" posZ="4" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="3" name="Skeleton_Rifle" type="4" posX="3" posY="0" posZ="5" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="4" name="Skeleton_Rifle" type="4" posX="3" posY="0" posZ="6" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="5" name="Skeleton_Rifle" type="4" posX="3" posY="0" posZ="7" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="6" name="Skeleton_Rifle" type="4" posX="3" posY="0" posZ="8" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="7" name="Skeleton_Spear" type="5" posX="5" posY="0" posZ="3" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="8" name="Skeleton_Spear" type="5" posX="5" posY="0" posZ="4" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="9" name="Skeleton_Spear" type="5" posX="5" posY="0" posZ="5" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="10" name="Skeleton_Spear" type="5" posX="5" posY="0" posZ="6" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="11" name="Skeleton_Spear" type="5" posX="5" posY="0" posZ="7" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="12" name="Skeleton_Spear" type="5" posX="5" posY="0" posZ="8" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="13" name="FlamingSkull" type="3" posX="4" posY="0" posZ="1" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="14" name="FlamingSkull" type="3" posX="4" posY="0" posZ="0" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="15" name="FlamingSkull" type="3" posX="4" posY="0" posZ="11" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+    <enemy id="16" name="FlamingSkull" type="3" posX="4" posY="0" posZ="10" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation="90" />
+  </enemies>
+  <placeables>
+    <placeable posX="14" posY="0" posZ="6" />
+    <placeable posX="13" posY="0" posZ="3" />
+    <placeable posX="13" posY="0" posZ="4" />
+    <placeable posX="13" posY="0" posZ="5" />
+    <placeable posX="13" posY="0" posZ="6" />
+    <placeable posX="13" posY="0" posZ="7" />
+    <placeable posX="13" posY="0" posZ="8" />
+    <placeable posX="12" posY="0" posZ="3" />
+    <placeable posX="12" posY="0" posZ="4" />
+    <placeable posX="12" posY="0" posZ="5" />
+    <placeable posX="12" posY="0" posZ="6" />
+    <placeable posX="12" posY="0" posZ="7" />
+    <placeable posX="12" posY="0" posZ="8" />
+    <placeable posX="11" posY="0" posZ="3" />
+    <placeable posX="11" posY="0" posZ="4" />
+    <placeable posX="11" posY="0" posZ="5" />
+    <placeable posX="11" posY="0" posZ="6" />
+    <placeable posX="11" posY="0" posZ="7" />
+    <placeable posX="11" posY="0" posZ="8" />
+  </placeables>
   <exitzones />
   <triggerzones />
 </levels>

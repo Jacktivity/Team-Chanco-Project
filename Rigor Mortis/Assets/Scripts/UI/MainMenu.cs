@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,7 +11,8 @@ public class MainMenu : MonoBehaviour
     public Canvas mainCanvas, levelSelectCanvas, backgroundCanvas;
 
     [SerializeField] private TextAsset level1, level2, level3, level4, level5, level6;
-    [SerializeField]private TextAsset loadedScene;
+    [SerializeField]private byte[] loadedScene;
+    [SerializeField] private AudioSource mainMenuAudio;
 
     public static EventHandler<MainMenuStates> mainMenuStateChange;
 
@@ -52,6 +54,7 @@ public class MainMenu : MonoBehaviour
 
         if (!SceneManager.GetSceneByBuildIndex(1).isLoaded)
         {
+            mainMenuAudio.Stop();
             //SceneManager.LoadScene(1, LoadSceneMode.Additive);
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
         }
@@ -70,13 +73,13 @@ public class MainMenu : MonoBehaviour
         {
             case 1:
                 levelDetailsImage.SetActive(true);
-                loadedScene = level1;
+                loadedScene = level1.bytes;
                 levelDetailsImage.GetComponent<Image>().sprite = level1Info;
                 break;
 
             case 2:
                 levelDetailsImage.SetActive(false);
-                loadedScene = level2;
+                loadedScene = level2.bytes;
                 break;
 
             default:
@@ -85,7 +88,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void CustomLoadLevel(TextAsset level)
+    public void CustomLoadLevel(byte[] level)
     {
         levelDetailsImage.SetActive(false);
         loadedScene = level;
@@ -97,6 +100,7 @@ public class MainMenu : MonoBehaviour
         PersistantData.levelAssigned = true;
 
         if (!SceneManager.GetSceneByBuildIndex(2).isLoaded) {
+            mainMenuAudio.Stop();
             SceneManager.LoadScene(2, LoadSceneMode.Additive);
         }
 
@@ -111,16 +115,39 @@ public class MainMenu : MonoBehaviour
 
     void BuildCustomLevelList()
     {
-        int i = 0;
-        foreach(TextAsset level in Resources.LoadAll<TextAsset>("CustomLevels/"))
+        foreach (var kid in customLevelContainer.GetComponentsInChildren<Button>())
         {
+            Destroy(kid.gameObject);
+        }        
+
+        int i = 0;
+        var levels = Directory.GetFiles(Application.dataPath + "/Resources/CustomLevels", "*.xml", SearchOption.AllDirectories);
+
+        foreach (var level in levels)
+        {
+            var lv = File.ReadAllBytes(level);
+
             Vector3 pos = new Vector3(customLevelContainer.transform.position.x, customLevelContainer.transform.position.y + (i * levelSelectCanvas.scaleFactor), customLevelContainer.transform.position.z);
             i -= 36;
 
-            Button newButton = Instantiate(baseLevelSelectButton, pos, customLevelContainer.transform.rotation, customLevelContainer.transform );
-            newButton.GetComponentInChildren<Text>().text = level.name;
-            newButton.onClick.AddListener(delegate { CustomLoadLevel(level); });
+            Button newButton = Instantiate(baseLevelSelectButton, pos, customLevelContainer.transform.rotation, customLevelContainer.transform);
+            
+            newButton.GetComponentInChildren<Text>().text = Path.GetFileName(level).TrimEnd(".xml".ToCharArray());
+            newButton.onClick.AddListener(delegate { CustomLoadLevel(lv); });
+            
         }
+
+
+
+        //foreach(TextAsset level in Resources.LoadAll("CustomLevels/", typeof(TextAsset)))
+        //{
+        //    Vector3 pos = new Vector3(customLevelContainer.transform.position.x, customLevelContainer.transform.position.y + (i * levelSelectCanvas.scaleFactor), customLevelContainer.transform.position.z);
+        //    i -= 36;
+
+        //    Button newButton = Instantiate(baseLevelSelectButton, pos, customLevelContainer.transform.rotation, customLevelContainer.transform );
+        //    newButton.GetComponentInChildren<Text>().text = level.name;
+        //    newButton.onClick.AddListener(delegate { CustomLoadLevel(level.bytes); });
+        //}
     }
 
     private void MainMenuStateChanged(object sender, MainMenuStates state)

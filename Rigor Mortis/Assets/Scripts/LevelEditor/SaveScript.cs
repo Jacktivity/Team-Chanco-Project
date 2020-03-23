@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using System.IO;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class SaveScript : MonoBehaviour
 {
@@ -162,13 +163,26 @@ public class SaveScript : MonoBehaviour
             enemy.repeat = enemyDetails.repeatSpawn;
             enemy.triggerId = (byte)enemyDetails.triggerId;
             enemy.onTrigger = enemyDetails.onTrigger;
+            enemy.rotation = enemyDetails.transform.eulerAngles.y;
 
             levels.enemies[i] = enemy;
         }
+        if(!Directory.Exists(Application.dataPath + "/Resources/CustomLevels/"))
+        {
+            Directory.CreateDirectory(Application.dataPath + "/Resources/CustomLevels/");
+        }
 
-        var serializer = new XmlSerializer(typeof(levels));
-        var stream = new FileStream("./Assets/Resources/CustomLevels/" + levelName.text + ".xml", FileMode.Create);
-        serializer.Serialize(stream, levels);
-        stream.Close();
+        using (var streamWriter = new StreamWriter(Application.dataPath + "/Resources/CustomLevels/" + levelName.text + ".xml"))
+        {
+            var serializer = new XmlSerializer(typeof(levels));
+            serializer.Serialize(streamWriter, levels);
+            streamWriter.Close();
+        }
+
+        //Resources.LoadAll("/CustomLevels");
+        //AssetDatabase.Refresh();
+            
+        //var stream = new FileStream("./Assets/Resources/CustomLevels/" + levelName.text + ".xml", FileMode.Create);
+        
     }
 }

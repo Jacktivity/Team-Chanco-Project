@@ -2,8 +2,9 @@
 <levels xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <maps placementpoints="70" objective="1" par="0">
     <map layer="0">
-      <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
-      <mapline value="0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+
+      <mapline value="11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+      <mapline value="0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
       <mapline value="0,0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,0" />
       <mapline value="0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0" />
       <mapline value="0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0" />
@@ -57,15 +58,18 @@
     </rotation>
   </rotations>
   <enemies>
-    <enemy id="0" name="Skeleton" type="0" posX="0" posY="1" posZ="12" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="1" name="Skeleton_Spear" type="5" posX="0" posY="1" posZ="13" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="2" name="Skeleton" type="0" posX="10" posY="1" posZ="8" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="3" name="Skeleton" type="0" posX="9" posY="1" posZ="10" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="4" name="Skeleton" type="0" posX="3" posY="0" posZ="11" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="5" name="Skeleton" type="0" posX="7" posY="0" posZ="11" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="6" name="Skeleton_Rifle" type="4" posX="5" posY="1" posZ="14" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="7" name="Skeleton_Rifle" type="4" posX="3" posY="1" posZ="14" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
-    <enemy id="8" name="Skeleton_Rifle" type="4" posX="7" posY="1" posZ="14" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+
+    <enemy id="0" name="Necromancer" type="1" posX="5" posY="1" posZ="16" behaviour="0" linkedUnits="" captain="true" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation ="" />
+    <enemy id="1" name="Skeleton_Rifle" type="4" posX="5" posY="1" posZ="14" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation ="" />
+    <enemy id="2" name="Skeleton_Rifle" type="4" posX="7" posY="1" posZ="14" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation ="" />
+    <enemy id="3" name="Skeleton_Rifle" type="4" posX="3" posY="1" posZ="14" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation ="" />
+    <enemy id="4" name="Skeleton" type="0" posX="3" posY="0" posZ="11" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation ="" />
+    <enemy id="5" name="Skeleton" type="0" posX="7" posY="0" posZ="11" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation =""  />
+    <enemy id="6" name="Skeleton" type="0" posX="10" posY="1" posZ="8" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation ="" />
+    <enemy id="7" name="Skeleton" type="0" posX="9" posY="1" posZ="10" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation ="" />
+    <enemy id="8" name="Tomb_Guard" type="6" posX="0" posY="1" posZ="12" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation ="" />
+    <enemy id="9" name="Skeleton_Spear" type="5" posX="0" posY="1" posZ="13" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" rotation =""  />
+
   </enemies>
   <placeables>
     <placeable posX="6" posY="0" posZ="0" />

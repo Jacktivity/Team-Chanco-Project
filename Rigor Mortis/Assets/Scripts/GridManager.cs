@@ -63,9 +63,12 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PersistantData.levelAssigned) {
-            xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(PersistantData.level.bytes);
-        } else {
+        if (PersistantData.levelAssigned)
+        {
+            xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(PersistantData.level);
+        }
+        else
+        {
             xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
         }
 
@@ -129,13 +132,13 @@ public class GridManager : MonoBehaviour
         {
             var brightEdges = new List<Directions>();
 
-            if (tile.N? tiles.Contains(tile.N.GetComponent<BlockScript>()) == false : true)
+            if (tile.N ? tiles.Contains(tile.N.GetComponent<BlockScript>()) == false : true)
                 brightEdges.Add(Directions.North);
-            if (tile.S? tiles.Contains(tile.S.GetComponent<BlockScript>()) == false : true)
+            if (tile.S ? tiles.Contains(tile.S.GetComponent<BlockScript>()) == false : true)
                 brightEdges.Add(Directions.South);
-            if (tile.E? tiles.Contains(tile.E.GetComponent<BlockScript>()) == false : true)
+            if (tile.E ? tiles.Contains(tile.E.GetComponent<BlockScript>()) == false : true)
                 brightEdges.Add(Directions.East);
-            if (tile.W? tiles.Contains(tile.W.GetComponent<BlockScript>()) == false : true)
+            if (tile.W ? tiles.Contains(tile.W.GetComponent<BlockScript>()) == false : true)
                 brightEdges.Add(Directions.West);
 
 
@@ -160,7 +163,7 @@ public class GridManager : MonoBehaviour
 
     private void BlockClicked(BlockScript tile)
     {
-        if(tile.placeable && SelectedUnit != null && tile.Occupied == false)
+        if (tile.placeable && SelectedUnit != null && tile.Occupied == false)
         {
             var costOfUnit = SelectedUnit.cost;
             if ((GetPlacementPoints() - costOfUnit) >= 0)
@@ -192,10 +195,10 @@ public class GridManager : MonoBehaviour
         var level = xmlData;
         placementPoints = xmlData.maps.placementpoints;
 
-        foreach(var map in level.maps.map)
+        foreach (var map in level.maps.map)
         {
             var rotationlines = level.rotations.ElementAt(map.layer).rotationline.SelectMany((r, x) => r.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
-            var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, YPos = map.layer,XPos = x })).ToArray();
+            var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, YPos = map.layer, XPos = x })).ToArray();
             var mythingy = rotationlines.Length;
             for (int i = 0; i < anonMap.Length; i++)
             {
@@ -208,7 +211,7 @@ public class GridManager : MonoBehaviour
                     blockscript.coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);
 
                     tile.name = tile.name.Replace("(Clone)", "");
-                    tile.name = tile.name + '(' + pos.XPos + ','+ pos.YPos+ ',' + pos.ZPos + ')';
+                    tile.name = tile.name + '(' + pos.XPos + ',' + pos.YPos + ',' + pos.ZPos + ')';
 
 
                     var sBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(0, 0, -1));
@@ -236,7 +239,7 @@ public class GridManager : MonoBehaviour
                         blockscript.NW = nwBlock.gameObject;
                     }
                     var below = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(0, -1, 0));
-                    if(below != null)
+                    if (below != null)
                     {
                         below.occupier = tile;
                     }
@@ -353,7 +356,7 @@ public class GridManager : MonoBehaviour
     {
         var enemies = xmlData.enemies;
 
-        foreach(var enemy in enemies)
+        foreach (var enemy in enemies)
         {
             var tile = Map.First(t => t.coordinates.x == enemy.posX && t.coordinates.y == enemy.posY && t.coordinates.z == enemy.posZ);
             var unitPos = enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.center + enemyPrefabs[enemy.type].GetComponent<Collider>().bounds.extents;
@@ -369,7 +372,9 @@ public class GridManager : MonoBehaviour
                 placedEnemy.onTrigger = enemy.onTrigger;
                 placedEnemy.triggerId = enemy.triggerId;
                 placedEnemy.repeatSpawn = enemy.repeat;
+                placedEnemy.transform.rotation = Quaternion.Euler(0, enemy.rotation,0);
                 tile.occupier = placedEnemy.gameObject;
+
 
                 var linkedUnits = new int[0];
 
@@ -383,7 +388,7 @@ public class GridManager : MonoBehaviour
                 enemySpawned?.Invoke(this, new EnemySpawn(placedEnemy, (AIStates)enemy.behaviour, enemy.id, linkedUnits));
                 playerManager.AddUnit(placedEnemy);
             }
-          // eventSystem.AddUnit(placedEnemy);
+            // eventSystem.AddUnit(placedEnemy);
         }
     }
 
@@ -399,7 +404,7 @@ public class GridManager : MonoBehaviour
 
         ColourTiles(placeableTiles, SpawnColor);
 
-        foreach(var spawnTile in placeableTiles)
+        foreach (var spawnTile in placeableTiles)
         {
             spawnTile.placeable = true;
         }
@@ -494,7 +499,7 @@ public class GridManager : MonoBehaviour
         placementPoints -= reduction;
         uiManager.PlacementPoint(placementPoints);
 
-        if (placementPoints <= 0 && (playerManager.activePlayerCaptains.Count() > 0 || reduction == 0 ))
+        if (placementPoints <= 0 && (playerManager.activePlayerCaptains.Count() > 0 || reduction == 0))
         {
             CycleTurns();
 
@@ -540,7 +545,7 @@ public class GridManager : MonoBehaviour
 
     public void ResetPlayerTurn()
     {
-        foreach(Character player in playerManager.activePlayers)
+        foreach (Character player in playerManager.activePlayers)
         {
             if (player.floor.trigger)
             {
@@ -956,6 +961,8 @@ namespace GridXML
 
         private byte triggerIdField;
 
+        private float rotationField;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public byte id
@@ -1135,6 +1142,20 @@ namespace GridXML
             set
             {
                 this.triggerIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public float rotation
+        {
+            get
+            {
+                return this.rotationField;
+            }
+            set
+            {
+                this.rotationField = value;
             }
         }
     }

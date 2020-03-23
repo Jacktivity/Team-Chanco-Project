@@ -67,7 +67,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7c64368c66a3cdf48b78dd23d66ae312, type: 3}
-    m_FontSize: 200
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -107,7 +107,7 @@ RectTransform:
   m_GameObject: {fileID: 8018294226767456735}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children:
   - {fileID: 5882852695364375767}
   m_Father: {fileID: 0}
@@ -116,7 +116,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 50, y: 5}
+  m_SizeDelta: {x: 45.42, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8018294226767456733
 CanvasRenderer:
@@ -148,7 +148,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7c64368c66a3cdf48b78dd23d66ae312, type: 3}
-    m_FontSize: 200
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -173,5 +173,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookAtCam: {fileID: 0}
-  movement: {x: 0, y: 50, z: 0}
+  movement: {x: 0, y: 0.5, z: 0}
   lifeTime: 3
