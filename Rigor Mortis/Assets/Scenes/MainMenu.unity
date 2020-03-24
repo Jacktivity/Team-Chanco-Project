@@ -1659,7 +1659,8 @@ MonoBehaviour:
   level4: {fileID: 0}
   level5: {fileID: 0}
   level6: {fileID: 0}
-  loadedScene: {fileID: 0}
+  loadedScene: 00
+  mainMenuAudio: {fileID: 1080271142}
   currentState: 0
   levelDetailsImage: {fileID: 1586942666}
   levelContainer: {fileID: 1000135345}
@@ -2479,7 +2480,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1608189553}
   m_HandleRect: {fileID: 1608189552}
   m_Direction: 2
-  m_Value: 0.9999999
+  m_Value: 1
   m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:

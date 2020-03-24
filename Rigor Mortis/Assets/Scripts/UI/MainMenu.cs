@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private TextAsset level1, level2, level3, level4, level5, level6;
     [SerializeField]private byte[] loadedScene;
+    [SerializeField] private AudioSource mainMenuAudio;
 
     public static EventHandler<MainMenuStates> mainMenuStateChange;
 
@@ -53,6 +54,7 @@ public class MainMenu : MonoBehaviour
 
         if (!SceneManager.GetSceneByBuildIndex(1).isLoaded)
         {
+            mainMenuAudio.Stop();
             //SceneManager.LoadScene(1, LoadSceneMode.Additive);
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
         }
@@ -98,6 +100,7 @@ public class MainMenu : MonoBehaviour
         PersistantData.levelAssigned = true;
 
         if (!SceneManager.GetSceneByBuildIndex(2).isLoaded) {
+            mainMenuAudio.Stop();
             SceneManager.LoadScene(2, LoadSceneMode.Additive);
         }
 
