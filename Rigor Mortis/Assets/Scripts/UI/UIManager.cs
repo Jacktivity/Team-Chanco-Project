@@ -573,14 +573,17 @@ public class UIManager : MonoBehaviour
                     break;
 
                 case GameStates.playerTurn:
+                    if(currentState == GameStates.placementPhase)
+                    {
+                        AudioController.audioEventHandler?.Invoke(this, new AudioEvent(audioTransition: true, transitionTime: 5f));
+                    }
+
                     currentState = GameStates.playerTurn;
 
                     foreach (Character unit in playerManager.activePlayers)
                     {
                         playerManager.activePlayersInTurn.Add(unit);
-                    }
-
-                    AudioController.audioEventHandler?.Invoke(this, new AudioEvent(audioTransition: true, transitionTime: 5f));
+                    }                    
 
                     SetPrepCanvas( false );
                     SetBattleCanvas( true );
