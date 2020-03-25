@@ -18,26 +18,27 @@ MonoBehaviour:
   target: {fileID: 0}
   uiManager: {fileID: 0}
   previousText: 
+  hitStatPreviousText: 
   button: {fileID: 0}
   necromancerSprite: {fileID: 21300000, guid: 806889c1216cde342a4398670d1edb5c, type: 3}
-  skeletonSprite: {fileID: 21300000, guid: b7ea4d5bbf80e9047a9d6d37174c296d, type: 3}
+  skeletonSprite: {fileID: 21300000, guid: ab6c023e692a8c44786f5a53b47fe3f6, type: 3}
   floatingSkullSprite: {fileID: 21300000, guid: 0119313b654a2e04180b0326fb6560af,
     type: 3}
-  rifleSkeletonSprite: {fileID: 21300000, guid: b7ea4d5bbf80e9047a9d6d37174c296d,
+  rifleSkeletonSprite: {fileID: 21300000, guid: b70739a3286b00c448a10639528bb8b0,
     type: 3}
-  axeSkeletonSprite: {fileID: 21300000, guid: b7ea4d5bbf80e9047a9d6d37174c296d, type: 3}
-  spearSkeletonSprite: {fileID: 21300000, guid: b7ea4d5bbf80e9047a9d6d37174c296d,
+  axeSkeletonSprite: {fileID: 21300000, guid: 0f86bd6c2553ae24b82ff22d0391e325, type: 3}
+  spearSkeletonSprite: {fileID: 21300000, guid: 209d2314e084d1a4a8e7f55112b80497,
     type: 3}
   necromancerSpriteHL: {fileID: 21300000, guid: b0174252c4a455641a1666dd33ee93f6,
     type: 3}
-  skeletonSpriteHL: {fileID: 21300000, guid: ffcbbfe244d073947867fbb05e6e9fc5, type: 3}
+  skeletonSpriteHL: {fileID: 21300000, guid: 989f8d2315ca00b44abb51ee5e368e76, type: 3}
   floatingSkullSpriteHL: {fileID: 21300000, guid: a4e335079f910124daeaf14123073df1,
     type: 3}
-  rifleSkeletonSpriteHL: {fileID: 21300000, guid: ffcbbfe244d073947867fbb05e6e9fc5,
+  rifleSkeletonSpriteHL: {fileID: 21300000, guid: 1ad28e5e989318642862d5d03738b0ad,
     type: 3}
-  axeSkeletonSpriteHL: {fileID: 21300000, guid: ffcbbfe244d073947867fbb05e6e9fc5,
+  axeSkeletonSpriteHL: {fileID: 21300000, guid: 99135f2b62d01914f83037af22994f64,
     type: 3}
-  spearSkeletonSpriteHL: {fileID: 21300000, guid: ffcbbfe244d073947867fbb05e6e9fc5,
+  spearSkeletonSpriteHL: {fileID: 21300000, guid: f624e726c97e7ba4fa621e73bc67a856,
     type: 3}
 --- !u!1001 &8660637645535223968
 PrefabInstance:
