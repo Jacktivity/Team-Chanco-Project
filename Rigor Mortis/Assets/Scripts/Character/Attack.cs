@@ -10,7 +10,7 @@ public class AttackLibrary
     public static Attack SpectralSword => new Attack(2, 1, 1, "Spectral Sword", magicDmg: new Dice(2, 2));
     public static Attack Whack => new Attack(3, 1, 0.8f, "Whack", physicalDmg: new Dice(1, 2));
 
-    public static Attack TeslaStab => new Attack(4, 1, 1, "Tesla Stab", magicDmg: new Dice(4, 1), manaCost: 5);
+    public static Attack TeslaStab => new Attack(4, 1, 1, "Death Touch", magicDmg: new Dice(4, 1), manaCost: 5);
     public static Attack TeslaZap => new Attack(5, 10, 1.2f, "Tesla Zap", magicDmg: new Dice(4, 1), manaCost: 10, vfx: 0);
     //public static Attack Zap => new Attack(6, 10, 1.2f, "Zap", magicDmg: new Dice(4, 1));
 
