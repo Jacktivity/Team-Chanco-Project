@@ -10,12 +10,15 @@ public class PlayerManager : MonoBehaviour
     public BlockScript[] walkTiles, sprintTiles;
     [SerializeField] private GridManager gridManager;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private AudioClip[] attackSFX;
+    [SerializeField] private GameObject[] attackVFX;
 
     public List<Character> globalUnitList;
     public List<Character> activeEnemyCaptains;
     public List<Character> activePlayerCaptains;
     public List<Character> activeEnemies;
     public List<Character> activePlayers;
+    public List<Character> activePlayersInTurn;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +28,44 @@ public class PlayerManager : MonoBehaviour
         activePlayerCaptains = new List<Character>();
         activeEnemies = new List<Character>();
         activePlayers = new List<Character>();
+        activePlayersInTurn = new List<Character>();
 
         GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
         GridManager.unitSpawned += (s, e) => { e.moveComplete += (sender, character) => gridManager.CycleTurns(); };
         GridManager.unitSpawned += (s, e) => { e.attackComplete += (sender, character) => gridManager.CycleTurns(); };
         GridManager.enemySpawned += (s, e) => { e.unit.characterClicked += (sender, character) => EnemyUnitChosen(e.unit); };
+        BlockScript.blockClicked += PlayerSelectedByBlock;
         //BlockScript.blockClicked += (s, e) => BlockClicked(e);
         ChooseAttackButton.pointerExit += ResetMapMovement;
         MoveButton.pointerExit += ResetMapMovement;
+        Character.attackEvent += SpawnAttackVFX;
     }
+
+    private void SpawnAttackVFX(object sender, AttackEventArgs e)
+    {
+        if(e.AttackUsed.VFX != null)
+        {
+            foreach (var hit in e.AttackedCharacters)
+            {
+                var vfx = Instantiate(attackVFX[(int)e.AttackUsed.VFX], transform, false);
+                vfx.transform.position = hit.transform.position + new Vector3(0, vfx.transform.position.y,0);
+                vfx.GetComponent<ParticleSystem>().Play();
+                vfx.name = e.AttackUsed.Name + " attack VFX";
+            }
+        }
+    }
+
+    private void PlayerSelectedByBlock(object sender, BlockScript e)
+    {
+        if(e.Occupied? e.occupier.tag == "Player" : false)
+        {
+            var unit = e.occupier.GetComponent<Character>();
+            if (unit != null)
+                PlayerUnitChosen(unit);
+        }
+    }
+
+    public AudioClip GetAttackSFX(int sfxIndex) => attackSFX[sfxIndex];
 
     private void OnDestroy()
     {
@@ -120,11 +152,10 @@ public class PlayerManager : MonoBehaviour
     }
 
     public void PlayerUnitChosen(Character unit)
-    {
-        
+    {        
         if (gridManager.playerTurn && unit.ActionPoints >= 0)
         {
-            uiManager.CreateActionButtons( unit.attacks, unit);            
+            uiManager.CreateActionButtons(unit.attacks, unit);            
 
             if (selectedPlayer != null)
             {

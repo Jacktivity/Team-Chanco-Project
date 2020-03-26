@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
     private Vector3 previousForward;
     public float heightOffset;
     [SerializeField] protected AudioSource[] characterAudio;
+    [SerializeField] protected AudioClip[] damaged;
     [SerializeField] private GameObject VFXGameObject;
     [SerializeField] private Vector3 deselectedVFXscale, selectedVFXscale;
 
@@ -109,7 +110,7 @@ public class Character : MonoBehaviour
 
     public void Attack()
     {
-        if(selectedAttack != null)
+        if(selectedAttack != null && CanAttack)
         {
             ActionPoints -= 3;
             manaPoints -= selectedAttack.Mana;
@@ -125,7 +126,15 @@ public class Character : MonoBehaviour
             var tilesInRange = pathfinder.GetTilesInRange(attackSourceBlock, selectedAttack.Area, true);
             var charactersToHit = tilesInRange.Where(t => t.Occupied).Select(s => s.occupier.GetComponent<Character>()).ToArray();
 
-            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy));
+            //TODO Rotate to atk source block
+            transform.forward = new Vector3(attackSourceBlock.coordinates.x - floor.coordinates.x, 0, attackSourceBlock.coordinates.z - floor.coordinates.z);
+
+            attackEvent?.Invoke(this, new AttackEventArgs(charactersToHit, baseDamage.Magical, baseDamage.Physical, selectedAttack.Accuracy * accuracy, selectedAttack));
+
+            animator.SetTrigger("Attack");
+            characterAudio[2].clip = playerManager.GetAttackSFX(selectedAttack.SFX);
+            characterAudio[2].Play();
+
             attackComplete?.Invoke(this, this);
 
         }
@@ -148,6 +157,13 @@ public class Character : MonoBehaviour
     {
         if (moving)
         {
+
+            if (characterAudio[0].isPlaying == false)
+            {
+                characterAudio[0].Play();
+                //characterAudio[1].PlayDelayed(characterAudio[1].clip.length / 2);
+            }
+
             counterTime += Time.deltaTime * moveAnimationSpeed;
             moveToBlock = path.ElementAt(pathIndex);
 
@@ -168,6 +184,7 @@ public class Character : MonoBehaviour
                 counterTime = 0;
                 floor.occupier = null;
                 floor = moveToBlock;
+                //Debug.Log(moveToBlock?.gameObject? moveToBlock.gameObject.name : "Null");
                 moveToBlock.occupier = gameObject;
                 previousBlock = moveToBlock;
 
@@ -179,6 +196,7 @@ public class Character : MonoBehaviour
                         animator.SetBool("Moving", moving);
                     pathIndex = 0;
                     moveComplete?.Invoke(this, this);
+                    characterAudio[0].Stop();
                 }
                 else
                 {
@@ -206,6 +224,12 @@ public class Character : MonoBehaviour
 
                 if (e.PhysicalDamage > armour)
                     TakeDamage(e.PhysicalDamage - armour);
+
+                if (health < currentHitPoints)
+                {
+                    characterAudio[2].clip = damaged[UnityEngine.Random.Range(0, damaged.Length - 1)];
+                    characterAudio[2].Play();
+                }
             }
             else
             {
@@ -221,7 +245,7 @@ public class Character : MonoBehaviour
         currentHitPoints -= damage;
 
         var textColour = magicDamage ? Color.blue : Color.red;
-
+        animator.SetTrigger("TakenDamage");
         UIManager.createFloatingText?.Invoke(this, new SpawnFloatingTextEventArgs(this, (0 - damage).ToString(), textColour));
 
         if (currentHitPoints <= 0)
@@ -347,21 +371,24 @@ public class Character : MonoBehaviour
         {
             if (MaxAP)
             {
-                AP_VFX_Full.SetActive(true);
-                AP_VFX_Half.SetActive(false);
-                AP_VFX_Empty.SetActive(false);
+                AP_VFX_Full.GetComponent<ParticleSystemRenderer>().material.SetFloat("_GlowIntensity",2f);
+                //AP_VFX_Full.SetActive(true);
+                //AP_VFX_Half.SetActive(false);
+                //AP_VFX_Empty.SetActive(false);
             }
             else if (CanMove)
             {
-                AP_VFX_Full.SetActive(false);
-                AP_VFX_Half.SetActive(true);
-                AP_VFX_Empty.SetActive(false);
+                AP_VFX_Full.GetComponent<ParticleSystemRenderer>().material.SetFloat("_GlowIntensity", .5f);
+                //AP_VFX_Full.SetActive(false);
+                //AP_VFX_Half.SetActive(true);
+                //AP_VFX_Empty.SetActive(false);
             }
             else
             {
-                AP_VFX_Full.SetActive(false);
-                AP_VFX_Half.SetActive(false);
-                AP_VFX_Empty.SetActive(true);
+                AP_VFX_Full.GetComponent<ParticleSystemRenderer>().material.SetFloat("_GlowIntensity", 0.1f);
+                //AP_VFX_Full.SetActive(false);
+                //AP_VFX_Half.SetActive(false);
+                //AP_VFX_Empty.SetActive(true);
             }
         }
         Movement();
@@ -374,12 +401,14 @@ public struct AttackEventArgs
     public int MagicDamage;
     public int PhysicalDamage;
     public float Accuracy;
+    public Attack AttackUsed;
 
-    public AttackEventArgs(IEnumerable<Character> attackedCharaters, int magicDmg, int physDmg, float accuracy)
+    public AttackEventArgs(IEnumerable<Character> attackedCharaters, int magicDmg, int physDmg, float accuracy, Attack attackUsed)
     {
         AttackedCharacters = attackedCharaters.ToArray();
         MagicDamage = magicDmg;
         PhysicalDamage = physDmg;
         Accuracy = accuracy;
+        AttackUsed = attackUsed;
     }
 }

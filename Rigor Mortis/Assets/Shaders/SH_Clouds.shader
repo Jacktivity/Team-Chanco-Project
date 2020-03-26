@@ -80,13 +80,13 @@ Shader "Shader Forge/SH_Clouds" {
                 float3 directDiffuse = max( 0.0, NdotL) * attenColor;
                 float3 indirectDiffuse = float3(0,0,0);
                 indirectDiffuse += UNITY_LIGHTMODEL_AMBIENT.rgb; // Ambient Light
-                float4 node_6803 = _Time;
-                float2 node_2531 = (i.uv0+node_6803.g*float2(0.5,0));
+                float4 node_4362 = _Time;
+                float2 node_2531 = (i.uv0+node_4362.g*float2(0.5,0));
                 float4 _Clouds2_var = tex2D(_Clouds2,TRANSFORM_TEX(node_2531, _Clouds2));
                 float3 diffuseColor = (float3(0,0,0)*_Clouds2_var.rgb);
                 float3 diffuse = (directDiffuse + indirectDiffuse) * diffuseColor;
 ////// Emissive:
-                float2 node_122 = (i.uv0+node_6803.g*float2(0.5,-0.25));
+                float2 node_122 = (i.uv0+node_4362.g*float2(0.5,-0.25));
                 float4 _Clouds_var = tex2D(_Clouds,TRANSFORM_TEX(node_122, _Clouds));
                 float3 emissive = (i.vertexColor.rgb*pow(_Clouds_var.rgb,0.9));
 /// Final Color:
@@ -163,8 +163,8 @@ Shader "Shader Forge/SH_Clouds" {
 /////// Diffuse:
                 float NdotL = max(0.0,dot( normalDirection, lightDirection ));
                 float3 directDiffuse = max( 0.0, NdotL) * attenColor;
-                float4 node_7625 = _Time;
-                float2 node_2531 = (i.uv0+node_7625.g*float2(0.5,0));
+                float4 node_5345 = _Time;
+                float2 node_2531 = (i.uv0+node_5345.g*float2(0.5,0));
                 float4 _Clouds2_var = tex2D(_Clouds2,TRANSFORM_TEX(node_2531, _Clouds2));
                 float3 diffuseColor = (float3(0,0,0)*_Clouds2_var.rgb);
                 float3 diffuse = directDiffuse * diffuseColor;

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<levels xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <maps placementpoints="15" objective="0" par="0">
+    <map layer="0">
+      <mapline value="0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0" />
+      <mapline value="0,0,0,0,0,0,0,0" />
+    </map>
+  </maps>
+  <rotations>
+    <rotation layer="0">
+      <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0" />
+      <rotationline value="0,0,0,0,0,0,0,0" />
+    </rotation>
+  </rotations>
+  <enemies>
+    <enemy id="0" name="Skeleton_Axe" type="2" posX="3" posY="0" posZ="4" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="false" triggerId="0" />
+    <enemy id="1" name="Skeleton_Axe" type="2" posX="4" posY="0" posZ="4" behaviour="0" linkedUnits="" captain="false" delay="0" repeat="false" onTrigger="true" triggerId="1" />
+  </enemies>
+  <placeables>
+    <placeable posX="4" posY="0" posZ="1" />
+    <placeable posX="3" posY="0" posZ="1" />
+  </placeables>
+  <exitzones />
+  <triggerzones>
+    <triggerzone id="1" posX="4" posY="0" posZ="3" />
+    <triggerzone id="0" posX="3" posY="0" posZ="3" />
+  </triggerzones>
+</levels>

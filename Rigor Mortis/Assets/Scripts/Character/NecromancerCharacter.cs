@@ -26,7 +26,6 @@ public class NecromancerCharacter : Character
         manaPoints = maxManaPoints;
 
         attacks = new Attack[] {
-            AttackLibrary.StaffWhack,
             AttackLibrary.TeslaStab,
             AttackLibrary.TeslaZap
         };

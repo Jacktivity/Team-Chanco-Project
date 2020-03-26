@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Text turnDisplay;
     public Text attackText, hitText, hitStatText, rangeText, rangeStatText, magicText, magicStatText, damageText, damageStatText;
-    public Text objectiveText;
+    public Text objectiveBattleText, objectivePrepText;
     public Text scorePointsText;
     public Text placementText;
 
@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         healthBars = new List<Slider>();
         //APBars = new List<Slider>();
@@ -106,7 +106,7 @@ public class UIManager : MonoBehaviour
 
     private void CreateFloatingText(object sender, SpawnFloatingTextEventArgs e)
     {
-        var floatingTextInstance = Instantiate(floatingText, e.character.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform).GetComponent<FloatingText>();
+        var floatingTextInstance = Instantiate(floatingText, e.character.transform.position, floatingText.transform.rotation, fixedCanvas.transform).GetComponent<FloatingText>();
         floatingTextInstance.SetUp(e.character, e.message, e.textColour);
     }
 
@@ -197,13 +197,17 @@ public class UIManager : MonoBehaviour
 
     public void SetObjectiveText()
     {
+        String objective = "";
         if (gridManager.GetObjective() == 0) {
-            objectiveText.text = "Defeat All Enemies";
+            objective = "Defeat All Enemies";
         } else if(gridManager.GetObjective() == 1) {
-            objectiveText.text = "Defeat Enemy Commander";
+            objective = "Defeat Enemy Commander";
         } else if(gridManager.GetObjective() == 2) {
-            objectiveText.text = "Get To The Exit";
+            objective = "Get To The Exit";
         }
+
+        objectiveBattleText.text = objective;
+        objectivePrepText.text = objective;
     }
 
     private void EnableAPText(Attack atk, Character unit)
@@ -282,22 +286,25 @@ public class UIManager : MonoBehaviour
         unit.ClearActionPoints();
         DeleteCurrentPopupButtons();
         attackText.text = "";
-        gridManager.CycleTurns();
-        gridManager.nextUnit();
+        playerManager.activePlayersInTurn.Remove(unit);
+
+        if (playerManager.activePlayersInTurn.Count() > 0) {
+            gridManager.nextUnit();
+        } else if (playerManager.activePlayersInTurn.Count() <= 0) {
+            gridManager.CycleTurns();
+        }
     }
 
     public void EndTurn()
     {
         if (currentState == GameStates.playerTurn) {
-            foreach (Character unit in playerManager.globalUnitList)
+            foreach (Character unit in playerManager.activePlayersInTurn.ToList<Character>())
             {
-                if (unit.tag == "Player")
-                {
-                    unit.ClearActionPoints();
-                    DeleteCurrentPopupButtons();
-                    unit.godRay.SetActive(false);
-                    attackText.text = "";
-                }
+                playerManager.activePlayersInTurn.Remove(unit);
+                unit.ClearActionPoints();
+                DeleteCurrentPopupButtons();
+                unit.godRay.SetActive(false);
+                attackText.text = "";
             }
         }
         gridManager.CycleTurns();
@@ -354,8 +361,8 @@ public class UIManager : MonoBehaviour
         }
 
         attackPanel.GetComponent<RectTransform>().sizeDelta = attackPanelEdges + new Vector2(amountOver * buttonSpace, 0);
-        if (attackPanel.GetComponent<RectTransform>().sizeDelta.x < 350 && attackPanalShrinkButtons)
-            attackPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(attackPanelOriginalScale.x + 150, attackPanelOriginalScale.y);
+        if (attackPanel.GetComponent<RectTransform>().sizeDelta.x < 400 && attackPanalShrinkButtons)
+            attackPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(attackPanelOriginalScale.x, attackPanelOriginalScale.y);
 
         foreach (GameObject button in popUpButtons)
         {
@@ -471,14 +478,6 @@ public class UIManager : MonoBehaviour
         unit.gameObject.AddComponent<UnitSliders>().unit = unit;
         unit.gameObject.GetComponent<UnitSliders>().healthSlider = newSlider.GetComponent<Slider>();
         unit.gameObject.GetComponent<UnitSliders>().manaSlider = newSlider.GetComponentsInChildren<Slider>()[1];
-
-        //if (unit.tag == "Player")
-        //{
-        //    Slider apSlider = Instantiate(APBar, unit.transform.position, fixedCanvas.transform.rotation, fixedCanvas.transform);
-        //    APBars.Add(apSlider);
-        //    unit.gameObject.AddComponent<ActionPointBar>().unit = unit;
-        //    unit.gameObject.GetComponent<ActionPointBar>().slider = apSlider;
-        //}
     }
 
 
@@ -575,6 +574,11 @@ public class UIManager : MonoBehaviour
 
                 case GameStates.playerTurn:
                     currentState = GameStates.playerTurn;
+
+                    foreach (Character unit in playerManager.activePlayers)
+                    {
+                        playerManager.activePlayersInTurn.Add(unit);
+                    }
 
                     AudioController.audioEventHandler?.Invoke(this, new AudioEvent(audioTransition: true, transitionTime: 5f));
 

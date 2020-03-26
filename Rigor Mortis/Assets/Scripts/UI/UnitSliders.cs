@@ -12,6 +12,7 @@ public class UnitSliders : MonoBehaviour
     public Vector3 offset;
     public Scene activeScene;
 
+    public Vector3 originalScale;
     bool manaEnabled = false;
 
     // Start is called before the first frame update
@@ -33,6 +34,7 @@ public class UnitSliders : MonoBehaviour
         }
 
         Offset();
+        originalScale = healthSlider.transform.localScale;
     }
 
     void Offset() {
@@ -41,16 +43,16 @@ public class UnitSliders : MonoBehaviour
                 offset.y = 1.95f;
                 break;
             case "Skeleton":
-                offset.y = 2.15f;
+                offset.y = 1.65f;
                 break;
             case "Skeleton_Axe":
-                offset.y = 2.15f;
+                offset.y = 1.65f;
                 break;
             case "Skeleton_Rifle":
-                offset.y = 2.15f;
+                offset.y = 1.65f;
                 break;
             case "Skeleton_Spear":
-                offset.y = 2.15f;
+                offset.y = 1.65f;
                 break;
             case "FlamingSkull":
                 offset.y = 2.2f;
@@ -59,12 +61,14 @@ public class UnitSliders : MonoBehaviour
                 offset.y = 1;
                 break;
         }
-        healthSlider.transform.position = Camera.main.WorldToScreenPoint(unit.transform.position + offset);
+        healthSlider.transform.position = unit.transform.position + offset;
     }
 
     public void Update()
     {
-        healthSlider.transform.position = Camera.main.WorldToScreenPoint(unit.transform.position + offset);
-        //healthSlider.transform.LookAt(FindObjectOfType<Camera>().transform);
+        healthSlider.transform.position = unit.transform.position + offset;
+
+        healthSlider.transform.LookAt(FindObjectOfType<Camera>().transform);
+        healthSlider.transform.Rotate(0, 180, 0, Space.Self);
     }
 }

@@ -21,9 +21,6 @@ public class FloatingText : MonoBehaviour
         var colourText = GetComponentsInChildren<UnityEngine.UI.Text>().First(c => c.gameObject != text.gameObject);
         colourText.text = message;
         colourText.color = messageColor;
-
-        //text.color = messageColor;
-
         lookAtCam = FindObjectOfType<Camera>();
     }
 
@@ -34,7 +31,6 @@ public class FloatingText : MonoBehaviour
         transform.LookAt(lookAtCam.transform.position);
         transform.Rotate(0, 180, 0, Space.Self);
         transform.position = spawnCharacter.transform.position + movement * counter;
-
         counter += Time.deltaTime;
 
         if (counter >= lifeTime)

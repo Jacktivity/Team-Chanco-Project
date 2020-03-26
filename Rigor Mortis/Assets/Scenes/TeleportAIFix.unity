@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -124,11 +124,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PrepCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1100370849367415057, guid: 724620522a4814a41a3e3123a1f34ec4,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 681518525}
     - target: {fileID: 1100370849367415062, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -234,22 +229,27 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1100370850432538917, guid: 724620522a4814a41a3e3123a1f34ec4,
+    - target: {fileID: 1100370849367415057, guid: 724620522a4814a41a3e3123a1f34ec4,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 681518525}
+    - target: {fileID: 1100370850281584610, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1593914253}
-    - target: {fileID: 1100370850432538917, guid: 724620522a4814a41a3e3123a1f34ec4,
+    - target: {fileID: 1100370850281584610, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetUnit
       objectReference: {fileID: 0}
-    - target: {fileID: 1100370850281584610, guid: 724620522a4814a41a3e3123a1f34ec4,
+    - target: {fileID: 1100370850432538917, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1593914253}
-    - target: {fileID: 1100370850281584610, guid: 724620522a4814a41a3e3123a1f34ec4,
+    - target: {fileID: 1100370850432538917, guid: 724620522a4814a41a3e3123a1f34ec4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetUnit
@@ -310,9 +310,12 @@ MonoBehaviour:
   sprintTiles: []
   gridManager: {fileID: 1485579867}
   uiManager: {fileID: 1593914253}
-  unitList: []
+  attackSFX: []
+  globalUnitList: []
   activeEnemyNecromancers: []
   activePlayerNecromancers: []
+  activeEnemies: []
+  activePlayers: []
 --- !u!114 &436961261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,15 +466,44 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 681518525}
-    - target: {fileID: 8340796269648188889, guid: 195497fdef40b4f4aa04d0c47b056391,
+    - target: {fileID: 8340796269953908182, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 8340796269953908182, guid: 195497fdef40b4f4aa04d0c47b056391,
+    - target: {fileID: 8340796269550257596, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533548698635916191, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340796270067610679, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467003288, guid: 195497fdef40b4f4aa04d0c47b056391, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175587684771112558, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896146461645647255, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 638197823551769075, guid: 195497fdef40b4f4aa04d0c47b056391,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3677948850642650907, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
@@ -503,29 +535,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 8340796269550257596, guid: 195497fdef40b4f4aa04d0c47b056391,
+    - target: {fileID: 8340796269648188889, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8340796270067610679, guid: 195497fdef40b4f4aa04d0c47b056391,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1467003288, guid: 195497fdef40b4f4aa04d0c47b056391, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1175587684771112558, guid: 195497fdef40b4f4aa04d0c47b056391,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 638197823551769075, guid: 195497fdef40b4f4aa04d0c47b056391,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8340796270195176612, guid: 195497fdef40b4f4aa04d0c47b056391,
         type: 3}
@@ -590,11 +603,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FixedCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 6612075941053652885, guid: 796e9cc411e470d4ba67273a729c54b2,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 681518525}
     - target: {fileID: 6612075941053652904, guid: 796e9cc411e470d4ba67273a729c54b2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -715,6 +723,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.18098758
       objectReference: {fileID: 0}
+    - target: {fileID: 6612075941053652885, guid: 796e9cc411e470d4ba67273a729c54b2,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 681518525}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 796e9cc411e470d4ba67273a729c54b2, type: 3}
 --- !u!223 &454719395 stripped
@@ -812,10 +825,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f352c3693bb95154da77af7da6f42192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 1102468438}
-  speed: 25
-  scrollSpeed: 50
-  scrollOffset: 4
+  boomArm: {fileID: 0}
+  movementSpeed: {x: 25, y: 1, z: 25}
+  rotationSpeed: {x: 0.1, y: 1}
+  minXRotation: 0
+  maxXRotation: 0
 --- !u!81 &681518528
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1576,10 +1590,15 @@ MonoBehaviour:
   spawnPoint: {r: 1, g: 1, b: 0, a: 1}
   lowSpeedTile: {r: 0, g: 1, b: 1, a: 1}
   highSpeedTile: {r: 1, g: 0.48650533, b: 0, a: 1}
+  attackTile: {r: 0, g: 0, b: 0, a: 0}
+  missTile: {r: 0, g: 0, b: 0, a: 0}
+  highlightCurve: {x: 0, y: 0}
+  highlightSoft: {x: 0, y: 0}
   uiManager: {fileID: 1593914253}
   playerManager: {fileID: 436961260}
   enemyAIContainer: {fileID: 1501748996}
   moveMode: 0
+  activeAI: 0
   selectedBlock: {fileID: 0}
   playerTurn: 0
 --- !u!114 &1485579868
@@ -1694,7 +1713,6 @@ MonoBehaviour:
   pauseCanvas: {fileID: 1149613852}
   winCanvas: {fileID: 1411508802}
   loseCanvas: {fileID: 1207747877}
-  turnDisplay: {fileID: 441268471}
   attackButton: {fileID: 3428575637537108063, guid: 5d3cf36a93bf4f64fafd432ea810bb11,
     type: 3}
   targetCharacterButton: {fileID: 6315308289696829695, guid: c976e627ed8466448af44ad17b43419f,
@@ -1706,18 +1724,36 @@ MonoBehaviour:
     type: 3}
   waitButton: {fileID: 8590537472054130620, guid: 17cf6dcff6ea2174db9ba31bd3b595d9,
     type: 3}
-  baseAttackPosition: {x: 70, y: 145, z: 0}
+  floatingText: {fileID: 0}
   targetCharacterOffset: {x: 70, y: 0, z: 0}
+  baseAttackPosition: {x: 70, y: 145, z: 0}
+  originalBaseAttackPosition: {x: 0, y: 0, z: 0}
+  attackPanel: {fileID: 0}
   popUpButtons: []
+  activePopUpButtons: []
+  minButtons: 3
+  maxButtons: 20
   marker: {fileID: 1878347195513547648, guid: a07229e37bec5894f88c212ed5da88bc, type: 3}
   healthBar: {fileID: 4641054099590450111, guid: aa6eb00298d4d92499e90ed5b4efed7f,
     type: 3}
-  APBar: {fileID: 4641054099590450111, guid: 0604e44476310854b8e9a63552203fd9, type: 3}
   blocksInRange: []
   currentState: 0
   resumeState: 0
   isPaused: 0
   gameOver: 0
+  turnDisplay: {fileID: 441268471}
+  attackText: {fileID: 0}
+  hitText: {fileID: 0}
+  hitStatText: {fileID: 0}
+  rangeText: {fileID: 0}
+  rangeStatText: {fileID: 0}
+  magicText: {fileID: 0}
+  magicStatText: {fileID: 0}
+  damageText: {fileID: 0}
+  damageStatText: {fileID: 0}
+  objectiveText: {fileID: 0}
+  scorePointsText: {fileID: 0}
+  placementText: {fileID: 0}
 --- !u!114 &1593914254
 MonoBehaviour:
   m_ObjectHideFlags: 0
