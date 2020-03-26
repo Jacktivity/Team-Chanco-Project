@@ -11,7 +11,22 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Weapon - Rifle001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 07 - Default
+    second: {fileID: 2100000, guid: 90b49ff7023b2d1428b7c2800ec5f63a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 08 - Default
+    second: {fileID: 2100000, guid: 90b49ff7023b2d1428b7c2800ec5f63a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SkeletonWIP_Decimated_default
+    second: {fileID: 2100000, guid: 90b49ff7023b2d1428b7c2800ec5f63a, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
