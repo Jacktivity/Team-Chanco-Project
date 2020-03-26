@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 016dfae2cee0b5e4486a1fc8381a94f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   cost: 0
   maxHitPoints: 0
   accuracy: 0
@@ -125,6 +126,7 @@ MonoBehaviour:
   AP_VFX_Empty: {fileID: 5876242423193990720}
   beingAttacked: 0
   beingAttackedButton: {fileID: 0}
+  type: 4
 --- !u!1 &9157349250919035960
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,16 +674,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 97706452928999987}
     m_Modifications:
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_Name
-      value: PS_Selection_Empty
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1653491297711639668, guid: 02bf5b393ede6a5478042e848987946a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -751,6 +743,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_Name
+      value: PS_Selection_Empty
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653491297711639665, guid: 02bf5b393ede6a5478042e848987946a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02bf5b393ede6a5478042e848987946a, type: 3}

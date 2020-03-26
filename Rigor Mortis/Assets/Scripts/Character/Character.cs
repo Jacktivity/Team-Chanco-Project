@@ -10,19 +10,21 @@ public class Character : MonoBehaviour
     private Animator animator;
     private BlockScript previousBlock;
     private Vector3 previousForward;
+    public float heightOffset;
+    [SerializeField] protected AudioSource[] characterAudio;
+    [SerializeField] private GameObject VFXGameObject;
+    [SerializeField] private Vector3 deselectedVFXscale, selectedVFXscale;
+
     //0 = necromancer, 1 = skeleton, 2 = SteamingSkull, 3 = SpectralSkeleton, 4 = TombGuard
     #region statblock
-    public int cost, maxHitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, manaPoints;
+    public int ID, cost, maxHitPoints, accuracy, power, evade, armour, resistance, movementSpeed, movemenSprint, maxManaPoints, manaPoints;
     #endregion
 
     [SerializeField] protected int currentHitPoints;
 
-    #region animations
-    [SerializeField] protected AnimationClip idleAnim, walkAnim, attackAnim, dmgAnim;
-    #endregion
-
     public bool isFlying;
     public bool isCaptain;
+    public bool onTrigger;
 
     public IEnumerable<Attack> attacks;
 
@@ -49,20 +51,26 @@ public class Character : MonoBehaviour
     private int pathIndex;
     private BlockScript moveToBlock;
 
-    private Score score;
+    //private PersistantData score;
     public GameObject godRay, AP_VFX_Full, AP_VFX_Half, AP_VFX_Empty;
 
     public bool beingAttacked;
     public EnemySelectButton beingAttackedButton;
 
+    public int type;
+
+    public bool repeatSpawn;
+    public int delaySpawn, triggerId;
 
     private void Awake()
     {
+        //characterAudio?[0]?.Play();
+        //characterAudio?[1]?.PlayDelayed(characterAudio[1].clip.length/2);
         pathfinder = FindObjectOfType<Pathfinder>();
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
         playerManager = FindObjectOfType<PlayerManager>();
-        score = FindObjectOfType<Score>();
+        //score = FindObjectOfType<PersistantData>();
         //attackManager = FindObjectOfType<AttackManager>();
         previousForward = transform.forward;
         attackEvent += DamageCheck;
@@ -78,22 +86,12 @@ public class Character : MonoBehaviour
         };
     }
 
+    
+
     private void Start()
     {
         currentHitPoints = maxHitPoints;
-
-        //var animator = GetComponent<Animator>();
-
-        //var animOverride = new AnimatorOverrideController(animator.runtimeAnimatorController);
-
-        //Debug.Log(gameObject.name + " animation overrides " + animOverride.overridesCount);
-
-        //animOverride.animationClips[0] = idleAnim==null? idleAnim : animOverride.animationClips[0];
-        //animOverride.animationClips[1] = attackAnim==null? attackAnim : animOverride.animationClips[1];
-        //animOverride.animationClips[2] = dmgAnim==null? dmgAnim : animOverride.animationClips[2];
-        //animOverride.animationClips[3] = attackAnim==null? attackAnim : animOverride.animationClips[3];
-
-        //animator.runtimeAnimatorController = animOverride;
+        manaPoints = maxManaPoints;
     }
 
     public Attack[] UseableAttacks => attacks.Where(a => a.Mana <= manaPoints).ToArray();
@@ -101,9 +99,6 @@ public class Character : MonoBehaviour
     public void ClearActionPoints()
     {
         ActionPoints = 0;
-        if (tag == "Player") {
-            gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-        }
     }
 
     public void SetFloor(BlockScript tile)
@@ -118,9 +113,8 @@ public class Character : MonoBehaviour
         {
             ActionPoints -= 3;
             manaPoints -= selectedAttack.Mana;
-            if (tag == "Player" ) {
-                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            }
+            gameObject.GetComponent<UnitSliders>().manaSlider.value = manaPoints;
+
             var baseDamage = selectedAttack.RollDamage();
 
             if (baseDamage.Magical > 0)
@@ -138,6 +132,16 @@ public class Character : MonoBehaviour
         godRay.SetActive(false);
     }
 
+    public void ScaleVFX(bool unitSelected)
+    {
+        var scale = unitSelected ? selectedVFXscale : deselectedVFXscale;
+
+        foreach (var vfxTransform in VFXGameObject.GetComponentsInChildren<Transform>())
+        {
+            vfxTransform.localScale = scale;
+        }
+    }
+
     public void SpendAP(int actionPoints) => ActionPoints -= actionPoints;
 
     private void Movement()
@@ -147,33 +151,18 @@ public class Character : MonoBehaviour
             counterTime += Time.deltaTime * moveAnimationSpeed;
             moveToBlock = path.ElementAt(pathIndex);
 
-            //float journey = Vector3.Distance(transform.position, (moveToBlock.transform.position + transform.up));
-
-
             transform.position = Vector3.Lerp(
-                new Vector3(previousBlock.transform.position.x, transform.position.y, previousBlock.transform.position.z),
-                new Vector3(moveToBlock.transform.position.x, moveToBlock.transform.position.y + 1, moveToBlock.transform.position.z),
+                new Vector3(previousBlock.Location().x, previousBlock.Location().y + heightOffset, previousBlock.Location().z),
+                new Vector3(moveToBlock.Location().x, moveToBlock.Location().y + heightOffset, moveToBlock.Location().z),
                 counterTime);
 
 
-            var angle = moveToBlock.transform.position - previousBlock.transform.position;
+            var angle = moveToBlock.Location() - previousBlock.Location();
 
-            transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.y), counterTime);
-
-            HealthBar healthBar = GetComponent<HealthBar>();
-            Vector3 healthOffset = healthBar.offset;
-            healthBar.slider.transform.position = transform.position + healthOffset;
-
-            if (tag == "Player") {
-                ActionPointBar actionPointBar = gameObject.GetComponent<ActionPointBar>();
-                Vector3 actionPointOffset = actionPointBar.offset;
-                actionPointBar.slider.transform.position = transform.position + actionPointOffset;
-
-                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            }
-
-
+            transform.forward = Vector3.Lerp(new Vector3(previousForward.x, 0, previousForward.z), new Vector3(angle.x, 0, angle.z), counterTime);
+            
             floor.occupier = gameObject;
+
             if (counterTime >= 1)
             {
                 counterTime = 0;
@@ -213,31 +202,41 @@ public class Character : MonoBehaviour
             if (dodgeRoll < toHit)
             {
                 if (e.MagicDamage > resistance)
-                    TakeDamage(e.MagicDamage - resistance);
+                    TakeDamage(e.MagicDamage - resistance, true);
 
                 if (e.PhysicalDamage > armour)
                     TakeDamage(e.PhysicalDamage - armour);
+            }
+            else
+            {
+                //Attack missed
+                UIManager.createFloatingText?.Invoke(this, new SpawnFloatingTextEventArgs(this, "Miss", Color.yellow));
             }
             beingAttacked = false;                          
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool magicDamage = false)
     {
         currentHitPoints -= damage;
 
-        if(currentHitPoints <= 0)
+        var textColour = magicDamage ? Color.blue : Color.red;
+
+        UIManager.createFloatingText?.Invoke(this, new SpawnFloatingTextEventArgs(this, (0 - damage).ToString(), textColour));
+
+        if (currentHitPoints <= 0)
         {
-            if(name == "Necromancer")
+            playerManager.RemoveUnit(this);
+
+            if (isCaptain)
             {
-                playerManager.RemoveNecromancer(this);
-                uiManager.GameOverCheck();
-            }
+                playerManager.RemoveCaptain(this);
+            } 
             DestroyUnit();
         }
         else
         {
-            gameObject.GetComponent<HealthBar>().slider.value = currentHitPoints;
+            gameObject.GetComponent<UnitSliders>().healthSlider.value = currentHitPoints;
 
         }
     }
@@ -247,32 +246,30 @@ public class Character : MonoBehaviour
         floor.occupier = null;
         if(gameObject.tag != "Breakable_Terrain")
         {
-            gameObject.GetComponent<HealthBar>().slider.gameObject.SetActive(false);
-            Slider healthSlider = GetComponent<HealthBar>().slider;
+            gameObject.GetComponent<UnitSliders>().healthSlider.gameObject.SetActive(false);
+            Slider healthSlider = GetComponent<UnitSliders>().healthSlider;
             healthSlider.gameObject.SetActive(false);
         }
 
         if (tag == "Player") {
             if(name == "Necromancer") {
-                score.RemoveScore(50);
+                PersistantData.RemoveScore(50);
             } else {
-                score.RemoveScore(cost);
+                PersistantData.RemoveScore(cost);
             }
-
-            Slider APSlider = GetComponent<ActionPointBar>().slider;
-            APSlider.gameObject.SetActive(false);
         } else if(tag == "Enemy") {
             if (name == "Necromancer")
             {
-                score.AddScore(50);
+                PersistantData.AddScore(50);
             }
             else
             {
-                score.AddScore(cost);
+                PersistantData.AddScore(cost);
             }
         }
 
         this.gameObject.SetActive(false);
+        uiManager.GameOverCheck();
     }
 
     public void MoveUnit(IEnumerable<BlockScript> moveTo)
@@ -284,7 +281,7 @@ public class Character : MonoBehaviour
             if (moveTo.Count() > movementSpeed + 1)
                 ActionPoints -= 2;
 
-            Debug.Log(this.tag + " " + this.name + " Action Points: " + ActionPoints);
+            //Debug.Log(this.tag + " " + this.name + " Action Points: " + ActionPoints);
             path = moveTo;
             pathIndex = 0;
             moving = true;
@@ -308,10 +305,10 @@ public class Character : MonoBehaviour
     {
         if (!uiManager.gameOver) {
             ActionPoints = maxActionPoints;
-            if (tag == "Player")
-            {
-                gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
-            }
+            //if (tag == "Player")
+            //{
+            //    gameObject.GetComponent<ActionPointBar>().slider.value = ActionPoints;
+            //}
         }
     }
 
@@ -330,6 +327,7 @@ public class Character : MonoBehaviour
         if(beingAttacked)
         {
             godRay.SetActive(true);
+            uiManager.HitStatTextActive(this);
         }
     }
 
@@ -338,6 +336,7 @@ public class Character : MonoBehaviour
         if (beingAttacked)
         {
             godRay.SetActive(false);
+            uiManager.HitStatTextDeactivate();
         }
 
     }

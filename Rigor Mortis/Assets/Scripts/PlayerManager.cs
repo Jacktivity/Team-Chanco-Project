@@ -11,16 +11,20 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GridManager gridManager;
     [SerializeField] private UIManager uiManager;
 
-    public List<Character> unitList;
-    public List<Character> activeEnemyNecromancers;
-    public List<Character> activePlayerNecromancers;
+    public List<Character> globalUnitList;
+    public List<Character> activeEnemyCaptains;
+    public List<Character> activePlayerCaptains;
+    public List<Character> activeEnemies;
+    public List<Character> activePlayers;
 
     // Start is called before the first frame update
     void Start()
     {
-        unitList = new List<Character>();
-        activeEnemyNecromancers = new List<Character>();
-        activePlayerNecromancers = new List<Character>();
+        globalUnitList = new List<Character>();
+        activeEnemyCaptains = new List<Character>();
+        activePlayerCaptains = new List<Character>();
+        activeEnemies = new List<Character>();
+        activePlayers = new List<Character>();
 
         GridManager.unitSpawned += (s, e) => { e.characterClicked += (sender, character) => PlayerUnitChosen(e); };
         GridManager.unitSpawned += (s, e) => { e.moveComplete += (sender, character) => gridManager.CycleTurns(); };
@@ -29,6 +33,12 @@ public class PlayerManager : MonoBehaviour
         //BlockScript.blockClicked += (s, e) => BlockClicked(e);
         ChooseAttackButton.pointerExit += ResetMapMovement;
         MoveButton.pointerExit += ResetMapMovement;
+    }
+
+    private void OnDestroy()
+    {
+        ChooseAttackButton.pointerExit -= ResetMapMovement;        
+        MoveButton.pointerExit -= ResetMapMovement;
     }
 
     private void ResetMapMovement(object sender, EventArgs e)
@@ -42,49 +52,48 @@ public class PlayerManager : MonoBehaviour
 
     public void AddUnit(Character unit)
     {
-        unitList.Add(unit);
+        globalUnitList.Add(unit);
         uiManager.InstantiateUIBars(unit);
         uiManager.InstantiateMarker(unit);
-    }
 
-    public void AddNecromancer(Character unit)
-    {
-        if (unit.tag == "Enemy") {
-            activeEnemyNecromancers.Add(unit);
-        } else if(unit.tag == "Player") {
-            activePlayerNecromancers.Add(unit);
+        if(unit.tag == "Player") {
+            activePlayers.Add(unit);
+        } else if(unit.tag == "Enemy") {
+            activeEnemies.Add(unit);
+        }
+
+        if (unit.isCaptain)
+        {
+            AddCaptain(unit);
         }
     }
 
-    public void RemoveNecromancer(Character unit)
+    public void RemoveUnit(Character unit)
+    {
+        if (unit.tag == "Enemy") {
+            activeEnemies.Remove(unit);
+        } else if (unit.tag == "Player") {
+            activePlayers.Remove(unit);
+        }
+    }
+
+    public void AddCaptain(Character unit)
+    {
+        if (unit.tag == "Enemy") {
+            activeEnemyCaptains.Add(unit);
+        } else if(unit.tag == "Player") {
+            activePlayerCaptains.Add(unit);
+        }
+    }
+
+    public void RemoveCaptain(Character unit)
     {
         if (unit.tag == "Enemy")
         {
-            activeEnemyNecromancers.Remove(unit);
+            activeEnemyCaptains.Remove(unit);
         } else if (unit.tag == "Player") {
-            activePlayerNecromancers.Remove(unit);
+            activePlayerCaptains.Remove(unit);
         }
-    }
-
-    private void BlockClicked(BlockScript tile)
-    {
-        //bool unitCanMove = selectedPlayer != null && gridManager.playerTurn;
-
-        //if (unitCanMove && tile.occupier == null && uiManager.attacking == false)
-        //{
-        //    bool playerCanMove = selectedPlayer.ActionPoints >= 0;
-        //    if(playerCanMove)
-        //    {
-        //        MovePlayerToBlock(tile);
-        //    }
-        //}
-        //else
-        //{
-        //    if (selectedPlayer != null)
-        //    {
-        //        //Debug.Log(selectedPlayer.attackManager.attackerAssigned);
-        //    }
-        //}
     }
 
     private void MovePlayerToBlock(BlockScript tile)
@@ -120,10 +129,12 @@ public class PlayerManager : MonoBehaviour
             if (selectedPlayer != null)
             {
                 selectedPlayer.godRay.SetActive(false);
+                selectedPlayer.ScaleVFX(false);
                 gridManager.ClearMap();
             }
 
             selectedPlayer = unit;
+            selectedPlayer.ScaleVFX(true);
             selectedPlayer.godRay.SetActive(true);
             HighlightMovementTiles(unit);
             GetComponent<PlayerCharacterMover>().SetMovement(unit, walkTiles, sprintTiles);
@@ -156,11 +167,5 @@ public class PlayerManager : MonoBehaviour
     public void EnemyUnitChosen(Character unit)
     {
         Debug.Log("Enemy clicked");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

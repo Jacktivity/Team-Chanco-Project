@@ -15,7 +15,70 @@ public class Pathfinder : MonoBehaviour
     private BlockScript[] GetFlightPath(BlockScript start, BlockScript end, bool ignoreMoveModifier)
     {
         //
-        return new BlockScript[] { start, end };
+        var path = new List<BlockScript> { start };
+
+        var current = start;
+
+        while(current.coordinates != end.coordinates)
+        {
+            var nextCords = current.coordinates;
+
+            if(current.coordinates.x != end.coordinates.x)
+            {
+                var diff = current.coordinates.x - end.coordinates.x;
+                if(diff < 0)
+                {
+                    nextCords += new Vector3(1, 0, 0);
+                }
+                else
+                {
+                    nextCords -= new Vector3(1, 0, 0);
+                }
+            }            
+            else
+            {
+                var diff = current.coordinates.z - end.coordinates.z;
+                if (diff < 0)
+                {
+                    nextCords += new Vector3(0, 0, 1);
+                }
+                else
+                {
+                    nextCords -= new Vector3(0, 0, 1);
+                }
+            }
+
+            if (current.coordinates.y != end.coordinates.y)
+            {
+                var diff = current.coordinates.y - end.coordinates.y;
+                if (diff < 0)
+                {
+                    nextCords += new Vector3(0, 1, 0);
+                }
+                else
+                {
+                    nextCords -= new Vector3(0, 1, 0);
+                }
+            }
+
+            current = CompleteMap.First(t => t.coordinates.x == nextCords.x && t.coordinates.z == nextCords.z);
+
+            if(current.Occupied)
+            {
+                //var transform = current.transform;
+                current = new BlockScript();
+                current.coordinates = nextCords;
+                //current.transform.position = transform.position + new Vector3(0,100,0);
+            }
+
+            path.Add(current);
+        }
+
+        Debug.Log(string.Join(",", path.Select(t => t.coordinates.ToString())));
+
+        return path.ToArray();
+
+        //return new BlockScript[] { start, end };
     }
 
     public BlockScript[] GetPath(BlockScript start, Func<BlockScript,bool> searchCriteria, bool ignoreMoveModifier, bool flying = false)
@@ -180,7 +243,7 @@ public class Pathfinder : MonoBehaviour
                 attackTiles.Add(tile);
             }
 
-            Debug.Log(tile.gameObject.name + ":" + string.Join(",", data.Select(s => s.collider.gameObject.name)));
+            //Debug.Log(tile.gameObject.name + ":" + string.Join(",", data.Select(s => s.collider.gameObject.name)));
         }
 
         return attackTiles.ToArray();

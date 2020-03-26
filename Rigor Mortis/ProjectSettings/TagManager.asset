@@ -9,6 +9,7 @@ TagManager:
   - Floor-Transition
   - Enemy
   - Breakable_Terrain
+  - UI
   layers:
   - Default
   - TransparentFX

@@ -1,7 +1,7 @@
 // Shader created with Shader Forge v1.38 
 // Shader Forge (c) Freya Holmer - http://www.acegikmo.com/shaderforge/
 // Note: Manually altering this data may prevent you from opening it in Shader Forge
-/*SF_DATA;ver:1.38;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,cgin:,lico:1,lgpr:1,limd:3,spmd:1,trmd:0,grmd:1,uamb:True,mssp:True,bkdf:True,hqlp:False,rprd:True,enco:False,rmgx:True,imps:True,rpth:0,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:2,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,atcv:False,rfrpo:True,rfrpn:Refraction,coma:15,ufog:True,aust:True,igpj:False,qofs:0,qpre:2,rntp:3,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,atwp:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False,fsmp:False;n:type:ShaderForge.SFN_Final,id:2865,x:32719,y:32712,varname:node_2865,prsc:2|diff-7736-RGB,spec-1690-R,gloss-1690-G,normal-5964-RGB,emission-4815-OUT,difocc-1690-B,clip-7736-A;n:type:ShaderForge.SFN_Tex2d,id:7736,x:32236,y:32572,ptovrint:True,ptlb:Base Color,ptin:_MainTex,varname:_MainTex,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:aaa785701d5ee814aa5495afe7878d52,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Tex2d,id:5964,x:32375,y:33191,ptovrint:True,ptlb:Normal Map,ptin:_BumpMap,varname:_BumpMap,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,ntxv:3,isnm:True;n:type:ShaderForge.SFN_Tex2d,id:1690,x:32156,y:32808,ptovrint:False,ptlb:Metal/Rough/AO,ptin:_MetalRoughAO,varname:node_1690,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:c5775f42773fbd14d8ee66d3ffedfb6a,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Tex2d,id:4626,x:32044,y:33033,ptovrint:False,ptlb:Emissive,ptin:_Emissive,varname:node_4626,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Multiply,id:4815,x:32219,y:33092,varname:node_4815,prsc:2|A-4626-RGB,B-4460-OUT;n:type:ShaderForge.SFN_Slider,id:4460,x:31745,y:33336,ptovrint:False,ptlb:Emissive_Intensity,ptin:_Emissive_Intensity,varname:node_4460,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,min:0,cur:0,max:1;proporder:5964-7736-1690-4626-4460;pass:END;sub:END;*/
+/*SF_DATA;ver:1.38;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,cgin:,lico:1,lgpr:1,limd:3,spmd:1,trmd:0,grmd:1,uamb:True,mssp:True,bkdf:True,hqlp:False,rprd:True,enco:False,rmgx:True,imps:True,rpth:1,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:2,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,atcv:False,rfrpo:True,rfrpn:Refraction,coma:15,ufog:True,aust:True,igpj:False,qofs:0,qpre:2,rntp:3,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5849056,fgcg:0.5849056,fgcb:0.5849056,fgca:1,fgde:1,fgrn:33.31,fgrf:2191.3,stcl:False,atwp:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False,fsmp:False;n:type:ShaderForge.SFN_Final,id:2865,x:32719,y:32712,varname:node_2865,prsc:2|diff-7736-RGB,spec-1690-R,gloss-1690-G,normal-5964-RGB,emission-4815-OUT,difocc-1690-B,clip-7736-A;n:type:ShaderForge.SFN_Tex2d,id:7736,x:32236,y:32572,ptovrint:True,ptlb:Base Color,ptin:_MainTex,varname:_MainTex,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:aaa785701d5ee814aa5495afe7878d52,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Tex2d,id:5964,x:32375,y:33191,ptovrint:True,ptlb:Normal Map,ptin:_BumpMap,varname:_BumpMap,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,ntxv:3,isnm:True;n:type:ShaderForge.SFN_Tex2d,id:1690,x:32156,y:32808,ptovrint:False,ptlb:Metal/Rough/AO,ptin:_MetalRoughAO,varname:node_1690,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:c5775f42773fbd14d8ee66d3ffedfb6a,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Tex2d,id:4626,x:32044,y:33033,ptovrint:False,ptlb:Emissive,ptin:_Emissive,varname:node_4626,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:aaa785701d5ee814aa5495afe7878d52,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Multiply,id:4815,x:32219,y:33092,varname:node_4815,prsc:2|A-4626-RGB,B-4460-OUT;n:type:ShaderForge.SFN_Slider,id:4460,x:31745,y:33336,ptovrint:False,ptlb:Emissive_Intensity,ptin:_Emissive_Intensity,varname:node_4460,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,min:0,cur:0,max:1;proporder:5964-7736-1690-4626-4460;pass:END;sub:END;*/
 
 Shader "Shader Forge/SH_Characters" {
     Properties {
@@ -16,6 +16,169 @@ Shader "Shader Forge/SH_Characters" {
         Tags {
             "Queue"="AlphaTest"
             "RenderType"="TransparentCutout"
+        }
+        Pass {
+            Name "DEFERRED"
+            Tags {
+                "LightMode"="Deferred"
+            }
+            Cull Off
+            
+            
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #define UNITY_PASS_DEFERRED
+            #define SHOULD_SAMPLE_SH ( defined (LIGHTMAP_OFF) && defined(DYNAMICLIGHTMAP_OFF) )
+            #define _GLOSSYENV 1
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+            #include "UnityPBSLighting.cginc"
+            #include "UnityStandardBRDF.cginc"
+            #pragma fragmentoption ARB_precision_hint_fastest
+            #pragma multi_compile_shadowcaster
+            #pragma multi_compile ___ UNITY_HDR_ON
+            #pragma multi_compile LIGHTMAP_OFF LIGHTMAP_ON
+            #pragma multi_compile DIRLIGHTMAP_OFF DIRLIGHTMAP_COMBINED DIRLIGHTMAP_SEPARATE
+            #pragma multi_compile DYNAMICLIGHTMAP_OFF DYNAMICLIGHTMAP_ON
+            #pragma multi_compile_fog
+            #pragma only_renderers d3d9 d3d11 glcore gles 
+            #pragma target 3.0
+            uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
+            uniform sampler2D _BumpMap; uniform float4 _BumpMap_ST;
+            uniform sampler2D _MetalRoughAO; uniform float4 _MetalRoughAO_ST;
+            uniform sampler2D _Emissive; uniform float4 _Emissive_ST;
+            uniform float _Emissive_Intensity;
+            struct VertexInput {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 tangent : TANGENT;
+                float2 texcoord0 : TEXCOORD0;
+                float2 texcoord1 : TEXCOORD1;
+                float2 texcoord2 : TEXCOORD2;
+            };
+            struct VertexOutput {
+                float4 pos : SV_POSITION;
+                float2 uv0 : TEXCOORD0;
+                float2 uv1 : TEXCOORD1;
+                float2 uv2 : TEXCOORD2;
+                float4 posWorld : TEXCOORD3;
+                float3 normalDir : TEXCOORD4;
+                float3 tangentDir : TEXCOORD5;
+                float3 bitangentDir : TEXCOORD6;
+                #if defined(LIGHTMAP_ON) || defined(UNITY_SHOULD_SAMPLE_SH)
+                    float4 ambientOrLightmapUV : TEXCOORD7;
+                #endif
+            };
+            VertexOutput vert (VertexInput v) {
+                VertexOutput o = (VertexOutput)0;
+                o.uv0 = v.texcoord0;
+                o.uv1 = v.texcoord1;
+                o.uv2 = v.texcoord2;
+                #ifdef LIGHTMAP_ON
+                    o.ambientOrLightmapUV.xy = v.texcoord1.xy * unity_LightmapST.xy + unity_LightmapST.zw;
+                    o.ambientOrLightmapUV.zw = 0;
+                #elif UNITY_SHOULD_SAMPLE_SH
+                #endif
+                #ifdef DYNAMICLIGHTMAP_ON
+                    o.ambientOrLightmapUV.zw = v.texcoord2.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
+                #endif
+                o.normalDir = UnityObjectToWorldNormal(v.normal);
+                o.tangentDir = normalize( mul( unity_ObjectToWorld, float4( v.tangent.xyz, 0.0 ) ).xyz );
+                o.bitangentDir = normalize(cross(o.normalDir, o.tangentDir) * v.tangent.w);
+                o.posWorld = mul(unity_ObjectToWorld, v.vertex);
+                o.pos = UnityObjectToClipPos( v.vertex );
+                return o;
+            }
+            void frag(
+                VertexOutput i,
+                out half4 outDiffuse : SV_Target0,
+                out half4 outSpecSmoothness : SV_Target1,
+                out half4 outNormal : SV_Target2,
+                out half4 outEmission : SV_Target3,
+                float facing : VFACE )
+            {
+                float isFrontFace = ( facing >= 0 ? 1 : 0 );
+                float faceSign = ( facing >= 0 ? 1 : -1 );
+                i.normalDir = normalize(i.normalDir);
+                i.normalDir *= faceSign;
+                float3x3 tangentTransform = float3x3( i.tangentDir, i.bitangentDir, i.normalDir);
+                float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
+                float3 _BumpMap_var = UnpackNormal(tex2D(_BumpMap,TRANSFORM_TEX(i.uv0, _BumpMap)));
+                float3 normalLocal = _BumpMap_var.rgb;
+                float3 normalDirection = normalize(mul( normalLocal, tangentTransform )); // Perturbed normals
+                float3 viewReflectDirection = reflect( -viewDirection, normalDirection );
+                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
+                clip(_MainTex_var.a - 0.5);
+////// Lighting:
+                float Pi = 3.141592654;
+                float InvPi = 0.31830988618;
+///////// Gloss:
+                float4 _MetalRoughAO_var = tex2D(_MetalRoughAO,TRANSFORM_TEX(i.uv0, _MetalRoughAO));
+                float gloss = 1.0 - _MetalRoughAO_var.g; // Convert roughness to gloss
+                float perceptualRoughness = _MetalRoughAO_var.g;
+                float roughness = perceptualRoughness * perceptualRoughness;
+/////// GI Data:
+                UnityLight light; // Dummy light
+                light.color = 0;
+                light.dir = half3(0,1,0);
+                light.ndotl = max(0,dot(normalDirection,light.dir));
+                UnityGIInput d;
+                d.light = light;
+                d.worldPos = i.posWorld.xyz;
+                d.worldViewDir = viewDirection;
+                d.atten = 1;
+                #if defined(LIGHTMAP_ON) || defined(DYNAMICLIGHTMAP_ON)
+                    d.ambient = 0;
+                    d.lightmapUV = i.ambientOrLightmapUV;
+                #else
+                    d.ambient = i.ambientOrLightmapUV;
+                #endif
+                #if UNITY_SPECCUBE_BLENDING || UNITY_SPECCUBE_BOX_PROJECTION
+                    d.boxMin[0] = unity_SpecCube0_BoxMin;
+                    d.boxMin[1] = unity_SpecCube1_BoxMin;
+                #endif
+                #if UNITY_SPECCUBE_BOX_PROJECTION
+                    d.boxMax[0] = unity_SpecCube0_BoxMax;
+                    d.boxMax[1] = unity_SpecCube1_BoxMax;
+                    d.probePosition[0] = unity_SpecCube0_ProbePosition;
+                    d.probePosition[1] = unity_SpecCube1_ProbePosition;
+                #endif
+                d.probeHDR[0] = unity_SpecCube0_HDR;
+                d.probeHDR[1] = unity_SpecCube1_HDR;
+                Unity_GlossyEnvironmentData ugls_en_data;
+                ugls_en_data.roughness = 1.0 - gloss;
+                ugls_en_data.reflUVW = viewReflectDirection;
+                UnityGI gi = UnityGlobalIllumination(d, 1, normalDirection, ugls_en_data );
+////// Specular:
+                float3 specularColor = _MetalRoughAO_var.r;
+                float specularMonochrome;
+                float3 diffuseColor = _MainTex_var.rgb; // Need this for specular when using metallic
+                diffuseColor = DiffuseAndSpecularFromMetallic( diffuseColor, specularColor, specularColor, specularMonochrome );
+                specularMonochrome = 1.0-specularMonochrome;
+                float NdotV = max(0.0,dot( normalDirection, viewDirection ));
+                half grazingTerm = saturate( gloss + specularMonochrome );
+                float3 indirectSpecular = (gi.indirect.specular);
+                indirectSpecular *= FresnelLerp (specularColor, grazingTerm, NdotV);
+/////// Diffuse:
+                float3 indirectDiffuse = float3(0,0,0);
+                indirectDiffuse += gi.indirect.diffuse;
+                indirectDiffuse *= _MetalRoughAO_var.b; // Diffuse AO
+////// Emissive:
+                float4 _Emissive_var = tex2D(_Emissive,TRANSFORM_TEX(i.uv0, _Emissive));
+                float3 emissive = (_Emissive_var.rgb*_Emissive_Intensity);
+/// Final Color:
+                outDiffuse = half4( diffuseColor, _MetalRoughAO_var.b );
+                outSpecSmoothness = half4( specularColor, gloss );
+                outNormal = half4( normalDirection * 0.5 + 0.5, 1 );
+                outEmission = half4( (_Emissive_var.rgb*_Emissive_Intensity), 1 );
+                outEmission.rgb += indirectSpecular * 1;
+                outEmission.rgb += indirectDiffuse * diffuseColor;
+                #ifndef UNITY_HDR_ON
+                    outEmission.rgb = exp2(-outEmission.rgb);
+                #endif
+            }
+            ENDCG
         }
         Pass {
             Name "FORWARD"

@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: ff90e3e0a2f962b4c986d5eefaab0f55
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: ImperatorBronze
+  fontNames:
+  - ImperatorBronze
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4e9579a5f780c624f8ff1c9b4fd82c85, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

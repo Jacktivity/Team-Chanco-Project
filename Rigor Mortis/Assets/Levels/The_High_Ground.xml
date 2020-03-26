@@ -1,142 +1,101 @@
 <levels>
-  <level level ="1">
-    <maps>
-      <map layer ="0" placementpoints ="70">
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,3,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,3,0,0,3,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,3,3,3,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,4,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
+    <maps placementpoints ="70" objective = "1" par ="8">
+      <map layer ="0">
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,3,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,3,0,0,3,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,3,3,3,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,4,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
       </map>
-      <!--<map layer ="1" placementpoints ="0">
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="0,0,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="0,0,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="5,0,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,0,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,5,0,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
-      </map>-->
-      <map layer ="1" placementpoints ="0">
-        <map-line value ="0,0,1,0,0,0,0,0,0,1,0"/>
-        <map-line value ="1,1,0,0,0,0,0,0,0,0,1"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <map-line value ="0,1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="0,1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="5,1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,5,0,0"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
-        <map-line value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <map layer ="1">
+        <mapline value ="0,0,1,0,0,0,0,0,0,1,0"/>
+        <mapline value ="1,1,0,0,0,0,0,0,0,0,1"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <mapline value ="0,1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
+        <mapline value ="0,1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
+        <mapline value ="5,1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
+        <mapline value ="-1,1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
+        <mapline value ="-1,1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
+        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
+        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
+        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
+        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
+        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0"/>
+        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1, 5,0,0"/>
+        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+        <mapline value ="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
       </map>
     </maps>
     <rotations>
       <rotation layer ="0" >
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,3,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,3,0,0,3,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,3,3,3,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,3,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,3,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,3,0,0,3,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,3,3,3,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,3,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
       </rotation>
-      <!--<rotation layer ="1">
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="1,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,2,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-      </rotation>-->
       <rotation layer ="1">
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="1,1,0,0,0,0,0,0,0,0,1"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="1,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,2,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
-        <rotation-line value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="1,1,0,0,0,0,0,0,0,0,1"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="1,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,2,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
+        <rotationline value ="0,0,0,0,0,0,0,0,0,0,0"/>
       </rotation>
     </rotations>
     <enemies>
 
-      <enemy id="0" name="Necromancer" type="1" posX="1" posY ="1" posZ="5" behaviour="0" linkedUnits=""/>
-      <enemy id="1" name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="5" behaviour="0" linkedUnits=""/>
-      <enemy id="2" name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="7" behaviour="0" linkedUnits=""/>
-      <enemy id="3" name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="3" behaviour="0" linkedUnits=""/>
+      <enemy id="0" name="Necromancer" type="1" posX="1" posY ="1" posZ="5" behaviour="0" linkedUnits="" captain ="1" delay ="0" triggerzoneid ="" repeat ="false"/>
+      <enemy id="1" name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="5" behaviour="0" linkedUnits=""  captain ="0" delay ="0" triggerzoneid ="" repeat ="false"/>
+      <enemy id="2" name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="7" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="false"/>
+      <enemy id="3" name="Skeleton_Rifle" type="4" posX="3" posY ="1" posZ="3" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="false"/>
 
-      <enemy id="4" name="Skeleton" type="5" posX="4" posY ="1" posZ="0" behaviour="0" linkedUnits=""/>
-      <enemy id="5" name="Skeleton" type="0" posX="5" posY ="1" posZ="0" behaviour="0" linkedUnits=""/>
-      <enemy id="6" name="Skeleton" type="0" posX="9" posY ="1" posZ="10" behaviour="0" linkedUnits=""/>
-      <enemy id="7" name="Skeleton" type="0" posX="7" posY ="1" posZ="9" behaviour="0" linkedUnits=""/>
-      <enemy id="8" name="Skeleton" type="0" posX="6" posY ="0" posZ="3" behaviour="0" linkedUnits=""/>
-      <enemy id="9" name="Skeleton" type="0" posX="6" posY ="0" posZ="7" behaviour="0" linkedUnits=""/>
+      <enemy id="4" name="Skeleton" type="5" posX="4" posY ="1" posZ="0" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="false"/>
+      <enemy id="5" name="Skeleton" type="0" posX="5" posY ="1" posZ="0" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="false"/>
+      <enemy id="6" name="Skeleton" type="0" posX="9" posY ="1" posZ="10" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="false"/>
+      <enemy id="7" name="Skeleton" type="0" posX="7" posY ="1" posZ="9" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="false"/>
+      <enemy id="8" name="Skeleton" type="0" posX="6" posY ="0" posZ="3" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="false"/>
+      <enemy id="9" name="Skeleton" type="0" posX="6" posY ="0" posZ="7" behaviour="0" linkedUnits="" captain ="0" delay ="0" triggerzoneid ="" repeat ="false"/>
 
     </enemies>
     <placeables>
@@ -153,5 +112,13 @@
       <placeable posX="15" posY ="0" posZ="5"/>
       <placeable posX="15" posY ="0" posZ="6"/>
     </placeables>
-  </level>
+    <exitzones>
+      <exitzone posX="17" posY ="0" posZ="3"/>
+      <exitzone posX="17" posY ="0" posZ="3"/>
+      <exitzone posX="17" posY ="0" posZ="3"/>
+    </exitzones>
+    <triggerzones>
+      <triggerzone id="0" posX="17" posY ="0" posZ="3"/>
+      <triggerzone id="0" posX="15" posY ="0" posZ="3"/>
+    </triggerzones>
 </levels>

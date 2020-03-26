@@ -26,6 +26,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Character SelectedUnit;
 
     [SerializeField] private Color spawnPoint, lowSpeedTile, highSpeedTile, attackTile, missTile;
+    [SerializeField] private Vector2 highlightCurve, highlightSoft;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private EnemyAI enemyAIContainer;
@@ -62,7 +63,12 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
+        if (PersistantData.levelAssigned) {
+            xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(PersistantData.level.bytes);
+        } else {
+            xmlData = XmlReader<GridXML.levels>.ReadXMLAsBytes(levelMap.bytes);
+        }
+
         GenerateLevel();
         PlaceEnemy();
         UnitPlacement();
@@ -70,11 +76,46 @@ public class GridManager : MonoBehaviour
         activeAI = true;
 
         BlockScript.blockClicked += (s, e) => BlockClicked(e);
-        turnEnded += (s, e) => ClearMap();
+        turnEnded += TurnEndedEvent;
         uiManager.PlacementPoint(placementPoints);
         UIManager.gameStateChange += AIRunCheck;
 
         mapGenerated?.Invoke(this, Map);
+        SetObjective();
+    }
+    private void OnDestroy()
+    {
+        UIManager.gameStateChange -= AIRunCheck;
+        turnEnded -= TurnEndedEvent;
+
+        var unitSpawnDelegates = unitSpawned.GetInvocationList();
+        foreach (var del in unitSpawnDelegates)
+        {
+            unitSpawned -= (del as EventHandler<Character>);
+        }
+
+        var enemySpawn = enemySpawned.GetInvocationList();
+        foreach (var del in enemySpawn)
+        {
+            enemySpawned -= (del as EventHandler<EnemySpawn>);
+        }
+
+        var map = mapGenerated?.GetInvocationList() ?? new Delegate[0]; //TODO Look into why this throws an error on ocassion when unloading level
+        foreach (var del in map)
+        {
+            mapGenerated -= (del as EventHandler<BlockScript[]>);
+        }
+
+        var atkEvtDel = Character.attackEvent.GetInvocationList();
+        foreach (var del in atkEvtDel)
+        {
+            Character.attackEvent -= (del as EventHandler<AttackEventArgs>);
+        }
+    }
+
+    public void TurnEndedEvent(object sender, EventArgs e)
+    {
+        ClearMap();
     }
 
     private void AIRunCheck(object sender, UIManager.GameStates e)
@@ -99,8 +140,8 @@ public class GridManager : MonoBehaviour
 
 
             tile.Highlight(true);
-            tile.SetHighlightColour(colour, brightEdges);
-        }        
+            tile.SetHighlightColour(colour, brightEdges, highlightSoft, highlightCurve);
+        }
     }
 
     public void ClearMap()
@@ -123,11 +164,11 @@ public class GridManager : MonoBehaviour
             var costOfUnit = SelectedUnit.cost;
             if ((GetPlacementPoints() - costOfUnit) >= 0)
             {
-                var unitPos = SelectedUnit.GetComponent<Collider>().bounds.center + SelectedUnit.GetComponent<Collider>().bounds.extents;
-                var tilePos = tile.GetComponent<Collider>().bounds.center + tile.GetComponent<Collider>().bounds.extents;
+                var unitPos = SelectedUnit.heightOffset;
+                var tilePos = tile.transform.position;
 
 
-                SpawnUnit(new Vector3(tile.transform.position.x, unitPos.y + tilePos.y, tile.transform.position.z), tile);
+                SpawnUnit(new Vector3(tile.transform.position.x, unitPos + tilePos.y, tile.transform.position.z), tile);
                 ReducePlacementPoints(costOfUnit);
 
                 playerUnits = GameObject.FindGameObjectsWithTag("Player");
@@ -147,11 +188,11 @@ public class GridManager : MonoBehaviour
      * */
     void GenerateLevel()
     {
-        var level = xmlData.level;
-
-        foreach(var map in level.maps)
+        var level = xmlData;
+        placementPoints = xmlData.maps.placementpoints;
+        
+        foreach(var map in level.maps.map)
         {
-            placementPoints += map.placementpoints;
             var rotationlines = level.rotations.ElementAt(map.layer).rotationline.SelectMany((r, x) => r.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, XPos = x })).ToArray();
             var anonMap = map.mapline.SelectMany((m, x) => m.value.Split(',').Select((v, z) => new { Value = int.Parse(v), ZPos = z, YPos = map.layer,XPos = x })).ToArray();
             var mythingy = rotationlines.Length;
@@ -162,11 +203,134 @@ public class GridManager : MonoBehaviour
                 if (pos.Value >= 0)
                 {
                     GameObject tile = Instantiate(tiles[pos.Value], new Vector3(pos.XPos, pos.YPos, pos.ZPos), Quaternion.Euler(new Vector3(tiles[pos.Value].transform.rotation.x, (90 * rot.Value), tiles[pos.Value].transform.rotation.z)), gameObject.transform);
-                    tile.GetComponent<BlockScript>().coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);
+                    var blockscript = tile.GetComponent<BlockScript>();
+                    blockscript.coordinates = new Vector3(pos.XPos, pos.YPos, pos.ZPos);
                     tile.name = tile.name.Replace("(Clone)", "");
                     tile.name = tile.name + '(' + pos.XPos + ','+ pos.YPos+ ',' + pos.ZPos + ')';
+
+
+                    var sBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(0, 0, -1));
+                    if (sBlock != null)
+                    {
+                        sBlock.N = tile;
+                        blockscript.S = sBlock.gameObject;
+                    }
+                    var swBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(-1, 0, -1));
+                    if (swBlock != null)
+                    {
+                        swBlock.NE = tile;
+                        blockscript.SW = swBlock.gameObject;
+                    }
+                    var wBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(-1, 0, 0));
+                    if (wBlock != null)
+                    {
+                        wBlock.E = tile;
+                        blockscript.W = wBlock.gameObject;
+                    }
+                    var nwBlock = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(-1, 0, 1));
+                    if (nwBlock != null)
+                    {
+                        nwBlock.SE = tile;
+                        blockscript.NW = nwBlock.gameObject;
+                    }
+                    var below = Map.FirstOrDefault(t => t.coordinates == blockscript.coordinates + new Vector3(0, -1, 0));
+                    if(below != null)
+                    {
+                        below.occupier = tile;
+                    }
                 }
                 BlockScript.blockMousedOver += (s, e) => { if (moveMode) selectedBlock = e; };
+            }
+        }
+
+        var triggerzones = xmlData.triggerzones;
+
+        var sortingMap = gameObject.GetComponentsInChildren<BlockScript>();
+        var triggerzonesTiles = triggerzones.Select(s => sortingMap.First(tile => tile.coordinates.x == s.posX && tile.coordinates.y == s.posY && tile.coordinates.z == s.posZ));
+        int triggerIndex = 0;
+        foreach (var triggerTile in triggerzonesTiles)
+        {
+            triggerTile.trigger = true;
+            triggerTile.triggerId = triggerzones[triggerIndex].id;
+            triggerIndex++;
+        }
+
+
+        var exitzones = xmlData.exitzones;
+
+        var exitTiles = exitzones.Select(s => sortingMap.First(tile => tile.coordinates.x == s.posX && tile.coordinates.y == s.posY && tile.coordinates.z == s.posZ));
+        foreach (var exitTile in exitTiles)
+        {
+            exitTile.exit = true;
+        }
+
+
+        foreach (var ramp in Map.Where(t => t.tag == "Floor-Transition"))
+        {
+            ramp.N = ramp.NE = ramp.E = ramp.SE = ramp.S = ramp.SW = ramp.W = ramp.NW = null;
+
+            var rotation = ((int)ramp.transform.rotation.eulerAngles.y / 90);
+
+            Vector3 upperStep, lowerStep;            
+
+            switch (rotation % 2)
+            {
+                //North - South step
+                case 0:
+                    Debug.Log(ramp.name + ":" + ramp.coordinates.ToString() + ":" + (rotation).ToString());
+                    upperStep = new Vector3(0, 0, 1);
+                    lowerStep = new Vector3(0, -1, -1);
+                    ramp.N = Map.FirstOrDefault(t => t.coordinates == ramp.coordinates + upperStep)?.gameObject ?? null;
+
+                    if (ramp.N == null)
+                    {
+                        upperStep = new Vector3(0, 0, -1);
+                        lowerStep = new Vector3(0, -1, 1);
+                        var south = Map.First(t => t.coordinates == ramp.coordinates + upperStep);
+                        ramp.S = south.gameObject;
+                        south.N = ramp.gameObject;
+
+                        var north = Map.First(t => t.coordinates == ramp.coordinates + lowerStep);
+                        ramp.N = north.gameObject;
+                        north.S = ramp.gameObject;
+                    }
+                    else
+                    {
+                        ramp.N.GetComponent<BlockScript>().S = ramp.gameObject;
+
+                        var south = Map.First(t => t.coordinates == ramp.coordinates + lowerStep);
+                        ramp.S = south.gameObject;
+                        south.N = ramp.gameObject;
+                    }
+                    break;
+                //East - West Step
+                case 1:
+                    Debug.Log(ramp.name + ":" + ramp.coordinates.ToString() + ":" + (rotation).ToString());
+                    upperStep = new Vector3(-1, 0, 0);
+                    lowerStep = new Vector3(1, -1, 0);
+                    ramp.W = Map.FirstOrDefault(t => t.coordinates == ramp.coordinates + upperStep)?.gameObject ?? null;
+
+                    if (ramp.W == null)
+                    {
+                        upperStep = new Vector3(1, 0, 0);
+                        lowerStep = new Vector3(-1, -1, 0);
+
+                        var east = Map.First(t => t.coordinates == ramp.coordinates + upperStep);
+
+                        ramp.E = east.gameObject;
+                        east.W = ramp.gameObject;
+
+                        var west = Map.First(t => t.coordinates == ramp.coordinates + lowerStep);
+                        ramp.W = west.gameObject;
+                        west.E = ramp.gameObject;
+                    }
+                    else
+                    {
+                        ramp.E = Map.First(t => t.coordinates == ramp.coordinates + lowerStep).gameObject;
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -187,7 +351,7 @@ public class GridManager : MonoBehaviour
 
     void PlaceEnemy()
     {
-        var enemies = xmlData.level.enemies;
+        var enemies = xmlData.enemies;
 
         foreach(var enemy in enemies)
         {
@@ -197,6 +361,11 @@ public class GridManager : MonoBehaviour
             placedEnemy.name = enemy.name;
             placedEnemy.SetFloor(tile);
             placedEnemy.tag = "Enemy";
+            placedEnemy.isCaptain = enemy.captain;
+            placedEnemy.delaySpawn = enemy.delay;
+            placedEnemy.onTrigger = enemy.onTrigger;
+            placedEnemy.triggerId = enemy.triggerId;
+            placedEnemy.repeatSpawn = enemy.repeat;
             tile.occupier = placedEnemy.gameObject;
 
             var linkedUnits = new int[0];
@@ -206,7 +375,7 @@ public class GridManager : MonoBehaviour
             if(hasLinkedUnits)
             {
                 linkedUnits = enemy.linkedUnits.Split(',').Select(v => int.Parse(v)).ToArray();
-            }            
+            }
 
             enemySpawned?.Invoke(this, new EnemySpawn(placedEnemy, (AIStates)enemy.behaviour, enemy.id, linkedUnits));
             playerManager.AddUnit(placedEnemy);
@@ -216,7 +385,7 @@ public class GridManager : MonoBehaviour
 
     void UnitPlacement()
     {
-        var placeables = xmlData.level.placeables;
+        var placeables = xmlData.placeables;
 
         var map = gameObject.GetComponentsInChildren<BlockScript>();
 
@@ -226,7 +395,7 @@ public class GridManager : MonoBehaviour
 
         foreach(var spawnTile in placeableTiles)
         {
-            spawnTile.placeable = true;            
+            spawnTile.placeable = true;
         }
 
         ColourTiles(Map.Where(t => t.placeable), SpawnColor);
@@ -251,10 +420,9 @@ public class GridManager : MonoBehaviour
         unitSpawned?.Invoke(this, unit);
         unit.SetFloor(tile);
         tile.occupier = unit.gameObject;
+
+
         playerManager.AddUnit(unit);
-
-
-       // eventSystem.AddUnit(SelectedUnit);
     }
     public Character GetSelectedUnit()
     {
@@ -274,19 +442,16 @@ public class GridManager : MonoBehaviour
     }
     public void FinishPlacement()
     {
-        if(playerManager.activePlayerNecromancers.Count() > 0)
-        {
-            ReducePlacementPoints(placementPoints);
-        }
+        ReducePlacementPoints(placementPoints);
     }
 
     public void ReducePlacementPoints(int reduction)
     {
-        Debug.Log(placementPoints + "-" + reduction);
+        //Debug.Log(placementPoints + "-" + reduction);
         placementPoints -= reduction;
         uiManager.PlacementPoint(placementPoints);
 
-        if (placementPoints <= 0 && (playerManager.activePlayerNecromancers.Count() > 0 || reduction == 0 ))
+        if (placementPoints <= 0 && (playerManager.activePlayerCaptains.Count() > 0 || reduction == 0 ))
         {
             CycleTurns();
 
@@ -350,6 +515,7 @@ public class GridManager : MonoBehaviour
     {
         if (!CheckPlayerTurn())
         {
+            uiManager.GameOverCheck();
             UIManager.gameStateChange?.Invoke(this, UIManager.GameStates.enemyTurn);
             turnEnded?.Invoke(this, new EventArgs());
             StartCoroutine(MoveEnemies());
@@ -360,6 +526,21 @@ public class GridManager : MonoBehaviour
         enemyAIContainer.MoveUnit(enemy.GetComponent<Character>());
 
         yield return new WaitForSeconds(1);
+    }
+
+    public void SetObjective()
+    {
+        uiManager.SetObjectiveText();
+    }
+
+    public int GetObjective()
+    {
+        return xmlData.maps.objective;
+    }
+
+    public int GetPar()
+    {
+        return xmlData.maps.par;
     }
 
     public int GetTurnNumber()
@@ -401,40 +582,20 @@ namespace GridXML
     public partial class levels
     {
 
-        private levelsLevel levelField;
+        private levelsMaps mapsField;
+
+        private levelsRotation[] rotationsField;
+
+        private levelsEnemy[] enemiesField;
+
+        private levelsPlaceable[] placeablesField;
+
+        private levelsExitzone[] exitzonesField;
+
+        private levelsTriggerzone[] triggerzonesField;
 
         /// <remarks/>
-        public levelsLevel level
-        {
-            get
-            {
-                return this.levelField;
-            }
-            set
-            {
-                this.levelField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevel
-    {
-
-        private levelsLevelMap[] mapsField;
-
-        private levelsLevelRotation[] rotationsField;
-
-        private levelsLevelEnemy[] enemiesField;
-
-        private levelsLevelPlaceable[] placeablesField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("map", IsNullable = false)]
-        public levelsLevelMap[] maps
+        public levelsMaps maps
         {
             get
             {
@@ -448,7 +609,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("rotation", IsNullable = false)]
-        public levelsLevelRotation[] rotations
+        public levelsRotation[] rotations
         {
             get
             {
@@ -462,7 +623,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("enemy", IsNullable = false)]
-        public levelsLevelEnemy[] enemies
+        public levelsEnemy[] enemies
         {
             get
             {
@@ -476,7 +637,7 @@ namespace GridXML
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("placeable", IsNullable = false)]
-        public levelsLevelPlaceable[] placeables
+        public levelsPlaceable[] placeables
         {
             get
             {
@@ -487,24 +648,122 @@ namespace GridXML
                 this.placeablesField = value;
             }
         }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("exitzone", IsNullable = false)]
+        public levelsExitzone[] exitzones
+        {
+            get
+            {
+                return this.exitzonesField;
+            }
+            set
+            {
+                this.exitzonesField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("triggerzone", IsNullable = false)]
+        public levelsTriggerzone[] triggerzones
+        {
+            get
+            {
+                return this.triggerzonesField;
+            }
+            set
+            {
+                this.triggerzonesField = value;
+            }
+        }
     }
 
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelMap
+    public partial class levelsMaps
     {
 
-        private levelsLevelMapMapline[] maplineField;
-
-        private byte layerField;
+        private levelsMapsMap[] mapField;
 
         private byte placementpointsField;
 
+        private byte objectiveField;
+
+        private byte parField;
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("map-line")]
-        public levelsLevelMapMapline[] mapline
+        [System.Xml.Serialization.XmlElementAttribute("map")]
+        public levelsMapsMap[] map
+        {
+            get
+            {
+                return this.mapField;
+            }
+            set
+            {
+                this.mapField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte placementpoints
+        {
+            get
+            {
+                return this.placementpointsField;
+            }
+            set
+            {
+                this.placementpointsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte objective
+        {
+            get
+            {
+                return this.objectiveField;
+            }
+            set
+            {
+                this.objectiveField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte par
+        {
+            get
+            {
+                return this.parField;
+            }
+            set
+            {
+                this.parField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsMapsMap
+    {
+
+        private levelsMapsMapMapline[] maplineField;
+
+        private byte layerField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("mapline")]
+        public levelsMapsMapMapline[] mapline
         {
             get
             {
@@ -529,27 +788,13 @@ namespace GridXML
                 this.layerField = value;
             }
         }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte placementpoints
-        {
-            get
-            {
-                return this.placementpointsField;
-            }
-            set
-            {
-                this.placementpointsField = value;
-            }
-        }
     }
 
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelMapMapline
+    public partial class levelsMapsMapMapline
     {
 
         private string valueField;
@@ -573,16 +818,16 @@ namespace GridXML
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelRotation
+    public partial class levelsRotation
     {
 
-        private levelsLevelRotationRotationline[] rotationlineField;
+        private levelsRotationRotationline[] rotationlineField;
 
         private byte layerField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("rotation-line")]
-        public levelsLevelRotationRotationline[] rotationline
+        [System.Xml.Serialization.XmlElementAttribute("rotationline")]
+        public levelsRotationRotationline[] rotationline
         {
             get
             {
@@ -613,7 +858,7 @@ namespace GridXML
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelRotationRotationline
+    public partial class levelsRotationRotationline
     {
 
         private string valueField;
@@ -637,7 +882,7 @@ namespace GridXML
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelEnemy
+    public partial class levelsEnemy
     {
 
         private byte idField;
@@ -655,6 +900,16 @@ namespace GridXML
         private byte behaviourField;
 
         private string linkedUnitsField;
+
+        private bool captainField;
+
+        private byte delayField;
+
+        private bool repeatField;
+
+        private bool onTriggerField;
+
+        private byte triggerIdField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -767,13 +1022,83 @@ namespace GridXML
                 this.linkedUnitsField = value;
             }
         }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool captain
+        {
+            get
+            {
+                return this.captainField;
+            }
+            set
+            {
+                this.captainField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte delay
+        {
+            get
+            {
+                return this.delayField;
+            }
+            set
+            {
+                this.delayField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool repeat
+        {
+            get
+            {
+                return this.repeatField;
+            }
+            set
+            {
+                this.repeatField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool onTrigger
+        {
+            get
+            {
+                return this.onTriggerField;
+            }
+            set
+            {
+                this.onTriggerField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte triggerId
+        {
+            get
+            {
+                return this.triggerIdField;
+            }
+            set
+            {
+                this.triggerIdField = value;
+            }
+        }
     }
 
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class levelsLevelPlaceable
+    public partial class levelsPlaceable
     {
 
         private byte posXField;
@@ -825,5 +1150,135 @@ namespace GridXML
         }
     }
 
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsExitzone
+    {
+
+        private byte posXField;
+
+        private byte posYField;
+
+        private byte posZField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posX
+        {
+            get
+            {
+                return this.posXField;
+            }
+            set
+            {
+                this.posXField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posY
+        {
+            get
+            {
+                return this.posYField;
+            }
+            set
+            {
+                this.posYField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posZ
+        {
+            get
+            {
+                return this.posZField;
+            }
+            set
+            {
+                this.posZField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class levelsTriggerzone
+    {
+
+        private byte idField;
+
+        private byte posXField;
+
+        private byte posYField;
+
+        private byte posZField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posX
+        {
+            get
+            {
+                return this.posXField;
+            }
+            set
+            {
+                this.posXField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posY
+        {
+            get
+            {
+                return this.posYField;
+            }
+            set
+            {
+                this.posYField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte posZ
+        {
+            get
+            {
+                return this.posZField;
+            }
+            set
+            {
+                this.posZField = value;
+            }
+        }
+    }
+
 
 }
+
+

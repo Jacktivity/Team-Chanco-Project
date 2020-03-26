@@ -9,6 +9,7 @@ public class FloatingSkullCharacter : Character
     void Start()
     {
         name = "FlamingSkull";
+        ID = 2;
         cost = 15;
         maxHitPoints = 12;
         accuracy = 90;

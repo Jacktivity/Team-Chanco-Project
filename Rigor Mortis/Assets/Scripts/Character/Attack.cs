@@ -10,9 +10,9 @@ public class AttackLibrary
     public static Attack SpectralSword => new Attack(2, 1, 1, "Spectral Sword", magicDmg: new Dice(2, 2));
     public static Attack Whack => new Attack(3, 1, 0.8f, "Whack", physicalDmg: new Dice(1, 2));
 
-    public static Attack TeslaStab => new Attack(4, 1, 1, "Tesla Stab", magicDmg: new Dice(4, 1));
-    public static Attack TeslaZap => new Attack(5, 10, 1.2f, "Tesla Zap", magicDmg: new Dice(4, 1));
-    public static Attack Zap => new Attack(6, 10, 1.2f, "Zap", magicDmg: new Dice(4, 1));
+    public static Attack TeslaStab => new Attack(4, 1, 1, "Tesla Stab", magicDmg: new Dice(4, 1), manaCost: 5);
+    public static Attack TeslaZap => new Attack(5, 10, 1.2f, "Tesla Zap", magicDmg: new Dice(4, 1), manaCost: 10);
+    //public static Attack Zap => new Attack(6, 10, 1.2f, "Zap", magicDmg: new Dice(4, 1));
 
     public static Attack Headbutt => new Attack(7, 1, 0.8f, "Headbutt", physicalDmg: new Dice(1,2));
     public static Attack Firebolt => new Attack(8, 10, 1.2f, "Firebolt", magicDmg: new Dice(10, 1), manaCost:10);
@@ -73,6 +73,8 @@ public class Attack
     }
 
     public double AverageDamage => (PhysicalDamage?.Average() ?? 0) + (MagicalDamage?.Average() ?? 0);
+    public int MinDamage => (PhysicalDamage?.Min() ?? 0) + (MagicalDamage?.Min() ?? 0);
+    public int MaxDamage => (PhysicalDamage?.Max() ?? 0) + (MagicalDamage?.Max() ?? 0);
 }
 
 public struct Damage
@@ -120,6 +122,10 @@ public class Dice
     {
         return (((double)Faces + 1) / 2) * Count;
     }
+
+    public int Min() => Count;
+
+    public int Max() => Count * Faces;
 }
 
 public enum Area

@@ -10,18 +10,20 @@ public class NecromancerCharacter : Character
     void Start()
     {
         name = "Necromancer";
+        ID = 0;
         cost = 0;
         maxHitPoints = 40;
         accuracy = 90;
         armour = 2;
         evade = 20;
-        manaPoints = 50;
+        maxManaPoints = 50;
         power = 8;
         resistance = 5;
         movementSpeed = 3;
         movemenSprint = 3;
 
         currentHitPoints = maxHitPoints;
+        manaPoints = maxManaPoints;
 
         attacks = new Attack[] {
             AttackLibrary.StaffWhack,
@@ -34,7 +36,5 @@ public class NecromancerCharacter : Character
             necroButton = GameObject.Find("NecromancerButton");
             necroButton.SetActive(false);
         }
-
-        playerManager.AddNecromancer(this);
     }
 }

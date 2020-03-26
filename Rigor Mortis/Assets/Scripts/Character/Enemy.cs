@@ -33,4 +33,9 @@ public class Enemy : MonoBehaviour
             changeUnitID = linkedUnitID;
         }
     }
+
+    public void SetUnitId(int id)
+    {
+        UnitID = id;
+    }
 }
