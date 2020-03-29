@@ -10,7 +10,7 @@ Material:
   m_Name: RockFloor_Grass02
   m_Shader: {fileID: 4800000, guid: 110866c1c577e5f4db0bffa255529f2c, type: 3}
   m_ShaderKeywords: _NORMALMAP
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -26,6 +26,10 @@ Material:
     - _BTex:
         m_Texture: {fileID: 2800000, guid: acea371903dcc2d4c82477f5fbacac52, type: 3}
         m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    - _Base:
+        m_Texture: {fileID: 2800000, guid: d23e40a3fbc842b4f8a09f54b580177a, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 9074eaa2a45a9594e8d42d789b6e95be, type: 3}

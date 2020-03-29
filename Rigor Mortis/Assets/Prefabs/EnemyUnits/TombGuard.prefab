@@ -1088,7 +1088,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4027068179830632482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.90984, y: 0.7576175, z: -6.654361}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8747170244637362516}
@@ -1111,7 +1111,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -1125,8 +1125,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f74cc2b11d80b441bf281e3e22647a6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   heightOffset: 0.5
   characterAudio:
   - {fileID: 5278009728843366967}
@@ -3330,7 +3330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: d2f1e7cf0177a4f4ab27eecbc8d1de8e, type: 3}
       propertyPath: m_Materials.Array.data[0]
-      value:
+      value: 
       objectReference: {fileID: 2100004, guid: 0c249fe8e90c93c489ff31b7f81d6078, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2f1e7cf0177a4f4ab27eecbc8d1de8e, type: 3}
@@ -3350,18 +3350,6 @@ PrefabInstance:
     - target: {fileID: 100002, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
       propertyPath: m_Name
       value: HeavySkeleton_Shield
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3419,9 +3407,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
       propertyPath: m_Materials.Array.data[0]
-      value:
+      value: 
       objectReference: {fileID: 2100000, guid: 3b69178b8d89c5f438a45c6775fcbc6f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd468e30258cd24418a3b99bf88c64fd, type: 3}
