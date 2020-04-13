@@ -63,15 +63,15 @@ Shader "Shader Forge/SH_Additive_Rotator" {
                 float faceSign = ( facing >= 0 ? 1 : -1 );
 ////// Lighting:
 ////// Emissive:
-                float4 node_9532 = _Time;
-                float node_420_ang = node_9532.g;
+                float4 node_8549 = _Time;
+                float node_420_ang = node_8549.g;
                 float node_420_spd = 10.0;
                 float node_420_cos = cos(node_420_spd*node_420_ang);
                 float node_420_sin = sin(node_420_spd*node_420_ang);
                 float2 node_420_piv = float2(0.5,0.5);
                 float2 node_420 = (mul(i.uv0-node_420_piv,float2x2( node_420_cos, -node_420_sin, node_420_sin, node_420_cos))+node_420_piv);
                 float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(node_420, _MainTex));
-                float node_9187_ang = node_9532.g;
+                float node_9187_ang = node_8549.g;
                 float node_9187_spd = 10.0;
                 float node_9187_cos = cos(node_9187_spd*node_9187_ang);
                 float node_9187_sin = sin(node_9187_spd*node_9187_ang);
