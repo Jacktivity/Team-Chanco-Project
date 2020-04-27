@@ -17,7 +17,7 @@ public class EnemySelectButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public String previousText;
     public String hitStatPreviousText;
     public Button button;
-
+    //Why not make an array? And default 0?
     public Sprite necromancerSprite, skeletonSprite, floatingSkullSprite, rifleSkeletonSprite, axeSkeletonSprite, spearSkeletonSprite;
     public Sprite necromancerSpriteHL, skeletonSpriteHL, floatingSkullSpriteHL, rifleSkeletonSpriteHL, axeSkeletonSpriteHL, spearSkeletonSpriteHL;
 
