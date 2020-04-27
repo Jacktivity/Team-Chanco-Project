@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf21a36926af2b9479f31db3a07d7a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightOffset: 0.47
+  heightOffset: 0.5
   characterAudio:
   - {fileID: 84372073882146041}
   - {fileID: 4907437463503893005}
@@ -1084,7 +1084,7 @@ PrefabInstance:
     - target: {fileID: 13700000, guid: 1818db1658ca4d44eafe30423f2b8bc0, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4f979515a7c109b40a88cb6e452e7a80, type: 2}
+      objectReference: {fileID: 2100000, guid: d05895b1a35fe6f47925869600f6cef4, type: 2}
     - target: {fileID: 9500000, guid: 1818db1658ca4d44eafe30423f2b8bc0, type: 3}
       propertyPath: m_Controller
       value: 

@@ -2483,7 +2483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f74cc2b11d80b441bf281e3e22647a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightOffset: 0.47
+  heightOffset: 0.5
   characterAudio:
   - {fileID: 1138514229470098159}
   - {fileID: 3304235831479064562}

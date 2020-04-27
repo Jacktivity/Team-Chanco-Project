@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf21a36926af2b9479f31db3a07d7a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightOffset: 0.47
+  heightOffset: 0.5
   characterAudio:
   - {fileID: 7829746132523003315}
   - {fileID: 3759129750468616660}
