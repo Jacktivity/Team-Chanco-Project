@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BTex:
-        m_Texture: {fileID: 2800000, guid: acea371903dcc2d4c82477f5fbacac52, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1c85e760efafe854cad631be6bea9873, type: 3}
         m_Scale: {x: 0.1, y: 0.1}
         m_Offset: {x: 0, y: 0}
     - _Base:
@@ -52,8 +52,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GTex:
-        m_Texture: {fileID: 2800000, guid: 1c85e760efafe854cad631be6bea9873, type: 3}
-        m_Scale: {x: 0.2, y: 0.2}
+        m_Texture: {fileID: 2800000, guid: acea371903dcc2d4c82477f5fbacac52, type: 3}
+        m_Scale: {x: 0.02, y: 0.02}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 1c85e760efafe854cad631be6bea9873, type: 3}
@@ -77,7 +77,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _RTex:
         m_Texture: {fileID: 2800000, guid: 1c85e760efafe854cad631be6bea9873, type: 3}
-        m_Scale: {x: 0.5, y: 0.5}
+        m_Scale: {x: 0.15, y: 0.15}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _1FracSubtract: 1

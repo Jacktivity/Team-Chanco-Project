@@ -1,0 +1,220 @@
+fileFormatVersion: 2
+guid: d9ff90ccebd972249af2369eb77bb712
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BaseRig
+    100002: BaseRigHead
+    100004: BaseRigLCalf
+    100006: BaseRigLCollarbone
+    100008: BaseRigLDigit11
+    100010: BaseRigLDigit11 1
+    100012: BaseRigLDigit12
+    100014: BaseRigLDigit13
+    100016: BaseRigLDigit21
+    100018: BaseRigLDigit22
+    100020: BaseRigLDigit23
+    100022: BaseRigLDigit31
+    100024: BaseRigLDigit32
+    100026: BaseRigLDigit33
+    100028: BaseRigLDigit41
+    100030: BaseRigLDigit42
+    100032: BaseRigLDigit43
+    100034: BaseRigLDigit51
+    100036: BaseRigLDigit52
+    100038: BaseRigLDigit53
+    100040: BaseRigLFoot
+    100042: BaseRigLForearm
+    100044: BaseRigLIKTarget
+    100046: BaseRigLPalm
+    100048: BaseRigLPlatform
+    100050: BaseRigLThigh
+    100052: BaseRigLUpperarm
+    100054: BaseRigNeck1
+    100056: BaseRigNeck2
+    100058: BaseRigPelvis
+    100060: BaseRigRCalf
+    100062: BaseRigRCollarbone
+    100064: BaseRigRDigit11
+    100066: BaseRigRDigit11 1
+    100068: BaseRigRDigit12
+    100070: BaseRigRDigit13
+    100072: BaseRigRDigit21
+    100074: BaseRigRDigit22
+    100076: BaseRigRDigit23
+    100078: BaseRigRDigit31
+    100080: BaseRigRDigit32
+    100082: BaseRigRDigit33
+    100084: BaseRigRDigit41
+    100086: BaseRigRDigit42
+    100088: BaseRigRDigit43
+    100090: BaseRigRDigit51
+    100092: BaseRigRDigit52
+    100094: BaseRigRDigit53
+    100096: BaseRigRFoot
+    100098: BaseRigRForearm
+    100100: BaseRigRibcage
+    100102: BaseRigRIKTarget
+    100104: BaseRigRPalm
+    100106: BaseRigRPlatform
+    100108: BaseRigRThigh
+    100110: BaseRigRUpperarm
+    100112: BaseRigSpine1
+    100114: BaseRigSpine2
+    100116: BaseRigSpine3
+    100118: BaseRigSpine4
+    100120: //RootNode
+    100122: NecroSkele
+    400000: BaseRig
+    400002: BaseRigHead
+    400004: BaseRigLCalf
+    400006: BaseRigLCollarbone
+    400008: BaseRigLDigit11
+    400010: BaseRigLDigit11 1
+    400012: BaseRigLDigit12
+    400014: BaseRigLDigit13
+    400016: BaseRigLDigit21
+    400018: BaseRigLDigit22
+    400020: BaseRigLDigit23
+    400022: BaseRigLDigit31
+    400024: BaseRigLDigit32
+    400026: BaseRigLDigit33
+    400028: BaseRigLDigit41
+    400030: BaseRigLDigit42
+    400032: BaseRigLDigit43
+    400034: BaseRigLDigit51
+    400036: BaseRigLDigit52
+    400038: BaseRigLDigit53
+    400040: BaseRigLFoot
+    400042: BaseRigLForearm
+    400044: BaseRigLIKTarget
+    400046: BaseRigLPalm
+    400048: BaseRigLPlatform
+    400050: BaseRigLThigh
+    400052: BaseRigLUpperarm
+    400054: BaseRigNeck1
+    400056: BaseRigNeck2
+    400058: BaseRigPelvis
+    400060: BaseRigRCalf
+    400062: BaseRigRCollarbone
+    400064: BaseRigRDigit11
+    400066: BaseRigRDigit11 1
+    400068: BaseRigRDigit12
+    400070: BaseRigRDigit13
+    400072: BaseRigRDigit21
+    400074: BaseRigRDigit22
+    400076: BaseRigRDigit23
+    400078: BaseRigRDigit31
+    400080: BaseRigRDigit32
+    400082: BaseRigRDigit33
+    400084: BaseRigRDigit41
+    400086: BaseRigRDigit42
+    400088: BaseRigRDigit43
+    400090: BaseRigRDigit51
+    400092: BaseRigRDigit52
+    400094: BaseRigRDigit53
+    400096: BaseRigRFoot
+    400098: BaseRigRForearm
+    400100: BaseRigRibcage
+    400102: BaseRigRIKTarget
+    400104: BaseRigRPalm
+    400106: BaseRigRPlatform
+    400108: BaseRigRThigh
+    400110: BaseRigRUpperarm
+    400112: BaseRigSpine1
+    400114: BaseRigSpine2
+    400116: BaseRigSpine3
+    400118: BaseRigSpine4
+    400120: //RootNode
+    400122: NecroSkele
+    2100000: 08 - Default
+    2100002: 02 - Default
+    4300000: NecroSkele
+    9500000: //RootNode
+    13700000: NecroSkele
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
