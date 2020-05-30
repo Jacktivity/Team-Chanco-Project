@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1100, y: 1100}
         m_Offset: {x: 0, y: 0}
     - _GLayer:
-        m_Texture: {fileID: 2800000, guid: 3c80981eef29454469ee944546953ca6, type: 3}
+        m_Texture: {fileID: 2800000, guid: d23e40a3fbc842b4f8a09f54b580177a, type: 3}
         m_Scale: {x: 0.2, y: 0.2}
         m_Offset: {x: 0.2, y: -0.09}
     - _MainTex:
@@ -76,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RLayer:
-        m_Texture: {fileID: 2800000, guid: 1c85e760efafe854cad631be6bea9873, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3c80981eef29454469ee944546953ca6, type: 3}
         m_Scale: {x: 0.1, y: 0.1}
         m_Offset: {x: 0, y: 0}
     - _node_1508:
@@ -125,7 +125,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Scale: 0.11
+    - _Scale: 0.1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

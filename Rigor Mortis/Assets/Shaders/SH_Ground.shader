@@ -184,8 +184,7 @@ Shader "Shader Forge/SH_Ground" {
                 float3 specularColor = node_8356;
                 float specularMonochrome;
                 float2 node_1531 = float2(i.posWorld.r,i.posWorld.b);
-                float3 node_4872 = Noise( (node_1531*_Scale) , _XMult , _YMult , _ZMult );
-                float3 node_2715 = saturate((1.0 - node_4872)).rgb;
+                float3 node_2715 = saturate((1.0 - Noise( (node_1531*_Scale) , _XMult , _YMult , _ZMult ))).rgb;
                 float4 _Base_var = tex2D(_Base,TRANSFORM_TEX(node_1531, _Base));
                 float4 _RLayer_var = tex2D(_RLayer,TRANSFORM_TEX(node_1531, _RLayer));
                 float4 _GLayer_var = tex2D(_GLayer,TRANSFORM_TEX(node_1531, _GLayer));
@@ -348,8 +347,7 @@ Shader "Shader Forge/SH_Ground" {
                 float3 specularColor = node_8356;
                 float specularMonochrome;
                 float2 node_1531 = float2(i.posWorld.r,i.posWorld.b);
-                float3 node_4872 = Noise( (node_1531*_Scale) , _XMult , _YMult , _ZMult );
-                float3 node_2715 = saturate((1.0 - node_4872)).rgb;
+                float3 node_2715 = saturate((1.0 - Noise( (node_1531*_Scale) , _XMult , _YMult , _ZMult ))).rgb;
                 float4 _Base_var = tex2D(_Base,TRANSFORM_TEX(node_1531, _Base));
                 float4 _RLayer_var = tex2D(_RLayer,TRANSFORM_TEX(node_1531, _RLayer));
                 float4 _GLayer_var = tex2D(_GLayer,TRANSFORM_TEX(node_1531, _GLayer));
@@ -470,8 +468,7 @@ Shader "Shader Forge/SH_Ground" {
                 o.Emission = 0;
                 
                 float2 node_1531 = float2(i.posWorld.r,i.posWorld.b);
-                float3 node_4872 = Noise( (node_1531*_Scale) , _XMult , _YMult , _ZMult );
-                float3 node_2715 = saturate((1.0 - node_4872)).rgb;
+                float3 node_2715 = saturate((1.0 - Noise( (node_1531*_Scale) , _XMult , _YMult , _ZMult ))).rgb;
                 float4 _Base_var = tex2D(_Base,TRANSFORM_TEX(node_1531, _Base));
                 float4 _RLayer_var = tex2D(_RLayer,TRANSFORM_TEX(node_1531, _RLayer));
                 float4 _GLayer_var = tex2D(_GLayer,TRANSFORM_TEX(node_1531, _GLayer));
